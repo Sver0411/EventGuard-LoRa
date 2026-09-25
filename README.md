@@ -1,6 +1,6 @@
 # EventGuard-LoRa
 
-EventGuard-LoRa is a research prototype for testing whether event-aware redundancy can improve delivery of important sensor events over a constrained Sub-GHz link at a comparable communication cost.
+EventGuard-LoRa is a research prototype for measuring critical-event delivery against communication cost on a constrained Sub-GHz link. **The current frozen-v1 conclusions are host-simulation results only.** The 300 E220 runs below are an older, separate pilot and do not validate v1.
 
 ## Research Question
 
@@ -10,7 +10,7 @@ At an exact DATA-copy budget under the same trace and channel calendar, does ada
 
 Periodic sensor traffic often treats every sample equally. EventGuard assigns each sample a transparent three-level importance score and spends a bounded number of packet copies on important events. This repository makes the comparison reproducible and keeps application-layer fault injection distinct from errors caused by the physical radio channel.
 
-## System Architecture
+## System Model
 
 The Sensor Node replays a deterministic trace (or optionally samples real sensors), classifies importance, selects bounded redundancy, and sends compact CRC-protected binary frames through an E220 UART. The Gateway validates frames, deduplicates logical samples, records physical copies, and returns ACK frames. A host runner configures both ESP32-S3 boards, captures machine-readable serial logs, and computes metrics.
 
@@ -21,9 +21,9 @@ Python reference trace ──serial control──> Sensor ESP32-S3 ──E220─
                        host parser / metrics / plots / report
 ```
 
-## EventGuard Method
+## Method
 
-Importance uses normalized change, rate, baseline deviation, co-change, persistence, and a directional hazard-level rule. The benchmark trace has a strict 10 s interval. NORMAL, IMPORTANT, and CRITICAL map to 1, 2, and 3 copies on a good link. Link state uses a sliding window of **first-copy accepted ACK outcomes** and consecutive first-copy failures; this avoids strategy-dependent observation bias. All physical copy attempts, ACK successes, and failures are counted separately. Thresholds and radio timing are in `configs/default.json`.
+Importance uses normalized change, rate, baseline deviation, co-change, persistence, and a directional hazard-level rule. The [frozen algorithm specification](docs/algorithm_spec_v1.md) records exact equations, thresholds, window behavior, and source hashes. The benchmark trace has a strict 10 s interval. NORMAL, IMPORTANT, and CRITICAL map to 1, 2, and 3 copies on a good link. Link state uses a sliding window of **first-copy accepted ACK outcomes** and consecutive first-copy failures; this avoids strategy-dependent observation bias. All physical copy attempts, ACK successes, and failures are counted separately. Thresholds and radio timing are in `configs/default.json`.
 
 ## Baselines
 
@@ -35,11 +35,11 @@ Importance uses normalized change, rate, baseline deviation, co-change, persiste
 - `LINK_ONLY`: 1/2/3 copies from link state, without importance.
 - `UNIFORM_BUDGET`, `RANDOM_BUDGET`: exactly match EventGuard’s total DATA-copy count for each model/rate/seed/trace. Extra copies use round-robin or seeded hash order and do not read event labels or sensor values.
 
-## Experimental Methodology
+## Experimental Protocol
 
 The host reference experiment uses identical trace rows and deterministic loss plans keyed by seed, frame kind, logical sequence, and copy index. `RANDOM_COPY` uses independent keyed decisions. `BURST_COPY` erases contiguous canonical copy opportunities. `BURST_SAMPLE` erases every copy opportunity in contiguous logical samples; this is the main burst model. DATA and ACK calendars are independent. Fairness audits report effective DATA/ACK drops and first-copy drops. The physical runner sends actual E220 frames and applies deterministic application-layer drops after reception; injected loss is not measured RF loss.
 
-`python tools/run_all_experiments.py --simulate` runs the isolated 8,000-run pre-hardware evaluation (8 strategies × 5 rates × 2 models × 100 evaluation seeds) and writes `results/pre_hardware_v1/` plus `results/pre_hardware_validation.md`. Seeds 1–30 are reserved for calibration; seeds 31–130 are used only for evaluation. The non-simulation mode controls real boards; the new hardware matrix is gated by the host diagnosis and has **not** been run. Use `--dry-run` to inspect serial discovery without changing firmware.
+`python tools/run_all_experiments.py --simulate` runs the isolated 8,000-run pre-hardware evaluation (8 strategies × 5 rates × 2 models × 100 evaluation seeds) and writes `results/pre_hardware_v1/` plus `results/pre_hardware_validation.md`. Seeds 1–30 are reserved for calibration; seeds 31–130 are used only for evaluation. `python tools/run_research_analysis.py` verifies the frozen code hashes, analyzes the locked 8,000 runs, and adds 11,000 host-only sensitivity runs. All experiments save a JSON manifest. The new hardware matrix is gated by the host diagnosis and has **not** been run.
 
 ## Hardware
 
@@ -58,9 +58,19 @@ The Sensor trace replay is the benchmark default. `REAL_SENSOR_MODE` is a separa
 
 The original physical pilot outputs remain under `results/raw/`, `results/runs/`, `results/metrics/`, `results/plots/`, `summary.csv`, `summary.json`, and `report.md`. New host outputs are isolated in `results/pre_hardware_v1/`.
 
-## Results
+## Simulation Results
 
-### Pilot v0: completed E220 experiment
+### Pre-hardware validation v1
+
+The corrected host matrix completed 8,000 runs on evaluation seeds 31–130. The host test suite includes compiled C/Python parity for importance labels, copy selection, link transitions, loss decisions, and budget allocation. The Sensor and Gateway firmware compiled with ESP-IDF during PR #1; no boards were flashed or exercised in this round.
+
+CRITICAL classifier precision is 0.8125, recall 1.0000, and F1 0.8966; NORMAL→CRITICAL false rate is 0. The synthetic trace remains simple, so these are not field-accuracy claims. EventGuard has small exact-budget gains at some RANDOM_COPY loss rates, but `IMPORTANCE_ONLY` matches its CRITICAL delivery in **every** paired run while using no more DATA copies. Under `BURST_SAMPLE`, redundant copies do not improve DATA delivery. **The full hardware rerun gate is closed** pending a clearer benefit from the combined policy.
+
+Read the [diagnostic report](results/pre_hardware_validation.md), [per-run CSV](results/pre_hardware_v1/runs.csv), and [matched-budget plot](results/pre_hardware_v1/plots/critical_delivery_vs_exact_budget.png).
+
+The expanded analysis adds [ablation statistics](results/ablation/report.md), [20 predeclared paired tests](results/ablation/paired_tests.csv), [Pareto frontiers](results/plots/pareto/pareto_frontier.png), [parameter sensitivity](results/sensitivity/report.md), and [failure cases](results/failure_analysis.md). It reports mean, median, sample standard deviation, and 95% mean CI for delivery and cost. EventGuard lies on **0 of 10** within-condition critical-delivery/byte Pareto frontiers: IMPORTANCE_ONLY or another lower-cost baseline matches its critical delivery in each tested condition. The [research status report](results/research_status_report.md) and [paper draft](docs/paper_draft.md) preserve this negative finding. The sensitivity grid tests CRITICAL threshold 2.0–4.0, link window 8/12/16/24, and copy cap 2/3. Cap 4 is explicitly unsupported by frozen v1's three-slot loss calendar and is not represented as a result.
+
+## Pilot Archive (v0 E220; separate from frozen-v1 simulation)
 
 The original, unmodified pilot summary contains 300 runs over the actual E220 link: 3 strategies × 5 configured loss rates (0%, 5%, 10%, 20%, 30%) × 2 loss models (random and burst length 3) × 10 seeds. Each run sent the **old** 18-sample trace, which contained duplicate timestamps (8 NORMAL, 6 IMPORTANT, 4 CRITICAL). The same two boards and firmware image hashes were used throughout. These results are archival and cannot validate the corrected design.
 
@@ -88,25 +98,16 @@ Plots: [critical delivery](results/plots/critical_delivery_vs_loss.png), [overal
 
 ESP-IDF reports list application binaries of 277,376 bytes (Sensor) and 248,016 bytes (Gateway), each within a 1 MiB app partition. Both builds use 16,383 of 16,384 bytes of available IRAM; the remaining 1 byte is a tight constraint for future firmware changes. The pilot host test suite passed 14/14 tests at the time; the current suite has expanded.
 
-### Pre-hardware validation v1
-
-The corrected host matrix completed 8,000 runs on evaluation seeds 31–130. All 25 host tests pass, including compiled C/Python parity for importance labels, copy selection, link transitions, loss decisions, and budget allocation. The new Sensor and Gateway firmware both compile with ESP-IDF; no boards were flashed or exercised in this round.
-
-CRITICAL classifier precision is 0.8125, recall 1.0000, and F1 0.8966; NORMAL→CRITICAL false rate is 0. The synthetic trace remains simple, so these are not field-accuracy claims. EventGuard has small exact-budget gains at some RANDOM_COPY loss rates, but `IMPORTANCE_ONLY` matches its CRITICAL delivery in **every** paired run while using no more DATA copies. Under `BURST_SAMPLE`, redundant copies do not improve DATA delivery. **The full hardware rerun gate is closed** pending a clearer benefit from the combined policy.
-
-Read the [diagnostic report](results/pre_hardware_validation.md), [per-run CSV](results/pre_hardware_v1/runs.csv), and [matched-budget plot](results/pre_hardware_v1/plots/critical_delivery_vs_exact_budget.png).
-
 ## Limitations
 
-The fault injector models application-visible DATA and ACK erasures; it does not reproduce RF fading, interference, regulatory airtime constraints, or E220 internal retries. The current measurements use synthetic traces, one pair of physical devices, and ten seeds per condition. EventGuard sends more bytes than the two-copy baseline, and observed gains depend on the loss model. E220 RF parameters and board wiring must remain fixed across runs. RSSI is not inferred when unavailable from the selected E220 mode.
+The frozen-v1 evaluation uses a short synthetic trace, 100 evaluation seeds, and deterministic application-layer DATA/ACK erasures. It does not measure RF fading, interference, E220 internal behavior, energy, regulatory airtime, or field classification quality. The older E220 pilot used one device pair, ten seeds per condition, and a different trace. Its results cannot be pooled with v1. A fourth copy would require a new policy and canonical loss calendar. Current v1 conclusions remain host-simulation-only.
 
 ## Reproduction
 
 ```sh
 python -m pip install -r requirements.txt
 python tools/run_all_experiments.py --simulate
-# On a machine with ESP-IDF v5.4.4 and both boards connected:
-python tools/run_all_experiments.py
+python tools/run_research_analysis.py
 ```
 
-The host tests run with `python -m unittest discover -s tests -v`.
+The host tests run with `python -m unittest discover -s tests -v`. The full hardware matrix remains gated; this reproduction procedure uses no device.

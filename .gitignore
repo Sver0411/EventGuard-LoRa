@@ -22,6 +22,8 @@ results/firmware_size.json
 !results/runs/*_e220.json
 !results/metrics/run_metrics.csv
 !results/plots/*.png
+!results/plots/pareto/
+!results/plots/pareto/*
 !results/summary.csv
 !results/summary.json
 !results/report.md
