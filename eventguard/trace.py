@@ -7,15 +7,15 @@ from .model import GroundTruth, Sample
 
 
 _PHASES = (
-    ("STABLE", 0, 120, GroundTruth.NORMAL),
-    ("SLOW_CHANGE", 120, 180, GroundTruth.IMPORTANT),
-    ("RAPID_CHANGE", 180, 200, GroundTruth.IMPORTANT),
-    ("STABLE_WAIT", 200, 240, GroundTruth.NORMAL),
-    ("CRITICAL_SOIL", 240, 260, GroundTruth.CRITICAL),
-    ("RECOVERY_SOIL", 260, 300, GroundTruth.NORMAL),
-    ("CRITICAL_MULTI", 300, 320, GroundTruth.CRITICAL),
-    ("RECOVERY", 320, 360, GroundTruth.IMPORTANT),
-    ("STABLE_FINAL", 360, 420, GroundTruth.NORMAL),
+    ("STABLE", GroundTruth.NORMAL),
+    ("SLOW_CHANGE", GroundTruth.IMPORTANT),
+    ("RAPID_CHANGE", GroundTruth.IMPORTANT),
+    ("STABLE_WAIT", GroundTruth.IMPORTANT),
+    ("CRITICAL_SOIL", GroundTruth.CRITICAL),
+    ("RECOVERY_SOIL", GroundTruth.IMPORTANT),
+    ("CRITICAL_MULTI", GroundTruth.CRITICAL),
+    ("RECOVERY", GroundTruth.IMPORTANT),
+    ("STABLE_FINAL", GroundTruth.NORMAL),
 )
 
 
@@ -47,10 +47,11 @@ def generate_trace(seed: int, samples_per_phase: int = 6) -> list[Sample]:
         "STABLE_FINAL": stable,
     }
     previous = stable
-    for phase, begin, end, truth in _PHASES:
+    for phase, truth in _PHASES:
         target = phase_ends[phase]
         for j in range(samples_per_phase):
-            f = j / (samples_per_phase - 1)
+            # Values may jump at phase onset; time never repeats at a boundary.
+            f = (j + 1) / samples_per_phase
             if phase in ("CRITICAL_SOIL", "CRITICAL_MULTI"):
                 # The critical value changes at the phase boundary, matching the labeled event onset.
                 f = 1.0
@@ -60,8 +61,12 @@ def generate_trace(seed: int, samples_per_phase: int = 6) -> list[Sample]:
             humidity = values[1] + rng.uniform(-0.10, 0.10)
             light = max(0.0, values[2] + rng.uniform(-1.0, 1.0))
             soil = min(100.0, max(0.0, values[3] + rng.uniform(-0.10, 0.10)))
-            timestamp_ms = round((begin + f * (end - begin)) * 1000)
-            rows.append(Sample(sample_id, timestamp_ms, round(temp, 2), round(humidity, 2), round(light, 1), round(soil, 1), truth, phase))
+            timestamp_ms = sample_id * 10_000
+            # Independent physical hazard labels; recovery remains critical while
+            # the sensor values are still in the dangerous range.
+            physical_truth = (GroundTruth.CRITICAL if soil < 35 or (temp > 30 and humidity > 64)
+                              else truth)
+            rows.append(Sample(sample_id, timestamp_ms, round(temp, 2), round(humidity, 2), round(light, 1), round(soil, 1), physical_truth, phase))
             sample_id += 1
         previous = target
     return rows

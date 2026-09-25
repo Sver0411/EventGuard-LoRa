@@ -1,0 +1,3742 @@
+[
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 31,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.14166666666666666,
+    "strategy_data": 0.07407407407407407,
+    "eventguard_ack": 0.10679611650485436,
+    "strategy_ack": 0.08
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 31,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2361111111111111,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.3,
+    "strategy_ack": 0.28888888888888886
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 31,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3401360544217687,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.38144329896907214,
+    "strategy_ack": 0.34146341463414637
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 31,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.19047619047619047,
+    "strategy_data": 0.19047619047619047,
+    "eventguard_ack": 0.20588235294117646,
+    "strategy_ack": 0.13725490196078433
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 31,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.3284671532846715,
+    "strategy_data": 0.2846715328467153,
+    "eventguard_ack": 0.32608695652173914,
+    "strategy_ack": 0.2755102040816326
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 32,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.11643835616438356,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.10077519379844961,
+    "strategy_ack": 0.15217391304347827
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2112676056338028,
+    "strategy_data": 0.19642857142857142,
+    "eventguard_ack": 0.17857142857142858,
+    "strategy_ack": 0.1111111111111111
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 32,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.02631578947368421,
+    "strategy_data": 0.11290322580645161,
+    "eventguard_ack": 0.036036036036036036,
+    "strategy_ack": 0.03636363636363636
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 32,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.07894736842105263,
+    "strategy_data": 0.14516129032258066,
+    "eventguard_ack": 0.0761904761904762,
+    "strategy_ack": 0.07547169811320754
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.23931623931623933,
+    "strategy_ack": 0.23255813953488372
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.23931623931623933,
+    "strategy_ack": 0.23255813953488372
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.23931623931623933,
+    "strategy_ack": 0.23255813953488372
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.24299065420560748,
+    "eventguard_ack": 0.23931623931623933,
+    "strategy_ack": 0.2222222222222222
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.20437956204379562,
+    "eventguard_ack": 0.23931623931623933,
+    "strategy_ack": 0.25688073394495414
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 32,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.20437956204379562,
+    "eventguard_ack": 0.23931623931623933,
+    "strategy_ack": 0.23853211009174313
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 33,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.1893939393939394,
+    "strategy_data": 0.20454545454545456,
+    "eventguard_ack": 0.22429906542056074,
+    "strategy_ack": 0.17142857142857143
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 33,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2558139534883721,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.34375,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 33,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2558139534883721,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.34375,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 33,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.2558139534883721,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.34375,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 33,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2558139534883721,
+    "strategy_data": 0.31496062992125984,
+    "eventguard_ack": 0.34375,
+    "strategy_ack": 0.2988505747126437
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 33,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2558139534883721,
+    "strategy_data": 0.27906976744186046,
+    "eventguard_ack": 0.34375,
+    "strategy_ack": 0.24731182795698925
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 34,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2585034013605442,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.30275229357798167,
+    "strategy_ack": 0.24390243902439024
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 34,
+    "strategy": "IMPORTANCE_ONLY",
+    "eventguard_data": 0.2585034013605442,
+    "strategy_data": 0.20535714285714285,
+    "eventguard_ack": 0.30275229357798167,
+    "strategy_ack": 0.30337078651685395
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 35,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.18110236220472442,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.10576923076923077,
+    "strategy_ack": 0.10638297872340426
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 35,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.42567567567567566,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.2235294117647059,
+    "strategy_ack": 0.19444444444444445
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 36,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.17164179104477612,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.17117117117117117,
+    "strategy_ack": 0.0851063829787234
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 36,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.17164179104477612,
+    "strategy_data": 0.09876543209876543,
+    "eventguard_ack": 0.17117117117117117,
+    "strategy_ack": 0.136986301369863
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 36,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2727272727272727,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.25,
+    "strategy_ack": 0.0975609756097561
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 36,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3103448275862069,
+    "strategy_data": 0.27906976744186046,
+    "eventguard_ack": 0.19,
+    "strategy_ack": 0.24731182795698925
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 36,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.3103448275862069,
+    "strategy_data": 0.2827586206896552,
+    "eventguard_ack": 0.19,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 37,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2898550724637681,
+    "strategy_data": 0.30434782608695654,
+    "eventguard_ack": 0.37755102040816324,
+    "strategy_ack": 0.3229166666666667
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 38,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.19727891156462585,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.2033898305084746,
+    "strategy_ack": 0.225
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 38,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.29285714285714287,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.37373737373737376,
+    "strategy_ack": 0.4358974358974359
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 38,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.35036496350364965,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.29213483146067415,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 38,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.35036496350364965,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.29213483146067415,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 38,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.35036496350364965,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.29213483146067415,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 38,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.35036496350364965,
+    "strategy_data": 0.26277372262773724,
+    "eventguard_ack": 0.29213483146067415,
+    "strategy_ack": 0.27722772277227725
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 38,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.35036496350364965,
+    "strategy_data": 0.2846715328467153,
+    "eventguard_ack": 0.29213483146067415,
+    "strategy_ack": 0.29591836734693877
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 39,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2014388489208633,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.0990990990990991,
+    "strategy_ack": 0.17391304347826086
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 39,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3055555555555556,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.18,
+    "strategy_ack": 0.23809523809523808
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 39,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3055555555555556,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.18,
+    "strategy_ack": 0.24358974358974358
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 39,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.1678832116788321,
+    "strategy_data": 0.21897810218978103,
+    "eventguard_ack": 0.14035087719298245,
+    "strategy_ack": 0.14953271028037382
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 40,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.13709677419354838,
+    "strategy_data": 0.1111111111111111,
+    "eventguard_ack": 0.102803738317757,
+    "strategy_ack": 0.041666666666666664
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2116788321167883,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.2037037037037037,
+    "strategy_ack": 0.11363636363636363
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 40,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.30985915492957744,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.2653061224489796,
+    "strategy_ack": 0.13513513513513514
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.18382352941176472,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.15315315315315314,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.18382352941176472,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.15315315315315314,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.18382352941176472,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.15315315315315314,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.18382352941176472,
+    "strategy_data": 0.20353982300884957,
+    "eventguard_ack": 0.15315315315315314,
+    "strategy_ack": 0.2777777777777778
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.18382352941176472,
+    "strategy_data": 0.22794117647058823,
+    "eventguard_ack": 0.15315315315315314,
+    "strategy_ack": 0.22857142857142856
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 40,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.18382352941176472,
+    "strategy_data": 0.19117647058823528,
+    "eventguard_ack": 0.15315315315315314,
+    "strategy_ack": 0.20909090909090908
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 41,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.11666666666666667,
+    "strategy_data": 0.05555555555555555,
+    "eventguard_ack": 0.09433962264150944,
+    "strategy_ack": 0.11764705882352941
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 41,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2413793103448276,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.22727272727272727,
+    "strategy_ack": 0.30952380952380953
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 41,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3103448275862069,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.35,
+    "strategy_ack": 0.4444444444444444
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 41,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3103448275862069,
+    "strategy_data": 0.28703703703703703,
+    "eventguard_ack": 0.35,
+    "strategy_ack": 0.4025974025974026
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 41,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.21481481481481482,
+    "strategy_data": 0.2631578947368421,
+    "eventguard_ack": 0.2830188679245283,
+    "strategy_ack": 0.2261904761904762
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 41,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2647058823529412,
+    "strategy_data": 0.3779527559055118,
+    "eventguard_ack": 0.23,
+    "strategy_ack": 0.16455696202531644
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 42,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3382352941176471,
+    "strategy_data": 0.2890625,
+    "eventguard_ack": 0.3,
+    "strategy_ack": 0.38461538461538464
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 43,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.024193548387096774,
+    "strategy_data": 0.08536585365853659,
+    "eventguard_ack": 0.049586776859504134,
+    "strategy_ack": 0.04
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 43,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.038461538461538464,
+    "strategy_data": 0.09259259259259259,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.10204081632653061
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 43,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.038461538461538464,
+    "strategy_data": 0.09259259259259259,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.10204081632653061
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 43,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.038461538461538464,
+    "strategy_data": 0.09259259259259259,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.10204081632653061
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 43,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.038461538461538464,
+    "strategy_data": 0.14130434782608695,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.12658227848101267
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 43,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.038461538461538464,
+    "strategy_data": 0.11538461538461539,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.13043478260869565
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 43,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.038461538461538464,
+    "strategy_data": 0.09230769230769231,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.11016949152542373
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 43,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.1875,
+    "strategy_data": 0.2,
+    "eventguard_ack": 0.23076923076923078,
+    "strategy_ack": 0.29
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 44,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.31654676258992803,
+    "strategy_data": 0.2949640287769784,
+    "eventguard_ack": 0.30526315789473685,
+    "strategy_ack": 0.25510204081632654
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 45,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.19285714285714287,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.19469026548672566,
+    "strategy_ack": 0.27906976744186046
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 45,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2536231884057971,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.3106796116504854,
+    "strategy_ack": 0.46153846153846156
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 45,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2536231884057971,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.3106796116504854,
+    "strategy_ack": 0.3625
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 47,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2605633802816901,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.2571428571428571,
+    "strategy_ack": 0.32432432432432434
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 47,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3475177304964539,
+    "strategy_data": 0.4074074074074074,
+    "eventguard_ack": 0.33695652173913043,
+    "strategy_ack": 0.46875
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 47,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.22556390977443608,
+    "strategy_data": 0.23308270676691728,
+    "eventguard_ack": 0.20388349514563106,
+    "strategy_ack": 0.14705882352941177
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 47,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2824427480916031,
+    "strategy_data": 0.3391304347826087,
+    "eventguard_ack": 0.30851063829787234,
+    "strategy_ack": 0.32894736842105265
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 47,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2824427480916031,
+    "strategy_data": 0.29770992366412213,
+    "eventguard_ack": 0.30851063829787234,
+    "strategy_ack": 0.22826086956521738
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 47,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2824427480916031,
+    "strategy_data": 0.2824427480916031,
+    "eventguard_ack": 0.30851063829787234,
+    "strategy_ack": 0.2553191489361702
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 48,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2318840579710145,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.19811320754716982,
+    "strategy_ack": 0.17777777777777778
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 48,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3424657534246575,
+    "strategy_data": 0.32407407407407407,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.3835616438356164
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 48,
+    "strategy": "IMPORTANCE_ONLY",
+    "eventguard_data": 0.3424657534246575,
+    "strategy_data": 0.32142857142857145,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.40789473684210525
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 48,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2937062937062937,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.36633663366336633,
+    "strategy_ack": 0.42105263157894735
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 48,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2937062937062937,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.36633663366336633,
+    "strategy_ack": 0.42105263157894735
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 48,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.2937062937062937,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.36633663366336633,
+    "strategy_ack": 0.42105263157894735
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 48,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2937062937062937,
+    "strategy_data": 0.3146853146853147,
+    "eventguard_ack": 0.36633663366336633,
+    "strategy_ack": 0.42857142857142855
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.05,
+    "seed": 49,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.056910569105691054,
+    "strategy_data": 0.07407407407407407,
+    "eventguard_ack": 0.07758620689655173,
+    "strategy_ack": 0.0
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 49,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.06504065040650407,
+    "strategy_data": 0.07407407407407407,
+    "eventguard_ack": 0.11304347826086956,
+    "strategy_ack": 0.02
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 49,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2534246575342466,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.3119266055045872,
+    "strategy_ack": 0.35135135135135137
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 49,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.04878048780487805,
+    "strategy_data": 0.036585365853658534,
+    "eventguard_ack": 0.02564102564102564,
+    "strategy_ack": 0.08860759493670886
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 49,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.04878048780487805,
+    "strategy_data": 0.04878048780487805,
+    "eventguard_ack": 0.02564102564102564,
+    "strategy_ack": 0.07692307692307693
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 49,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.06349206349206349,
+    "strategy_data": 0.0989010989010989,
+    "eventguard_ack": 0.03389830508474576,
+    "strategy_ack": 0.12195121951219512
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 49,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.06349206349206349,
+    "strategy_data": 0.10317460317460317,
+    "eventguard_ack": 0.03389830508474576,
+    "strategy_ack": 0.10619469026548672
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 49,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.17266187050359713,
+    "strategy_data": 0.2231404958677686,
+    "eventguard_ack": 0.23478260869565218,
+    "strategy_ack": 0.30851063829787234
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 49,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.17266187050359713,
+    "strategy_data": 0.2158273381294964,
+    "eventguard_ack": 0.23478260869565218,
+    "strategy_ack": 0.30275229357798167
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 49,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2571428571428571,
+    "strategy_data": 0.2785714285714286,
+    "eventguard_ack": 0.34615384615384615,
+    "strategy_ack": 0.4158415841584158
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 50,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.23776223776223776,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.1834862385321101,
+    "strategy_ack": 0.2619047619047619
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 50,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.35507246376811596,
+    "strategy_data": 0.35185185185185186,
+    "eventguard_ack": 0.3258426966292135,
+    "strategy_ack": 0.4
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 50,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.21481481481481482,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.2830188679245283,
+    "strategy_ack": 0.23255813953488372
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 50,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.21481481481481482,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.2830188679245283,
+    "strategy_ack": 0.23255813953488372
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 50,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.21481481481481482,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.2830188679245283,
+    "strategy_ack": 0.23255813953488372
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 50,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.21481481481481482,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.2830188679245283,
+    "strategy_ack": 0.22857142857142856
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 51,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.32167832167832167,
+    "strategy_data": 0.26573426573426573,
+    "eventguard_ack": 0.23711340206185566,
+    "strategy_ack": 0.2571428571428571
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 51,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.32142857142857145,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3473684210526316,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 51,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.32142857142857145,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3473684210526316,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 51,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.32142857142857145,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3473684210526316,
+    "strategy_ack": 0.2894736842105263
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 51,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.32142857142857145,
+    "strategy_data": 0.29285714285714287,
+    "eventguard_ack": 0.3473684210526316,
+    "strategy_ack": 0.2828282828282828
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 52,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3475177304964539,
+    "strategy_data": 0.37037037037037035,
+    "eventguard_ack": 0.21739130434782608,
+    "strategy_ack": 0.27941176470588236
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 52,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3475177304964539,
+    "strategy_data": 0.36065573770491804,
+    "eventguard_ack": 0.21739130434782608,
+    "strategy_ack": 0.2692307692307692
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 52,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.04580152671755725,
+    "strategy_data": 0.07228915662650602,
+    "eventguard_ack": 0.112,
+    "strategy_ack": 0.16883116883116883
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 53,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.09836065573770492,
+    "strategy_data": 0.037037037037037035,
+    "eventguard_ack": 0.09090909090909091,
+    "strategy_ack": 0.09615384615384616
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 53,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.09836065573770492,
+    "strategy_data": 0.045454545454545456,
+    "eventguard_ack": 0.09090909090909091,
+    "strategy_ack": 0.12698412698412698
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 54,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.0743801652892562,
+    "strategy_data": 0.018518518518518517,
+    "eventguard_ack": 0.13392857142857142,
+    "strategy_ack": 0.1320754716981132
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 54,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.17142857142857143,
+    "strategy_data": 0.1111111111111111,
+    "eventguard_ack": 0.22413793103448276,
+    "strategy_ack": 0.20833333333333334
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 54,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2608695652173913,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.3431372549019608,
+    "strategy_ack": 0.3488372093023256
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 54,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3282442748091603,
+    "strategy_data": 0.33884297520661155,
+    "eventguard_ack": 0.3522727272727273,
+    "strategy_ack": 0.425
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 54,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.3282442748091603,
+    "strategy_data": 0.2748091603053435,
+    "eventguard_ack": 0.3522727272727273,
+    "strategy_ack": 0.29473684210526313
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 55,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22448979591836735,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.19298245614035087,
+    "strategy_ack": 0.2619047619047619
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 56,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1590909090909091,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.2072072072072072,
+    "strategy_ack": 0.14893617021276595
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 56,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.047244094488188976,
+    "strategy_data": 0.13953488372093023,
+    "eventguard_ack": 0.0743801652892562,
+    "strategy_ack": 0.04054054054054054
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 56,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.047244094488188976,
+    "strategy_data": 0.11811023622047244,
+    "eventguard_ack": 0.0743801652892562,
+    "strategy_ack": 0.05357142857142857
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 58,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.09401709401709402,
+    "strategy_data": 0.1111111111111111,
+    "eventguard_ack": 0.07547169811320754,
+    "strategy_ack": 0.020833333333333332
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 59,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.24444444444444444,
+    "strategy_data": 0.1925925925925926,
+    "eventguard_ack": 0.23529411764705882,
+    "strategy_ack": 0.24770642201834864
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 59,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2857142857142857,
+    "strategy_data": 0.2624113475177305,
+    "eventguard_ack": 0.32,
+    "strategy_ack": 0.375
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 61,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.12030075187969924,
+    "strategy_data": 0.05555555555555555,
+    "eventguard_ack": 0.11965811965811966,
+    "strategy_ack": 0.09803921568627451
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 61,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.12030075187969924,
+    "strategy_data": 0.05194805194805195,
+    "eventguard_ack": 0.11965811965811966,
+    "strategy_ack": 0.0958904109589041
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 61,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.24822695035460993,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.2358490566037736,
+    "strategy_ack": 0.20454545454545456
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 61,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.24822695035460993,
+    "strategy_data": 0.17142857142857143,
+    "eventguard_ack": 0.2358490566037736,
+    "strategy_ack": 0.2413793103448276
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 61,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.26666666666666666,
+    "strategy_data": 0.28888888888888886,
+    "eventguard_ack": 0.36363636363636365,
+    "strategy_ack": 0.3020833333333333
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 62,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.11382113821138211,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.14678899082568808,
+    "strategy_ack": 0.0851063829787234
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 62,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.18620689655172415,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.3135593220338983,
+    "strategy_ack": 0.23809523809523808
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 62,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.30434782608695654,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.375,
+    "strategy_ack": 0.3157894736842105
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 62,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.30434782608695654,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.375,
+    "strategy_ack": 0.3157894736842105
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 62,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.30434782608695654,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.375,
+    "strategy_ack": 0.3157894736842105
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 62,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.30434782608695654,
+    "strategy_data": 0.3115942028985507,
+    "eventguard_ack": 0.375,
+    "strategy_ack": 0.29473684210526313
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 63,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1322314049586777,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.12380952380952381,
+    "strategy_ack": 0.022727272727272728
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 63,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.1322314049586777,
+    "strategy_data": 0.1388888888888889,
+    "eventguard_ack": 0.12380952380952381,
+    "strategy_ack": 0.06451612903225806
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 63,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.1322314049586777,
+    "strategy_data": 0.14285714285714285,
+    "eventguard_ack": 0.12380952380952381,
+    "strategy_ack": 0.06060606060606061
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 63,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.21481481481481482,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.1792452830188679,
+    "strategy_ack": 0.10810810810810811
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 63,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3013698630136986,
+    "strategy_data": 0.4074074074074074,
+    "eventguard_ack": 0.28431372549019607,
+    "strategy_ack": 0.21875
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 63,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.07142857142857142,
+    "strategy_data": 0.125,
+    "eventguard_ack": 0.05128205128205128,
+    "strategy_ack": 0.06349206349206349
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 63,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.09375,
+    "strategy_data": 0.13953488372093023,
+    "eventguard_ack": 0.06896551724137931,
+    "strategy_ack": 0.16216216216216217
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 63,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.33098591549295775,
+    "strategy_data": 0.31690140845070425,
+    "eventguard_ack": 0.22105263157894736,
+    "strategy_ack": 0.27835051546391754
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 63,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.33098591549295775,
+    "strategy_data": 0.2746478873239437,
+    "eventguard_ack": 0.22105263157894736,
+    "strategy_ack": 0.2815533980582524
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 64,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.23776223776223776,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.2018348623853211,
+    "strategy_ack": 0.21621621621621623
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 64,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3142857142857143,
+    "strategy_data": 0.37037037037037035,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.2647058823529412
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 64,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2589928057553957,
+    "strategy_data": 0.3237410071942446,
+    "eventguard_ack": 0.3300970873786408,
+    "strategy_ack": 0.2872340425531915
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 65,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.30612244897959184,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.24509803921568626,
+    "strategy_ack": 0.3023255813953488
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 66,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3120567375886525,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.26804123711340205,
+    "strategy_ack": 0.32432432432432434
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 67,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.15873015873015872,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.20754716981132076,
+    "strategy_ack": 0.13043478260869565
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 67,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2318840579710145,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.330188679245283,
+    "strategy_ack": 0.21428571428571427
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 67,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.18045112781954886,
+    "strategy_data": 0.24812030075187969,
+    "eventguard_ack": 0.13761467889908258,
+    "strategy_ack": 0.18
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 68,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1875,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.28205128205128205,
+    "strategy_ack": 0.2222222222222222
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 68,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.28169014084507044,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.4019607843137255,
+    "strategy_ack": 0.35
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 68,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.28169014084507044,
+    "strategy_data": 0.3055555555555556,
+    "eventguard_ack": 0.4019607843137255,
+    "strategy_ack": 0.3466666666666667
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 68,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.28169014084507044,
+    "strategy_data": 0.2887323943661972,
+    "eventguard_ack": 0.4019607843137255,
+    "strategy_ack": 0.3465346534653465
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 68,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.23357664233576642,
+    "strategy_data": 0.18248175182481752,
+    "eventguard_ack": 0.18095238095238095,
+    "strategy_ack": 0.1875
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 69,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22535211267605634,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.21818181818181817,
+    "strategy_ack": 0.2727272727272727
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 69,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.33098591549295775,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.2736842105263158,
+    "strategy_ack": 0.3076923076923077
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 71,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.17142857142857143,
+    "strategy_data": 0.2288135593220339,
+    "eventguard_ack": 0.20689655172413793,
+    "strategy_ack": 0.23076923076923078
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 72,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3262411347517731,
+    "strategy_data": 0.27049180327868855,
+    "eventguard_ack": 0.25263157894736843,
+    "strategy_ack": 0.2696629213483146
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 73,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.12307692307692308,
+    "strategy_data": 0.09259259259259259,
+    "eventguard_ack": 0.09649122807017543,
+    "strategy_ack": 0.16326530612244897
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 73,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2727272727272727,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.18269230769230768,
+    "strategy_ack": 0.20454545454545456
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 73,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2727272727272727,
+    "strategy_data": 0.21296296296296297,
+    "eventguard_ack": 0.18269230769230768,
+    "strategy_ack": 0.18823529411764706
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 73,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.34965034965034963,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.41025641025641024
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 73,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.34965034965034963,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.3157894736842105
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 74,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.09701492537313433,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.11570247933884298,
+    "strategy_ack": 0.06382978723404255
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 74,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.09701492537313433,
+    "strategy_data": 0.10344827586206896,
+    "eventguard_ack": 0.11570247933884298,
+    "strategy_ack": 0.0641025641025641
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 74,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22058823529411764,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.22641509433962265,
+    "strategy_ack": 0.17777777777777778
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 74,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3310344827586207,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.25773195876288657,
+    "strategy_ack": 0.24390243902439024
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 74,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.16901408450704225,
+    "strategy_data": 0.226890756302521,
+    "eventguard_ack": 0.1864406779661017,
+    "strategy_ack": 0.1956521739130435
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 74,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.16901408450704225,
+    "strategy_data": 0.2323943661971831,
+    "eventguard_ack": 0.1864406779661017,
+    "strategy_ack": 0.1926605504587156
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 75,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2589928057553957,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.2621359223300971,
+    "strategy_ack": 0.3333333333333333
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 75,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2589928057553957,
+    "strategy_data": 0.23148148148148148,
+    "eventguard_ack": 0.2621359223300971,
+    "strategy_ack": 0.3132530120481928
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 75,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2785714285714286,
+    "strategy_data": 0.3357142857142857,
+    "eventguard_ack": 0.38613861386138615,
+    "strategy_ack": 0.34408602150537637
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 76,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.1347517730496454,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.1885245901639344,
+    "strategy_ack": 0.11956521739130435
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 76,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.1347517730496454,
+    "strategy_data": 0.12631578947368421,
+    "eventguard_ack": 0.1885245901639344,
+    "strategy_ack": 0.12048192771084337
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 76,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.22695035460992907,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.23853211009174313,
+    "strategy_ack": 0.18292682926829268
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 76,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.088,
+    "strategy_data": 0.14285714285714285,
+    "eventguard_ack": 0.07017543859649122,
+    "strategy_ack": 0.06666666666666667
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 77,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.144,
+    "strategy_data": 0.09259259259259259,
+    "eventguard_ack": 0.14953271028037382,
+    "strategy_ack": 0.14285714285714285
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 77,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3082191780821918,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.37623762376237624,
+    "strategy_ack": 0.28205128205128205
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 77,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3082191780821918,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.37623762376237624,
+    "strategy_ack": 0.3157894736842105
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 78,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.14049586776859505,
+    "strategy_data": 0.07407407407407407,
+    "eventguard_ack": 0.09615384615384616,
+    "strategy_ack": 0.16
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 78,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.14049586776859505,
+    "strategy_data": 0.11764705882352941,
+    "eventguard_ack": 0.09615384615384616,
+    "strategy_ack": 0.15
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 78,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.23943661971830985,
+    "strategy_data": 0.09259259259259259,
+    "eventguard_ack": 0.24074074074074073,
+    "strategy_ack": 0.30612244897959184
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 78,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.30985915492957744,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.29591836734693877,
+    "strategy_ack": 0.43902439024390244
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 78,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.24087591240875914,
+    "strategy_data": 0.21897810218978103,
+    "eventguard_ack": 0.20192307692307693,
+    "strategy_ack": 0.2523364485981308
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 79,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.13178294573643412,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.16964285714285715,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 79,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2014388489208633,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.3063063063063063,
+    "strategy_ack": 0.325
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 80,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22758620689655173,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.26785714285714285,
+    "strategy_ack": 0.3191489361702128
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 80,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3333333333333333,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3404255319148936,
+    "strategy_ack": 0.4473684210526316
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 80,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3333333333333333,
+    "strategy_data": 0.32407407407407407,
+    "eventguard_ack": 0.3404255319148936,
+    "strategy_ack": 0.3972602739726027
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 81,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.1388888888888889,
+    "eventguard_ack": 0.19658119658119658,
+    "strategy_ack": 0.13978494623655913
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 81,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.145985401459854,
+    "strategy_data": 0.14583333333333334,
+    "eventguard_ack": 0.19658119658119658,
+    "strategy_ack": 0.13414634146341464
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 81,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2585034013605442,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.29357798165137616,
+    "strategy_ack": 0.21052631578947367
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 81,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2585034013605442,
+    "strategy_data": 0.25,
+    "eventguard_ack": 0.29357798165137616,
+    "strategy_ack": 0.2222222222222222
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 82,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.15328467153284672,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.11206896551724138,
+    "strategy_ack": 0.09302325581395349
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 82,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3356643356643357,
+    "strategy_data": 0.2949640287769784,
+    "eventguard_ack": 0.3684210526315789,
+    "strategy_ack": 0.3163265306122449
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 83,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.17687074829931973,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.2066115702479339,
+    "strategy_ack": 0.28888888888888886
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 83,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.23448275862068965,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.27927927927927926,
+    "strategy_ack": 0.42105263157894735
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 83,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.12396694214876033,
+    "strategy_data": 0.06944444444444445,
+    "eventguard_ack": 0.05660377358490566,
+    "strategy_ack": 0.07462686567164178
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 84,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.24475524475524477,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.3055555555555556,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 85,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.10852713178294573,
+    "strategy_data": 0.10077519379844961,
+    "eventguard_ack": 0.06086956521739131,
+    "strategy_ack": 0.11206896551724138
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 85,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.23404255319148937,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3611111111111111,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 85,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.23404255319148937,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3611111111111111,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 85,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.23404255319148937,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3611111111111111,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 85,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.23404255319148937,
+    "strategy_data": 0.29850746268656714,
+    "eventguard_ack": 0.3611111111111111,
+    "strategy_ack": 0.3617021276595745
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 85,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.23404255319148937,
+    "strategy_data": 0.2978723404255319,
+    "eventguard_ack": 0.3611111111111111,
+    "strategy_ack": 0.35353535353535354
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 85,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.23404255319148937,
+    "strategy_data": 0.3049645390070922,
+    "eventguard_ack": 0.3611111111111111,
+    "strategy_ack": 0.3469387755102041
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 86,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1865671641791045,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.2018348623853211,
+    "strategy_ack": 0.3023255813953488
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 86,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2826086956521739,
+    "strategy_data": 0.35185185185185186,
+    "eventguard_ack": 0.32323232323232326,
+    "strategy_ack": 0.42857142857142855
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 86,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.20155038759689922,
+    "strategy_data": 0.24242424242424243,
+    "eventguard_ack": 0.21359223300970873,
+    "strategy_ack": 0.16
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 86,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3111111111111111,
+    "strategy_data": 0.373015873015873,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.2911392405063291
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 86,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.3111111111111111,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.28
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 87,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1773049645390071,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.1810344827586207,
+    "strategy_ack": 0.17073170731707318
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 87,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.24822695035460993,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.27358490566037735,
+    "strategy_ack": 0.21951219512195122
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 87,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.34306569343065696,
+    "strategy_data": 0.26277372262773724,
+    "eventguard_ack": 0.24444444444444444,
+    "strategy_ack": 0.19801980198019803
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 88,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2916666666666667,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.28431372549019607,
+    "strategy_ack": 0.23076923076923078
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 88,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.0743801652892562,
+    "strategy_data": 0.07462686567164178,
+    "eventguard_ack": 0.03571428571428571,
+    "strategy_ack": 0.0967741935483871
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 88,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.1984126984126984,
+    "strategy_data": 0.25471698113207547,
+    "eventguard_ack": 0.18811881188118812,
+    "strategy_ack": 0.16455696202531644
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 89,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.10236220472440945,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.07894736842105263,
+    "strategy_ack": 0.08888888888888889
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 89,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.088,
+    "strategy_data": 0.0945945945945946,
+    "eventguard_ack": 0.07894736842105263,
+    "strategy_ack": 0.14925373134328357
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 90,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.07194244604316546,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.12403100775193798,
+    "strategy_ack": 0.2127659574468085
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 90,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.07194244604316546,
+    "strategy_data": 0.08737864077669903,
+    "eventguard_ack": 0.12403100775193798,
+    "strategy_ack": 0.18085106382978725
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 90,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.19148936170212766,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.2543859649122807,
+    "strategy_ack": 0.3488372093023256
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 90,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2753623188405797,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.4,
+    "strategy_ack": 0.4878048780487805
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 90,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.04838709677419355,
+    "strategy_data": 0.038461538461538464,
+    "eventguard_ack": 0.025423728813559324,
+    "strategy_ack": 0.09333333333333334
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.05,
+    "seed": 90,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.04838709677419355,
+    "strategy_data": 0.04838709677419355,
+    "eventguard_ack": 0.025423728813559324,
+    "strategy_ack": 0.07627118644067797
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 91,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 91,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.25,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.2716049382716049
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.05,
+    "seed": 92,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.078125,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.059322033898305086,
+    "strategy_ack": 0.06382978723404255
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 92,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.10714285714285714,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.12,
+    "strategy_ack": 0.13333333333333333
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 92,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.21379310344827587,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.2543859649122807,
+    "strategy_ack": 0.1794871794871795
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 92,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.296551724137931,
+    "strategy_data": 0.35185185185185186,
+    "eventguard_ack": 0.37254901960784315,
+    "strategy_ack": 0.2857142857142857
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 92,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2198581560283688,
+    "strategy_data": 0.1773049645390071,
+    "eventguard_ack": 0.16363636363636364,
+    "strategy_ack": 0.23275862068965517
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 92,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2198581560283688,
+    "strategy_data": 0.20567375886524822,
+    "eventguard_ack": 0.16363636363636364,
+    "strategy_ack": 0.21428571428571427
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 93,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.21428571428571427,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.21818181818181817,
+    "strategy_ack": 0.15
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 93,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2765957446808511,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.29411764705882354,
+    "strategy_ack": 0.24324324324324326
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 93,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.24812030075187969,
+    "strategy_data": 0.18045112781954886,
+    "eventguard_ack": 0.27,
+    "strategy_ack": 0.24770642201834864
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 93,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.24812030075187969,
+    "strategy_data": 0.19548872180451127,
+    "eventguard_ack": 0.27,
+    "strategy_ack": 0.22429906542056074
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 93,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3142857142857143,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.40625,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 93,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3142857142857143,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.40625,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 93,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.3142857142857143,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.40625,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 93,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.3142857142857143,
+    "strategy_data": 0.3,
+    "eventguard_ack": 0.40625,
+    "strategy_ack": 0.336734693877551
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 93,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.3142857142857143,
+    "strategy_data": 0.2857142857142857,
+    "eventguard_ack": 0.40625,
+    "strategy_ack": 0.34
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 94,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.08029197080291971,
+    "strategy_data": 0.07407407407407407,
+    "eventguard_ack": 0.1111111111111111,
+    "strategy_ack": 0.2
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 94,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.18620689655172415,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.2033898305084746,
+    "strategy_ack": 0.32558139534883723
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 94,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2847222222222222,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.27184466019417475,
+    "strategy_ack": 0.35135135135135137
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.1,
+    "seed": 94,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.08270676691729323,
+    "strategy_data": 0.09022556390977443,
+    "eventguard_ack": 0.07377049180327869,
+    "strategy_ack": 0.12396694214876033
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 94,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2857142857142857,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.33,
+    "strategy_ack": 0.27906976744186046
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 94,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2857142857142857,
+    "strategy_data": 0.29285714285714287,
+    "eventguard_ack": 0.33,
+    "strategy_ack": 0.2727272727272727
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 95,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.09022556390977443,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.06611570247933884,
+    "strategy_ack": 0.06521739130434782
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 96,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1527777777777778,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.1721311475409836,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 96,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.31654676258992803,
+    "strategy_data": 0.37037037037037035,
+    "eventguard_ack": 0.29473684210526313,
+    "strategy_ack": 0.3235294117647059
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 97,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2962962962962963,
+    "strategy_data": 0.36283185840707965,
+    "eventguard_ack": 0.2,
+    "strategy_ack": 0.19444444444444445
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 98,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.25517241379310346,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.18518518518518517,
+    "strategy_ack": 0.13414634146341464
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 98,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.323943661971831,
+    "strategy_data": 0.3148148148148148,
+    "eventguard_ack": 0.3020833333333333,
+    "strategy_ack": 0.24324324324324326
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 100,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22377622377622378,
+    "strategy_data": 0.24074074074074073,
+    "eventguard_ack": 0.16216216216216217,
+    "strategy_ack": 0.0975609756097561
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 100,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3006993006993007,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.28,
+    "strategy_ack": 0.10256410256410256
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 100,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.21014492753623187,
+    "strategy_data": 0.2608695652173913,
+    "eventguard_ack": 0.22018348623853212,
+    "strategy_ack": 0.25882352941176473
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 101,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.10714285714285714,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.152,
+    "strategy_ack": 0.1590909090909091
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 101,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.18055555555555555,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.2711864406779661,
+    "strategy_ack": 0.2
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 101,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.24113475177304963,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.38317757009345793,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 102,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.24812030075187969,
+    "strategy_data": 0.18796992481203006,
+    "eventguard_ack": 0.3,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 102,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.34782608695652173,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.43333333333333335,
+    "strategy_ack": 0.3684210526315789
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 102,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.34782608695652173,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.43333333333333335,
+    "strategy_ack": 0.3684210526315789
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 102,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.34782608695652173,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.43333333333333335,
+    "strategy_ack": 0.3684210526315789
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 102,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.34782608695652173,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.43333333333333335,
+    "strategy_ack": 0.36666666666666664
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 102,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.34782608695652173,
+    "strategy_data": 0.2826086956521739,
+    "eventguard_ack": 0.43333333333333335,
+    "strategy_ack": 0.35353535353535354
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 102,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.34782608695652173,
+    "strategy_data": 0.2898550724637681,
+    "eventguard_ack": 0.43333333333333335,
+    "strategy_ack": 0.3469387755102041
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 103,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.14482758620689656,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.20161290322580644,
+    "strategy_ack": 0.2608695652173913
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 103,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.14482758620689656,
+    "strategy_data": 0.20353982300884957,
+    "eventguard_ack": 0.20161290322580644,
+    "strategy_ack": 0.2222222222222222
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 103,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2887323943661972,
+    "strategy_data": 0.37037037037037035,
+    "eventguard_ack": 0.33663366336633666,
+    "strategy_ack": 0.36764705882352944
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 103,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.16793893129770993,
+    "strategy_data": 0.24299065420560748,
+    "eventguard_ack": 0.22935779816513763,
+    "strategy_ack": 0.18518518518518517
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 103,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2857142857142857,
+    "strategy_data": 0.29285714285714287,
+    "eventguard_ack": 0.39,
+    "strategy_ack": 0.3333333333333333
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.05,
+    "seed": 104,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.03389830508474576,
+    "strategy_data": 0.018518518518518517,
+    "eventguard_ack": 0.06140350877192982,
+    "strategy_ack": 0.11320754716981132
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 104,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.10884353741496598,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.12213740458015267,
+    "strategy_ack": 0.1956521739130435
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 105,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.20422535211267606,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.1504424778761062,
+    "strategy_ack": 0.1702127659574468
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 105,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.302158273381295,
+    "strategy_data": 0.2733812949640288,
+    "eventguard_ack": 0.35051546391752575,
+    "strategy_ack": 0.40594059405940597
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 106,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1044776119402985,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.06666666666666667,
+    "strategy_ack": 0.1276595744680851
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 106,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.3380281690140845,
+    "strategy_data": 0.2746478873239437,
+    "eventguard_ack": 0.35106382978723405,
+    "strategy_ack": 0.3786407766990291
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 107,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3945578231292517,
+    "strategy_data": 0.3888888888888889,
+    "eventguard_ack": 0.23595505617977527,
+    "strategy_ack": 0.18181818181818182
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 107,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.24,
+    "strategy_data": 0.184,
+    "eventguard_ack": 0.17894736842105263,
+    "strategy_ack": 0.13725490196078433
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 107,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.24,
+    "strategy_data": 0.184,
+    "eventguard_ack": 0.17894736842105263,
+    "strategy_ack": 0.17647058823529413
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 108,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.136,
+    "strategy_data": 0.05555555555555555,
+    "eventguard_ack": 0.2037037037037037,
+    "strategy_ack": 0.1568627450980392
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 108,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22602739726027396,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.2920353982300885,
+    "strategy_ack": 0.2978723404255319
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 108,
+    "strategy": "IMPORTANCE_ONLY",
+    "eventguard_data": 0.30344827586206896,
+    "strategy_data": 0.30357142857142855,
+    "eventguard_ack": 0.3069306930693069,
+    "strategy_ack": 0.358974358974359
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 109,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.19718309859154928,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.17543859649122806,
+    "strategy_ack": 0.2558139534883721
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 109,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2978723404255319,
+    "strategy_data": 0.2857142857142857,
+    "eventguard_ack": 0.3434343434343434,
+    "strategy_ack": 0.28888888888888886
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 109,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.22302158273381295,
+    "strategy_data": 0.1794871794871795,
+    "eventguard_ack": 0.21296296296296297,
+    "strategy_ack": 0.2916666666666667
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 111,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2708333333333333,
+    "strategy_data": 0.32116788321167883,
+    "eventguard_ack": 0.37142857142857144,
+    "strategy_ack": 0.3548387096774194
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 111,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2708333333333333,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.37142857142857144,
+    "strategy_ack": 0.34375
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 112,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3055555555555556,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.33,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 112,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.16666666666666666,
+    "strategy_data": 0.256198347107438,
+    "eventguard_ack": 0.25217391304347825,
+    "strategy_ack": 0.23333333333333334
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 112,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.16666666666666666,
+    "strategy_data": 0.21739130434782608,
+    "eventguard_ack": 0.25217391304347825,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 112,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.16666666666666666,
+    "strategy_data": 0.2246376811594203,
+    "eventguard_ack": 0.25217391304347825,
+    "strategy_ack": 0.2523364485981308
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 113,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.24427480916030533,
+    "strategy_data": 0.25190839694656486,
+    "eventguard_ack": 0.21212121212121213,
+    "strategy_ack": 0.15306122448979592
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 114,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.19285714285714287,
+    "strategy_data": 0.1111111111111111,
+    "eventguard_ack": 0.1592920353982301,
+    "strategy_ack": 0.14583333333333334
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 114,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3197278911564626,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.33,
+    "strategy_ack": 0.39473684210526316
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 114,
+    "strategy": "IMPORTANCE_ONLY",
+    "eventguard_data": 0.3197278911564626,
+    "strategy_data": 0.32142857142857145,
+    "eventguard_ack": 0.33,
+    "strategy_ack": 0.3815789473684211
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 114,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.20437956204379562,
+    "strategy_data": 0.20437956204379562,
+    "eventguard_ack": 0.22018348623853212,
+    "strategy_ack": 0.1651376146788991
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 115,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.12403100775193798,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.04424778761061947,
+    "strategy_ack": 0.045454545454545456
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 115,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2013888888888889,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.1826086956521739,
+    "strategy_ack": 0.21052631578947367
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 115,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.34057971014492755,
+    "strategy_data": 0.46296296296296297,
+    "eventguard_ack": 0.21978021978021978,
+    "strategy_ack": 0.20689655172413793
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 115,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.23015873015873015,
+    "strategy_data": 0.28865979381443296,
+    "eventguard_ack": 0.15463917525773196,
+    "strategy_ack": 0.14492753623188406
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 115,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.3357664233576642,
+    "strategy_data": 0.2773722627737226,
+    "eventguard_ack": 0.25274725274725274,
+    "strategy_ack": 0.25252525252525254
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 116,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2585034013605442,
+    "strategy_data": 0.3197278911564626,
+    "eventguard_ack": 0.26605504587155965,
+    "strategy_ack": 0.26
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 116,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.22058823529411764,
+    "strategy_data": 0.19117647058823528,
+    "eventguard_ack": 0.22641509433962265,
+    "strategy_ack": 0.17272727272727273
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 116,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.22058823529411764,
+    "strategy_data": 0.21323529411764705,
+    "eventguard_ack": 0.22641509433962265,
+    "strategy_ack": 0.16822429906542055
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.05,
+    "seed": 117,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.05982905982905983,
+    "strategy_data": 0.1111111111111111,
+    "eventguard_ack": 0.05454545454545454,
+    "strategy_ack": 0.041666666666666664
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 117,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1015625,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.10434782608695652,
+    "strategy_ack": 0.045454545454545456
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 117,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22297297297297297,
+    "strategy_data": 0.35185185185185186,
+    "eventguard_ack": 0.13043478260869565,
+    "strategy_ack": 0.08571428571428572
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 117,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3006993006993007,
+    "strategy_data": 0.4444444444444444,
+    "eventguard_ack": 0.23,
+    "strategy_ack": 0.23333333333333334
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 117,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.1865671641791045,
+    "strategy_data": 0.18421052631578946,
+    "eventguard_ack": 0.22018348623853212,
+    "strategy_ack": 0.27956989247311825
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 117,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2608695652173913,
+    "strategy_data": 0.2463768115942029,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.40384615384615385
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 118,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3357142857142857,
+    "strategy_data": 0.35185185185185186,
+    "eventguard_ack": 0.21505376344086022,
+    "strategy_ack": 0.2857142857142857
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 118,
+    "strategy": "IMPORTANCE_ONLY",
+    "eventguard_data": 0.2937062937062937,
+    "strategy_data": 0.35714285714285715,
+    "eventguard_ack": 0.24752475247524752,
+    "strategy_ack": 0.2222222222222222
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 119,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1958041958041958,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.19130434782608696,
+    "strategy_ack": 0.15789473684210525
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 119,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.31690140845070425,
+    "strategy_data": 0.37037037037037035,
+    "eventguard_ack": 0.36082474226804123,
+    "strategy_ack": 0.3235294117647059
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 119,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.19117647058823528,
+    "strategy_data": 0.1743119266055046,
+    "eventguard_ack": 0.23636363636363636,
+    "strategy_ack": 0.28888888888888886
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 120,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2097902097902098,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.18584070796460178,
+    "strategy_ack": 0.23809523809523808
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 120,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.2097902097902098,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.18584070796460178,
+    "strategy_ack": 0.2558139534883721
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 120,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.2097902097902098,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.18584070796460178,
+    "strategy_ack": 0.26373626373626374
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 120,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.29285714285714287,
+    "strategy_data": 0.35185185185185186,
+    "eventguard_ack": 0.3434343434343434,
+    "strategy_ack": 0.4
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 121,
+    "strategy": "IMPORTANCE_ONLY",
+    "eventguard_data": 0.3150684931506849,
+    "strategy_data": 0.36607142857142855,
+    "eventguard_ack": 0.23,
+    "strategy_ack": 0.23943661971830985
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 122,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.18309859154929578,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.23275862068965517,
+    "strategy_ack": 0.13953488372093023
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 122,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.18309859154929578,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.23275862068965517,
+    "strategy_ack": 0.1744186046511628
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 122,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.18309859154929578,
+    "strategy_data": 0.20192307692307693,
+    "eventguard_ack": 0.23275862068965517,
+    "strategy_ack": 0.1686746987951807
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 122,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.26573426573426573,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3142857142857143,
+    "strategy_ack": 0.23684210526315788
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 122,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.26573426573426573,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.3142857142857143,
+    "strategy_ack": 0.24358974358974358
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 124,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.1323529411764706,
+    "strategy_data": 0.18518518518518517,
+    "eventguard_ack": 0.0847457627118644,
+    "strategy_ack": 0.13636363636363635
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.391304347826087,
+    "strategy_data": 0.4444444444444444,
+    "eventguard_ack": 0.39285714285714285,
+    "strategy_ack": 0.4
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 124,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22916666666666666,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.1891891891891892,
+    "strategy_ack": 0.2558139534883721
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 124,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.22916666666666666,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.1891891891891892,
+    "strategy_ack": 0.2558139534883721
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 124,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.22916666666666666,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.1891891891891892,
+    "strategy_ack": 0.2558139534883721
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 124,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.22916666666666666,
+    "strategy_data": 0.18548387096774194,
+    "eventguard_ack": 0.1891891891891892,
+    "strategy_ack": 0.25742574257425743
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 124,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.22916666666666666,
+    "strategy_data": 0.19444444444444445,
+    "eventguard_ack": 0.1891891891891892,
+    "strategy_ack": 0.27586206896551724
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 124,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.22916666666666666,
+    "strategy_data": 0.19444444444444445,
+    "eventguard_ack": 0.1891891891891892,
+    "strategy_ack": 0.27586206896551724
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.3684210526315789
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.3684210526315789
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.3684210526315789
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.31386861313868614,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.3617021276595745
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.2978723404255319,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.36363636363636365
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 124,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.3049645390070922,
+    "strategy_data": 0.2978723404255319,
+    "eventguard_ack": 0.30612244897959184,
+    "strategy_ack": 0.36363636363636365
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 125,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.13793103448275862,
+    "strategy_data": 0.12962962962962962,
+    "eventguard_ack": 0.272,
+    "strategy_ack": 0.3617021276595745
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 125,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2702702702702703,
+    "strategy_data": 0.2777777777777778,
+    "eventguard_ack": 0.3333333333333333,
+    "strategy_ack": 0.38461538461538464
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 125,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22900763358778625,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.26732673267326734,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 125,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.22900763358778625,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.26732673267326734,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 125,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.22900763358778625,
+    "strategy_data": 0.2037037037037037,
+    "eventguard_ack": 0.26732673267326734,
+    "strategy_ack": 0.20930232558139536
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 125,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.22900763358778625,
+    "strategy_data": 0.19083969465648856,
+    "eventguard_ack": 0.26732673267326734,
+    "strategy_ack": 0.19811320754716982
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 126,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.25,
+    "strategy_data": 0.16666666666666666,
+    "eventguard_ack": 0.21212121212121213,
+    "strategy_ack": 0.2
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 126,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.3115942028985507,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3157894736842105,
+    "strategy_ack": 0.2631578947368421
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 126,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.3115942028985507,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3157894736842105,
+    "strategy_ack": 0.2631578947368421
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 126,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.3115942028985507,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.3157894736842105,
+    "strategy_ack": 0.2631578947368421
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 126,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.3115942028985507,
+    "strategy_data": 0.3,
+    "eventguard_ack": 0.3157894736842105,
+    "strategy_ack": 0.25
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 126,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.3115942028985507,
+    "strategy_data": 0.2898550724637681,
+    "eventguard_ack": 0.3157894736842105,
+    "strategy_ack": 0.2653061224489796
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 127,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.19858156028368795,
+    "strategy_data": 0.14814814814814814,
+    "eventguard_ack": 0.23893805309734514,
+    "strategy_ack": 0.21739130434782608
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 127,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.302158273381295,
+    "strategy_data": 0.25925925925925924,
+    "eventguard_ack": 0.36082474226804123,
+    "strategy_ack": 0.45
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 127,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.19672131147540983,
+    "strategy_data": 0.18032786885245902,
+    "eventguard_ack": 0.25510204081632654,
+    "strategy_ack": 0.18
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 127,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.19672131147540983,
+    "strategy_data": 0.1885245901639344,
+    "eventguard_ack": 0.25510204081632654,
+    "strategy_ack": 0.1919191919191919
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 127,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2753623188405797,
+    "strategy_data": 0.2826086956521739,
+    "eventguard_ack": 0.34,
+    "strategy_ack": 0.26262626262626265
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.1,
+    "seed": 128,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.08527131782945736,
+    "strategy_data": 0.018518518518518517,
+    "eventguard_ack": 0.13559322033898305,
+    "strategy_ack": 0.18867924528301888
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 128,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.2867132867132867,
+    "strategy_data": 0.2222222222222222,
+    "eventguard_ack": 0.3431372549019608,
+    "strategy_ack": 0.42857142857142855
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 128,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2608695652173913,
+    "strategy_data": 0.3188405797101449,
+    "eventguard_ack": 0.4019607843137255,
+    "strategy_ack": 0.3617021276595745
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 128,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2608695652173913,
+    "strategy_data": 0.2971014492753623,
+    "eventguard_ack": 0.4019607843137255,
+    "strategy_ack": 0.35051546391752575
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.3,
+    "seed": 129,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.30612244897959184,
+    "strategy_data": 0.37037037037037035,
+    "eventguard_ack": 0.30392156862745096,
+    "strategy_ack": 0.3235294117647059
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 129,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.1953125,
+    "strategy_data": 0.2109375,
+    "eventguard_ack": 0.2524271844660194,
+    "strategy_ack": 0.18811881188118812
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 129,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.2733812949640288,
+    "strategy_data": 0.3237410071942446,
+    "eventguard_ack": 0.37623762376237624,
+    "strategy_ack": 0.3829787234042553
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 129,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.2733812949640288,
+    "strategy_data": 0.3237410071942446,
+    "eventguard_ack": 0.37623762376237624,
+    "strategy_ack": 0.35106382978723405
+  },
+  {
+    "model": "RANDOM_COPY",
+    "rate": 0.2,
+    "seed": 130,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.22758620689655173,
+    "strategy_data": 0.3333333333333333,
+    "eventguard_ack": 0.19642857142857142,
+    "strategy_ack": 0.1388888888888889
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.2,
+    "seed": 130,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.22556390977443608,
+    "strategy_data": 0.2,
+    "eventguard_ack": 0.22330097087378642,
+    "strategy_ack": 0.27380952380952384
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 130,
+    "strategy": "FIXED_1",
+    "eventguard_data": 0.28888888888888886,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 130,
+    "strategy": "FIXED_2",
+    "eventguard_data": 0.28888888888888886,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 130,
+    "strategy": "FIXED_3",
+    "eventguard_data": 0.28888888888888886,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.34210526315789475
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 130,
+    "strategy": "LINK_ONLY",
+    "eventguard_data": 0.28888888888888886,
+    "strategy_data": 0.2740740740740741,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.37755102040816324
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 130,
+    "strategy": "UNIFORM_BUDGET",
+    "eventguard_data": 0.28888888888888886,
+    "strategy_data": 0.2814814814814815,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.36082474226804123
+  },
+  {
+    "model": "BURST_SAMPLE",
+    "rate": 0.3,
+    "seed": 130,
+    "strategy": "RANDOM_BUDGET",
+    "eventguard_data": 0.28888888888888886,
+    "strategy_data": 0.2962962962962963,
+    "eventguard_ack": 0.28125,
+    "strategy_ack": 0.3368421052631579
+  }
+]

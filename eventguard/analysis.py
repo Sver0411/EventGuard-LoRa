@@ -14,7 +14,7 @@ METRICS = (
     "lost_logical_packets", "sequence_gaps", "out_of_order_packets",
     "normal_delivery_ratio", "critical_event_miss_rate", "total_bytes_transmitted",
     "redundancy_overhead", "ack_count", "mean_delivery_latency_ms", "p50_delivery_latency_ms",
-    "p95_delivery_latency_ms", "p99_delivery_latency_ms", "retransmissions", "duplicate_packets",
+    "p95_delivery_latency_ms", "p99_delivery_latency_ms", "redundant_copies", "duplicate_packets",
     "crc_errors", "communication_cost_per_delivered_critical_event",
 )
 
@@ -138,36 +138,7 @@ def comparisons(runs: list[dict], aggregate: list[dict], tolerance: float = 0.15
             paired.append({"loss_model": model, "loss_rate": rate, "comparison": f"EVENTGUARD vs {baseline}",
                            "critical_delivery": paired_t_test([p[Strategy.EVENTGUARD.value]["critical_event_delivery_ratio"] for p in pair_rows], [p[baseline]["critical_event_delivery_ratio"] for p in pair_rows]),
                            "total_bytes": paired_t_test([p[Strategy.EVENTGUARD.value]["total_bytes_transmitted"] for p in pair_rows], [p[baseline]["total_bytes_transmitted"] for p in pair_rows])})
-    cost_match = []
-    delivery_match = []
-    for model in sorted({row["loss_model"] for row in aggregate}):
-        eg_points = [row for row in aggregate if row["loss_model"] == model and row["strategy"] == "EVENTGUARD"]
-        fixed_points = [row for row in aggregate if row["loss_model"] == model and row["strategy"] == "FIXED_REDUNDANCY"]
-        for eg in eg_points:
-            if not fixed_points:
-                continue
-            closest_cost = min(fixed_points, key=lambda row: abs(row["total_bytes_transmitted_mean"] - eg["total_bytes_transmitted_mean"]))
-            cost_gap = abs(closest_cost["total_bytes_transmitted_mean"] - eg["total_bytes_transmitted_mean"]) / max(1, closest_cost["total_bytes_transmitted_mean"])
-            if cost_gap <= tolerance:
-                cost_match.append({"loss_model": model, "eventguard_loss_rate": eg["loss_rate"],
-                                   "fixed_loss_rate": closest_cost["loss_rate"], "relative_byte_gap": cost_gap,
-                                   "eventguard_bytes": eg["total_bytes_transmitted_mean"],
-                                   "fixed_bytes": closest_cost["total_bytes_transmitted_mean"],
-                                   "eventguard_critical_delivery": eg["critical_event_delivery_ratio_mean"],
-                                   "fixed_critical_delivery": closest_cost["critical_event_delivery_ratio_mean"],
-                                   "critical_delivery_difference": eg["critical_event_delivery_ratio_mean"] - closest_cost["critical_event_delivery_ratio_mean"]})
-            closest_delivery = min(fixed_points, key=lambda row: abs(row["critical_event_delivery_ratio_mean"] - eg["critical_event_delivery_ratio_mean"]))
-            delivery_gap = abs(eg["critical_event_delivery_ratio_mean"] - closest_delivery["critical_event_delivery_ratio_mean"])
-            delivery_match.append({"loss_model": model, "eventguard_loss_rate": eg["loss_rate"],
-                                   "fixed_loss_rate": closest_delivery["loss_rate"], "critical_delivery_gap": delivery_gap,
-                                   "eventguard_critical_delivery": eg["critical_event_delivery_ratio_mean"],
-                                   "fixed_critical_delivery": closest_delivery["critical_event_delivery_ratio_mean"],
-                                   "eventguard_bytes": eg["total_bytes_transmitted_mean"],
-                                   "fixed_bytes": closest_delivery["total_bytes_transmitted_mean"],
-                                   "byte_difference": eg["total_bytes_transmitted_mean"] - closest_delivery["total_bytes_transmitted_mean"]})
-    return {"paired_seed_differences": tests, "paired_significance": paired,
-            "similar_cost_eventguard_vs_fixed": cost_match,
-            "similar_delivery_eventguard_vs_fixed": delivery_match}
+    return {"paired_seed_differences": tests, "paired_significance": paired}
 
 
 def _write_csv(path: Path, rows: list[dict]) -> None:
@@ -357,18 +328,10 @@ def analyze_runs(runs: list[dict], results_dir: str | Path, paper_path: str | Pa
               "|---|---:|---:|---:|---:|---:|---:|"])
     for row in aggregates:
         report.append(f"| {row['strategy']} | {row['loss_model']} | {row['loss_rate']:.0%} | {row['critical_event_delivery_ratio_mean']:.3f} ± {row['critical_event_delivery_ratio_std']:.3f} | {row['overall_delivery_ratio_mean']:.3f} | {row['total_bytes_transmitted_mean']:.1f} | {row['mean_delivery_latency_ms_mean']:.1f} |")
-    report.extend(["", "## Similar-cost and similar-delivery comparisons", "",
-                   "Matches are selected automatically within the same loss model across configured loss-rate points. Similar cost uses a 15% relative byte tolerance. The matched points can have different configured loss rates, so these are traffic-budget comparisons across conditions, not same-channel-condition claims.",
-                   "", "### Similar transmitted bytes", "",
-                   "| Loss model | EG loss | Fixed loss | Byte gap | EG critical delivery | Fixed critical delivery | Difference |",
-                   "|---|---:|---:|---:|---:|---:|---:|"])
-    for item in compare["similar_cost_eventguard_vs_fixed"]:
-        report.append(f"| {item['loss_model']} | {item['eventguard_loss_rate']:.0%} | {item['fixed_loss_rate']:.0%} | {item['relative_byte_gap']:.1%} | {item['eventguard_critical_delivery']:.3f} | {item['fixed_critical_delivery']:.3f} | {item['critical_delivery_difference']:+.3f} |")
-    report.extend(["", "### Similar critical delivery", "",
-                   "| Loss model | EG loss | Fixed loss | Delivery gap | EG bytes | Fixed bytes | Byte difference |",
-                   "|---|---:|---:|---:|---:|---:|---:|"])
-    for item in compare["similar_delivery_eventguard_vs_fixed"]:
-        report.append(f"| {item['loss_model']} | {item['eventguard_loss_rate']:.0%} | {item['fixed_loss_rate']:.0%} | {item['critical_delivery_gap']:.3f} | {item['eventguard_bytes']:.1f} | {item['fixed_bytes']:.1f} | {item['byte_difference']:+.1f} |")
+    report.extend(["", "## Equal-budget comparisons", "",
+                   "The pilot matrix has no exact-budget baseline. Equal-budget claims require matched "
+                   "model, rate, seed, trace, channel calendar, hardware, and DATA-copy count. "
+                   "See `results/pre_hardware_validation.md` for the separate host evaluation."])
     report.extend(["", "## Paired tests", "", "Paired two-sided t-tests compare matched seeds within each loss condition; p-values are descriptive and no multiplicity correction is applied.", ""])
     for item in compare["paired_significance"]:
         test = item["critical_delivery"]
@@ -400,7 +363,7 @@ def analyze_runs(runs: list[dict], results_dir: str | Path, paper_path: str | Pa
              "## 3. Experimental setup", f"- Matrix: {len(runs)} runs total; {len(run_groups['NO_PROTECTION'])} per strategy; {len(seeds)} seeds ({seed_text}); configured loss rates 0%, 5%, 10%, 20%, and 30%; RANDOM and BURST models (burst length 3).\n- Each run uses {sample_text} synthetic sensor samples (the current trace contains 8 NORMAL, 6 IMPORTANT, and 4 CRITICAL samples).\n- E220 settings were read and checked by firmware at boot; profile: {radio_text}\n- Hardware identity: sensor {chip_macs.get('sensor', first_run.get('sensor_mac', 'not recorded'))}; gateway {chip_macs.get('gateway', first_run.get('gateway_mac', 'not recorded'))}.\n- Explain how identical trace content and matched seeds construct each strategy comparison; cite manifests and firmware image hashes.", "",
              "## 4. Results to report", f"- Overall mean critical-event delivery: EventGuard {fmt(eg_mean_critical)}, fixed redundancy {fmt(fixed_mean_critical)}, no protection {fmt(no_mean_critical)}.\n- Mean bytes per run: EventGuard {fmt(eg_bytes, 1)}, fixed redundancy {fmt(fixed_bytes, 1)}, no protection {fmt(overall_mean('NO_PROTECTION', 'total_bytes_transmitted'), 1)}.\n- RANDOM loss, EventGuard vs fixed critical delivery: {'; '.join(random_diffs) or 'not available'}.\n- BURST loss, EventGuard vs fixed critical delivery: {'; '.join(burst_diffs) or 'not available'}.\n- Include all conditions, confidence intervals, latencies, transmitted bytes, and plots from `results/report.md` and `results/summary.csv`; retain every run.", "",
              "## 5. Statistical analysis", "- Paired two-sided t-tests use ten matched seeds per configured condition. The current report runs twenty critical-delivery comparisons without multiplicity correction; p-values are exploratory, not confirmatory.\n- Report confidence intervals and per-seed values; avoid interpreting small p-values without a predeclared primary comparison and correction.", "",
-             "## 6. Limitations and next experiments", "- Application-layer drops are not RF fading, interference, or E220 retry behavior; actual channel errors are not controlled or characterized.\n- One sensor/gateway pair, a short deterministic synthetic trace, and ten seeds per condition limit generalization. No energy, current, range, or regulatory airtime measurement was collected.\n- EventGuard transmits more bytes on average than fixed redundancy. The automatic similar-cost table compares points that can use different configured loss rates; it cannot establish superiority at equal channel quality.\n- Next: compare policies under fixed byte/airtime budgets (including fixed one-, two-, and three-copy baselines), lengthen traces and seed sets, characterize real RF conditions with distance/interference/attenuation measurements, and measure energy and airtime.", "",
+             "## 6. Limitations and next experiments", "- Application-layer drops are not RF fading, interference, or E220 retry behavior; actual channel errors are not controlled or characterized.\n- One sensor/gateway pair, a short deterministic synthetic trace, and ten seeds per condition limit generalization. No energy, current, range, or regulatory airtime measurement was collected.\n- EventGuard transmits more bytes on average than fixed redundancy. This pilot does not contain an exact-budget baseline and cannot establish equal-cost superiority.\n- Next: compare policies under fixed byte/airtime budgets (including fixed one-, two-, and three-copy baselines), lengthen traces and seed sets, characterize real RF conditions with distance/interference/attenuation measurements, and measure energy and airtime.", "",
              "## 7. Conclusion", "State only the measured tradeoff: EventGuard raises mean critical delivery in this dataset at higher byte cost, with stronger paired differences under random 20–30% application-layer loss and no consistent win under burst loss. Do not claim a general LoRa reliability improvement until controlled RF experiments are complete.", ""]
     Path(paper_path).parent.mkdir(parents=True, exist_ok=True)
     Path(paper_path).write_text("\n".join(paper), encoding="utf-8")

@@ -4,7 +4,7 @@
 #include <string.h>
 
 static const eg_importance_config_t default_config = {
-    .important_threshold = 0.85f, .critical_threshold = 2.40f,
+    .important_threshold = 0.85f, .critical_threshold = 3.0f,
     .scales = {0.5f, 5.0f, 100.0f, 8.0f}, .baseline_alpha = 0.06f};
 
 uint8_t eg_classify(eg_importance_state_t *state, const eg_observation_t *obs,
@@ -19,7 +19,7 @@ uint8_t eg_classify(eg_importance_state_t *state, const eg_observation_t *obs,
         return 0;
     }
     float elapsed = (obs->timestamp_ms - state->previous.timestamp_ms) / 1000.0f;
-    if (elapsed < 0.001f) elapsed = 0.001f;
+    if (elapsed <= 0.0f) { if (score_out) *score_out = NAN; return 0; }
     float sum_change = 0.0f, sum_level = 0.0f, sum_rate = 0.0f;
     int simultaneous = 0;
     for (int i = 0; i < 4; ++i) {
@@ -33,7 +33,11 @@ uint8_t eg_classify(eg_importance_state_t *state, const eg_observation_t *obs,
     float score = 0.45f * sum_change + 0.25f * sum_level + 0.40f * sum_rate
                 + (simultaneous >= 2 ? 0.70f : 0.0f) + 0.10f * (state->persistence < 5 ? state->persistence : 5);
     uint8_t result;
-    if (score >= config->critical_threshold) { result = 2; if (state->persistence < 255) state->persistence++; }
+    float soil_risk = fmaxf(0.0f, state->baseline[3] - obs->values[3]) / 8.0f;
+    float multi_risk = fmaxf(0.0f, obs->values[0] - state->baseline[0]) / 3.0f
+                     + fmaxf(0.0f, obs->values[1] - state->baseline[1]) / 10.0f;
+    float risk = fmaxf(soil_risk, multi_risk);
+    if (risk >= config->critical_threshold) { result = 2; if (state->persistence < 255) state->persistence++; }
     else if (score >= config->important_threshold) { result = 1; if (state->persistence < 255) state->persistence++; }
     else {
         result = 0; state->persistence = 0;

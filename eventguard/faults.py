@@ -35,10 +35,17 @@ class LossPlan:
     def _build(self, count: int, kind: str) -> tuple[bool, ...]:
         if self.loss_rate == 0:
             return (False,) * count
-        if self.model == LossModel.RANDOM:
+        if self.model in (LossModel.RANDOM, LossModel.RANDOM_COPY):
             threshold = math.floor(self.loss_rate * 0x100000000)
             return tuple(hash32(self.seed, kind, slot) < threshold for slot in range(count))
-        target = math.floor(count * self.loss_rate + 0.5)
+        if self.model == LossModel.BURST_SAMPLE:
+            samples = count // MAX_COPIES
+            target_samples = math.floor(samples * self.loss_rate + 0.5)
+            sample_mask = self._burst_mask(samples, target_samples, kind)
+            return tuple(sample_mask[i // MAX_COPIES] for i in range(count))
+        return tuple(self._burst_mask(count, math.floor(count * self.loss_rate + 0.5), kind))
+
+    def _burst_mask(self, count: int, target: int, kind: str) -> list[bool]:
         mask = [False] * count
         remaining = target
         attempts = 0

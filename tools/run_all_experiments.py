@@ -18,9 +18,9 @@ def main() -> int:
     parser.add_argument("--skip-build", action="store_true", help="Use the firmware already flashed on both boards.")
     parser.add_argument("--seeds", type=int, nargs="+", help="Override the configured seed list.")
     parser.add_argument("--samples-per-phase", type=int, help="Override trace density (default from config).")
-    parser.add_argument("--strategies", nargs="+", choices=["NO_PROTECTION", "FIXED_REDUNDANCY", "EVENTGUARD"])
+    parser.add_argument("--strategies", nargs="+", choices=["NO_PROTECTION", "FIXED_REDUNDANCY", "FIXED_1", "FIXED_2", "FIXED_3", "IMPORTANCE_ONLY", "LINK_ONLY", "EVENTGUARD", "UNIFORM_BUDGET", "RANDOM_BUDGET"])
     parser.add_argument("--loss-rates", type=float, nargs="+", help="Override loss percentages as fractions, e.g. 0 .1 .3.")
-    parser.add_argument("--loss-models", nargs="+", choices=["RANDOM", "BURST"])
+    parser.add_argument("--loss-models", nargs="+", choices=["RANDOM", "BURST", "RANDOM_COPY", "BURST_COPY", "BURST_SAMPLE"])
     parser.add_argument("--burst-length", type=int, choices=[2, 3, 5], help="Deterministic burst-loss run length.")
     args = parser.parse_args()
     try:
@@ -34,7 +34,10 @@ def main() -> int:
         if args.dry_run:
             print("Discovery completed. No firmware was built or flashed.")
         else:
-            print(f"Completed {len(runs)} runs. Results: {ROOT / 'results'}")
+            overrides = any(value is not None for value in (args.seeds, args.samples_per_phase, args.strategies,
+                                                              args.loss_rates, args.loss_models, args.burst_length))
+            destination = ROOT / 'results' / ('pre_hardware_smoke' if overrides else 'pre_hardware_v1') if args.simulate else ROOT / 'results' / 'hardware_v1'
+            print(f"Completed {len(runs)} runs. Results: {destination}")
         return 0
     except Exception as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
