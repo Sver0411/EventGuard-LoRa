@@ -19,12 +19,22 @@ class GroundTruth(StrEnum):
 class Strategy(StrEnum):
     NO_PROTECTION = "NO_PROTECTION"
     FIXED_REDUNDANCY = "FIXED_REDUNDANCY"
+    FIXED_1 = "FIXED_1"
+    FIXED_2 = "FIXED_2"
+    FIXED_3 = "FIXED_3"
+    IMPORTANCE_ONLY = "IMPORTANCE_ONLY"
+    LINK_ONLY = "LINK_ONLY"
     EVENTGUARD = "EVENTGUARD"
+    UNIFORM_BUDGET = "UNIFORM_BUDGET"
+    RANDOM_BUDGET = "RANDOM_BUDGET"
 
 
 class LossModel(StrEnum):
     RANDOM = "RANDOM"
     BURST = "BURST"
+    RANDOM_COPY = "RANDOM_COPY"
+    BURST_COPY = "BURST_COPY"
+    BURST_SAMPLE = "BURST_SAMPLE"
 
 
 class LinkState(IntEnum):
@@ -61,7 +71,7 @@ class RunConfig:
     max_redundancy: int = 3
     trace_mode: str = "TRACE_MODE"
     important_threshold: float = 0.85
-    critical_threshold: float = 2.40
+    critical_threshold: float = 3.0
     importance_scales: dict[str, float] = field(default_factory=lambda: {
         "temperature": 0.5, "humidity": 5.0, "light": 100.0, "soil_moisture": 8.0
     })
@@ -71,3 +81,4 @@ class RunConfig:
     link_bad_threshold: float = 0.50
     link_bad_fail_streak: int = 3
     ack_timeout_ms: int = 180
+    data_copy_budget: int | None = None

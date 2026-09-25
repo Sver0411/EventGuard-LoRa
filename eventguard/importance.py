@@ -8,7 +8,7 @@ from .model import Importance, Sample
 @dataclass
 class ImportanceConfig:
     important_threshold: float = 0.85
-    critical_threshold: float = 2.40
+    critical_threshold: float = 3.0
     scales: dict[str, float] | None = None
     baseline_alpha: float = 0.06
 
@@ -37,7 +37,9 @@ class ImportanceClassifier:
             self.last_score = 0.0
             return Importance.NORMAL, 0.0
         assert self.baseline is not None
-        elapsed_s = max(0.001, (sample.timestamp_ms - self.previous.timestamp_ms) / 1000.0)
+        elapsed_s = (sample.timestamp_ms - self.previous.timestamp_ms) / 1000.0
+        if elapsed_s <= 0:
+            raise ValueError("sample timestamps must increase strictly")
         normalized_change = []
         normalized_level = []
         for key in self.KEYS:
@@ -55,7 +57,12 @@ class ImportanceClassifier:
             + (0.70 if simultaneous >= 2 else 0.0)
             + 0.10 * min(self.persistence, 5)
         )
-        if score >= self.config.critical_threshold:
+        # A large change can be important without being hazardous (especially
+        # during recovery). Critical requires a sustained, directional level.
+        risk = max(max(0.0, self.baseline["soil_moisture"] - values["soil_moisture"]) / 8.0,
+                   max(0.0, values["temperature"] - self.baseline["temperature"]) / 3.0
+                   + max(0.0, values["humidity"] - self.baseline["humidity"]) / 10.0)
+        if risk >= self.config.critical_threshold:
             importance = Importance.CRITICAL
             self.persistence += 1
         elif score >= self.config.important_threshold:

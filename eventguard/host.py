@@ -10,6 +10,7 @@ import sys
 import threading
 import time
 from collections import defaultdict
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -47,12 +48,12 @@ def _config_command(config: RunConfig) -> str:
               str(config.link_window), f"{config.link_degraded_threshold:.6f}", f"{config.link_bad_threshold:.6f}",
               str(config.link_bad_fail_streak), f"{config.important_threshold:.6f}", f"{config.critical_threshold:.6f}",
               f"{scales['temperature']:.6f}", f"{scales['humidity']:.6f}", f"{scales['light']:.6f}",
-              f"{scales['soil_moisture']:.6f}", f"{config.importance_baseline_alpha:.6f}", str(config.ack_timeout_ms)]
+              f"{scales['soil_moisture']:.6f}", f"{config.importance_baseline_alpha:.6f}", str(config.ack_timeout_ms), str(config.data_copy_budget or 0)]
     return ",".join(values)
 
 
 def _run_id(config: RunConfig) -> str:
-    burst = f"_burst{config.burst_length}" if config.loss_model == LossModel.BURST else ""
+    burst = f"_burst{config.burst_length}" if config.loss_model in (LossModel.BURST, LossModel.BURST_COPY, LossModel.BURST_SAMPLE) else ""
     return f"{config.strategy.value.lower()}_{config.loss_model.value.lower()}{burst}_loss{int(config.loss_rate * 100):02d}_seed{config.seed}"
 
 
@@ -62,64 +63,19 @@ def _ensure_dirs() -> None:
 
 
 def run_simulation(strategies=None, loss_rates=None, models=None, seeds=None, samples_per_phase=None, burst_length=None) -> list[dict]:
-    cfg = load_config()
-    if burst_length is not None: cfg["burst_length"] = burst_length
-    strategies = strategies or cfg["strategies"]
-    loss_rates = cfg["loss_rates"] if loss_rates is None else loss_rates
-    models = models or cfg["loss_models"]
-    seeds = cfg["seeds"] if seeds is None else seeds
-    samples_per_phase = cfg["trace_samples_per_phase"] if samples_per_phase is None else int(samples_per_phase)
-    cfg["trace_samples_per_phase"] = samples_per_phase
-    _ensure_dirs()
-    all_runs = []
-    trace_cache = {}
-    for seed in seeds:
-        trace_cache[seed] = generate_trace(seed, samples_per_phase)
-    total = len(strategies) * len(loss_rates) * len(models) * len(seeds)
-    completed = 0
-    for strategy in strategies:
-        for loss_rate in loss_rates:
-            for model in models:
-                for seed in seeds:
-                    run_start_time = datetime.now(timezone.utc).isoformat()
-                    run_clock = time.monotonic()
-                    config = _run_config(cfg, strategy, loss_rate, model, seed)
-                    samples = trace_cache[seed]
-                    outcome = run_reference(samples, config, cfg["uart_baud"])
-                    run_id = _run_id(config)
-                    row = {"run_id": run_id, "strategy": config.strategy.value, "loss_rate": config.loss_rate,
-                           "loss_model": config.loss_model.value, "seed": config.seed,
-                           "burst_length": config.burst_length,
-                           "trace_sha256": trace_fingerprint(samples), "source": "HOST_SIMULATION",
-                           "radio": "SIMULATED", "sample_count": len(samples), "start_time": run_start_time,
-                           "duration_s": time.monotonic() - run_clock,
-                           "firmware_commit": _git_commit(), **outcome["metrics"]}
-                    all_runs.append(row)
-                    manifest = {"run_id": run_id, "strategy": config.strategy.value, "loss_rate": config.loss_rate,
-                                "loss_model": config.loss_model.value, "seed": config.seed,
-                                "trace_sha256": row["trace_sha256"], "trace": [s.as_dict() for s in samples],
-                                "config": cfg, "provenance": {"source": "HOST_SIMULATION", "physical_radio": False,
-                                                               "application_layer_injection": True,
-                                                               "note": "This run does not use an E220 radio."},
-                                "metrics": outcome["metrics"], "events": outcome["events"]}
-                    (RESULTS / "runs" / f"{run_id}.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-                    raw_path = RESULTS / "raw" / f"{run_id}.jsonl"
-                    with raw_path.open("w", encoding="utf-8") as stream:
-                        for event in outcome["events"]:
-                            stream.write(json.dumps(event, sort_keys=True) + "\n")
-                    completed += 1
-                    if completed % 20 == 0 or completed == total:
-                        print(f"SIMULATION {completed}/{total}")
-    full_matrix = (set(strategies) == set(cfg["strategies"]) and set(loss_rates) == set(cfg["loss_rates"]) and
-                   set(models) == set(cfg["loss_models"]) and set(seeds) == set(cfg["seeds"]))
-    if full_matrix and len(all_runs) == total:
-        analyze_runs(all_runs, RESULTS, ROOT / "docs/paper_outline.md",
-                     {"source": "HOST_SIMULATION", "physical_radio": False,
-                      "application_layer_injection": "deterministic DATA and ACK loss calendars",
-                      "synthetic_trace": True, "run_count": len(all_runs)})
-    else:
-        print(f"PARTIAL MATRIX {len(all_runs)}/{total}; raw runs are saved, summary analysis is deferred")
-    return all_runs
+    """Run the isolated pre-hardware matrix; never overwrite pilot outputs."""
+    from .validation import EVALUATION_SEEDS, MODELS, RATES, STRATEGIES, run_validation
+    if burst_length is not None and burst_length != 3:
+        raise ValueError("pre-hardware validation fixes burst length at 3")
+    overrides = any(value is not None for value in (strategies, loss_rates, models, seeds, samples_per_phase, burst_length))
+    return run_validation(
+        seeds=tuple(EVALUATION_SEEDS if seeds is None else seeds),
+        samples_per_phase=6 if samples_per_phase is None else int(samples_per_phase),
+        rates=tuple(RATES if loss_rates is None else loss_rates),
+        models=tuple(MODELS if models is None else (LossModel(value) for value in models)),
+        strategies=tuple(STRATEGIES if strategies is None else (Strategy(value) for value in strategies)),
+        output=RESULTS / ("pre_hardware_smoke" if overrides else "pre_hardware_v1"),
+    )
 
 
 def _git_commit() -> str:
@@ -407,7 +363,9 @@ def build_firmware(config: dict | None = None) -> dict[str, Path]:
         if result.returncode:
             raise RuntimeError(f"ESP-IDF size report failed for {role}: {size_text[-3000:]}")
         size_summary[role] = {"application_binary_bytes": outputs[role].stat().st_size, "idf_size_report": size_text}
-    (RESULTS / "firmware_size.json").write_text(json.dumps(size_summary, indent=2), encoding="utf-8")
+    size_path = RESULTS / "pre_hardware_v1" / "firmware_size.json"
+    size_path.parent.mkdir(parents=True, exist_ok=True)
+    size_path.write_text(json.dumps(size_summary, indent=2), encoding="utf-8")
     return outputs
 
 
@@ -479,8 +437,12 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
     trace_by_id = {s.sample_id: s for s in samples}
     delivered = set()
     duplicate_packets = 0
-    physical_data_tx = physical_data_rx = ack_count = ack_rx = 0
+    physical_data_tx = physical_data_rx = ack_count = physical_ack_received = accepted_ack = 0
     crc_errors = invalid_packets = data_drops = ack_drops = sequence_gaps = out_of_order = 0
+    first_data_drops = first_ack_drops = first_copy_success = 0
+    normal_copies = critical_copies = 0
+    copy_stats = None
+    classifier_pairs = []
     tx_times = {}
     delivery_times = {}
     for now, line in sensor_lines:
@@ -493,11 +455,22 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
             try:
                 sample_id, copy_index = int(parts[1]), int(parts[3])
                 physical_data_tx += 1
+                normal_copies += trace_by_id[sample_id].truth == GroundTruth.NORMAL
+                critical_copies += trace_by_id[sample_id].truth == GroundTruth.CRITICAL
                 tx_times.setdefault(sample_id, now)
             except ValueError: pass
         elif parts[0] == "ACK" and len(parts) >= 5:
-            ack_rx += 1
+            physical_ack_received += 1
             ack_drops += parts[4] == "DROP"
+            accepted_ack += parts[4] == "OK"
+            if parts[3] == "0":
+                first_ack_drops += parts[4] == "DROP"
+                first_copy_success += parts[4] == "OK"
+        elif parts[0] == "SAMPLE" and len(parts) >= 4:
+            classifier_pairs.append((parts[2], parts[3]))
+        elif parts[0] == "COPY_STATS" and len(parts) >= 5:
+            try: copy_stats = tuple(int(value) for value in parts[1:5])
+            except ValueError: pass
         elif parts[0] == "ERR" and len(parts) > 1:
             if parts[1] == "CRC": crc_errors += 1
             elif parts[1] == "PACKET": invalid_packets += 1
@@ -513,6 +486,7 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         elif parts[0] == "ACK_TX": ack_count += 1
         elif parts[0] == "DROP" and len(parts) > 1 and parts[1] == "DATA":
             data_drops += 1
+            if len(parts) >= 5 and parts[4] == "0": first_data_drops += 1
             physical_data_rx += 1
         elif parts[0] == "GAP" and len(parts) >= 5:
             try: sequence_gaps += int(parts[4])
@@ -531,6 +505,19 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         return latencies[min(len(latencies) - 1, round((len(latencies) - 1) * q))]
     data_bytes, ack_bytes = physical_data_tx * DATA_FRAME_SIZE, ack_count * ACK_FRAME_SIZE
     critical_delivered = delivered_by_label["CRITICAL"]
+    labels = ("NORMAL", "IMPORTANT", "CRITICAL")
+    classifier_confusion = {truth: {pred: 0 for pred in labels} for truth in labels}
+    for truth, pred in classifier_pairs:
+        if truth in labels and pred in labels: classifier_confusion[truth][pred] += 1
+    classifier_scores = []
+    for label in labels:
+        tp = classifier_confusion[label][label]
+        predicted = sum(classifier_confusion[truth][label] for truth in labels)
+        actual = sum(classifier_confusion[label].values())
+        precision = tp / predicted if predicted else 0.0
+        recall = tp / actual if actual else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+        classifier_scores.append((precision, recall, f1))
     metrics = {
         "logical_packets": len(samples), "delivered_packets": len(delivered),
         "lost_logical_packets": len(samples) - len(delivered), "sequence_gaps": sequence_gaps,
@@ -541,12 +528,30 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         "physical_data_received": physical_data_rx, "total_bytes_transmitted": data_bytes + ack_bytes,
         "data_bytes_transmitted": data_bytes, "ack_bytes_transmitted": ack_bytes,
         "redundancy_overhead": physical_data_tx / len(samples) - 1,
-        "ack_count": ack_count, "ack_received": ack_rx,
+        "ack_count": ack_count, "physical_ack_received": physical_ack_received,
+        "accepted_ack": accepted_ack,
         "mean_delivery_latency_ms": sum(latencies) / len(latencies) if latencies else 0.0,
         "p50_delivery_latency_ms": pct(.50), "p95_delivery_latency_ms": pct(.95), "p99_delivery_latency_ms": pct(.99),
-        "retransmissions": max(0, physical_data_tx - len(samples)), "duplicate_packets": duplicate_packets,
+        "redundant_copies": max(0, physical_data_tx - len(samples)), "duplicate_packets": duplicate_packets,
         "crc_errors": crc_errors, "invalid_packets": invalid_packets, "data_injected_drops": data_drops,
         "ack_injected_drops": ack_drops,
+        "configured_loss_rate": config.loss_rate,
+        "effective_data_drop_rate": data_drops / physical_data_tx if physical_data_tx else 0.0,
+        "effective_ack_drop_rate": ack_drops / physical_ack_received if physical_ack_received else 0.0,
+        "first_copy_data_drop_rate": first_data_drops / len(samples),
+        "first_copy_ack_drop_rate": first_ack_drops / len(samples),
+        "first_copy_success_ratio": first_copy_success / len(samples),
+        "copy_attempts": copy_stats[0] if copy_stats else physical_data_tx,
+        "copy_ack_success": copy_stats[1] if copy_stats else accepted_ack,
+        "copy_failures": copy_stats[2] if copy_stats else max(0, physical_data_tx - accepted_ack),
+        "consecutive_copy_failures": copy_stats[3] if copy_stats else None,
+        "normal_traffic_share": normal_copies / physical_data_tx if physical_data_tx else 0.0,
+        "critical_traffic_share": critical_copies / physical_data_tx if physical_data_tx else 0.0,
+        "critical_delivery_per_1000_bytes": critical_delivered * 1000 / (data_bytes + ack_bytes) if data_bytes + ack_bytes else 0.0,
+        "critical_delivery_per_data_copy": critical_delivered / physical_data_tx if physical_data_tx else 0.0,
+        "importance_precision": sum(x[0] for x in classifier_scores) / 3 if classifier_pairs else None,
+        "importance_recall": sum(x[1] for x in classifier_scores) / 3 if classifier_pairs else None,
+        "importance_f1": sum(x[2] for x in classifier_scores) / 3 if classifier_pairs else None,
         "communication_cost_per_delivered_critical_event": (data_bytes + ack_bytes) / critical_delivered if critical_delivered else None,
         "truth_counts": totals, "truth_delivered": delivered_by_label,
     }
@@ -558,13 +563,15 @@ def run_hardware(strategies=None, loss_rates=None, models=None, seeds=None, samp
     cfg = load_config()
     if burst_length is not None: cfg["burst_length"] = burst_length
     if samples_per_phase is not None: cfg["trace_samples_per_phase"] = int(samples_per_phase)
-    _ensure_dirs()
+    hardware_results = RESULTS / "hardware_v1"
+    for name in ("raw", "runs", "metrics", "plots"):
+        (hardware_results / name).mkdir(parents=True, exist_ok=True)
     mapping, readers = discover_boards()
     for reader in readers.values(): reader.close()
     try:
         if "chip_macs" not in mapping:
             mapping["chip_macs"] = {"sensor": probe_mac(mapping["sensor_port"]), "gateway": probe_mac(mapping["gateway_port"])}
-        (RESULTS / "hardware_discovery.json").write_text(json.dumps(mapping, indent=2), encoding="utf-8")
+        (hardware_results / "hardware_discovery.json").write_text(json.dumps(mapping, indent=2), encoding="utf-8")
         print("IDENTIFIED", mapping["sensor_port"], "Sensor", mapping["chip_macs"]["sensor"])
         print("IDENTIFIED", mapping["gateway_port"], "Gateway", mapping["chip_macs"]["gateway"])
     finally:
@@ -584,8 +591,11 @@ def run_hardware(strategies=None, loss_rates=None, models=None, seeds=None, samp
         s_boot = _wait_for_radio_ready(sensor, s_boot)
         g_boot = _wait_for_radio_ready(gateway, g_boot)
         boot_logs = {"sensor": [x[1] for x in s_boot], "gateway": [x[1] for x in g_boot]}
-        (RESULTS / "raw" / "firmware_boot.json").write_text(json.dumps(boot_logs, indent=2), encoding="utf-8")
+        (hardware_results / "raw" / "firmware_boot.json").write_text(json.dumps(boot_logs, indent=2), encoding="utf-8")
         strategies = strategies or cfg["strategies"]
+        if any(value in ("UNIFORM_BUDGET", "RANDOM_BUDGET") for value in strategies) and "EVENTGUARD" not in strategies:
+            raise ValueError("hardware budget baselines require EVENTGUARD in the same matrix")
+        strategies = sorted(strategies, key=lambda value: 0 if value == "EVENTGUARD" else 1)
         loss_rates = cfg["loss_rates"] if loss_rates is None else loss_rates
         models = models or cfg["loss_models"]
         seeds = cfg["seeds"] if seeds is None else seeds
@@ -594,16 +604,22 @@ def run_hardware(strategies=None, loss_rates=None, models=None, seeds=None, samp
         firmware_hashes = _firmware_images_sha256()
         total = len(strategies) * len(loss_rates) * len(models) * len(seeds)
         complete = 0
+        budget_by_condition = {}
         for strategy in strategies:
             for loss_rate in loss_rates:
                 for model in models:
                     for seed in seeds:
                         run_cfg = _run_config(cfg, strategy, loss_rate, model, seed)
+                        condition_key = (float(loss_rate), str(model), int(seed))
+                        if strategy in ("UNIFORM_BUDGET", "RANDOM_BUDGET"):
+                            if condition_key not in budget_by_condition:
+                                raise RuntimeError(f"missing EventGuard budget for {condition_key}")
+                            run_cfg = replace(run_cfg, data_copy_budget=budget_by_condition[condition_key])
                         samples = generate_trace(seed, samples_per_phase)
                         trace_hash = trace_fingerprint(samples)
                         run_id = _run_id(run_cfg) + "_e220"
-                        manifest_path = RESULTS / "runs" / f"{run_id}.json"
-                        raw_path = RESULTS / "raw" / f"{run_id}.json"
+                        manifest_path = hardware_results / "runs" / f"{run_id}.json"
+                        raw_path = hardware_results / "raw" / f"{run_id}.json"
                         if manifest_path.exists() and raw_path.exists() and firmware_hashes:
                             try:
                                 previous = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -613,6 +629,7 @@ def run_hardware(strategies=None, loss_rates=None, models=None, seeds=None, samp
                                     previous_run.get("loss_rate") == run_cfg.loss_rate and
                                     previous_run.get("loss_model") == run_cfg.loss_model.value and
                                     previous_run.get("seed") == run_cfg.seed and
+                                    previous_run.get("data_copy_budget") == run_cfg.data_copy_budget and
                                     previous_run.get("burst_length") == run_cfg.burst_length and
                                     previous_run.get("trace_sha256") == trace_hash and
                                     previous_run.get("sample_count") == len(samples) and
@@ -622,6 +639,8 @@ def run_hardware(strategies=None, loss_rates=None, models=None, seeds=None, samp
                                     previous_run.get("source") == "REAL_E220_WITH_APPLICATION_LAYER_INJECTION")
                                 if matches:
                                     all_runs.append(previous_run)
+                                    if strategy == "EVENTGUARD":
+                                        budget_by_condition[condition_key] = previous_run["physical_data_transmissions"]
                                     complete += 1
                                     print(f"RESUME {complete}/{total} {run_id} critical={previous_run['critical_event_delivery_ratio']:.3f}")
                                     continue
@@ -669,28 +688,34 @@ def run_hardware(strategies=None, loss_rates=None, models=None, seeds=None, samp
                         raw_doc = {"run_id": run_id, "sensor_port": mapping["sensor_port"], "gateway_port": mapping["gateway_port"],
                                    "sensor": [{"host_monotonic": t, "line": line} for t, line in sensor_lines],
                                    "gateway": [{"host_monotonic": t, "line": line} for t, line in gateway_lines]}
-                        (RESULTS / "raw" / f"{run_id}.json").write_text(json.dumps(raw_doc, indent=2), encoding="utf-8")
+                        (hardware_results / "raw" / f"{run_id}.json").write_text(json.dumps(raw_doc, indent=2), encoding="utf-8")
                         metrics = _parse_metrics(samples, [], sensor_lines, gateway_lines, start, end, run_cfg, trace_hash)
                         run = {"run_id": run_id, "strategy": run_cfg.strategy.value, "loss_rate": run_cfg.loss_rate,
                                "loss_model": run_cfg.loss_model.value, "seed": run_cfg.seed, "trace_sha256": trace_hash,
                                "burst_length": run_cfg.burst_length,
+                               "data_copy_budget": run_cfg.data_copy_budget,
                                "source": "REAL_E220_WITH_APPLICATION_LAYER_INJECTION", "radio": "E220-400T22D",
                                "sample_count": len(samples), "start_time": start_time, "duration_s": end - start,
                                "firmware_commit": _git_commit(), "sensor_mac": mapping["chip_macs"]["sensor"],
                                "gateway_mac": mapping["chip_macs"]["gateway"],
                                "firmware_images_sha256": firmware_hashes, **metrics}
                         all_runs.append(run)
+                        if strategy == "EVENTGUARD":
+                            budget_by_condition[condition_key] = metrics["physical_data_transmissions"]
+                        elif strategy in ("UNIFORM_BUDGET", "RANDOM_BUDGET") and \
+                             metrics["physical_data_transmissions"] != budget_by_condition[condition_key]:
+                            raise RuntimeError(f"hardware DATA-copy budget mismatch: {run_id}")
                         manifest = {"run": run, "trace": [s.as_dict() for s in samples], "config": cfg,
                                     "provenance": {"source": run["source"], "physical_radio": True,
                                                    "application_layer_injection": True, "synthetic_trace": True,
                                                    "hardware": mapping}}
-                        (RESULTS / "runs" / f"{run_id}.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+                        (hardware_results / "runs" / f"{run_id}.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
                         complete += 1
                         print(f"HARDWARE {complete}/{total} {run_id} critical={metrics['critical_event_delivery_ratio']:.3f} bytes={metrics['total_bytes_transmitted']}")
         full_matrix = (set(strategies) == set(cfg["strategies"]) and set(loss_rates) == set(cfg["loss_rates"]) and
                        set(models) == set(cfg["loss_models"]) and set(seeds) == set(cfg["seeds"]))
         if full_matrix and len(all_runs) == total:
-            analyze_runs(all_runs, RESULTS, ROOT / "docs/paper_outline.md",
+            analyze_runs(all_runs, hardware_results, ROOT / "docs/paper_outline_v1.md",
                          {"source": "REAL_E220_WITH_APPLICATION_LAYER_INJECTION", "physical_radio": True,
                           "application_layer_injection": "deterministic DATA and ACK drops after radio reception",
                           "synthetic_trace": True, "run_count": len(all_runs),

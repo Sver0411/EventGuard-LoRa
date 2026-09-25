@@ -15,6 +15,7 @@
 #include "importance.h"
 #include "protocol.h"
 #include "sensor_drivers.h"
+#include "strategy.h"
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -23,9 +24,7 @@
 #define CONSOLE_LINE_MAX 256
 #define MAX_TRACE EG_MAX_TRACE
 
-typedef enum { STRATEGY_NONE = 0, STRATEGY_FIXED = 1, STRATEGY_EVENTGUARD = 2 } strategy_t;
 typedef enum { TRUTH_NORMAL = 0, TRUTH_IMPORTANT = 1, TRUTH_CRITICAL = 2 } truth_t;
-typedef enum { LINK_GOOD = 0, LINK_DEGRADED = 1, LINK_BAD = 2 } link_state_t;
 
 typedef struct {
     uint16_t id;
@@ -35,9 +34,9 @@ typedef struct {
 } trace_item_t;
 
 typedef struct {
-    strategy_t strategy;
+    eg_strategy_t strategy;
     double loss_rate;
-    bool burst;
+    eg_fault_model_t loss_model;
     uint32_t seed;
     uint8_t burst_length;
     uint8_t fixed_redundancy;
@@ -48,12 +47,13 @@ typedef struct {
     uint8_t link_bad_fail_streak;
     eg_importance_config_t importance;
     uint16_t ack_timeout_ms;
+    uint32_t data_copy_budget;
 } run_config_t;
 
-static run_config_t s_config = {.strategy = STRATEGY_EVENTGUARD, .loss_rate = 0.0f, .burst = false,
+static run_config_t s_config = {.strategy = EG_EVENTGUARD, .loss_rate = 0.0f, .loss_model = EG_RANDOM_COPY,
     .seed = 11, .burst_length = 3, .fixed_redundancy = 2, .max_redundancy = 3, .link_window = 12,
     .link_degraded_threshold = 0.80, .link_bad_threshold = 0.50, .link_bad_fail_streak = 3,
-    .importance = {.important_threshold = 0.85f, .critical_threshold = 2.40f,
+    .importance = {.important_threshold = 0.85f, .critical_threshold = 3.0f,
                    .scales = {0.5f, 5.0f, 100.0f, 8.0f}, .baseline_alpha = 0.06f},
     .ack_timeout_ms = CONFIG_EG_ACK_TIMEOUT_MS};
 static eg_fault_table_t s_fault_table;
@@ -69,10 +69,8 @@ static uint16_t s_next_sequence;
 static uint32_t s_sensor_tx_count;
 static uint32_t s_sensor_ack_count;
 static eg_importance_state_t s_classifier;
-static bool s_ack_history[12];
-static size_t s_ack_count;
-static size_t s_ack_next;
-static uint8_t s_fail_streak;
+static eg_link_estimator_t s_link;
+static uint8_t s_budget_allocation[MAX_TRACE];
 static volatile bool s_stop_requested;
 static volatile bool s_run_active;
 
@@ -82,46 +80,24 @@ static const char *importance_name(uint8_t importance) {
 static const char *truth_name(uint8_t truth) {
     return truth == 2 ? "CRITICAL" : (truth == 1 ? "IMPORTANT" : "NORMAL");
 }
-static const char *link_name(link_state_t link) {
-    return link == LINK_BAD ? "BAD" : (link == LINK_DEGRADED ? "DEGRADED" : "GOOD");
-}
-
-static link_state_t link_state(void) {
-    if (s_fail_streak >= s_config.link_bad_fail_streak) return LINK_BAD;
-    if (!s_ack_count) return LINK_GOOD;
-    size_t successes = 0;
-    for (size_t i = 0; i < s_ack_count; ++i) successes += s_ack_history[i];
-    float ratio = (float)successes / s_ack_count;
-    if (ratio < s_config.link_bad_threshold) return LINK_BAD;
-    if (ratio < s_config.link_degraded_threshold) return LINK_DEGRADED;
-    return LINK_GOOD;
-}
-
-static void link_observe(bool success) {
-    s_ack_history[s_ack_next] = success;
-    s_ack_next = (s_ack_next + 1) % s_config.link_window;
-    if (s_ack_count < s_config.link_window) s_ack_count++;
-    s_fail_streak = success ? 0 : (s_fail_streak < 255 ? s_fail_streak + 1 : 255);
-}
-
-static uint8_t redundancy_for(uint8_t importance, link_state_t link) {
-    if (s_config.strategy == STRATEGY_NONE) return 1;
-    if (s_config.strategy == STRATEGY_FIXED) return s_config.fixed_redundancy > s_config.max_redundancy ? s_config.max_redundancy : s_config.fixed_redundancy;
-    uint8_t count = importance > 2 ? 1 : (uint8_t)(importance + 1);
-    if (link == LINK_DEGRADED) count++;
-    else if (link == LINK_BAD && importance > 0) count += 2;
-    if (count > s_config.max_redundancy) count = s_config.max_redundancy;
-    return count ? count : 1;
+static const char *link_name(eg_link_state_t link) {
+    return link == EG_LINK_BAD ? "BAD" : (link == EG_LINK_DEGRADED ? "DEGRADED" : "GOOD");
 }
 
 static void reset_sensor_run(void) {
     s_next_sequence = 0; s_sensor_tx_count = 0; s_sensor_ack_count = 0;
     memset(&s_classifier, 0, sizeof(s_classifier));
-    memset(s_ack_history, 0, sizeof(s_ack_history)); s_ack_count = 0; s_ack_next = 0; s_fail_streak = 0;
+    eg_link_init(&s_link, s_config.link_window, s_config.link_degraded_threshold,
+                 s_config.link_bad_threshold, s_config.link_bad_fail_streak);
 }
 
 static void run_trace(void) {
     reset_sensor_run();
+    bool budget_mode = s_config.strategy == EG_UNIFORM_BUDGET || s_config.strategy == EG_RANDOM_BUDGET;
+    if (budget_mode && !eg_budget_allocate(s_config.strategy, s_trace_loaded, s_config.data_copy_budget,
+                                            s_config.seed, s_config.max_redundancy, s_budget_allocation)) {
+        printf("ERR,BUDGET_VALUE\n"); return;
+    }
     size_t completed = 0;
     for (size_t index = 0; index < s_trace_loaded; ++index) {
         if (s_stop_requested) break;
@@ -130,8 +106,9 @@ static void run_trace(void) {
         memcpy(observation.values, sample->values, sizeof(observation.values));
         float score = 0.0f;
         uint8_t importance = eg_classify(&s_classifier, &observation, &s_config.importance, &score);
-        link_state_t current_link = link_state();
-        uint8_t copies = redundancy_for(importance, current_link);
+        eg_link_state_t current_link = eg_link_state(&s_link);
+        uint8_t copies = budget_mode ? s_budget_allocation[index] : eg_choose_redundancy(
+            s_config.strategy, importance, current_link, s_config.fixed_redundancy, s_config.max_redundancy);
         uint16_t sequence = s_next_sequence++;
         uint64_t sample_start = esp_timer_get_time();
         uint8_t sent = 0;
@@ -150,31 +127,35 @@ static void run_trace(void) {
             size_t frame_len = eg_encode_data(&packet, frame, sizeof(frame));
             printf("TX_BEGIN,%u,%u,%u,%u\n", sample->id, sequence, copy, copies); fflush(stdout);
             int err = eg_e220_send(frame, frame_len, 1000);
-            if (err != ESP_OK) { printf("ERR,UART_SEND,%u,%u,%d\n", sequence, copy, err); continue; }
+            if (err != ESP_OK) { printf("ERR,UART_SEND,%u,%u,%d\n", sequence, copy, err); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
             sent++; s_sensor_tx_count++;
             printf("TX,%u,%u,%u,%u,%u\n", sample->id, sequence, copy, copies, (unsigned)frame_len);
             uint8_t ack_frame[EG_DATA_FRAME_SIZE];
             int received = eg_e220_receive(ack_frame, sizeof(ack_frame), s_config.ack_timeout_ms);
-            if (received == 0) { printf("TIMEOUT,%u,%u\n", sequence, copy); continue; }
-            if (received < 0) { printf("ERR,UART_RX,%u,%u\n", sequence, copy); continue; }
+            if (received == 0) { printf("TIMEOUT,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
+            if (received < 0) { printf("ERR,UART_RX,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
             eg_ack_packet_t ack;
-            if (!eg_decode_ack(ack_frame, received, &ack)) { printf("ERR,CRC,%u,%u\n", sequence, copy); continue; }
+            if (!eg_decode_ack(ack_frame, received, &ack)) { printf("ERR,CRC,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
             if (ack.node_id != CONFIG_EG_NODE_ID || ack.sequence != sequence || ack.sample_id != sample->id) {
-                printf("ERR,ACK_MISMATCH,%u,%u\n", sequence, copy); continue;
+                printf("ERR,ACK_MISMATCH,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue;
             }
             if (eg_fault_drop(&s_fault_table, true, sample->id, copy)) {
                 printf("ACK,%u,%u,%u,DROP\n", sequence, sample->id, copy);
+                eg_link_observe_copy(&s_link, false, copy == 0);
                 continue;
             }
             printf("ACK,%u,%u,%u,OK\n", sequence, sample->id, copy);
             s_sensor_ack_count++; ack_success = true;
+            eg_link_observe_copy(&s_link, true, copy == 0);
         }
         float latency_ms = (float)(esp_timer_get_time() - sample_start) / 1000.0f;
         printf("SAMPLE,%u,%s,%s,%.4f,%s,%u,%u,%u,%.3f\n", sample->id, truth_name(sample->truth), importance_name(importance), score,
                link_name(current_link), copies, sent, ack_success ? 1 : 0, latency_ms);
-        link_observe(ack_success);
         completed++;
     }
+    printf("COPY_STATS,%lu,%lu,%lu,%lu\n", (unsigned long)s_link.copy_attempts,
+           (unsigned long)s_link.copy_ack_success, (unsigned long)s_link.copy_failures,
+           (unsigned long)s_link.consecutive_copy_failures);
     printf("END,%u,%u,%u,%u\n", (unsigned)completed, (unsigned)s_sensor_tx_count, (unsigned)s_sensor_ack_count, s_stop_requested ? 1 : 0);
 }
 
@@ -275,10 +256,17 @@ static void gateway_rx_task(void *unused) {
 }
 #endif
 
-static bool parse_strategy(const char *text, strategy_t *out) {
-    if (!strcasecmp(text, "NO_PROTECTION")) *out = STRATEGY_NONE;
-    else if (!strcasecmp(text, "FIXED_REDUNDANCY")) *out = STRATEGY_FIXED;
-    else if (!strcasecmp(text, "EVENTGUARD")) *out = STRATEGY_EVENTGUARD;
+static bool parse_strategy(const char *text, eg_strategy_t *out) {
+    if (!strcasecmp(text, "NO_PROTECTION")) *out = EG_NO_PROTECTION;
+    else if (!strcasecmp(text, "FIXED_REDUNDANCY")) *out = EG_FIXED_REDUNDANCY;
+    else if (!strcasecmp(text, "EVENTGUARD")) *out = EG_EVENTGUARD;
+    else if (!strcasecmp(text, "FIXED_1")) *out = EG_FIXED_1;
+    else if (!strcasecmp(text, "FIXED_2")) *out = EG_FIXED_2;
+    else if (!strcasecmp(text, "FIXED_3")) *out = EG_FIXED_3;
+    else if (!strcasecmp(text, "IMPORTANCE_ONLY")) *out = EG_IMPORTANCE_ONLY;
+    else if (!strcasecmp(text, "LINK_ONLY")) *out = EG_LINK_ONLY;
+    else if (!strcasecmp(text, "UNIFORM_BUDGET")) *out = EG_UNIFORM_BUDGET;
+    else if (!strcasecmp(text, "RANDOM_BUDGET")) *out = EG_RANDOM_BUDGET;
     else return false;
     return true;
 }
@@ -287,21 +275,25 @@ static void handle_config(const char *line) {
     char strategy[24] = {0}, model[16] = {0};
     unsigned long seed = 0;
     unsigned int burst = 0, fixed = 2, maximum = 3, window = 12, fail_streak = 3, ack_timeout = CONFIG_EG_ACK_TIMEOUT_MS;
-    double rate = 0, degraded = 0.80, bad = 0.50, important = 0.85, critical = 2.40;
+    unsigned int copy_budget = 0;
+    double rate = 0, degraded = 0.80, bad = 0.50, important = 0.85, critical = 3.0;
     double scale_temp = 0.5, scale_humidity = 5.0, scale_light = 100.0, scale_soil = 8.0, alpha = 0.06;
-    int fields = sscanf(line, "%23[^,],%lf,%15[^,],%lu,%u,%u,%u,%u,%lf,%lf,%u,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%u",
+    int fields = sscanf(line, "%23[^,],%lf,%15[^,],%lu,%u,%u,%u,%u,%lf,%lf,%u,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%u,%u",
                         strategy, &rate, model, &seed, &burst, &fixed, &maximum, &window, &degraded, &bad,
-                        &fail_streak, &important, &critical, &scale_temp, &scale_humidity, &scale_light, &scale_soil, &alpha, &ack_timeout);
-    if (fields != 19) { printf("ERR,CONFIG_FIELDS,%d\n", fields); return; }
+                        &fail_streak, &important, &critical, &scale_temp, &scale_humidity, &scale_light, &scale_soil, &alpha, &ack_timeout, &copy_budget);
+    if (fields != 19 && fields != 20) { printf("ERR,CONFIG_FIELDS,%d\n", fields); return; }
     if (!parse_strategy(strategy, &s_config.strategy)) { printf("ERR,STRATEGY\n"); return; }
     if (rate < 0 || rate > 1 ||
         burst < 2 || burst > 5 || (burst != 2 && burst != 3 && burst != 5) || fixed < 1 || fixed > 3 ||
-        maximum < 1 || maximum > 3 || window < 1 || window > 12 || bad < 0 || degraded > 1 || bad > degraded ||
+        maximum < 1 || maximum > 3 || window < 1 || window > 24 || bad < 0 || degraded > 1 || bad > degraded ||
         fail_streak < 1 || fail_streak > 255 || important <= 0 || critical <= important ||
         scale_temp <= 0 || scale_humidity <= 0 || scale_light <= 0 || scale_soil <= 0 || alpha < 0 || alpha > 1 ||
         ack_timeout < 20 || ack_timeout > 2000) { printf("ERR,CONFIG_VALUE\n"); return; }
-    s_config.loss_rate = rate; s_config.burst = !strcasecmp(model, "BURST");
-    if (strcasecmp(model, "BURST") && strcasecmp(model, "RANDOM")) { printf("ERR,LOSS_MODEL\n"); return; }
+    s_config.loss_rate = rate;
+    if (!strcasecmp(model, "BURST") || !strcasecmp(model, "BURST_COPY")) s_config.loss_model = EG_BURST_COPY;
+    else if (!strcasecmp(model, "RANDOM") || !strcasecmp(model, "RANDOM_COPY")) s_config.loss_model = EG_RANDOM_COPY;
+    else if (!strcasecmp(model, "BURST_SAMPLE")) s_config.loss_model = EG_BURST_SAMPLE;
+    else { printf("ERR,LOSS_MODEL\n"); return; }
     s_config.seed = (uint32_t)seed; s_config.burst_length = (uint8_t)burst;
     s_config.fixed_redundancy = (uint8_t)fixed; s_config.max_redundancy = (uint8_t)maximum;
     s_config.link_window = (uint8_t)window; s_config.link_degraded_threshold = degraded;
@@ -311,6 +303,7 @@ static void handle_config(const char *line) {
     s_config.importance.scales[0] = (float)scale_temp; s_config.importance.scales[1] = (float)scale_humidity;
     s_config.importance.scales[2] = (float)scale_light; s_config.importance.scales[3] = (float)scale_soil;
     s_config.importance.baseline_alpha = (float)alpha; s_config.ack_timeout_ms = (uint16_t)ack_timeout;
+    s_config.data_copy_budget = copy_budget;
     printf("CONFIGURED,%s,%.4f,%s,%lu,%u,%u,%u\n", strategy, rate, model, seed, burst, fixed, maximum);
 }
 
@@ -360,8 +353,12 @@ static void handle_command(char *line) {
     }
     if (!strcasecmp(command, "SET_LOSS_MODEL")) {
         char *value = strtok_r(NULL, delimiters, &save);
-        if (!value || (strcasecmp(value, "RANDOM") && strcasecmp(value, "BURST"))) { printf("ERR,LOSS_MODEL\n"); return; }
-        s_config.burst = !strcasecmp(value, "BURST"); printf("SET_LOSS_MODEL,%s\n", value); return;
+        if (!value) { printf("ERR,LOSS_MODEL\n"); return; }
+        if (!strcasecmp(value, "RANDOM") || !strcasecmp(value, "RANDOM_COPY")) s_config.loss_model = EG_RANDOM_COPY;
+        else if (!strcasecmp(value, "BURST") || !strcasecmp(value, "BURST_COPY")) s_config.loss_model = EG_BURST_COPY;
+        else if (!strcasecmp(value, "BURST_SAMPLE")) s_config.loss_model = EG_BURST_SAMPLE;
+        else { printf("ERR,LOSS_MODEL\n"); return; }
+        printf("SET_LOSS_MODEL,%s\n", value); return;
     }
     if (!strcasecmp(command, "SET_BURST")) {
         char *value = strtok_r(NULL, delimiters, &save);
@@ -386,13 +383,14 @@ static void handle_command(char *line) {
         s_trace_expected = arg ? strtoul(arg, NULL, 10) : 0;
         if (s_trace_expected > MAX_TRACE) { printf("ERR,TRACE_TOO_LONG\n"); s_trace_expected = 0; return; }
         s_trace_loaded = 0;
-        eg_fault_build(&s_fault_table, s_config.seed, s_config.loss_rate, s_config.burst, s_config.burst_length, s_trace_expected);
+        eg_fault_build_model(&s_fault_table, s_config.seed, s_config.loss_rate, s_config.loss_model, s_config.burst_length, s_trace_expected);
         printf("TRACE_BEGIN,%u\n", (unsigned)s_trace_expected); return;
     }
     if (!strcasecmp(command, "S")) {
         unsigned int id, timestamp, truth; float t, h, light, soil;
         int fields = sscanf(save ? save : "", "%u,%u,%f,%f,%f,%f,%u", &id, &timestamp, &t, &h, &light, &soil, &truth);
-        if (fields != 7 || s_trace_loaded >= s_trace_expected || id >= MAX_TRACE || truth > 2) { printf("ERR,TRACE_ROW\n"); return; }
+        if (fields != 7 || s_trace_loaded >= s_trace_expected || id >= MAX_TRACE || truth > 2 ||
+            (s_trace_loaded && timestamp <= s_trace[s_trace_loaded - 1].timestamp_ms)) { printf("ERR,TRACE_ROW\n"); return; }
         s_trace[s_trace_loaded++] = (trace_item_t){.id = (uint16_t)id, .timestamp_ms = timestamp,
             .values = {t, h, light, soil}, .truth = (uint8_t)truth};
         return;
@@ -416,7 +414,7 @@ static void handle_command(char *line) {
         char *arg = strtok_r(NULL, delimiters, &save);
         s_gateway_expected = arg ? strtoul(arg, NULL, 10) : 0;
         if (s_gateway_expected > MAX_TRACE) { printf("ERR,TRACE_TOO_LONG\n"); s_gateway_expected = 0; return; }
-        eg_fault_build(&s_fault_table, s_config.seed, s_config.loss_rate, s_config.burst, s_config.burst_length, s_gateway_expected);
+        eg_fault_build_model(&s_fault_table, s_config.seed, s_config.loss_rate, s_config.loss_model, s_config.burst_length, s_gateway_expected);
         printf("TRACE_COUNT,%u\n", (unsigned)s_gateway_expected); return;
     }
     if (!strcasecmp(command, "ARM")) {

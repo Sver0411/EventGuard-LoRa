@@ -4,7 +4,7 @@ EventGuard-LoRa is a research prototype for testing whether event-aware redundan
 
 ## Research Question
 
-At equal or similar communication cost, does adapting packet redundancy to event importance and measured link state deliver more critical sensor events than no protection or fixed redundancy?
+At an exact DATA-copy budget under the same trace and channel calendar, does adapting redundancy to event importance and link state deliver more critical events than budget-matched policies?
 
 ## Motivation
 
@@ -23,19 +23,23 @@ Python reference trace ──serial control──> Sensor ESP32-S3 ──E220─
 
 ## EventGuard Method
 
-Importance is computed from normalized multivariate changes, change rate, simultaneous sensor changes, and persistence. NORMAL, IMPORTANT, and CRITICAL map to 1, 2, and 3 copies on a good link. A fixed-window ACK estimator raises redundancy under degraded link conditions, subject to the configured maximum. Thresholds and radio timing are in `configs/default.json`.
+Importance uses normalized change, rate, baseline deviation, co-change, persistence, and a directional hazard-level rule. The benchmark trace has a strict 10 s interval. NORMAL, IMPORTANT, and CRITICAL map to 1, 2, and 3 copies on a good link. Link state uses a sliding window of **first-copy accepted ACK outcomes** and consecutive first-copy failures; this avoids strategy-dependent observation bias. All physical copy attempts, ACK successes, and failures are counted separately. Thresholds and radio timing are in `configs/default.json`.
 
 ## Baselines
 
 - `NO_PROTECTION`: one DATA copy.
 - `FIXED_REDUNDANCY`: the same configured copy count for every sample (default 2).
 - `EVENTGUARD`: importance- and link-aware copies, capped at 3 by default.
+- `FIXED_1`, `FIXED_2`, `FIXED_3`: one, two, or three copies for every sample. `FIXED_1` equals `NO_PROTECTION`.
+- `IMPORTANCE_ONLY`: 1/2/3 copies from predicted importance, without link state.
+- `LINK_ONLY`: 1/2/3 copies from link state, without importance.
+- `UNIFORM_BUDGET`, `RANDOM_BUDGET`: exactly match EventGuard’s total DATA-copy count for each model/rate/seed/trace. Extra copies use round-robin or seeded hash order and do not read event labels or sensor values.
 
 ## Experimental Methodology
 
-The host reference experiment uses identical trace rows and deterministic loss plans keyed by seed, frame kind, logical sequence, and copy index. RANDOM loss uses independent keyed decisions. BURST loss places deterministic contiguous erasure runs of configured length in a fixed three-copy opportunity calendar. DATA and ACK loss are modeled independently. The physical runner sends actual E220 frames and applies the configured deterministic application-layer drop after reception; injected loss must not be described as measured RF loss.
+The host reference experiment uses identical trace rows and deterministic loss plans keyed by seed, frame kind, logical sequence, and copy index. `RANDOM_COPY` uses independent keyed decisions. `BURST_COPY` erases contiguous canonical copy opportunities. `BURST_SAMPLE` erases every copy opportunity in contiguous logical samples; this is the main burst model. DATA and ACK calendars are independent. Fairness audits report effective DATA/ACK drops and first-copy drops. The physical runner sends actual E220 frames and applies deterministic application-layer drops after reception; injected loss is not measured RF loss.
 
-`python tools/run_all_experiments.py --simulate` runs the complete software reference matrix without hardware. The default mode discovers both boards, builds and flashes role-specific ESP-IDF firmware, then runs the matrix over the real E220 link. Use `--dry-run` to inspect serial discovery without changing firmware.
+`python tools/run_all_experiments.py --simulate` runs the isolated 8,000-run pre-hardware evaluation (8 strategies × 5 rates × 2 models × 100 evaluation seeds) and writes `results/pre_hardware_v1/` plus `results/pre_hardware_validation.md`. Seeds 1–30 are reserved for calibration; seeds 31–130 are used only for evaluation. The non-simulation mode controls real boards; the new hardware matrix is gated by the host diagnosis and has **not** been run. Use `--dry-run` to inspect serial discovery without changing firmware.
 
 ## Hardware
 
@@ -52,13 +56,13 @@ The Sensor trace replay is the benchmark default. `REAL_SENSOR_MODE` is a separa
 
 `tools/run_all_experiments.py` identifies the two serial roles from `STATUS` responses or existing `TX`/`RX` identity logs, records chip MACs, builds and flashes the two firmware roles, streams the same trace to each run, captures raw serial logs, and invokes analysis. Role assignment is based on observed firmware output; the host never asks the user to swap ports.
 
-Results are written under `results/raw/`, `results/runs/`, `results/metrics/`, `results/plots/`, along with `summary.csv`, `summary.json`, and `report.md`. The analysis script also writes `docs/paper_outline.md` from the measured results.
+The original physical pilot outputs remain under `results/raw/`, `results/runs/`, `results/metrics/`, `results/plots/`, `summary.csv`, `summary.json`, and `report.md`. New host outputs are isolated in `results/pre_hardware_v1/`.
 
 ## Results
 
-### Completed E220 experiment
+### Pilot v0: completed E220 experiment
 
-The current summary contains 300 runs over the actual E220 link: 3 strategies × 5 configured loss rates (0%, 5%, 10%, 20%, 30%) × 2 loss models (random and burst length 3) × 10 seeds. Each run sent an 18-sample deterministic synthetic trace (8 NORMAL, 6 IMPORTANT, 4 CRITICAL). The same two boards and firmware image hashes were used throughout.
+The original, unmodified pilot summary contains 300 runs over the actual E220 link: 3 strategies × 5 configured loss rates (0%, 5%, 10%, 20%, 30%) × 2 loss models (random and burst length 3) × 10 seeds. Each run sent the **old** 18-sample trace, which contained duplicate timestamps (8 NORMAL, 6 IMPORTANT, 4 CRITICAL). The same two boards and firmware image hashes were used throughout. These results are archival and cannot validate the corrected design.
 
 | Strategy | Critical delivery mean | Overall delivery mean | Mean bytes/run | Mean latency (ms) |
 |---|---:|---:|---:|---:|
@@ -68,7 +72,7 @@ The current summary contains 300 runs over the actual E220 link: 3 strategies ×
 
 EventGuard's mean critical-event delivery was highest, with about 17.8% more transmitted bytes per run than fixed redundancy. At matched configured random-loss rates, EventGuard delivered 0.975 versus 0.875 critical events at 20% loss, and 0.950 versus 0.750 at 30%. In burst loss, it tied fixed redundancy at 20% (0.900 each) and was 0.050 higher at 30% (0.900 versus 0.850). This is a reliability/traffic tradeoff, not evidence of a general equal-cost advantage.
 
-The report includes paired tests across ten seeds per condition. The tests cover twenty comparisons and do not adjust for multiple comparisons, so their p-values are exploratory. The automated “similar cost” table may match runs with different configured loss rates; it is a traffic-budget comparison across conditions and should not be read as a same-channel-quality test.
+The pilot report includes paired tests across ten seeds per condition without multiplicity correction. Its historical “similar cost” table can compare different configured loss rates and is **not** evidence of equal-cost performance. New analyses use only matched model/rate/seed/trace/calendar and exact DATA-copy budgets.
 
 The radios carried real DATA and ACK frames, but configured drops were injected by software at the application layer after reception. The injected loss rates are not measured RF packet-error rates. The experiment used one pair of devices and a short synthetic trace; it did not evaluate controlled RF fading/interference, range, power consumption, or airtime.
 
@@ -82,7 +86,15 @@ The radios carried real DATA and ACK frames, but configured drops were injected 
 
 Plots: [critical delivery](results/plots/critical_delivery_vs_loss.png), [overall delivery](results/plots/overall_delivery_vs_loss.png), [critical delivery vs bytes](results/plots/critical_delivery_vs_overhead.png), [latency](results/plots/latency_vs_strategy.png).
 
-ESP-IDF reports list application binaries of 277,376 bytes (Sensor) and 248,016 bytes (Gateway), each within a 1 MiB app partition. Both builds use 16,383 of 16,384 bytes of available IRAM; the remaining 1 byte is a tight constraint for future firmware changes. The host test suite passed 14/14 tests.
+ESP-IDF reports list application binaries of 277,376 bytes (Sensor) and 248,016 bytes (Gateway), each within a 1 MiB app partition. Both builds use 16,383 of 16,384 bytes of available IRAM; the remaining 1 byte is a tight constraint for future firmware changes. The pilot host test suite passed 14/14 tests at the time; the current suite has expanded.
+
+### Pre-hardware validation v1
+
+The corrected host matrix completed 8,000 runs on evaluation seeds 31–130. All 25 host tests pass, including compiled C/Python parity for importance labels, copy selection, link transitions, loss decisions, and budget allocation. The new Sensor and Gateway firmware both compile with ESP-IDF; no boards were flashed or exercised in this round.
+
+CRITICAL classifier precision is 0.8125, recall 1.0000, and F1 0.8966; NORMAL→CRITICAL false rate is 0. The synthetic trace remains simple, so these are not field-accuracy claims. EventGuard has small exact-budget gains at some RANDOM_COPY loss rates, but `IMPORTANCE_ONLY` matches its CRITICAL delivery in **every** paired run while using no more DATA copies. Under `BURST_SAMPLE`, redundant copies do not improve DATA delivery. **The full hardware rerun gate is closed** pending a clearer benefit from the combined policy.
+
+Read the [diagnostic report](results/pre_hardware_validation.md), [per-run CSV](results/pre_hardware_v1/runs.csv), and [matched-budget plot](results/pre_hardware_v1/plots/critical_delivery_vs_exact_budget.png).
 
 ## Limitations
 
