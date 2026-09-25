@@ -1,0 +1,94 @@
+{
+  "experiment": "research_maturity_v1",
+  "generated_at_utc": "2026-09-25T18:44:36.383647+00:00",
+  "git_commit": "84fe41701597b250c315002eabaa99638ef17a95",
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_sha256": {
+    "eventguard/importance.py": "e8a32c16ce9f2a8c8e1d8aa9060162190ac1e567e8350b7a95b2d61bfe908d6d",
+    "eventguard/strategy.py": "d46893ca68b30481115a6ea02c40e331c1e6f4b09a16d3b58d3b9949876773f3",
+    "eventguard/faults.py": "db1995b06d165af614c16ec661919f017e6e788b92759b86095365294a97a660",
+    "eventguard/simulator.py": "7b86c81316dad083b2615f9b0b80e1fd03a8fdd1b52e0ea39608a2b60e57b4a6",
+    "eventguard/trace.py": "e05f9dbb5f9c250459cc37e89e56349030d10a774914ceb326b5c86c21009614",
+    "eventguard/model.py": "bedb4d63e841489d84cf68d763837172a5fd78bf03b8b4215e4b825b5a1f9daa",
+    "firmware/common/importance.c": "26342d36b2bbe9f9743ea797f073c64bbd64feeffac0d68f954d003849ce3e14",
+    "firmware/common/strategy.c": "cd9a17696ee2e76ce656ae00d5fb7fe4b11b6b14a4f95064f2bd874118a21061",
+    "firmware/common/faults.c": "8366d31c29a8f2f927c468ef9b43cb61c29a228e87929d0b2b3db17c96e59129",
+    "firmware/main/main.c": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d"
+  },
+  "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
+  "trace_samples_per_phase": 6,
+  "seed_range": {
+    "calibration": [
+      1,
+      30
+    ],
+    "evaluation": [
+      31,
+      130
+    ]
+  },
+  "loss_models": [
+    "RANDOM_COPY",
+    "BURST_SAMPLE"
+  ],
+  "loss_rates": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "strategy_list": [
+    "FIXED_1",
+    "FIXED_2",
+    "FIXED_3",
+    "IMPORTANCE_ONLY",
+    "LINK_ONLY",
+    "EVENTGUARD",
+    "UNIFORM_BUDGET",
+    "RANDOM_BUDGET"
+  ],
+  "parameters": {
+    "important_threshold": 0.85,
+    "critical_threshold": 3.0,
+    "importance_scales": {
+      "temperature": 0.5,
+      "humidity": 5.0,
+      "light": 100.0,
+      "soil_moisture": 8.0
+    },
+    "importance_baseline_alpha": 0.06,
+    "link_window": 12,
+    "link_degraded_threshold": 0.8,
+    "link_bad_threshold": 0.5,
+    "link_bad_fail_streak": 3,
+    "max_redundancy": 3,
+    "burst_length": 3,
+    "ack_timeout_ms": 1000,
+    "uart_baud": 9600
+  },
+  "source": "HOST_SIMULATION_ONLY",
+  "baseline_runs_sha256": "77955393864886011126fc689e1a90a2542454679900bcf225e359cea72148d8",
+  "analysis_script_sha256": "ff55f5377900616413c1ee306f1862cc9e3c8c9585de76899db396b58bd98077",
+  "baseline_run_count": 8000,
+  "sensitivity_design": {
+    "critical_threshold": [
+      2.0,
+      2.5,
+      3.0,
+      3.5,
+      4.0
+    ],
+    "link_window": [
+      8,
+      12,
+      16,
+      24
+    ],
+    "max_redundancy": [
+      2,
+      3
+    ]
+  },
+  "max_redundancy_4_status": "unsupported under frozen v1"
+}
