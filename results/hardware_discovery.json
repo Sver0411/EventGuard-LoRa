@@ -1,0 +1,31 @@
+{
+  "sensor_port": "/dev/cu.usbmodem101",
+  "gateway_port": "/dev/cu.usbmodem1101",
+  "candidates": [
+    {
+      "device": "/dev/cu.usbmodem1101",
+      "description": "USB JTAG/serial debug unit",
+      "hwid": "USB VID:PID=303A:1001 SER=C0:4E:30:31:42:9C LOCATION=1-1"
+    },
+    {
+      "device": "/dev/cu.usbmodem101",
+      "description": "USB JTAG/serial debug unit",
+      "hwid": "USB VID:PID=303A:1001 SER=80:65:99:A7:A8:A4 LOCATION=0-1"
+    }
+  ],
+  "discovery_lines": {
+    "/dev/cu.usbmodem1101": [
+      "ROLE,GATEWAY,2,17,16",
+      "E220_READY"
+    ],
+    "/dev/cu.usbmodem101": [
+      "ROLE,SENSOR,1,17,16",
+      "E220_READY"
+    ]
+  },
+  "identified_at": "2026-09-25T15:24:16.657007+00:00",
+  "chip_macs": {
+    "sensor": "80:65:99:a7:a8:a4",
+    "gateway": "c0:4e:30:31:42:9c"
+  }
+}

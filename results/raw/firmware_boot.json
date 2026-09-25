@@ -1,0 +1,16 @@
+{
+  "sensor": [
+    "I (809) e220: E220 profile verified address=0000 reg0=62 channel=17",
+    "E220_READY",
+    "ROLE,SENSOR,80:65:99:a7:a8:a4",
+    "ROLE,SENSOR,1,17,16",
+    "E220_READY"
+  ],
+  "gateway": [
+    "I (801) e220: E220 profile verified address=0000 reg0=62 channel=17",
+    "E220_READY",
+    "ROLE,GATEWAY,c0:4e:30:31:42:9c",
+    "ROLE,GATEWAY,2,17,16",
+    "E220_READY"
+  ]
+}

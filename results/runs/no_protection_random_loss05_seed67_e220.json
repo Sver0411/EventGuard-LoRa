@@ -1,0 +1,362 @@
+{
+  "run": {
+    "run_id": "no_protection_random_loss05_seed67_e220",
+    "strategy": "NO_PROTECTION",
+    "loss_rate": 0.05,
+    "loss_model": "RANDOM",
+    "seed": 67,
+    "trace_sha256": "2d48acff96e0326bf8076422f46d3122c6fcdb34e3dce0875aa0b6d0c25d8b09",
+    "burst_length": 3,
+    "source": "REAL_E220_WITH_APPLICATION_LAYER_INJECTION",
+    "radio": "E220-400T22D",
+    "sample_count": 18,
+    "start_time": "2026-09-25T15:30:03.985493+00:00",
+    "duration_s": 13.397958792047575,
+    "firmware_commit": "uncommitted",
+    "sensor_mac": "80:65:99:a7:a8:a4",
+    "gateway_mac": "c0:4e:30:31:42:9c",
+    "firmware_images_sha256": {
+      "sensor": "43fc3d856a8674ab75587990c60c63c0326cd61935db4bfd093ec650f764d533",
+      "gateway": "f6e10d90e8003100a8e76537dfef74e281fadffd7096e97d8c78bcdcff07863c"
+    },
+    "logical_packets": 18,
+    "delivered_packets": 18,
+    "lost_logical_packets": 0,
+    "sequence_gaps": 0,
+    "out_of_order_packets": 0,
+    "overall_delivery_ratio": 1.0,
+    "critical_event_delivery_ratio": 1.0,
+    "important_event_delivery_ratio": 1.0,
+    "normal_delivery_ratio": 1.0,
+    "critical_event_miss_rate": 0.0,
+    "physical_data_transmissions": 18,
+    "physical_data_received": 18,
+    "total_bytes_transmitted": 702,
+    "data_bytes_transmitted": 468,
+    "ack_bytes_transmitted": 234,
+    "redundancy_overhead": 0.0,
+    "ack_count": 18,
+    "ack_received": 18,
+    "mean_delivery_latency_ms": 415.10805322064294,
+    "p50_delivery_latency_ms": 415.18554207868874,
+    "p95_delivery_latency_ms": 415.48433410935104,
+    "p99_delivery_latency_ms": 415.6418750062585,
+    "retransmissions": 0,
+    "duplicate_packets": 0,
+    "crc_errors": 0,
+    "invalid_packets": 0,
+    "data_injected_drops": 0,
+    "ack_injected_drops": 1,
+    "communication_cost_per_delivered_critical_event": 175.5,
+    "truth_counts": {
+      "NORMAL": 8,
+      "IMPORTANT": 6,
+      "CRITICAL": 4
+    },
+    "truth_delivered": {
+      "NORMAL": 8,
+      "IMPORTANT": 6,
+      "CRITICAL": 4
+    }
+  },
+  "trace": [
+    {
+      "sample_id": 0,
+      "timestamp_ms": 0,
+      "temperature": 23.98,
+      "humidity": 48.05,
+      "light": 120.9,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE"
+    },
+    {
+      "sample_id": 1,
+      "timestamp_ms": 120000,
+      "temperature": 24.02,
+      "humidity": 47.99,
+      "light": 120.2,
+      "soil_moisture": 62.1,
+      "truth": "NORMAL",
+      "phase": "STABLE"
+    },
+    {
+      "sample_id": 2,
+      "timestamp_ms": 120000,
+      "temperature": 23.99,
+      "humidity": 47.91,
+      "light": 119.4,
+      "soil_moisture": 61.9,
+      "truth": "IMPORTANT",
+      "phase": "SLOW_CHANGE"
+    },
+    {
+      "sample_id": 3,
+      "timestamp_ms": 180000,
+      "temperature": 28.0,
+      "humidity": 53.92,
+      "light": 124.2,
+      "soil_moisture": 60.0,
+      "truth": "IMPORTANT",
+      "phase": "SLOW_CHANGE"
+    },
+    {
+      "sample_id": 4,
+      "timestamp_ms": 180000,
+      "temperature": 28.0,
+      "humidity": 54.08,
+      "light": 124.0,
+      "soil_moisture": 60.0,
+      "truth": "IMPORTANT",
+      "phase": "RAPID_CHANGE"
+    },
+    {
+      "sample_id": 5,
+      "timestamp_ms": 200000,
+      "temperature": 29.52,
+      "humidity": 56.05,
+      "light": 949.3,
+      "soil_moisture": 58.9,
+      "truth": "IMPORTANT",
+      "phase": "RAPID_CHANGE"
+    },
+    {
+      "sample_id": 6,
+      "timestamp_ms": 200000,
+      "temperature": 29.49,
+      "humidity": 55.9,
+      "light": 950.9,
+      "soil_moisture": 59.1,
+      "truth": "NORMAL",
+      "phase": "STABLE_WAIT"
+    },
+    {
+      "sample_id": 7,
+      "timestamp_ms": 240000,
+      "temperature": 24.02,
+      "humidity": 48.03,
+      "light": 121.0,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE_WAIT"
+    },
+    {
+      "sample_id": 8,
+      "timestamp_ms": 260000,
+      "temperature": 24.18,
+      "humidity": 48.97,
+      "light": 121.9,
+      "soil_moisture": 24.1,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_SOIL"
+    },
+    {
+      "sample_id": 9,
+      "timestamp_ms": 260000,
+      "temperature": 24.18,
+      "humidity": 49.07,
+      "light": 121.7,
+      "soil_moisture": 23.9,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_SOIL"
+    },
+    {
+      "sample_id": 10,
+      "timestamp_ms": 260000,
+      "temperature": 24.21,
+      "humidity": 49.07,
+      "light": 122.2,
+      "soil_moisture": 24.0,
+      "truth": "NORMAL",
+      "phase": "RECOVERY_SOIL"
+    },
+    {
+      "sample_id": 11,
+      "timestamp_ms": 300000,
+      "temperature": 24.0,
+      "humidity": 47.98,
+      "light": 119.0,
+      "soil_moisture": 62.1,
+      "truth": "NORMAL",
+      "phase": "RECOVERY_SOIL"
+    },
+    {
+      "sample_id": 12,
+      "timestamp_ms": 320000,
+      "temperature": 31.0,
+      "humidity": 69.93,
+      "light": 1099.4,
+      "soil_moisture": 30.0,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_MULTI"
+    },
+    {
+      "sample_id": 13,
+      "timestamp_ms": 320000,
+      "temperature": 31.01,
+      "humidity": 70.09,
+      "light": 1099.9,
+      "soil_moisture": 30.0,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_MULTI"
+    },
+    {
+      "sample_id": 14,
+      "timestamp_ms": 320000,
+      "temperature": 31.01,
+      "humidity": 69.91,
+      "light": 1100.9,
+      "soil_moisture": 30.0,
+      "truth": "IMPORTANT",
+      "phase": "RECOVERY"
+    },
+    {
+      "sample_id": 15,
+      "timestamp_ms": 360000,
+      "temperature": 24.02,
+      "humidity": 48.08,
+      "light": 120.7,
+      "soil_moisture": 61.9,
+      "truth": "IMPORTANT",
+      "phase": "RECOVERY"
+    },
+    {
+      "sample_id": 16,
+      "timestamp_ms": 360000,
+      "temperature": 24.0,
+      "humidity": 48.0,
+      "light": 119.6,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE_FINAL"
+    },
+    {
+      "sample_id": 17,
+      "timestamp_ms": 420000,
+      "temperature": 23.99,
+      "humidity": 48.02,
+      "light": 120.4,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE_FINAL"
+    }
+  ],
+  "config": {
+    "protocol_version": 1,
+    "node_id": 1,
+    "gateway_id": 2,
+    "sample_period_ms": 1000,
+    "trace_samples_per_phase": 2,
+    "strategies": [
+      "NO_PROTECTION",
+      "FIXED_REDUNDANCY",
+      "EVENTGUARD"
+    ],
+    "loss_rates": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "loss_models": [
+      "RANDOM",
+      "BURST"
+    ],
+    "seeds": [
+      11,
+      23,
+      37,
+      41,
+      53,
+      67,
+      71,
+      83,
+      97,
+      101
+    ],
+    "fixed_redundancy": 2,
+    "max_redundancy": 3,
+    "burst_length": 3,
+    "burst_lengths": [
+      2,
+      3,
+      5
+    ],
+    "link_window": 12,
+    "link_degraded_threshold": 0.8,
+    "link_bad_threshold": 0.5,
+    "link_bad_fail_streak": 3,
+    "importance_thresholds": {
+      "important": 0.85,
+      "critical": 2.4
+    },
+    "importance_scales": {
+      "temperature": 0.5,
+      "humidity": 5.0,
+      "light": 100.0,
+      "soil_moisture": 8.0
+    },
+    "importance_baseline_alpha": 0.06,
+    "data_timeout_ms": 180,
+    "ack_timeout_ms": 1000,
+    "uart_baud": 9600,
+    "flash_size_mb": 16,
+    "e220": {
+      "uart_num": 1,
+      "tx_gpio": 17,
+      "rx_gpio": 16,
+      "aux_gpio": 15,
+      "m0_gpio": 13,
+      "m1_gpio": 14,
+      "baud": 9600,
+      "address": 0,
+      "reg0": 98,
+      "channel": 23
+    },
+    "sensor_pins": {
+      "i2c_sda_gpio": 8,
+      "i2c_scl_gpio": 9,
+      "soil_adc_gpio": 4
+    },
+    "oled_enabled": false,
+    "trace_mode": "TRACE_MODE"
+  },
+  "provenance": {
+    "source": "REAL_E220_WITH_APPLICATION_LAYER_INJECTION",
+    "physical_radio": true,
+    "application_layer_injection": true,
+    "synthetic_trace": true,
+    "hardware": {
+      "sensor_port": "/dev/cu.usbmodem101",
+      "gateway_port": "/dev/cu.usbmodem1101",
+      "candidates": [
+        {
+          "device": "/dev/cu.usbmodem1101",
+          "description": "USB JTAG/serial debug unit",
+          "hwid": "USB VID:PID=303A:1001 SER=C0:4E:30:31:42:9C LOCATION=1-1"
+        },
+        {
+          "device": "/dev/cu.usbmodem101",
+          "description": "USB JTAG/serial debug unit",
+          "hwid": "USB VID:PID=303A:1001 SER=80:65:99:A7:A8:A4 LOCATION=0-1"
+        }
+      ],
+      "discovery_lines": {
+        "/dev/cu.usbmodem1101": [
+          "ROLE,GATEWAY,2,17,16",
+          "E220_READY"
+        ],
+        "/dev/cu.usbmodem101": [
+          "ROLE,SENSOR,1,17,16",
+          "E220_READY"
+        ]
+      },
+      "identified_at": "2026-09-25T15:24:16.657007+00:00",
+      "chip_macs": {
+        "sensor": "80:65:99:a7:a8:a4",
+        "gateway": "c0:4e:30:31:42:9c"
+      }
+    }
+  }
+}

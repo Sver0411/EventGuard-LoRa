@@ -1,0 +1,1057 @@
+{
+  "run_id": "eventguard_random_loss00_seed67_e220",
+  "sensor_port": "/dev/cu.usbmodem101",
+  "gateway_port": "/dev/cu.usbmodem1101",
+  "sensor": [
+    {
+      "host_monotonic": 1301947.65247325,
+      "line": "EVT,0,0,NORMAL,0.0000,GOOD,1"
+    },
+    {
+      "host_monotonic": 1301947.652602041,
+      "line": "TX_BEGIN,0,0,0,1"
+    },
+    {
+      "host_monotonic": 1301947.6832935,
+      "line": "TX,0,0,0,1,26"
+    },
+    {
+      "host_monotonic": 1301948.393975791,
+      "line": "ACK,0,0,0,OK"
+    },
+    {
+      "host_monotonic": 1301948.394466916,
+      "line": "SAMPLE,0,NORMAL,NORMAL,0.0000,GOOD,1,1,1,741.800"
+    },
+    {
+      "host_monotonic": 1301948.394676041,
+      "line": "EVT,1,0,NORMAL,0.0799,GOOD,1"
+    },
+    {
+      "host_monotonic": 1301948.39482325,
+      "line": "TX_BEGIN,1,1,0,1"
+    },
+    {
+      "host_monotonic": 1301948.425186166,
+      "line": "TX,1,1,0,1,26"
+    },
+    {
+      "host_monotonic": 1301949.136313791,
+      "line": "ACK,1,1,0,OK"
+    },
+    {
+      "host_monotonic": 1301949.136787833,
+      "line": "SAMPLE,1,NORMAL,NORMAL,0.0799,GOOD,1,1,1,741.884"
+    },
+    {
+      "host_monotonic": 1301949.137007291,
+      "line": "EVT,2,1,IMPORTANT,0.2410,GOOD,1"
+    },
+    {
+      "host_monotonic": 1301949.137126833,
+      "line": "TX_BEGIN,2,2,0,1"
+    },
+    {
+      "host_monotonic": 1301949.167530333,
+      "line": "TX,2,2,0,1,26"
+    },
+    {
+      "host_monotonic": 1301949.878660791,
+      "line": "ACK,2,2,0,OK"
+    },
+    {
+      "host_monotonic": 1301949.879169666,
+      "line": "SAMPLE,2,IMPORTANT,NORMAL,0.2410,GOOD,1,1,1,741.924"
+    },
+    {
+      "host_monotonic": 1301949.879388791,
+      "line": "EVT,3,1,IMPORTANT,4.7174,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301949.879508541,
+      "line": "TX_BEGIN,3,3,0,3"
+    },
+    {
+      "host_monotonic": 1301949.909841875,
+      "line": "TX,3,3,0,3,26"
+    },
+    {
+      "host_monotonic": 1301950.620723791,
+      "line": "ACK,3,3,0,OK"
+    },
+    {
+      "host_monotonic": 1301950.620888458,
+      "line": "TX_BEGIN,3,3,1,3"
+    },
+    {
+      "host_monotonic": 1301950.651172166,
+      "line": "TX,3,3,1,3,26"
+    },
+    {
+      "host_monotonic": 1301951.361512041,
+      "line": "ACK,3,3,1,OK"
+    },
+    {
+      "host_monotonic": 1301951.361674,
+      "line": "TX_BEGIN,3,3,2,3"
+    },
+    {
+      "host_monotonic": 1301951.392023875,
+      "line": "TX,3,3,2,3,26"
+    },
+    {
+      "host_monotonic": 1301952.103045958,
+      "line": "ACK,3,3,2,OK"
+    },
+    {
+      "host_monotonic": 1301952.1035805,
+      "line": "SAMPLE,3,IMPORTANT,CRITICAL,4.7174,GOOD,3,3,1,2223.953"
+    },
+    {
+      "host_monotonic": 1301952.103817666,
+      "line": "EVT,4,1,IMPORTANT,1.5424,GOOD,2"
+    },
+    {
+      "host_monotonic": 1301952.103948416,
+      "line": "TX_BEGIN,4,4,0,2"
+    },
+    {
+      "host_monotonic": 1301952.134200875,
+      "line": "TX,4,4,0,2,26"
+    },
+    {
+      "host_monotonic": 1301952.846557625,
+      "line": "ACK,4,4,0,OK"
+    },
+    {
+      "host_monotonic": 1301952.846631291,
+      "line": "TX_BEGIN,4,4,1,2"
+    },
+    {
+      "host_monotonic": 1301952.877014375,
+      "line": "TX,4,4,1,2,26"
+    },
+    {
+      "host_monotonic": 1301953.588936958,
+      "line": "ACK,4,4,1,OK"
+    },
+    {
+      "host_monotonic": 1301953.589480958,
+      "line": "SAMPLE,4,IMPORTANT,IMPORTANT,1.5424,GOOD,2,2,1,1485.604"
+    },
+    {
+      "host_monotonic": 1301953.589740083,
+      "line": "EVT,5,1,IMPORTANT,7.5618,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301953.589809958,
+      "line": "TX_BEGIN,5,5,0,3"
+    },
+    {
+      "host_monotonic": 1301953.620112,
+      "line": "TX,5,5,0,3,26"
+    },
+    {
+      "host_monotonic": 1301954.332914083,
+      "line": "ACK,5,5,0,OK"
+    },
+    {
+      "host_monotonic": 1301954.33311275,
+      "line": "TX_BEGIN,5,5,1,3"
+    },
+    {
+      "host_monotonic": 1301954.391540416,
+      "line": "TX,5,5,1,3,26"
+    },
+    {
+      "host_monotonic": 1301955.073891083,
+      "line": "ACK,5,5,1,OK"
+    },
+    {
+      "host_monotonic": 1301955.074018458,
+      "line": "TX_BEGIN,5,5,2,3"
+    },
+    {
+      "host_monotonic": 1301955.104439416,
+      "line": "TX,5,5,2,3,26"
+    },
+    {
+      "host_monotonic": 1301955.81650925,
+      "line": "ACK,5,5,2,OK"
+    },
+    {
+      "host_monotonic": 1301955.817074791,
+      "line": "SAMPLE,5,IMPORTANT,CRITICAL,7.5618,GOOD,3,3,1,2226.834"
+    },
+    {
+      "host_monotonic": 1301955.817343041,
+      "line": "EVT,6,0,NORMAL,3.0523,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301955.817505166,
+      "line": "TX_BEGIN,6,6,0,3"
+    },
+    {
+      "host_monotonic": 1301955.848113,
+      "line": "TX,6,6,0,3,26"
+    },
+    {
+      "host_monotonic": 1301956.559891875,
+      "line": "ACK,6,6,0,OK"
+    },
+    {
+      "host_monotonic": 1301956.560021333,
+      "line": "TX_BEGIN,6,6,1,3"
+    },
+    {
+      "host_monotonic": 1301956.590244083,
+      "line": "TX,6,6,1,3,26"
+    },
+    {
+      "host_monotonic": 1301957.301116041,
+      "line": "ACK,6,6,1,OK"
+    },
+    {
+      "host_monotonic": 1301957.301241708,
+      "line": "TX_BEGIN,6,6,2,3"
+    },
+    {
+      "host_monotonic": 1301957.333549416,
+      "line": "TX,6,6,2,3,26"
+    },
+    {
+      "host_monotonic": 1301958.042606333,
+      "line": "ACK,6,6,2,OK"
+    },
+    {
+      "host_monotonic": 1301958.043062958,
+      "line": "SAMPLE,6,NORMAL,CRITICAL,3.0523,GOOD,3,3,1,2225.891"
+    },
+    {
+      "host_monotonic": 1301958.043264291,
+      "line": "EVT,7,0,NORMAL,6.0878,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301958.043385041,
+      "line": "TX_BEGIN,7,7,0,3"
+    },
+    {
+      "host_monotonic": 1301958.073755333,
+      "line": "TX,7,7,0,3,26"
+    },
+    {
+      "host_monotonic": 1301958.785127416,
+      "line": "ACK,7,7,0,OK"
+    },
+    {
+      "host_monotonic": 1301958.785293541,
+      "line": "TX_BEGIN,7,7,1,3"
+    },
+    {
+      "host_monotonic": 1301958.815873375,
+      "line": "TX,7,7,1,3,26"
+    },
+    {
+      "host_monotonic": 1301959.527526416,
+      "line": "ACK,7,7,1,OK"
+    },
+    {
+      "host_monotonic": 1301959.527691291,
+      "line": "TX_BEGIN,7,7,2,3"
+    },
+    {
+      "host_monotonic": 1301959.558018666,
+      "line": "TX,7,7,2,3,26"
+    },
+    {
+      "host_monotonic": 1301960.26894075,
+      "line": "ACK,7,7,2,OK"
+    },
+    {
+      "host_monotonic": 1301960.2697065,
+      "line": "SAMPLE,7,NORMAL,CRITICAL,6.0878,GOOD,3,3,1,2225.975"
+    },
+    {
+      "host_monotonic": 1301960.269911958,
+      "line": "EVT,8,2,CRITICAL,4.8323,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301960.2700155,
+      "line": "TX_BEGIN,8,8,0,3"
+    },
+    {
+      "host_monotonic": 1301960.300122791,
+      "line": "TX,8,8,0,3,26"
+    },
+    {
+      "host_monotonic": 1301961.012359,
+      "line": "ACK,8,8,0,OK"
+    },
+    {
+      "host_monotonic": 1301961.01248575,
+      "line": "TX_BEGIN,8,8,1,3"
+    },
+    {
+      "host_monotonic": 1301961.042936458,
+      "line": "TX,8,8,1,3,26"
+    },
+    {
+      "host_monotonic": 1301961.753685291,
+      "line": "ACK,8,8,1,OK"
+    },
+    {
+      "host_monotonic": 1301961.753759166,
+      "line": "TX_BEGIN,8,8,2,3"
+    },
+    {
+      "host_monotonic": 1301961.784172416,
+      "line": "TX,8,8,2,3,26"
+    },
+    {
+      "host_monotonic": 1301962.496190875,
+      "line": "ACK,8,8,2,OK"
+    },
+    {
+      "host_monotonic": 1301962.496715125,
+      "line": "SAMPLE,8,CRITICAL,CRITICAL,4.8323,GOOD,3,3,1,2226.863"
+    },
+    {
+      "host_monotonic": 1301962.496898666,
+      "line": "EVT,9,2,CRITICAL,1.7488,GOOD,2"
+    },
+    {
+      "host_monotonic": 1301962.49700125,
+      "line": "TX_BEGIN,9,9,0,2"
+    },
+    {
+      "host_monotonic": 1301962.527445583,
+      "line": "TX,9,9,0,2,26"
+    },
+    {
+      "host_monotonic": 1301963.238773083,
+      "line": "ACK,9,9,0,OK"
+    },
+    {
+      "host_monotonic": 1301963.238939875,
+      "line": "TX_BEGIN,9,9,1,2"
+    },
+    {
+      "host_monotonic": 1301963.269169166,
+      "line": "TX,9,9,1,2,26"
+    },
+    {
+      "host_monotonic": 1301963.981542125,
+      "line": "ACK,9,9,1,OK"
+    },
+    {
+      "host_monotonic": 1301963.982324791,
+      "line": "SAMPLE,9,CRITICAL,IMPORTANT,1.7488,GOOD,2,2,1,1484.314"
+    },
+    {
+      "host_monotonic": 1301963.982536458,
+      "line": "EVT,10,0,NORMAL,1.8276,GOOD,2"
+    },
+    {
+      "host_monotonic": 1301963.982670083,
+      "line": "TX_BEGIN,10,10,0,2"
+    },
+    {
+      "host_monotonic": 1301964.012230708,
+      "line": "TX,10,10,0,2,26"
+    },
+    {
+      "host_monotonic": 1301964.724373833,
+      "line": "ACK,10,10,0,OK"
+    },
+    {
+      "host_monotonic": 1301964.724561,
+      "line": "TX_BEGIN,10,10,1,2"
+    },
+    {
+      "host_monotonic": 1301964.754837333,
+      "line": "TX,10,10,1,2,26"
+    },
+    {
+      "host_monotonic": 1301965.467561458,
+      "line": "ACK,10,10,1,OK"
+    },
+    {
+      "host_monotonic": 1301965.468225375,
+      "line": "SAMPLE,10,NORMAL,IMPORTANT,1.8276,GOOD,2,2,1,1485.332"
+    },
+    {
+      "host_monotonic": 1301965.4684665,
+      "line": "EVT,11,0,NORMAL,3.5540,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301965.468600583,
+      "line": "TX_BEGIN,11,11,0,3"
+    },
+    {
+      "host_monotonic": 1301965.497881916,
+      "line": "TX,11,11,0,3,26"
+    },
+    {
+      "host_monotonic": 1301966.209242916,
+      "line": "ACK,11,11,0,OK"
+    },
+    {
+      "host_monotonic": 1301966.2093815,
+      "line": "TX_BEGIN,11,11,1,3"
+    },
+    {
+      "host_monotonic": 1301966.239764208,
+      "line": "TX,11,11,1,3,26"
+    },
+    {
+      "host_monotonic": 1301966.951753375,
+      "line": "ACK,11,11,1,OK"
+    },
+    {
+      "host_monotonic": 1301966.951920458,
+      "line": "TX_BEGIN,11,11,2,3"
+    },
+    {
+      "host_monotonic": 1301966.982242166,
+      "line": "TX,11,11,2,3,26"
+    },
+    {
+      "host_monotonic": 1301967.694282166,
+      "line": "ACK,11,11,2,OK"
+    },
+    {
+      "host_monotonic": 1301967.694708041,
+      "line": "SAMPLE,11,NORMAL,CRITICAL,3.5540,GOOD,3,3,1,2226.976"
+    },
+    {
+      "host_monotonic": 1301967.694937208,
+      "line": "EVT,12,2,CRITICAL,14.0000,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301967.695071041,
+      "line": "TX_BEGIN,12,12,0,3"
+    },
+    {
+      "host_monotonic": 1301967.725416708,
+      "line": "TX,12,12,0,3,26"
+    },
+    {
+      "host_monotonic": 1301968.437518,
+      "line": "ACK,12,12,0,OK"
+    },
+    {
+      "host_monotonic": 1301968.437661375,
+      "line": "TX_BEGIN,12,12,1,3"
+    },
+    {
+      "host_monotonic": 1301968.467826916,
+      "line": "TX,12,12,1,3,26"
+    },
+    {
+      "host_monotonic": 1301969.179183166,
+      "line": "ACK,12,12,1,OK"
+    },
+    {
+      "host_monotonic": 1301969.179321625,
+      "line": "TX_BEGIN,12,12,2,3"
+    },
+    {
+      "host_monotonic": 1301969.209748375,
+      "line": "TX,12,12,2,3,26"
+    },
+    {
+      "host_monotonic": 1301969.92025825,
+      "line": "ACK,12,12,2,OK"
+    },
+    {
+      "host_monotonic": 1301969.920832583,
+      "line": "SAMPLE,12,CRITICAL,CRITICAL,14.0000,GOOD,3,3,1,2225.750"
+    },
+    {
+      "host_monotonic": 1301969.921089125,
+      "line": "EVT,13,2,CRITICAL,4.6168,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301969.921223166,
+      "line": "TX_BEGIN,13,13,0,3"
+    },
+    {
+      "host_monotonic": 1301969.951491958,
+      "line": "TX,13,13,0,3,26"
+    },
+    {
+      "host_monotonic": 1301970.662767875,
+      "line": "ACK,13,13,0,OK"
+    },
+    {
+      "host_monotonic": 1301970.66290725,
+      "line": "TX_BEGIN,13,13,1,3"
+    },
+    {
+      "host_monotonic": 1301970.693233083,
+      "line": "TX,13,13,1,3,26"
+    },
+    {
+      "host_monotonic": 1301971.404268041,
+      "line": "ACK,13,13,1,OK"
+    },
+    {
+      "host_monotonic": 1301971.404412833,
+      "line": "TX_BEGIN,13,13,2,3"
+    },
+    {
+      "host_monotonic": 1301971.434640625,
+      "line": "TX,13,13,2,3,26"
+    },
+    {
+      "host_monotonic": 1301972.1462765,
+      "line": "ACK,13,13,2,OK"
+    },
+    {
+      "host_monotonic": 1301972.146803,
+      "line": "SAMPLE,13,CRITICAL,CRITICAL,4.6168,GOOD,3,3,1,2225.532"
+    },
+    {
+      "host_monotonic": 1301972.147049208,
+      "line": "EVT,14,1,IMPORTANT,4.5943,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301972.147184166,
+      "line": "TX_BEGIN,14,14,0,3"
+    },
+    {
+      "host_monotonic": 1301972.177496833,
+      "line": "TX,14,14,0,3,26"
+    },
+    {
+      "host_monotonic": 1301972.889218541,
+      "line": "ACK,14,14,0,OK"
+    },
+    {
+      "host_monotonic": 1301972.889369375,
+      "line": "TX_BEGIN,14,14,1,3"
+    },
+    {
+      "host_monotonic": 1301972.919749416,
+      "line": "TX,14,14,1,3,26"
+    },
+    {
+      "host_monotonic": 1301973.631719458,
+      "line": "ACK,14,14,1,OK"
+    },
+    {
+      "host_monotonic": 1301973.631931458,
+      "line": "TX_BEGIN,14,14,2,3"
+    },
+    {
+      "host_monotonic": 1301973.662215833,
+      "line": "TX,14,14,2,3,26"
+    },
+    {
+      "host_monotonic": 1301974.373092458,
+      "line": "ACK,14,14,2,OK"
+    },
+    {
+      "host_monotonic": 1301974.373684208,
+      "line": "SAMPLE,14,IMPORTANT,CRITICAL,4.5943,GOOD,3,3,1,2226.464"
+    },
+    {
+      "host_monotonic": 1301974.373910916,
+      "line": "EVT,15,1,IMPORTANT,9.2177,GOOD,3"
+    },
+    {
+      "host_monotonic": 1301974.374126,
+      "line": "TX_BEGIN,15,15,0,3"
+    },
+    {
+      "host_monotonic": 1301974.404396458,
+      "line": "TX,15,15,0,3,26"
+    },
+    {
+      "host_monotonic": 1301975.116126791,
+      "line": "ACK,15,15,0,OK"
+    },
+    {
+      "host_monotonic": 1301975.116855458,
+      "line": "TX_BEGIN,15,15,1,3"
+    },
+    {
+      "host_monotonic": 1301975.146080083,
+      "line": "TX,15,15,1,3,26"
+    },
+    {
+      "host_monotonic": 1301975.858159291,
+      "line": "ACK,15,15,1,OK"
+    },
+    {
+      "host_monotonic": 1301975.858373541,
+      "line": "TX_BEGIN,15,15,2,3"
+    },
+    {
+      "host_monotonic": 1301975.888575125,
+      "line": "TX,15,15,2,3,26"
+    },
+    {
+      "host_monotonic": 1301976.601147208,
+      "line": "ACK,15,15,2,OK"
+    },
+    {
+      "host_monotonic": 1301976.601530041,
+      "line": "SAMPLE,15,IMPORTANT,CRITICAL,9.2177,GOOD,3,3,1,2227.050"
+    },
+    {
+      "host_monotonic": 1301976.601735208,
+      "line": "EVT,16,0,NORMAL,0.6764,GOOD,1"
+    },
+    {
+      "host_monotonic": 1301976.601867333,
+      "line": "TX_BEGIN,16,16,0,1"
+    },
+    {
+      "host_monotonic": 1301976.63181125,
+      "line": "TX,16,16,0,1,26"
+    },
+    {
+      "host_monotonic": 1301977.344061583,
+      "line": "ACK,16,16,0,OK"
+    },
+    {
+      "host_monotonic": 1301977.344525583,
+      "line": "SAMPLE,16,NORMAL,NORMAL,0.6764,GOOD,1,1,1,743.073"
+    },
+    {
+      "host_monotonic": 1301977.344732291,
+      "line": "EVT,17,0,NORMAL,0.0201,GOOD,1"
+    },
+    {
+      "host_monotonic": 1301977.344865125,
+      "line": "TX_BEGIN,17,17,0,1"
+    },
+    {
+      "host_monotonic": 1301977.375238333,
+      "line": "TX,17,17,0,1,26"
+    },
+    {
+      "host_monotonic": 1301978.086487208,
+      "line": "ACK,17,17,0,OK"
+    },
+    {
+      "host_monotonic": 1301978.087061833,
+      "line": "SAMPLE,17,NORMAL,NORMAL,0.0201,GOOD,1,1,1,741.983"
+    },
+    {
+      "host_monotonic": 1301978.087169625,
+      "line": "END,18,41,41,0"
+    }
+  ],
+  "gateway": [
+    {
+      "host_monotonic": 1301947.459144625,
+      "line": "ARMED,18"
+    },
+    {
+      "host_monotonic": 1301948.067501291,
+      "line": "RX,0,0,0,NEW"
+    },
+    {
+      "host_monotonic": 1301948.067594166,
+      "line": "DELIVER,0,0"
+    },
+    {
+      "host_monotonic": 1301948.084551083,
+      "line": "ACK_TX,0,0,0,13"
+    },
+    {
+      "host_monotonic": 1301948.809510791,
+      "line": "RX,1,1,0,NEW"
+    },
+    {
+      "host_monotonic": 1301948.809602708,
+      "line": "DELIVER,1,1"
+    },
+    {
+      "host_monotonic": 1301948.82651125,
+      "line": "ACK_TX,1,1,0,13"
+    },
+    {
+      "host_monotonic": 1301949.552238833,
+      "line": "RX,2,2,0,NEW"
+    },
+    {
+      "host_monotonic": 1301949.552351916,
+      "line": "DELIVER,2,2"
+    },
+    {
+      "host_monotonic": 1301949.569289166,
+      "line": "ACK_TX,2,2,0,13"
+    },
+    {
+      "host_monotonic": 1301950.294449708,
+      "line": "RX,3,3,0,NEW"
+    },
+    {
+      "host_monotonic": 1301950.294568166,
+      "line": "DELIVER,3,3"
+    },
+    {
+      "host_monotonic": 1301950.311432833,
+      "line": "ACK_TX,3,3,0,13"
+    },
+    {
+      "host_monotonic": 1301951.035324791,
+      "line": "RX,3,3,1,DUP"
+    },
+    {
+      "host_monotonic": 1301951.052266416,
+      "line": "ACK_TX,3,3,1,13"
+    },
+    {
+      "host_monotonic": 1301951.776802041,
+      "line": "RX,3,3,2,DUP"
+    },
+    {
+      "host_monotonic": 1301951.793696,
+      "line": "ACK_TX,3,3,2,13"
+    },
+    {
+      "host_monotonic": 1301952.519181166,
+      "line": "RX,4,4,0,NEW"
+    },
+    {
+      "host_monotonic": 1301952.519233625,
+      "line": "DELIVER,4,4"
+    },
+    {
+      "host_monotonic": 1301952.53609575,
+      "line": "ACK_TX,4,4,0,13"
+    },
+    {
+      "host_monotonic": 1301953.262507125,
+      "line": "RX,4,4,1,DUP"
+    },
+    {
+      "host_monotonic": 1301953.279426833,
+      "line": "ACK_TX,4,4,1,13"
+    },
+    {
+      "host_monotonic": 1301954.00467275,
+      "line": "RX,5,5,0,NEW"
+    },
+    {
+      "host_monotonic": 1301954.004725458,
+      "line": "DELIVER,5,5"
+    },
+    {
+      "host_monotonic": 1301954.021973166,
+      "line": "ACK_TX,5,5,0,13"
+    },
+    {
+      "host_monotonic": 1301954.74713575,
+      "line": "RX,5,5,1,DUP"
+    },
+    {
+      "host_monotonic": 1301954.764004625,
+      "line": "ACK_TX,5,5,1,13"
+    },
+    {
+      "host_monotonic": 1301955.489244291,
+      "line": "RX,5,5,2,DUP"
+    },
+    {
+      "host_monotonic": 1301955.506041833,
+      "line": "ACK_TX,5,5,2,13"
+    },
+    {
+      "host_monotonic": 1301956.23282825,
+      "line": "RX,6,6,0,NEW"
+    },
+    {
+      "host_monotonic": 1301956.233057708,
+      "line": "DELIVER,6,6"
+    },
+    {
+      "host_monotonic": 1301956.249853416,
+      "line": "ACK_TX,6,6,0,13"
+    },
+    {
+      "host_monotonic": 1301956.974341958,
+      "line": "RX,6,6,1,DUP"
+    },
+    {
+      "host_monotonic": 1301956.99123525,
+      "line": "ACK_TX,6,6,1,13"
+    },
+    {
+      "host_monotonic": 1301957.716191166,
+      "line": "RX,6,6,2,DUP"
+    },
+    {
+      "host_monotonic": 1301957.733054541,
+      "line": "ACK_TX,6,6,2,13"
+    },
+    {
+      "host_monotonic": 1301958.458571583,
+      "line": "RX,7,7,0,NEW"
+    },
+    {
+      "host_monotonic": 1301958.45865875,
+      "line": "DELIVER,7,7"
+    },
+    {
+      "host_monotonic": 1301958.475437083,
+      "line": "ACK_TX,7,7,0,13"
+    },
+    {
+      "host_monotonic": 1301959.200658458,
+      "line": "RX,7,7,1,DUP"
+    },
+    {
+      "host_monotonic": 1301959.217553166,
+      "line": "ACK_TX,7,7,1,13"
+    },
+    {
+      "host_monotonic": 1301959.942523875,
+      "line": "RX,7,7,2,DUP"
+    },
+    {
+      "host_monotonic": 1301959.959416208,
+      "line": "ACK_TX,7,7,2,13"
+    },
+    {
+      "host_monotonic": 1301960.685270958,
+      "line": "RX,8,8,0,NEW"
+    },
+    {
+      "host_monotonic": 1301960.685396583,
+      "line": "DELIVER,8,8"
+    },
+    {
+      "host_monotonic": 1301960.702466875,
+      "line": "ACK_TX,8,8,0,13"
+    },
+    {
+      "host_monotonic": 1301961.427469166,
+      "line": "RX,8,8,1,DUP"
+    },
+    {
+      "host_monotonic": 1301961.44436375,
+      "line": "ACK_TX,8,8,1,13"
+    },
+    {
+      "host_monotonic": 1301962.169725875,
+      "line": "RX,8,8,2,DUP"
+    },
+    {
+      "host_monotonic": 1301962.186570958,
+      "line": "ACK_TX,8,8,2,13"
+    },
+    {
+      "host_monotonic": 1301962.91164475,
+      "line": "RX,9,9,0,NEW"
+    },
+    {
+      "host_monotonic": 1301962.911749666,
+      "line": "DELIVER,9,9"
+    },
+    {
+      "host_monotonic": 1301962.928540375,
+      "line": "ACK_TX,9,9,0,13"
+    },
+    {
+      "host_monotonic": 1301963.653884708,
+      "line": "RX,9,9,1,DUP"
+    },
+    {
+      "host_monotonic": 1301963.670935625,
+      "line": "ACK_TX,9,9,1,13"
+    },
+    {
+      "host_monotonic": 1301964.397421958,
+      "line": "RX,10,10,0,NEW"
+    },
+    {
+      "host_monotonic": 1301964.397524708,
+      "line": "DELIVER,10,10"
+    },
+    {
+      "host_monotonic": 1301964.416698041,
+      "line": "ACK_TX,10,10,0,13"
+    },
+    {
+      "host_monotonic": 1301965.1396735,
+      "line": "RX,10,10,1,DUP"
+    },
+    {
+      "host_monotonic": 1301965.15645975,
+      "line": "ACK_TX,10,10,1,13"
+    },
+    {
+      "host_monotonic": 1301965.882475875,
+      "line": "RX,11,11,0,NEW"
+    },
+    {
+      "host_monotonic": 1301965.882776541,
+      "line": "DELIVER,11,11"
+    },
+    {
+      "host_monotonic": 1301965.900074333,
+      "line": "ACK_TX,11,11,0,13"
+    },
+    {
+      "host_monotonic": 1301966.625259708,
+      "line": "RX,11,11,1,DUP"
+    },
+    {
+      "host_monotonic": 1301966.64206375,
+      "line": "ACK_TX,11,11,1,13"
+    },
+    {
+      "host_monotonic": 1301967.367163875,
+      "line": "RX,11,11,2,DUP"
+    },
+    {
+      "host_monotonic": 1301967.384077625,
+      "line": "ACK_TX,11,11,2,13"
+    },
+    {
+      "host_monotonic": 1301968.110775708,
+      "line": "RX,12,12,0,NEW"
+    },
+    {
+      "host_monotonic": 1301968.110885875,
+      "line": "DELIVER,12,12"
+    },
+    {
+      "host_monotonic": 1301968.12774825,
+      "line": "ACK_TX,12,12,0,13"
+    },
+    {
+      "host_monotonic": 1301968.852940666,
+      "line": "RX,12,12,1,DUP"
+    },
+    {
+      "host_monotonic": 1301968.869962125,
+      "line": "ACK_TX,12,12,1,13"
+    },
+    {
+      "host_monotonic": 1301969.594243,
+      "line": "RX,12,12,2,DUP"
+    },
+    {
+      "host_monotonic": 1301969.611006791,
+      "line": "ACK_TX,12,12,2,13"
+    },
+    {
+      "host_monotonic": 1301970.336504291,
+      "line": "RX,13,13,0,NEW"
+    },
+    {
+      "host_monotonic": 1301970.3366165,
+      "line": "DELIVER,13,13"
+    },
+    {
+      "host_monotonic": 1301970.353499708,
+      "line": "ACK_TX,13,13,0,13"
+    },
+    {
+      "host_monotonic": 1301971.077856541,
+      "line": "RX,13,13,1,DUP"
+    },
+    {
+      "host_monotonic": 1301971.094800333,
+      "line": "ACK_TX,13,13,1,13"
+    },
+    {
+      "host_monotonic": 1301971.819944958,
+      "line": "RX,13,13,2,DUP"
+    },
+    {
+      "host_monotonic": 1301971.836938666,
+      "line": "ACK_TX,13,13,2,13"
+    },
+    {
+      "host_monotonic": 1301972.562261833,
+      "line": "RX,14,14,0,NEW"
+    },
+    {
+      "host_monotonic": 1301972.56242675,
+      "line": "DELIVER,14,14"
+    },
+    {
+      "host_monotonic": 1301972.579221333,
+      "line": "ACK_TX,14,14,0,13"
+    },
+    {
+      "host_monotonic": 1301973.30438225,
+      "line": "RX,14,14,1,DUP"
+    },
+    {
+      "host_monotonic": 1301973.321288,
+      "line": "ACK_TX,14,14,1,13"
+    },
+    {
+      "host_monotonic": 1301974.046548166,
+      "line": "RX,14,14,2,DUP"
+    },
+    {
+      "host_monotonic": 1301974.06368125,
+      "line": "ACK_TX,14,14,2,13"
+    },
+    {
+      "host_monotonic": 1301974.789060791,
+      "line": "RX,15,15,0,NEW"
+    },
+    {
+      "host_monotonic": 1301974.789203958,
+      "line": "DELIVER,15,15"
+    },
+    {
+      "host_monotonic": 1301974.805853458,
+      "line": "ACK_TX,15,15,0,13"
+    },
+    {
+      "host_monotonic": 1301975.531408333,
+      "line": "RX,15,15,1,DUP"
+    },
+    {
+      "host_monotonic": 1301975.548806833,
+      "line": "ACK_TX,15,15,1,13"
+    },
+    {
+      "host_monotonic": 1301976.273542541,
+      "line": "RX,15,15,2,DUP"
+    },
+    {
+      "host_monotonic": 1301976.290389791,
+      "line": "ACK_TX,15,15,2,13"
+    },
+    {
+      "host_monotonic": 1301977.016897041,
+      "line": "RX,16,16,0,NEW"
+    },
+    {
+      "host_monotonic": 1301977.017034875,
+      "line": "DELIVER,16,16"
+    },
+    {
+      "host_monotonic": 1301977.034356041,
+      "line": "ACK_TX,16,16,0,13"
+    },
+    {
+      "host_monotonic": 1301977.7601865,
+      "line": "RX,17,17,0,NEW"
+    },
+    {
+      "host_monotonic": 1301977.760296166,
+      "line": "DELIVER,17,17"
+    },
+    {
+      "host_monotonic": 1301977.777109375,
+      "line": "ACK_TX,17,17,0,13"
+    },
+    {
+      "host_monotonic": 1301978.099130833,
+      "line": "END,18,41,18,23,41,0,0,0,0"
+    }
+  ]
+}
