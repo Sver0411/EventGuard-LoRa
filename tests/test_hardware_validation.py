@@ -1,7 +1,12 @@
 import unittest
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
-from eventguard.hardware_validation import (frozen_guard, plan, test_run_state_isolation as check_isolation)
+from eventguard.hardware_validation import (_gateway_end_counter_issues, frozen_guard, plan,
+                                            test_run_state_isolation as check_isolation)
 from eventguard.host import _parse_metrics, _run_config, load_config
 from eventguard.trace import generate_trace, trace_fingerprint
 
@@ -57,6 +62,40 @@ class HardwareValidationTests(unittest.TestCase):
         self.assertEqual(metrics['physical_data_received'], 0)
         self.assertEqual(metrics['data_injected_drops'], 1)
         self.assertEqual(metrics['uncontrolled_physical_data_missing'], 0)
+
+    def test_gateway_end_counter_with_data_injection(self):
+        metrics = {
+            'physical_data_before_injection': 10,
+            'physical_data_received': 7,
+            'data_injected_drops': 3,
+            'delivered_packets': 7,
+            'duplicate_packets': 0,
+            'ack_count': 7,
+            'crc_errors': 0,
+        }
+        # END fields: expected, s_rx_count, delivery, duplicates, ACK TX, CRC, DATA drop.
+        gateway_end = [10, 7, 7, 0, 7, 0, 3, 0, 0]
+        self.assertEqual(metrics['physical_data_before_injection'], 10)
+        self.assertEqual(metrics['data_injected_drops'], 3)
+        self.assertEqual(metrics['physical_data_received'], 7)
+        self.assertEqual(_gateway_end_counter_issues(gateway_end, 10, metrics), [])
+
+    def test_native_e220_stream_parser(self):
+        compiler = shutil.which('cc')
+        if compiler is None:
+            self.skipTest('native C compiler is unavailable')
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(prefix='eg-e220-parser-') as temp:
+            binary = Path(temp) / 'e220_stream_parser_test'
+            subprocess.run([
+                compiler, '-std=c11', '-Wall', '-Wextra', '-Werror',
+                '-I', str(root / 'firmware/common'),
+                str(root / 'tests/e220_stream_parser_test.c'),
+                str(root / 'firmware/common/e220_stream_parser.c'),
+                str(root / 'firmware/common/protocol.c'), '-o', str(binary),
+            ], check=True, capture_output=True, text=True)
+            completed = subprocess.run([str(binary)], check=True, capture_output=True, text=True)
+            self.assertIn('all tests passed', completed.stdout)
 
 
 if __name__ == '__main__':

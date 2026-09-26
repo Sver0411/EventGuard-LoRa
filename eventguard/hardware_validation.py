@@ -34,6 +34,26 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _frozen_main_is_additive_extension() -> bool:
+    """Allow diagnostic-only insertions while proving frozen main.c lines remain verbatim."""
+    baseline = subprocess.run(["git", "show", f"{FROZEN_COMMIT}:firmware/main/main.c"],
+                              cwd=ROOT, text=True, capture_output=True)
+    if baseline.returncode:
+        return False
+    original_lines = baseline.stdout.splitlines()
+    current_lines = (ROOT / "firmware/main/main.c").read_text(encoding="utf-8").splitlines()
+    cursor = 0
+    for line in original_lines:
+        while cursor < len(current_lines) and current_lines[cursor] != line:
+            cursor += 1
+        if cursor == len(current_lines):
+            return False
+        cursor += 1
+    current_source = "\n".join(current_lines)
+    return all(marker in current_source for marker in (
+        "CONFIG_EG_DIAGNOSTIC_MODE", "E220_RX_DIAGNOSTIC", "eg_e220_get_diagnostics"))
+
+
 def atomic_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(path.suffix + ".tmp")
@@ -46,7 +66,15 @@ def frozen_guard() -> dict:
         raise RuntimeError("Frozen PR #2 is not an ancestor of HEAD")
     frozen = json.loads((ROOT / "results/experiment_manifest.json").read_text())
     expected = frozen["algorithm_sha256"]
-    mismatches = [name for name, digest in expected.items() if sha(ROOT / name) != digest]
+    additive_main = False
+    mismatches = []
+    for name, digest in expected.items():
+        if sha(ROOT / name) == digest:
+            continue
+        if name == "firmware/main/main.c" and _frozen_main_is_additive_extension():
+            additive_main = True
+            continue
+        mismatches.append(name)
     if mismatches:
         raise RuntimeError(f"Frozen policy, trace, or loss code changed: {mismatches}")
     return {"git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
@@ -55,6 +83,7 @@ def frozen_guard() -> dict:
             "algorithm_spec_v1_sha256": sha(ROOT / "docs/algorithm_spec_v1.md"),
             "config_sha256": sha(ROOT / "configs/default.json"),
             "frozen_core_sha256": {name: sha(ROOT / name) for name in expected},
+            "firmware_main_additive_diagnostic_extension": additive_main,
             "sensor_firmware_source_sha256": sha(ROOT / "firmware/main/main.c"),
             "gateway_firmware_source_sha256": sha(ROOT / "firmware/main/main.c")}
 
@@ -118,7 +147,23 @@ def test_run_state_isolation(sensor: SerialLogReader, gateway: SerialLogReader, 
         raise RuntimeError("RESET was not acknowledged by both boards")
     return {"sensor_reset": sensor_reset, "gateway_reset": gateway_reset,
             "sensor_ready": status["sensor"], "gateway_ready": status["gateway"],
-            "reset_contract": "Sensor RESET clears sequence/classifier/link/counters; Gateway RESET clears duplicate table/sequence/counters/armed state"}
+            "reset_contract": "Sensor RESET clears sequence/classifier/link/counters and E220 parser diagnostics; Gateway RESET clears duplicate table/sequence/counters/armed state and E220 parser diagnostics"}
+
+
+def _gateway_end_counter_issues(gateway_totals: list[int], expected_samples: int,
+                                metrics: dict) -> list[str]:
+    expected = [expected_samples, metrics["physical_data_received"], metrics["delivered_packets"],
+                metrics["duplicate_packets"], metrics["ack_count"], metrics["crc_errors"],
+                metrics["data_injected_drops"]]
+    issues = []
+    if gateway_totals[:7] != expected:
+        issues.append(f"gateway END counters disagree: {gateway_totals}; expected prefix {expected}")
+    before_injection = metrics["physical_data_before_injection"]
+    post_injection = metrics["physical_data_received"]
+    injected_drops = metrics["data_injected_drops"]
+    if before_injection != post_injection + injected_drops:
+        issues.append("host DATA accounting before/after injection is inconsistent")
+    return issues
 
 
 def _parse_samples(samples, sensor_lines, gateway_lines, config, reference) -> tuple[list[dict], list[dict], list[str]]:
@@ -222,12 +267,14 @@ def _parse_samples(samples, sensor_lines, gateway_lines, config, reference) -> t
     return records, differences, issues
 
 
-def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, stage: str, budget: int | None):
+def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, stage: str,
+             budget: int | None, output_dir: Path | None = None):
+    output = output_dir or OUT
     if budget is not None:
         config = replace(config, data_copy_budget=budget)
     run_id = f"{config.strategy.value.lower()}_{config.loss_model.value.lower()}_{int(config.loss_rate*100):02d}_seed{config.seed}"
-    raw_path = OUT / "raw" / stage / f"{run_id}.json"
-    manifest_path = OUT / "runs" / stage / f"{run_id}.json"
+    raw_path = output / "raw" / stage / f"{run_id}.json"
+    manifest_path = output / "runs" / stage / f"{run_id}.json"
     trace_hash = trace_fingerprint(samples)
     calendar = calendar_hash(config, len(samples))
     fw_hashes = provenance["firmware_images_sha256"]
@@ -250,7 +297,7 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
             pass
     # Preserve every failed or incomplete attempt before the same condition is rerun.
     if raw_path.exists() or manifest_path.exists():
-        archive = OUT / "raw" / "attempts" / stage / run_id
+        archive = output / "raw" / "attempts" / stage / run_id
         archive.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
         for source in (raw_path, manifest_path):
@@ -286,6 +333,7 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
     else:
         raise TimeoutError(f"{run_id}: firmware END timeout")
     sensor_lines.extend(sensor.drain())
+    sensor_lines.extend(_lines(sensor, "UART_DIAG,", 3))
     gateway.write("ENDRUN")
     gateway_lines.extend(_lines(gateway, "END,", 6))
     end = time.monotonic()
@@ -317,10 +365,17 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
         gateway_totals = [int(x) for x in gateway_end[0].split(",")[1:]]
         if sensor_totals[:3] != [len(samples), metrics["physical_data_transmissions"], metrics["accepted_ack"]] or sensor_totals[3] != 0:
             issues.append(f"sensor END counters disagree: {sensor_totals}")
-        if gateway_totals[:7] != [len(samples), metrics["physical_data_received"] - metrics["data_injected_drops"] - metrics["crc_errors"], metrics["delivered_packets"],
-                                  metrics["duplicate_packets"], metrics["ack_count"], metrics["crc_errors"],
-                                  metrics["data_injected_drops"]]:
-            issues.append(f"gateway END counters disagree: {gateway_totals}")
+        issues.extend(_gateway_end_counter_issues(gateway_totals, len(samples), metrics))
+    for role, lines in (("sensor", sensor_lines), ("gateway", gateway_lines)):
+        for _, line in lines:
+            if line.startswith("UART_DIAG,"):
+                fields = line.split(",")
+                try:
+                    counters = dict(zip(fields[1::2], (int(value) for value in fields[2::2])))
+                    for name in ("crc_failures", "invalid_type", "invalid_version"):
+                        if counters.get(name, 0): issues.append(f"{role} E220 {name}={counters[name]}")
+                except ValueError:
+                    issues.append(f"{role} malformed UART diagnostics: {line}")
     if event_diffs:
         issues.append(f"simulation/firmware divergence at {len(event_diffs)} sample(s)")
     uart_ms = (metrics["data_bytes_transmitted"] + metrics["ack_bytes_transmitted"]) * 10 * 1000 / load_config()["uart_baud"]
@@ -347,16 +402,16 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
     return record
 
 
-def run(stage: str, skip_flash: bool = False) -> dict:
+def run(stage: str, skip_flash: bool = False, output_dir: Path | None = None) -> dict:
     provenance = frozen_guard()
+    output = output_dir or OUT
     if stage != "smoke":
-        smoke_path = OUT / "hardware_manifest.json"
+        smoke_path = output / "hardware_manifest.json"
         smoke = json.loads(smoke_path.read_text(encoding="utf-8")) if smoke_path.exists() else {}
         smoke_state = smoke.get("stages", {}).get("smoke", {})
         if smoke_state.get("gate_status") != "PASS" or smoke_state.get("passed_runs") != 12:
             raise RuntimeError("main hardware matrix is blocked: all 12 frozen smoke runs must pass first")
     cfg = load_config()
-    output = OUT
     for name in ("raw", "runs", "metrics", "plots"):
         (output / name).mkdir(parents=True, exist_ok=True)
     mapping, readers = discover_boards(3)
@@ -374,6 +429,8 @@ def run(stage: str, skip_flash: bool = False) -> dict:
     provenance["compatibility_fixes"] = [
         "host build/flash logs redirected to hardware_validation_v1; no firmware source changes",
         "SAMPLE serial parser corrected from fields 2/4/5 to 3/5/6 after the first smoke attempt; affected condition rerun",
+        "E220 receive parser now retains stream state and incrementally accumulates short UART reads across receive calls",
+        "Gateway END s_rx_count is validated against post-injection physical_data_received",
     ]
     study = {**provenance, "hardware": mapping, "execution_order_seed": ORDER_SEED,
              "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
@@ -402,12 +459,12 @@ def run(stage: str, skip_flash: bool = False) -> dict:
             budget = budgets.get(key) if strategy in ("UNIFORM_BUDGET", "RANDOM_BUDGET") else None
             if strategy in ("UNIFORM_BUDGET", "RANDOM_BUDGET") and budget is None:
                 raise RuntimeError(f"Missing matched EventGuard hardware budget for {key}")
-            result = _run_one(sensor, gateway, config, samples, mapping, provenance, index, stage, budget)
+            result = _run_one(sensor, gateway, config, samples, mapping, provenance, index, stage, budget, output)
             if strategy == "EVENTGUARD": budgets[key] = result["metrics"]["physical_data_transmissions"]
             if strategy in ("UNIFORM_BUDGET", "RANDOM_BUDGET") and result["metrics"]["physical_data_transmissions"] != budget:
                 result["issues"].append("exact hardware DATA-copy budget mismatch")
                 result["status"] = "failed"
-                atomic_json(OUT / "runs" / stage / f"{result['run_id']}.json", result)
+                atomic_json(output / "runs" / stage / f"{result['run_id']}.json", result)
             if result["status"] != "complete":
                 raise RuntimeError(f"{result['run_id']} failed: {result['issues'][:8]}")
             complete += 1

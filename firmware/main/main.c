@@ -1,4 +1,5 @@
 #include <math.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,6 +62,19 @@ static char s_mode[20] = "TRACE_MODE";
 static bool s_e220_ready;
 static esp_err_t s_e220_error = ESP_FAIL;
 
+static void print_e220_diagnostics(void) {
+    eg_e220_diagnostics_t d;
+    eg_e220_get_diagnostics(&d);
+    printf("UART_DIAG,uart_bytes_received,%llu,frames_started,%llu,frames_completed,%llu,partial_header_timeouts,%llu,partial_body_timeouts,%llu,short_reads,%llu,parser_resyncs,%llu,crc_failures,%llu,invalid_type,%llu,invalid_version,%llu,rx_buffered_bytes_peak,%u,aux_interrupts,%llu,aux_ring_overflow,%llu\n",
+        (unsigned long long)d.uart_bytes_received, (unsigned long long)d.frames_started,
+        (unsigned long long)d.frames_completed, (unsigned long long)d.partial_header_timeouts,
+        (unsigned long long)d.partial_body_timeouts, (unsigned long long)d.short_reads,
+        (unsigned long long)d.parser_resyncs, (unsigned long long)d.crc_failures,
+        (unsigned long long)d.invalid_type, (unsigned long long)d.invalid_version,
+        (unsigned)d.rx_buffered_bytes_peak, (unsigned long long)d.aux_interrupts,
+        (unsigned long long)d.aux_ring_overflow);
+}
+
 #if CONFIG_EG_ROLE_SENSOR
 static trace_item_t s_trace[MAX_TRACE];
 static size_t s_trace_expected;
@@ -73,6 +87,10 @@ static eg_link_estimator_t s_link;
 static uint8_t s_budget_allocation[MAX_TRACE];
 static volatile bool s_stop_requested;
 static volatile bool s_run_active;
+#if CONFIG_EG_DIAGNOSTIC_MODE
+static volatile bool s_rx_diag_stop_requested;
+static char s_rx_diag_test;
+#endif
 
 static const char *importance_name(uint8_t importance) {
     return importance == 2 ? "CRITICAL" : (importance == 1 ? "IMPORTANT" : "NORMAL");
@@ -89,6 +107,7 @@ static void reset_sensor_run(void) {
     memset(&s_classifier, 0, sizeof(s_classifier));
     eg_link_init(&s_link, s_config.link_window, s_config.link_degraded_threshold,
                  s_config.link_bad_threshold, s_config.link_bad_fail_streak);
+    eg_e220_reset_diagnostics();
 }
 
 static void run_trace(void) {
@@ -126,14 +145,38 @@ static void run_trace(void) {
             uint8_t frame[EG_DATA_FRAME_SIZE];
             size_t frame_len = eg_encode_data(&packet, frame, sizeof(frame));
             printf("TX_BEGIN,%u,%u,%u,%u\n", sample->id, sequence, copy, copies); fflush(stdout);
+#if CONFIG_EG_DIAGNOSTIC_MODE
+            printf("D_TX_BEGIN,%u,%u,%u,%lld\n", sample->id, copy, sequence,
+                   (long long)esp_timer_get_time());
+#endif
             int err = eg_e220_send(frame, frame_len, 1000);
             if (err != ESP_OK) { printf("ERR,UART_SEND,%u,%u,%d\n", sequence, copy, err); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
+#if CONFIG_EG_DIAGNOSTIC_MODE
+            eg_e220_tx_timing_t tx_timing = eg_e220_get_last_tx_timing();
+            printf("D_TX_UART_DONE,%u,%u,%u,%lld\n", sample->id, copy, sequence,
+                   (long long)tx_timing.uart_tx_done_timestamp_us);
+            printf("D_TX_AUX_READY,%u,%u,%u,%lld\n", sample->id, copy, sequence,
+                   (long long)tx_timing.aux_ready_timestamp_us);
+#endif
             sent++; s_sensor_tx_count++;
             printf("TX,%u,%u,%u,%u,%u\n", sample->id, sequence, copy, copies, (unsigned)frame_len);
             uint8_t ack_frame[EG_DATA_FRAME_SIZE];
+#if CONFIG_EG_DIAGNOSTIC_MODE
+            printf("D_ACK_WAIT_BEGIN,%u,%u,%u,%lld\n", sample->id, copy, sequence,
+                   (long long)esp_timer_get_time());
+#endif
             int received = eg_e220_receive(ack_frame, sizeof(ack_frame), s_config.ack_timeout_ms);
+#if CONFIG_EG_DIAGNOSTIC_MODE
+            if (received == 0)
+                printf("D_ACK_TIMEOUT,%u,%u,%u,%lld\n", sample->id, copy, sequence,
+                       (long long)esp_timer_get_time());
+#endif
             if (received == 0) { printf("TIMEOUT,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
             if (received < 0) { printf("ERR,UART_RX,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
+#if CONFIG_EG_DIAGNOSTIC_MODE
+            printf("D_ACK_RECEIVED,%u,%u,%u,%lld\n", sample->id, copy, sequence,
+                   (long long)esp_timer_get_time());
+#endif
             eg_ack_packet_t ack;
             if (!eg_decode_ack(ack_frame, received, &ack)) { printf("ERR,CRC,%u,%u\n", sequence, copy); eg_link_observe_copy(&s_link, false, copy == 0); continue; }
             if (ack.node_id != CONFIG_EG_NODE_ID || ack.sequence != sequence || ack.sample_id != sample->id) {
@@ -157,6 +200,7 @@ static void run_trace(void) {
            (unsigned long)s_link.copy_ack_success, (unsigned long)s_link.copy_failures,
            (unsigned long)s_link.consecutive_copy_failures);
     printf("END,%u,%u,%u,%u\n", (unsigned)completed, (unsigned)s_sensor_tx_count, (unsigned)s_sensor_ack_count, s_stop_requested ? 1 : 0);
+    print_e220_diagnostics();
 }
 
 static void run_real_demo(void) {
@@ -179,6 +223,67 @@ static void run_real_demo(void) {
     s_trace_loaded = old_count;
 }
 
+#if CONFIG_EG_DIAGNOSTIC_MODE
+static void e220_rx_diagnostic_task(void *parameter) {
+    unsigned frames = ((unsigned *)parameter)[0];
+    unsigned period_ms = ((unsigned *)parameter)[1];
+    unsigned ack_timeout_ms = ((unsigned *)parameter)[2];
+    free(parameter);
+    uint32_t tx_count = 0, ack_count = 0, timeout_count = 0, tx_errors = 0, rx_errors = 0;
+    TickType_t next_wake = xTaskGetTickCount();
+    eg_e220_reset_diagnostics();
+    for (unsigned seq = 0; seq < frames && !s_rx_diag_stop_requested; ++seq) {
+        uint64_t tx_begin = (uint64_t)esp_timer_get_time();
+        eg_data_packet_t packet = {.node_id = CONFIG_EG_NODE_ID, .sequence = (uint16_t)seq,
+            .sample_id = (uint16_t)seq, .importance = 0, .copy_index = 0, .copy_count = 1,
+            .uptime_ms = (uint32_t)(tx_begin / 1000), .temperature_centi = 2200,
+            .humidity_centi = 5000, .light_lux = 120, .soil_percent_tenths = 450};
+        uint8_t data[EG_DATA_FRAME_SIZE];
+        size_t data_len = eg_encode_data(&packet, data, sizeof(data));
+        printf("D_TX_BEGIN,%u,0,%u,%llu\n", seq, seq, (unsigned long long)tx_begin);
+        int send_result = eg_e220_send(data, data_len, 1000);
+        if (send_result != ESP_OK) {
+            tx_errors++;
+            printf("ERR,DIAG_UART_TX,%u,%d\n", seq, send_result);
+        } else {
+            eg_e220_tx_timing_t timing = eg_e220_get_last_tx_timing();
+            tx_count++;
+            printf("D_TX_UART_DONE,%u,0,%u,%lld\n", seq, seq, (long long)timing.uart_tx_done_timestamp_us);
+            printf("D_TX_AUX_READY,%u,0,%u,%lld\n", seq, seq, (long long)timing.aux_ready_timestamp_us);
+            printf("DIAG_TX_DONE,%u,%lld\n", seq, (long long)esp_timer_get_time());
+            printf("D_ACK_WAIT_BEGIN,%u,0,%u,%lld\n", seq, seq, (long long)esp_timer_get_time());
+            uint8_t ack_frame[EG_E220_MAX_FRAME_SIZE];
+            int received = eg_e220_receive(ack_frame, sizeof(ack_frame), ack_timeout_ms);
+            if (received == 0) {
+                timeout_count++;
+                printf("D_ACK_TIMEOUT,%u,0,%u,%lld\n", seq, seq, (long long)esp_timer_get_time());
+            } else if (received < 0) {
+                rx_errors++;
+                printf("ERR,DIAG_UART_RX,%u\n", seq);
+            } else {
+                printf("D_ACK_RECEIVED,%u,0,%u,%lld\n", seq, seq, (long long)esp_timer_get_time());
+                eg_ack_packet_t ack;
+                if (eg_decode_ack(ack_frame, (size_t)received, &ack) && ack.sequence == seq &&
+                    ack.sample_id == seq && ack.node_id == CONFIG_EG_NODE_ID) {
+                    ack_count++;
+                    printf("DIAG_ACK,%u,OK\n", seq);
+                } else {
+                    rx_errors++;
+                    printf("DIAG_ACK,%u,INVALID\n", seq);
+                }
+            }
+        }
+        vTaskDelayUntil(&next_wake, pdMS_TO_TICKS(period_ms));
+    }
+    printf("DIAG_END,%u,%u,%u,%u,%u,%u\n", frames, (unsigned)tx_count, (unsigned)ack_count,
+           (unsigned)timeout_count, (unsigned)tx_errors, (unsigned)rx_errors);
+    print_e220_diagnostics();
+    s_rx_diag_stop_requested = false;
+    s_run_active = false;
+    vTaskDelete(NULL);
+}
+#endif
+
 #else
 typedef struct { uint8_t node_id; uint16_t sequence; uint16_t sample_id; } seen_packet_t;
 static seen_packet_t s_seen[MAX_TRACE];
@@ -189,6 +294,11 @@ static uint32_t s_rx_count, s_delivery_count, s_duplicate_count, s_ack_tx_count,
 static uint32_t s_sequence_gaps, s_out_of_order;
 static uint16_t s_last_sequence[256];
 static bool s_have_sequence[256];
+#if CONFIG_EG_DIAGNOSTIC_MODE
+static volatile bool s_rx_diag_mode;
+static volatile char s_rx_diag_test;
+static volatile uint16_t s_rx_diag_poll_timeout_ms = 250;
+#endif
 
 static bool seen_before(uint8_t node, uint16_t sequence) {
     for (size_t i = 0; i < s_seen_count; ++i) if (s_seen[i].node_id == node && s_seen[i].sequence == sequence) return true;
@@ -201,13 +311,19 @@ static void clear_gateway_run(void) {
     memset(s_last_sequence, 0, sizeof(s_last_sequence)); memset(s_have_sequence, 0, sizeof(s_have_sequence));
     s_rx_count = s_delivery_count = s_duplicate_count = s_ack_tx_count = s_crc_errors = s_drop_count = 0;
     s_sequence_gaps = s_out_of_order = 0;
+    eg_e220_reset_diagnostics();
 }
 
 static void gateway_rx_task(void *unused) {
     (void)unused;
     uint8_t frame[EG_DATA_FRAME_SIZE];
     while (true) {
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        uint32_t poll_timeout_ms = s_rx_diag_mode ? s_rx_diag_poll_timeout_ms : 250;
+        int length = eg_e220_receive(frame, sizeof(frame), poll_timeout_ms);
+#else
         int length = eg_e220_receive(frame, sizeof(frame), 250);
+#endif
         if (length == 0) continue;
         if (length < 0) { printf("ERR,UART_RX\n"); continue; }
         eg_data_packet_t packet;
@@ -224,6 +340,10 @@ static void gateway_rx_task(void *unused) {
             printf("ERR,PACKET\n"); continue;
         }
         if (eg_fault_drop(&s_fault_table, false, packet.sample_id, packet.copy_index)) {
+#if CONFIG_EG_DIAGNOSTIC_MODE
+            if (s_rx_diag_mode) printf("D_RX_INJECT_DROP,%u,%u,%u,%lld\n", packet.sample_id,
+                packet.copy_index, packet.sequence, (long long)esp_timer_get_time());
+#endif
             s_drop_count++;
             printf("DROP,DATA,%u,%u,%u\n", packet.sequence, packet.sample_id, packet.copy_index);
             continue;
@@ -244,13 +364,27 @@ static void gateway_rx_task(void *unused) {
             s_have_sequence[packet.node_id] = true;
             s_delivery_count++; printf("DELIVER,%u,%u\n", packet.sample_id, packet.sequence);
         }
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        if (s_rx_diag_mode && s_rx_diag_test == 'B' && packet.sequence % 5 == 0) {
+            printf("ACK_SUPPRESS,%u\n", packet.sequence);
+            continue;
+        }
+#endif
         eg_ack_packet_t ack = {.node_id = packet.node_id, .sequence = packet.sequence, .sample_id = packet.sample_id,
                                .status = 0, .copy_index = packet.copy_index};
         uint8_t response[EG_ACK_FRAME_SIZE];
         size_t ack_len = eg_encode_ack(&ack, response, sizeof(response));
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        if (s_rx_diag_mode) printf("D_ACK_BEGIN,%u,%u,%u,%lld\n", packet.sample_id,
+            packet.copy_index, packet.sequence, (long long)esp_timer_get_time());
+#endif
         esp_err_t err = eg_e220_send(response, ack_len, 1000);
         if (err != ESP_OK) { printf("ERR,ACK_UART,%u,%d\n", packet.sequence, err); continue; }
         s_ack_tx_count++;
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        if (s_rx_diag_mode) printf("D_ACK_DONE,%u,%u,%u,%lld\n", packet.sample_id,
+            packet.copy_index, packet.sequence, (long long)esp_timer_get_time());
+#endif
         printf("ACK_TX,%u,%u,%u,%u\n", packet.sequence, packet.sample_id, packet.copy_index, (unsigned)ack_len);
     }
 }
@@ -372,12 +506,44 @@ static void handle_command(char *line) {
     if (!strcasecmp(command, "RESET")) {
 #if CONFIG_EG_ROLE_SENSOR
         s_stop_requested = true; reset_sensor_run();
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        s_rx_diag_stop_requested = true;
+#endif
 #else
         s_armed = false; clear_gateway_run();
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        s_rx_diag_mode = false; s_rx_diag_test = 0; s_rx_diag_poll_timeout_ms = 250;
+#endif
 #endif
         printf("RESET,OK\n"); return;
     }
 #if CONFIG_EG_ROLE_SENSOR
+#if CONFIG_EG_DIAGNOSTIC_MODE
+    if (!strcasecmp(command, "E220_RX_DIAGNOSTIC")) {
+        char *test_text = strtok_r(NULL, delimiters, &save);
+        char *frames_text = strtok_r(NULL, delimiters, &save);
+        char *period_text = strtok_r(NULL, delimiters, &save);
+        char *timeout_text = strtok_r(NULL, delimiters, &save);
+        char test = test_text ? (char)toupper((unsigned char)test_text[0]) : 0;
+        unsigned frames = frames_text ? (unsigned)strtoul(frames_text, NULL, 10) : 500;
+        unsigned period_ms = period_text ? (unsigned)strtoul(period_text, NULL, 10) : 1000;
+        unsigned ack_timeout_ms = timeout_text ? (unsigned)strtoul(timeout_text, NULL, 10) : 1000;
+        if ((test != 'A' && test != 'B' && test != 'C') || frames == 0 || frames > MAX_TRACE ||
+            period_ms == 0 || period_ms > 60000 || ack_timeout_ms < 20 || ack_timeout_ms > 2000) {
+            printf("ERR,DIAG_ARGUMENT\n"); return;
+        }
+        if (!s_e220_ready || s_run_active) { printf("ERR,DIAG_NOT_READY\n"); return; }
+        unsigned *parameters = malloc(3 * sizeof(unsigned));
+        if (!parameters) { printf("ERR,DIAG_ALLOC\n"); return; }
+        parameters[0] = frames; parameters[1] = period_ms; parameters[2] = ack_timeout_ms;
+        s_rx_diag_test = test; s_rx_diag_stop_requested = false; s_run_active = true;
+        if (xTaskCreate(e220_rx_diagnostic_task, "e220_rx_diag", 6144, parameters, 8, NULL) != pdPASS) {
+            free(parameters); s_run_active = false; printf("ERR,DIAG_TASK\n"); return;
+        }
+        printf("E220_RX_DIAGNOSTIC,STARTED,%c,%u,%u,%u\n", test, frames, period_ms, ack_timeout_ms);
+        return;
+    }
+#endif
     if (!strcasecmp(command, "TRACE_BEGIN")) {
         char *arg = strtok_r(NULL, delimiters, &save);
         s_trace_expected = arg ? strtoul(arg, NULL, 10) : 0;
@@ -410,6 +576,21 @@ static void handle_command(char *line) {
     }
     if (!strcasecmp(command, "STOP")) { s_stop_requested = true; printf("STOP,REQUESTED\n"); return; }
 #else
+#if CONFIG_EG_DIAGNOSTIC_MODE
+    if (!strcasecmp(command, "DIAG_GATEWAY")) {
+        char *test_text = strtok_r(NULL, delimiters, &save);
+        char *poll_text = strtok_r(NULL, delimiters, &save);
+        char test = test_text ? (char)toupper((unsigned char)test_text[0]) : 0;
+        unsigned poll_ms = poll_text ? (unsigned)strtoul(poll_text, NULL, 10) : 250;
+        if ((test != 'A' && test != 'B' && test != 'C') || s_armed ||
+            (poll_ms != 100 && poll_ms != 200 && poll_ms != 250 && poll_ms != 300)) {
+            printf("ERR,DIAG_GATEWAY_ARGUMENT\n"); return;
+        }
+        s_rx_diag_mode = true; s_rx_diag_test = test; s_rx_diag_poll_timeout_ms = (uint16_t)poll_ms;
+        printf("DIAG_GATEWAY_READY,%c,%u\n", test, poll_ms);
+        return;
+    }
+#endif
     if (!strcasecmp(command, "TRACE_COUNT")) {
         char *arg = strtok_r(NULL, delimiters, &save);
         s_gateway_expected = arg ? strtoul(arg, NULL, 10) : 0;
@@ -424,6 +605,11 @@ static void handle_command(char *line) {
     if (!strcasecmp(command, "STOP")) { s_armed = false; printf("STOP,OK\n"); return; }
     if (!strcasecmp(command, "ENDRUN")) {
         s_armed = false;
+        print_e220_diagnostics();
+#if CONFIG_EG_DIAGNOSTIC_MODE
+        if (s_rx_diag_mode) printf("DIAG_GATEWAY_END,%u,%u,%u\n", (unsigned)s_rx_count,
+            (unsigned)s_drop_count, (unsigned)s_ack_tx_count);
+#endif
         printf("END,%u,%u,%u,%u,%u,%u,%u,%u,%u\n", (unsigned)s_gateway_expected, (unsigned)s_rx_count, (unsigned)s_delivery_count,
                (unsigned)s_duplicate_count, (unsigned)s_ack_tx_count, (unsigned)s_crc_errors, (unsigned)s_drop_count,
                (unsigned)s_sequence_gaps, (unsigned)s_out_of_order); return;

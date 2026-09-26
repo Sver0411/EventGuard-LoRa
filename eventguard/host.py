@@ -305,7 +305,8 @@ def _apply_sdkconfig_defaults(sdkconfig: Path, defaults_text: str) -> None:
     sdkconfig.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def build_firmware(config: dict | None = None, output_dir: Path | None = None) -> dict[str, Path]:
+def build_firmware(config: dict | None = None, output_dir: Path | None = None,
+                   diagnostic_mode: bool = False) -> dict[str, Path]:
     config = config or load_config()
     log_dir = (output_dir or RESULTS) / "raw"
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -333,6 +334,7 @@ def build_firmware(config: dict | None = None, output_dir: Path | None = None) -
             f"CONFIG_EG_I2C_SDA_GPIO={sensor_pins['i2c_sda_gpio']}", f"CONFIG_EG_I2C_SCL_GPIO={sensor_pins['i2c_scl_gpio']}",
             f"CONFIG_EG_SOIL_ADC_GPIO={sensor_pins['soil_adc_gpio']}",
             f"CONFIG_EG_MAX_REDUNDANCY={config['max_redundancy']}", f"CONFIG_EG_FIXED_REDUNDANCY={config['fixed_redundancy']}"]
+        generated_defaults.append(f"CONFIG_EG_DIAGNOSTIC_MODE={'y' if diagnostic_mode else 'n'}")
         defaults_text = "\n".join(generated_defaults) + "\n"
         if not defaults.exists() or defaults.read_text(encoding="utf-8") != defaults_text:
             defaults.write_text(defaults_text, encoding="utf-8")

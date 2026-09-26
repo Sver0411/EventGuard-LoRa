@@ -31,16 +31,17 @@ def _write_csv(path: Path, rows: list[dict]) -> None:
         writer.writeheader(); writer.writerows(rows)
 
 
-def load_stage(stage: str) -> tuple[list[dict], list[dict], list[str]]:
+def load_stage(stage: str, output_dir: Path | None = None) -> tuple[list[dict], list[dict], list[str]]:
+    output = output_dir or OUT
     rows, failed, missing = [], [], []
     for model, rate, seed, strategy, order in plan(stage):
         run_id = f"{strategy.lower()}_{model.lower()}_{int(rate*100):02d}_seed{seed}"
-        path = OUT / "runs" / stage / f"{run_id}.json"
+        path = output / "runs" / stage / f"{run_id}.json"
         if not path.exists():
             missing.append(run_id)
             continue
         row = json.loads(path.read_text(encoding="utf-8"))
-        raw_path = OUT / "raw" / stage / f"{run_id}.json"
+        raw_path = output / "raw" / stage / f"{run_id}.json"
         if not raw_path.exists() or row.get("raw_sha256") != sha(raw_path):
             missing.append(run_id + " [raw log missing or hash mismatch]")
             continue
@@ -118,7 +119,8 @@ def _diff(rows: list[dict]) -> list[dict]:
     return result
 
 
-def _plot(summary: list[dict], stage: str) -> dict:
+def _plot(summary: list[dict], stage: str, output_dir: Path | None = None) -> dict:
+    output = output_dir or OUT
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -141,21 +143,22 @@ def _plot(summary: list[dict], stage: str) -> dict:
             ax.grid(alpha=.25)
         fig.suptitle(f"E220 hardware Pareto by fixed condition ({stage}; observed strategies only)")
         fig.tight_layout()
-        path = OUT / "plots" / filename
+        path = output / "plots" / filename
         fig.savefig(path, dpi=170, bbox_inches="tight"); plt.close(fig)
         paths[metric] = filename
     return paths
 
 
-def analyze(stage: str = "stage1") -> dict:
-    rows, failed, missing = load_stage(stage)
+def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
+    output = output_dir or OUT
+    rows, failed, missing = load_stage(stage, output)
     summary = _summary(rows)
     tests = _paired(rows) if stage != "smoke" else []
     differences = _diff(rows + failed)
-    _write_csv(OUT / "summary.csv", summary)
-    _write_csv(OUT / "metrics/paired_tests.csv", tests)
-    _write_csv(OUT / "simulation_hardware_diff.csv", differences)
-    _write_csv(OUT / "metrics/run_metrics.csv", [{"run_id": r["run_id"], "stage": r["stage"],
+    _write_csv(output / "summary.csv", summary)
+    _write_csv(output / "metrics/paired_tests.csv", tests)
+    _write_csv(output / "simulation_hardware_diff.csv", differences)
+    _write_csv(output / "metrics/run_metrics.csv", [{"run_id": r["run_id"], "stage": r["stage"],
                                                    "status": r["status"],
                                                    "loss_model": r["loss_model"], "loss_rate": r["loss_rate"],
                                                    "seed": r["seed"], "strategy": r["strategy"], **r["metrics"]}
@@ -169,8 +172,8 @@ def analyze(stage: str = "stage1") -> dict:
                                      "copy_index": int(match.group(2)), "observation": match.group(3),
                                      "loss_model": row["loss_model"], "loss_rate": row["loss_rate"],
                                      "seed": row["seed"]})
-    _write_csv(OUT / "metrics/physical_anomalies.csv", anomaly_rows)
-    plots = _plot(summary, stage) if summary else {}
+    _write_csv(output / "metrics/physical_anomalies.csv", anomaly_rows)
+    plots = _plot(summary, stage, output) if summary else {}
     complete = len(rows) == len(plan(stage)) and not failed
     frontier_status = defaultdict(lambda: {"EVENTGUARD": False, "IMPORTANCE_ONLY": False})
     for model, rate in sorted({(r["loss_model"], r["loss_rate"]) for r in summary}):
@@ -190,8 +193,8 @@ def analyze(stage: str = "stage1") -> dict:
                "paired_tests": tests, "simulation_hardware_diff": differences, "plots": plots,
                "pareto_frontier_by_condition": {f"{model} {rate:.0%}": status
                                                 for (model, rate), status in frontier_status.items()}}
-    (OUT / "summary.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    manifest_path = OUT / "hardware_manifest.json"
+    (output / "summary.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    manifest_path = output / "hardware_manifest.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         stage_record = manifest["stages"].setdefault(stage, {})
@@ -348,7 +351,7 @@ def analyze(stage: str = "stage1") -> dict:
                   "- Ready for paper writing: PARTIALLY. The hardware stage strengthens the methods and results "
                   "section but is not field validation.", "- Recommended next action: preserve these run-level logs, "
                   "then collect instrumented natural-channel and current/airtime measurements before broader claims."]
-    (OUT / "hardware_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (output / "hardware_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     if not complete:
         paper_text = ("The frozen-v1 E220 smoke stage did not pass its preregistered gate. "
                       f"Three of twelve planned runs passed complete logging and host parity; "
@@ -366,7 +369,7 @@ def analyze(stage: str = "stage1") -> dict:
         paper_text = (f"The {stage} E220 validation completed {len(rows)} paired-condition runs. "
                       "Use `hardware_report.md`, `summary.csv`, `metrics/paired_tests.csv`, and "
                       "`simulation_hardware_diff.csv` for verified results. RF airtime and energy were not directly measured.\n")
-    (OUT / "paper_update.md").write_text("# Hardware validation paper update\n\n" + paper_text,
-                                          encoding="utf-8")
+    (output / "paper_update.md").write_text("# Hardware validation paper update\n\n" + paper_text,
+                                           encoding="utf-8")
     return {"completed": len(rows), "failed": len(failed), "planned": len(plan(stage)), "complete": complete,
             "metric_disagreements": len(disagreements), "paired_tests": len(tests)}

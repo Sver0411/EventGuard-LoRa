@@ -16,8 +16,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Run frozen-v1 E220 validation, smoke before main matrix.")
     parser.add_argument("stage", choices=("smoke", "stage1", "full"))
     parser.add_argument("--skip-flash", action="store_true", help="Use built and already flashed frozen images.")
+    parser.add_argument("--output-dir", type=Path, help="Write a separate versioned hardware result tree.")
     args = parser.parse_args()
-    print(json.dumps(run(args.stage, args.skip_flash), indent=2))
+    print(json.dumps(run(args.stage, args.skip_flash, args.output_dir), indent=2))
     return 0
 
 
