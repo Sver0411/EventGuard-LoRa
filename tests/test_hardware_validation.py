@@ -153,7 +153,8 @@ class HardwareValidationTests(unittest.TestCase):
                                       'copy_index': 1, 'planned_drop_opportunity': False}])
 
     def test_stage1_isolated_physical_noise_allowed_and_repeated_noise_stops(self):
-        record = {'status': 'complete', 'loss_model': 'RANDOM_COPY', 'loss_rate': .2, 'seed': 31,
+        record = {'run_id': 'uniform-budget', 'execution_order': 2,
+                  'status': 'complete', 'loss_model': 'RANDOM_COPY', 'loss_rate': .2, 'seed': 31,
                   'strategy': 'UNIFORM_BUDGET', 'metrics': {'physical_data_transmissions': 144,
                                                             'physical_ack_frames': 110},
                   'physical_anomalies': [{'kind': 'uncontrolled_physical_data_missing',
@@ -161,10 +162,24 @@ class HardwareValidationTests(unittest.TestCase):
         allowed = _stage1_physical_noise_gate(record, [])
         self.assertTrue(allowed['allowed_to_continue'])
         self.assertAlmostEqual(allowed['cumulative_data_missing_rate'], 1 / 144)
-        prior = {**record, 'strategy': 'EVENTGUARD'}
+        prior = {**record, 'run_id': 'eventguard', 'execution_order': 1, 'strategy': 'EVENTGUARD'}
         repeated = _stage1_physical_noise_gate(record, [prior])
         self.assertFalse(repeated['allowed_to_continue'])
         self.assertTrue(any('repeated across strategies' in reason for reason in repeated['stop_reasons']))
+
+    def test_stage1_physical_noise_gate_excludes_current_and_future_records(self):
+        record = {'run_id': 'current', 'execution_order': 3, 'status': 'complete',
+                  'loss_model': 'RANDOM_COPY', 'loss_rate': .2, 'seed': 31,
+                  'strategy': 'UNIFORM_BUDGET',
+                  'metrics': {'physical_data_transmissions': 144, 'physical_ack_frames': 110},
+                  'physical_anomalies': [{'kind': 'uncontrolled_physical_data_missing',
+                                          'sample_id': 25, 'copy_index': 1}]}
+        same_record = dict(record)
+        future = {**record, 'run_id': 'future', 'execution_order': 4}
+        result = _stage1_physical_noise_gate(record, [same_record, future])
+        self.assertTrue(result['allowed_to_continue'])
+        self.assertEqual(result['cumulative_data_missing'], 1)
+        self.assertAlmostEqual(result['cumulative_data_missing_rate'], 1 / 144)
 
     def test_stage1_watchdog_includes_three_frozen_send_waits_per_copy(self):
         seconds, components = _run_deadline_seconds(144, 54, 1000)

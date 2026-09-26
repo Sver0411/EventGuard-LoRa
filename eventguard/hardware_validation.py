@@ -337,6 +337,15 @@ def _gateway_end_counter_issues(gateway_totals: list[int], expected_samples: int
 
 def _stage1_physical_noise_gate(record: dict, previous_records: list[dict]) -> dict:
     """Allow isolated physical losses while stopping bursty or repeatable anomalies."""
+    current_order = record.get("execution_order")
+    current_run_id = record.get("run_id")
+    earlier_records = []
+    if current_order is not None:
+        for prior in previous_records:
+            prior_order = prior.get("execution_order")
+            if (prior.get("run_id") != current_run_id and prior_order is not None
+                    and int(prior_order) < int(current_order)):
+                earlier_records.append(prior)
     anomalies = record.get("physical_anomalies", [])
     data = [a for a in anomalies if a.get("kind") == "uncontrolled_physical_data_missing"]
     ack = [a for a in anomalies if a.get("kind") == "uncontrolled_physical_ack_missing"]
@@ -360,7 +369,7 @@ def _stage1_physical_noise_gate(record: dict, previous_records: list[dict]) -> d
 
     condition_key = (record.get("loss_model"), record.get("loss_rate"), record.get("seed"))
     prior_keys = set()
-    for prior in previous_records:
+    for prior in earlier_records:
         if prior.get("status") != "complete":
             continue
         prior_condition = (prior.get("loss_model"), prior.get("loss_rate"), prior.get("seed"))
@@ -373,7 +382,7 @@ def _stage1_physical_noise_gate(record: dict, previous_records: list[dict]) -> d
             reasons.append("the same model/rate/seed/sample/copy physical anomaly repeated across strategies")
             break
 
-    all_records = [r for r in previous_records if r.get("status") == "complete"] + [record]
+    all_records = [r for r in earlier_records if r.get("status") == "complete"] + [record]
     total_data_missing = sum(sum(a.get("kind") == "uncontrolled_physical_data_missing"
                                  for a in r.get("physical_anomalies", [])) for r in all_records)
     total_data_tx = sum(r.get("metrics", {}).get("physical_data_transmissions", 0) for r in all_records)

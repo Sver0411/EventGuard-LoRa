@@ -1,0 +1,177 @@
+row_type,loss_model,loss_rate,seed,strategy,comparison,metric,n,hardware_mean,simulation_mean,hardware_minus_simulation,hardware_rank,simulation_rank,same_direction
+strategy_mean,RANDOM_COPY,0.2,,EVENTGUARD,,critical_event_delivery_ratio,6,0.9743589743589743,0.9743589743589743,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,EVENTGUARD,,overall_delivery_ratio,6,0.9598765432098766,0.9598765432098766,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,EVENTGUARD,,physical_data_transmissions,6,142.5,142.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,EVENTGUARD,,total_bytes_transmitted,6,5154.5,5154.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,EVENTGUARD,,accepted_ack,6,87.66666666666667,87.66666666666667,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,EVENTGUARD,,critical_traffic_share,6,0.27393335272513325,0.27393335272513325,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,IMPORTANCE_ONLY,,critical_event_delivery_ratio,6,0.9743589743589743,0.9743589743589743,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,IMPORTANCE_ONLY,,overall_delivery_ratio,6,0.9259259259259259,0.9259259259259259,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,IMPORTANCE_ONLY,,physical_data_transmissions,6,112.0,112.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,IMPORTANCE_ONLY,,total_bytes_transmitted,6,4056.0,4056.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,IMPORTANCE_ONLY,,accepted_ack,6,70.83333333333333,70.83333333333333,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,IMPORTANCE_ONLY,,critical_traffic_share,6,0.3482142857142857,0.3482142857142857,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,UNIFORM_BUDGET,,critical_event_delivery_ratio,6,0.9743589743589743,0.9743589743589743,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,UNIFORM_BUDGET,,overall_delivery_ratio,6,0.9845679012345678,0.9845679012345678,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,UNIFORM_BUDGET,,physical_data_transmissions,6,142.5,142.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,UNIFORM_BUDGET,,total_bytes_transmitted,6,5165.333333333333,5165.333333333333,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,UNIFORM_BUDGET,,accepted_ack,6,88.5,88.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,UNIFORM_BUDGET,,critical_traffic_share,6,0.23007535903005738,0.23007535903005738,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,RANDOM_BUDGET,,critical_event_delivery_ratio,6,0.9615384615384616,0.9615384615384616,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,RANDOM_BUDGET,,overall_delivery_ratio,6,0.9753086419753086,0.9753086419753086,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,RANDOM_BUDGET,,physical_data_transmissions,6,142.5,142.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,RANDOM_BUDGET,,total_bytes_transmitted,6,5167.5,5167.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,RANDOM_BUDGET,,accepted_ack,6,88.33333333333333,88.33333333333333,0.0,,,
+strategy_mean,RANDOM_COPY,0.2,,RANDOM_BUDGET,,critical_traffic_share,6,0.24083740644861099,0.24083740644861099,0.0,,,
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,overall_delivery_ratio,6,0.03395061728395062,0.03395061728395062,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,physical_data_transmissions,6,30.5,30.5,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,total_bytes_transmitted,6,1098.5,1098.5,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_traffic_share,6,-0.07428093298915245,-0.07428093298915245,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,overall_delivery_ratio,6,-0.024691358024691357,-0.024691358024691357,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,total_bytes_transmitted,6,-10.833333333333334,-10.833333333333334,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_traffic_share,6,0.043857993695075884,0.043857993695075884,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_event_delivery_ratio,6,0.01282051282051283,0.01282051282051283,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,overall_delivery_ratio,6,-0.015432098765432112,-0.015432098765432112,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,total_bytes_transmitted,6,-13.0,-13.0,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_traffic_share,6,0.03309594627652226,0.03309594627652226,0.0,EG>base,EG>base,True
+strategy_ranking,RANDOM_COPY,0.2,,,,critical_event_delivery_ratio,6,,,,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET > RANDOM_BUDGET,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET > RANDOM_BUDGET,True
+strategy_ranking,RANDOM_COPY,0.2,,,,overall_delivery_ratio,6,,,,UNIFORM_BUDGET > RANDOM_BUDGET > EVENTGUARD > IMPORTANCE_ONLY,UNIFORM_BUDGET > RANDOM_BUDGET > EVENTGUARD > IMPORTANCE_ONLY,True
+strategy_ranking,RANDOM_COPY,0.2,,,,physical_data_transmissions,6,,,,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,RANDOM_COPY,0.2,,,,total_bytes_transmitted,6,,,,IMPORTANCE_ONLY > EVENTGUARD > UNIFORM_BUDGET > RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD > UNIFORM_BUDGET > RANDOM_BUDGET,True
+strategy_ranking,RANDOM_COPY,0.2,,,,critical_traffic_share,6,,,,IMPORTANCE_ONLY > EVENTGUARD > RANDOM_BUDGET > UNIFORM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD > RANDOM_BUDGET > UNIFORM_BUDGET,True
+strategy_mean,RANDOM_COPY,0.3,,EVENTGUARD,,critical_event_delivery_ratio,6,0.9487179487179487,0.9487179487179487,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,EVENTGUARD,,overall_delivery_ratio,6,0.9259259259259259,0.9259259259259259,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,EVENTGUARD,,physical_data_transmissions,6,145.0,145.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,EVENTGUARD,,total_bytes_transmitted,6,5033.166666666667,5033.166666666667,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,EVENTGUARD,,accepted_ack,6,68.16666666666667,68.16666666666667,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,EVENTGUARD,,critical_traffic_share,6,0.2690649961585922,0.2690649961585922,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,IMPORTANCE_ONLY,,critical_event_delivery_ratio,6,0.9487179487179487,0.9487179487179487,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,IMPORTANCE_ONLY,,overall_delivery_ratio,6,0.8919753086419753,0.8919753086419753,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,IMPORTANCE_ONLY,,physical_data_transmissions,6,112.0,112.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,IMPORTANCE_ONLY,,total_bytes_transmitted,6,3913.0,3913.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,IMPORTANCE_ONLY,,accepted_ack,6,55.5,55.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,IMPORTANCE_ONLY,,critical_traffic_share,6,0.3482142857142857,0.3482142857142857,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,UNIFORM_BUDGET,,critical_event_delivery_ratio,6,0.9230769230769231,0.9230769230769231,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,UNIFORM_BUDGET,,overall_delivery_ratio,6,0.9537037037037037,0.9537037037037037,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,UNIFORM_BUDGET,,physical_data_transmissions,6,145.0,145.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,UNIFORM_BUDGET,,total_bytes_transmitted,6,5057.0,5057.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,UNIFORM_BUDGET,,accepted_ack,6,69.66666666666667,69.66666666666667,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,UNIFORM_BUDGET,,critical_traffic_share,6,0.24012703224525883,0.24012703224525883,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,RANDOM_BUDGET,,critical_event_delivery_ratio,6,0.9230769230769231,0.9230769230769231,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,RANDOM_BUDGET,,overall_delivery_ratio,6,0.9444444444444444,0.9444444444444444,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,RANDOM_BUDGET,,physical_data_transmissions,6,145.0,145.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,RANDOM_BUDGET,,total_bytes_transmitted,6,5063.5,5063.5,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,RANDOM_BUDGET,,accepted_ack,6,69.0,69.0,0.0,,,
+strategy_mean,RANDOM_COPY,0.3,,RANDOM_BUDGET,,critical_traffic_share,6,0.24006990546399412,0.24006990546399412,0.0,,,
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,overall_delivery_ratio,6,0.0339506172839506,0.0339506172839506,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,physical_data_transmissions,6,33.0,33.0,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,total_bytes_transmitted,6,1120.1666666666667,1120.1666666666667,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_traffic_share,6,-0.07914928955569349,-0.07914928955569349,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_event_delivery_ratio,6,0.025641025641025644,0.025641025641025644,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,overall_delivery_ratio,6,-0.027777777777777773,-0.027777777777777773,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,total_bytes_transmitted,6,-23.833333333333332,-23.833333333333332,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_traffic_share,6,0.028937963913333368,0.028937963913333368,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_event_delivery_ratio,6,0.025641025641025644,0.025641025641025644,0.0,EG>base,EG>base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,overall_delivery_ratio,6,-0.018518518518518507,-0.018518518518518507,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,total_bytes_transmitted,6,-30.333333333333332,-30.333333333333332,0.0,EG<base,EG<base,True
+paired_strategy_contrast,RANDOM_COPY,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_traffic_share,6,0.028995090694598085,0.028995090694598085,0.0,EG>base,EG>base,True
+strategy_ranking,RANDOM_COPY,0.3,,,,critical_event_delivery_ratio,6,,,,EVENTGUARD = IMPORTANCE_ONLY > UNIFORM_BUDGET = RANDOM_BUDGET,EVENTGUARD = IMPORTANCE_ONLY > UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,RANDOM_COPY,0.3,,,,overall_delivery_ratio,6,,,,UNIFORM_BUDGET > RANDOM_BUDGET > EVENTGUARD > IMPORTANCE_ONLY,UNIFORM_BUDGET > RANDOM_BUDGET > EVENTGUARD > IMPORTANCE_ONLY,True
+strategy_ranking,RANDOM_COPY,0.3,,,,physical_data_transmissions,6,,,,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,RANDOM_COPY,0.3,,,,total_bytes_transmitted,6,,,,IMPORTANCE_ONLY > EVENTGUARD > UNIFORM_BUDGET > RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD > UNIFORM_BUDGET > RANDOM_BUDGET,True
+strategy_ranking,RANDOM_COPY,0.3,,,,critical_traffic_share,6,,,,IMPORTANCE_ONLY > EVENTGUARD > UNIFORM_BUDGET > RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD > UNIFORM_BUDGET > RANDOM_BUDGET,True
+strategy_mean,BURST_SAMPLE,0.2,,EVENTGUARD,,critical_event_delivery_ratio,6,0.782051282051282,0.782051282051282,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,EVENTGUARD,,overall_delivery_ratio,6,0.7962962962962963,0.7962962962962963,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,EVENTGUARD,,physical_data_transmissions,6,133.16666666666666,133.16666666666666,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,EVENTGUARD,,total_bytes_transmitted,6,4857.666666666667,4857.666666666667,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,EVENTGUARD,,accepted_ack,6,84.66666666666667,84.66666666666667,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,EVENTGUARD,,critical_traffic_share,6,0.29308402432437153,0.29308402432437153,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,IMPORTANCE_ONLY,,critical_event_delivery_ratio,6,0.782051282051282,0.782051282051282,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,IMPORTANCE_ONLY,,overall_delivery_ratio,6,0.7962962962962963,0.7962962962962963,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,IMPORTANCE_ONLY,,physical_data_transmissions,6,112.0,112.0,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,IMPORTANCE_ONLY,,total_bytes_transmitted,6,4084.1666666666665,4084.1666666666665,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,IMPORTANCE_ONLY,,accepted_ack,6,71.5,71.5,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,IMPORTANCE_ONLY,,critical_traffic_share,6,0.3482142857142857,0.3482142857142857,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,UNIFORM_BUDGET,,critical_event_delivery_ratio,6,0.782051282051282,0.782051282051282,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,UNIFORM_BUDGET,,overall_delivery_ratio,6,0.7962962962962963,0.7962962962962963,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,UNIFORM_BUDGET,,physical_data_transmissions,6,133.16666666666666,133.16666666666666,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,UNIFORM_BUDGET,,total_bytes_transmitted,6,4862.0,4862.0,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,UNIFORM_BUDGET,,accepted_ack,6,88.33333333333333,88.33333333333333,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,UNIFORM_BUDGET,,critical_traffic_share,6,0.21134915977283145,0.21134915977283145,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,RANDOM_BUDGET,,critical_event_delivery_ratio,6,0.782051282051282,0.782051282051282,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,RANDOM_BUDGET,,overall_delivery_ratio,6,0.7962962962962963,0.7962962962962963,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,RANDOM_BUDGET,,physical_data_transmissions,6,133.16666666666666,133.16666666666666,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,RANDOM_BUDGET,,total_bytes_transmitted,6,4851.166666666667,4851.166666666667,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,RANDOM_BUDGET,,accepted_ack,6,86.5,86.5,0.0,,,
+strategy_mean,BURST_SAMPLE,0.2,,RANDOM_BUDGET,,critical_traffic_share,6,0.2388599666477399,0.2388599666477399,0.0,,,
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,overall_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,physical_data_transmissions,6,21.166666666666668,21.166666666666668,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,total_bytes_transmitted,6,773.5,773.5,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_traffic_share,6,-0.05513026138991416,-0.05513026138991416,0.0,EG<base,EG<base,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,overall_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,total_bytes_transmitted,6,-4.333333333333333,-4.333333333333333,0.0,EG<base,EG<base,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_traffic_share,6,0.0817348645515401,0.0817348645515401,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,overall_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,total_bytes_transmitted,6,6.5,6.5,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.2,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_traffic_share,6,0.05422405767663165,0.05422405767663165,0.0,EG>base,EG>base,True
+strategy_ranking,BURST_SAMPLE,0.2,,,,critical_event_delivery_ratio,6,,,,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.2,,,,overall_delivery_ratio,6,,,,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.2,,,,physical_data_transmissions,6,,,,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.2,,,,total_bytes_transmitted,6,,,,IMPORTANCE_ONLY > RANDOM_BUDGET > EVENTGUARD > UNIFORM_BUDGET,IMPORTANCE_ONLY > RANDOM_BUDGET > EVENTGUARD > UNIFORM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.2,,,,critical_traffic_share,6,,,,IMPORTANCE_ONLY > EVENTGUARD > RANDOM_BUDGET > UNIFORM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD > RANDOM_BUDGET > UNIFORM_BUDGET,True
+strategy_mean,BURST_SAMPLE,0.3,,EVENTGUARD,,critical_event_delivery_ratio,6,0.717948717948718,0.717948717948718,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,EVENTGUARD,,overall_delivery_ratio,6,0.7037037037037037,0.7037037037037037,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,EVENTGUARD,,physical_data_transmissions,6,139.16666666666666,139.16666666666666,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,EVENTGUARD,,total_bytes_transmitted,6,4894.5,4894.5,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,EVENTGUARD,,accepted_ack,6,69.33333333333333,69.33333333333333,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,EVENTGUARD,,critical_traffic_share,6,0.28063366802818157,0.28063366802818157,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,IMPORTANCE_ONLY,,critical_event_delivery_ratio,6,0.717948717948718,0.717948717948718,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,IMPORTANCE_ONLY,,overall_delivery_ratio,6,0.7037037037037037,0.7037037037037037,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,IMPORTANCE_ONLY,,physical_data_transmissions,6,112.0,112.0,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,IMPORTANCE_ONLY,,total_bytes_transmitted,6,3943.3333333333335,3943.3333333333335,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,IMPORTANCE_ONLY,,accepted_ack,6,56.333333333333336,56.333333333333336,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,IMPORTANCE_ONLY,,critical_traffic_share,6,0.3482142857142857,0.3482142857142857,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,UNIFORM_BUDGET,,critical_event_delivery_ratio,6,0.717948717948718,0.717948717948718,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,UNIFORM_BUDGET,,overall_delivery_ratio,6,0.7037037037037037,0.7037037037037037,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,UNIFORM_BUDGET,,physical_data_transmissions,6,139.16666666666666,139.16666666666666,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,UNIFORM_BUDGET,,total_bytes_transmitted,6,4920.5,4920.5,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,UNIFORM_BUDGET,,accepted_ack,6,72.66666666666667,72.66666666666667,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,UNIFORM_BUDGET,,critical_traffic_share,6,0.22713166517675407,0.22713166517675407,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,RANDOM_BUDGET,,critical_event_delivery_ratio,6,0.717948717948718,0.717948717948718,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,RANDOM_BUDGET,,overall_delivery_ratio,6,0.7037037037037037,0.7037037037037037,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,RANDOM_BUDGET,,physical_data_transmissions,6,139.16666666666666,139.16666666666666,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,RANDOM_BUDGET,,total_bytes_transmitted,6,4894.5,4894.5,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,RANDOM_BUDGET,,accepted_ack,6,70.5,70.5,0.0,,,
+strategy_mean,BURST_SAMPLE,0.3,,RANDOM_BUDGET,,critical_traffic_share,6,0.2386905475726516,0.2386905475726516,0.0,,,
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,overall_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,physical_data_transmissions,6,27.166666666666668,27.166666666666668,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,total_bytes_transmitted,6,951.1666666666666,951.1666666666666,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - IMPORTANCE_ONLY,critical_traffic_share,6,-0.06758061768610416,-0.06758061768610416,0.0,EG<base,EG<base,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,overall_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,total_bytes_transmitted,6,-26.0,-26.0,0.0,EG<base,EG<base,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - UNIFORM_BUDGET,critical_traffic_share,6,0.05350200285142747,0.05350200285142747,0.0,EG>base,EG>base,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_event_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,overall_delivery_ratio,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,physical_data_transmissions,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,total_bytes_transmitted,6,0.0,0.0,0.0,tie,tie,True
+paired_strategy_contrast,BURST_SAMPLE,0.3,,EVENTGUARD,EVENTGUARD - RANDOM_BUDGET,critical_traffic_share,6,0.04194312045552994,0.04194312045552994,0.0,EG>base,EG>base,True
+strategy_ranking,BURST_SAMPLE,0.3,,,,critical_event_delivery_ratio,6,,,,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.3,,,,overall_delivery_ratio,6,,,,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,EVENTGUARD = IMPORTANCE_ONLY = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.3,,,,physical_data_transmissions,6,,,,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD = UNIFORM_BUDGET = RANDOM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.3,,,,total_bytes_transmitted,6,,,,IMPORTANCE_ONLY > EVENTGUARD = RANDOM_BUDGET > UNIFORM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD = RANDOM_BUDGET > UNIFORM_BUDGET,True
+strategy_ranking,BURST_SAMPLE,0.3,,,,critical_traffic_share,6,,,,IMPORTANCE_ONLY > EVENTGUARD > RANDOM_BUDGET > UNIFORM_BUDGET,IMPORTANCE_ONLY > EVENTGUARD > RANDOM_BUDGET > UNIFORM_BUDGET,True
