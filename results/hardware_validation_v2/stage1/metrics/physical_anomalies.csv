@@ -1,0 +1,2 @@
+run_id,kind,sample_id,copy_index,planned_data_drop,loss_model,loss_rate,seed
+uniform_budget_random_copy_20_seed31,uncontrolled_physical_data_missing,25,1,False,RANDOM_COPY,0.2,31

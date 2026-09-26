@@ -4,10 +4,13 @@ from __future__ import annotations
 import csv
 import json
 import re
+from datetime import datetime, timezone
 from collections import defaultdict
 from pathlib import Path
 
 from .hardware_validation import OUT, atomic_json, plan, sha
+from .faults import LossPlan
+from .host import load_config
 from .research_analysis import _frontier, describe, holm_adjust, wilcoxon_exact
 
 METRICS = ("critical_event_delivery_ratio", "important_event_delivery_ratio", "overall_delivery_ratio",
@@ -20,12 +23,12 @@ METRICS = ("critical_event_delivery_ratio", "important_event_delivery_ratio", "o
 COMPARISONS = ("IMPORTANCE_ONLY", "UNIFORM_BUDGET", "RANDOM_BUDGET")
 
 
-def _write_csv(path: Path, rows: list[dict]) -> None:
+def _write_csv(path: Path, rows: list[dict], fieldnames: list[str] | None = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
+    if not rows and not fieldnames:
         path.write_text("", encoding="utf-8")
         return
-    keys = list(dict.fromkeys(key for row in rows for key in row))
+    keys = fieldnames or list(dict.fromkeys(key for row in rows for key in row))
     with path.open("w", newline="", encoding="utf-8") as stream:
         writer = csv.DictWriter(stream, fieldnames=keys, lineterminator="\n")
         writer.writeheader(); writer.writerows(rows)
@@ -100,22 +103,147 @@ def _paired(rows: list[dict]) -> list[dict]:
     return tests
 
 
-def _diff(rows: list[dict]) -> list[dict]:
+def _partial_diagnostics(row: dict, output_dir: Path) -> dict:
+    """Recover safely classifiable physical activity from a STARTed but incomplete attempt."""
+    raw_path = output_dir / "raw" / row.get("stage", "stage1") / f"{row.get('run_id', '')}.json"
+    if not raw_path.is_file():
+        return {}
+    raw = json.loads(raw_path.read_text(encoding="utf-8"))
+    sensor = [x.get("line", "") for x in raw.get("sensor", [])]
+    gateway = [x.get("line", "") for x in raw.get("gateway", [])]
+    sent = set()
+    received = set()
+    data_drops = set()
+    ack_tx = set()
+    ack_rx = set()
+    timeouts = set()
+    for line in sensor:
+        fields = line.split(",")
+        try:
+            if fields[0] == "TX": sent.add((int(fields[1]), int(fields[3])))
+            elif fields[0] == "ACK": ack_rx.add((int(fields[1]), int(fields[3])))
+            elif fields[0] == "TIMEOUT": timeouts.add((int(fields[1]), int(fields[2])))
+        except (IndexError, ValueError):
+            continue
+    for line in gateway:
+        fields = line.split(",")
+        try:
+            if fields[0] == "RX": received.add((int(fields[1]), int(fields[3])))
+            elif fields[:2] == ["DROP", "DATA"]: data_drops.add((int(fields[2]), int(fields[4])))
+            elif fields[0] == "ACK_TX": ack_tx.add((int(fields[1]), int(fields[3])))
+        except (IndexError, ValueError):
+            continue
+    cfg = load_config()
+    loss = LossPlan(int(row.get("seed", 0)), float(row.get("loss_rate", 0)),
+                    row.get("loss_model", "RANDOM_COPY"), int(row.get("sample_count", 0)),
+                    cfg["burst_length"])
+    missing = sorted(sent - received - data_drops)
+    missing_rows = [{"sample_id": sample, "copy_index": copy,
+                     "planned_data_drop": loss.drops("DATA", sample, copy)}
+                    for sample, copy in missing]
+    missing_evidence = []
+    for sample, copy in missing:
+        sensor_markers = [line for line in sensor
+                          if line.startswith(("D_TX_BEGIN,", "D_TX_UART_DONE,", "D_TX_AUX_READY,"))
+                          and len(line.split(",")) > 2
+                          and line.split(",")[1:3] == [str(sample), str(copy)]]
+        gateway_markers = [line for line in gateway
+                           if line.startswith(("D_RX_FIRST_BYTE,", "D_RX_HEADER_COMPLETE,",
+                                              "D_RX_FRAME_COMPLETE,", "D_RX_CRC_OK,"))
+                           and len(line.split(",")) > 2
+                           and line.split(",")[1:3] == [str(sample), str(copy)]]
+        missing_evidence.append({"sample_id": sample, "copy_index": copy,
+                                 "sensor_tx_markers": sensor_markers,
+                                 "gateway_rx_markers": gateway_markers})
+    sensor_ack_keys = {key for key in ack_rx}
+    ack_missing = sorted(ack_tx - sensor_ack_keys)
+    drop_calendar_mismatches = []
+    for sample, copy in data_drops:
+        if not loss.drops("DATA", sample, copy):
+            drop_calendar_mismatches.append({"kind": "DATA", "sample_id": sample, "copy_index": copy})
+    for line in sensor:
+        fields = line.split(",")
+        if len(fields) > 4 and fields[0] == "ACK":
+            try:
+                sample, copy = int(fields[1]), int(fields[3])
+                if (fields[4] == "DROP") != loss.drops("ACK", sample, copy):
+                    drop_calendar_mismatches.append({"kind": "ACK", "sample_id": sample, "copy_index": copy})
+            except ValueError:
+                pass
+    open_ack_wait = None
+    for line in sensor:
+        fields = line.split(",")
+        if len(fields) >= 4 and fields[0] == "D_ACK_WAIT_BEGIN":
+            try:
+                key = (int(fields[1]), int(fields[2]))
+                if key not in ack_rx and key not in timeouts:
+                    open_ack_wait = {"sample_id": key[0], "copy_index": key[1]}
+            except ValueError:
+                pass
+    error_lines = [line for line in sensor + gateway
+                   if line.startswith(("HOST_SERIAL_ERROR", "ERR,UART", "ERR,CRC", "ERR,PACKET"))]
+    first_time = next((x.get("host_monotonic") for x in raw.get("sensor", []) if x.get("line", "").startswith("TX,")), None)
+    last_time = next((x.get("host_monotonic") for x in reversed(raw.get("sensor", []))
+                      if x.get("line", "").startswith(("TX,", "ACK,", "TIMEOUT,"))), None)
+    return {
+        "partial": True,
+        "sensor_data_tx": len(sent),
+        "gateway_post_injection_rx": len(received),
+        "planned_data_drops_logged": len(data_drops),
+        "physical_data_before_injection": len(received) + len(data_drops),
+        "uncontrolled_physical_data_missing": len(missing_rows),
+        "missing_data_copies": missing_rows,
+        "missing_data_evidence": missing_evidence,
+        "physical_ack_frames": len(ack_tx),
+        "physical_ack_received": len(ack_rx),
+        "uncontrolled_physical_ack_missing": len(ack_missing),
+        "missing_ack_copies": [{"sample_id": s, "copy_index": c} for s, c in ack_missing],
+        "ack_timeouts_logged": len(timeouts),
+        "sample_records_complete": sum(line.startswith("SAMPLE,") for line in sensor),
+        "sample_events_started": sum(line.startswith("EVT,") for line in sensor),
+        "data_loss_calendar_mismatches": drop_calendar_mismatches,
+        "serial_or_parser_error_lines": error_lines,
+        "open_ack_wait_at_last_sensor_log": open_ack_wait,
+        "last_sensor_progress_line": next((line for line in reversed(sensor)
+                                            if line.startswith(("TX,", "ACK,", "TIMEOUT,", "SAMPLE,"))), ""),
+        "host_monotonic_span_from_first_tx_to_last_sensor_record_s":
+            last_time - first_time if first_time is not None and last_time is not None else None,
+        "run_timeout_s": row.get("duration_s"),
+    }
+
+
+def _diff(rows: list[dict], output_dir: Path | None = None) -> list[dict]:
     result = []
     for row in rows:
-        hardware, host = row["metrics"], row["reference_metrics"]
-        result.append({"run_id": row["run_id"], "loss_model": row["loss_model"],
+        hardware, host = row.get("metrics", {}), row.get("reference_metrics", {})
+        partial = _partial_diagnostics(row, output_dir) if output_dir and "metrics" not in row else {}
+        differences = row.get("sample_differences", [])
+        sample_events = row.get("sample_events", [])
+        result.append({"run_id": row.get("run_id"), "loss_model": row.get("loss_model"),
                        "loss_rate": row["loss_rate"], "seed": row["seed"], "strategy": row["strategy"],
-                       "critical_delivery_difference": hardware["critical_event_delivery_ratio"]-host["critical_event_delivery_ratio"],
-                       "overall_delivery_difference": hardware["overall_delivery_ratio"]-host["overall_delivery_ratio"],
-                       "data_copy_difference": hardware["physical_data_transmissions"]-host["physical_data_transmissions"],
-                       "accepted_ack_difference": hardware["accepted_ack"]-host["accepted_ack"],
-                       "link_state_difference_count": sum(e["link_state_before"] != next(
-                           (x["link_simulation"] for x in row["sample_differences"] if x["sample_id"] == e["sample_id"]),
-                           e["link_state_before"]) for e in row["sample_events"]),
-                       "first_divergent_sample": row["sample_differences"][0]["sample_id"] if row["sample_differences"] else "",
-                       "first_divergent_copy": row["sample_differences"][0]["copy_index"] if row["sample_differences"] else "",
-                       "first_issue": row["issues"][0] if row["issues"] else ""})
+                       "critical_delivery_difference": hardware.get("critical_event_delivery_ratio", "")-host.get("critical_event_delivery_ratio", 0)
+                       if isinstance(hardware.get("critical_event_delivery_ratio"), (int, float)) else "",
+                       "overall_delivery_difference": hardware.get("overall_delivery_ratio", "")-host.get("overall_delivery_ratio", 0)
+                       if isinstance(hardware.get("overall_delivery_ratio"), (int, float)) else "",
+                       "data_copy_difference": hardware.get("physical_data_transmissions", "")-host.get("physical_data_transmissions", 0)
+                       if isinstance(hardware.get("physical_data_transmissions"), (int, float)) else "",
+                       "accepted_ack_difference": hardware.get("accepted_ack", "")-host.get("accepted_ack", 0)
+                       if isinstance(hardware.get("accepted_ack"), (int, float)) else "",
+                       "link_state_difference_count": sum(
+                           e.get("link_state_before") != e.get("link_state_before_simulation") or
+                           e.get("link_state_after") != e.get("link_state_after_simulation")
+                           for e in sample_events) if sample_events else "",
+                       "uncontrolled_physical_data_missing": partial.get("uncontrolled_physical_data_missing",
+                           hardware.get("uncontrolled_physical_data_missing", "")),
+                       "missing_data_copies": json.dumps(partial.get("missing_data_copies", [])),
+                       "first_divergent_sample": differences[0].get("sample_id", "") if differences else
+                           (partial.get("missing_data_copies", [{}])[0].get("sample_id", "")
+                            if partial.get("missing_data_copies") else ""),
+                       "first_divergent_copy": differences[0].get("copy_index", "") if differences else
+                           (partial.get("missing_data_copies", [{}])[0].get("copy_index", "")
+                            if partial.get("missing_data_copies") else ""),
+                       "first_issue": row.get("issues", [""])[0] if row.get("issues") else "",
+                       "partial_diagnostics": json.dumps(partial, ensure_ascii=False) if partial else ""})
     return result
 
 
@@ -152,6 +280,8 @@ def _plot(summary: list[dict], stage: str, output_dir: Path | None = None) -> di
 def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
     output = output_dir or OUT
     rows, failed, missing = load_stage(stage, output)
+    if stage == "stage1":
+        return _analyze_stage1_attempt(output, rows, failed, missing)
     summary = _summary(rows)
     tests = _paired(rows) if stage != "smoke" else []
     differences = _diff(rows + failed)
@@ -186,9 +316,9 @@ def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
     payload = {"stage": stage, "completed_runs": len(rows), "failed_runs": len(failed),
                "attempted_runs": len(rows) + len(failed), "planned_runs": len(plan(stage)),
                "complete": complete, "missing": missing,
-               "failed_details": [{"run_id": r["run_id"], "issues": r["issues"],
-                                   "uncontrolled_physical_data_missing": r["metrics"].get("uncontrolled_physical_data_missing"),
-                                   "uncontrolled_physical_ack_missing": r["metrics"].get("uncontrolled_physical_ack_missing")}
+               "failed_details": [{"run_id": r.get("run_id"), "issues": r.get("issues", []),
+                                   "uncontrolled_physical_data_missing": r.get("metrics", {}).get("uncontrolled_physical_data_missing"),
+                                   "uncontrolled_physical_ack_missing": r.get("metrics", {}).get("uncontrolled_physical_ack_missing")}
                                   for r in failed], "summary": summary,
                "paired_tests": tests, "simulation_hardware_diff": differences, "plots": plots,
                "pareto_frontier_by_condition": {f"{model} {rate:.0%}": status
@@ -398,3 +528,173 @@ def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
                                            encoding="utf-8")
     return {"completed": len(rows), "failed": len(failed), "planned": len(plan(stage)), "complete": complete,
             "metric_disagreements": len(disagreements), "paired_tests": len(tests)}
+
+
+def _analyze_stage1_attempt(output: Path, rows: list[dict], failed: list[dict],
+                            missing: list[str]) -> dict:
+    """Write Stage 1 outputs without touching the v2 smoke summaries or raw attempts."""
+    report_root = output / "stage1"
+    metrics_dir = report_root / "metrics"
+    report_root.mkdir(parents=True, exist_ok=True)
+    plots_dir = report_root / "plots"
+    plots_dir.mkdir(parents=True, exist_ok=True)
+    diagnostics = {row["run_id"]: _partial_diagnostics(row, output)
+                   for row in failed if "metrics" not in row}
+    summary = _summary(rows)
+    tests = _paired(rows) if rows else []
+    differences = _diff(rows + failed, output)
+    summary_fields = ["loss_model", "loss_rate", "strategy", "n_seed_runs"] + [
+        f"{metric}_{stat}" for metric in METRICS
+        for stat in ("mean", "median", "std", "ci95_low", "ci95_high")]
+    paired_fields = ["loss_model", "loss_rate", "comparison", "n_seed_pairs", "wins", "ties", "losses",
+                     "mean", "median", "std", "ci95_low", "ci95_high", "p_two_sided", "holm_p",
+                     "rank_biserial", "mean_data_copy_difference", "mean_byte_difference",
+                     "mean_airtime_proxy_difference_ms"]
+    _write_csv(report_root / "summary.csv", summary, summary_fields)
+    _write_csv(metrics_dir / "paired_tests.csv", tests, paired_fields)
+    _write_csv(report_root / "simulation_hardware_diff.csv", differences)
+
+    run_metrics = []
+    for row in rows + failed:
+        partial = diagnostics.get(row["run_id"], {})
+        run_metrics.append({"run_id": row["run_id"], "stage": row.get("stage", "stage1"),
+                            "status": row.get("status"), "loss_model": row.get("loss_model"),
+                            "loss_rate": row.get("loss_rate"), "seed": row.get("seed"),
+                            "strategy": row.get("strategy"), **row.get("metrics", {}),
+                            **{f"partial_{key}": json.dumps(value, ensure_ascii=False)
+                               if isinstance(value, (dict, list)) else value
+                               for key, value in partial.items()}})
+    _write_csv(metrics_dir / "run_metrics.csv", run_metrics)
+
+    anomaly_rows = []
+    for row in failed:
+        diag = diagnostics.get(row["run_id"], {})
+        for item in diag.get("missing_data_copies", []):
+            anomaly_rows.append({"run_id": row["run_id"], "kind": "uncontrolled_physical_data_missing",
+                                 "sample_id": item["sample_id"], "copy_index": item["copy_index"],
+                                 "planned_data_drop": item["planned_data_drop"],
+                                 "loss_model": row.get("loss_model"), "loss_rate": row.get("loss_rate"),
+                                 "seed": row.get("seed")})
+        for item in diag.get("missing_ack_copies", []):
+            anomaly_rows.append({"run_id": row["run_id"], "kind": "uncontrolled_physical_ack_missing",
+                                 "sample_id": item["sample_id"], "copy_index": item["copy_index"],
+                                 "planned_data_drop": "", "loss_model": row.get("loss_model"),
+                                 "loss_rate": row.get("loss_rate"), "seed": row.get("seed")})
+    _write_csv(metrics_dir / "physical_anomalies.csv", anomaly_rows)
+
+    complete = len(rows) == len(plan("stage1")) and not failed
+    all_diagnostics = {row["run_id"]: diagnostics.get(row["run_id"], {}) for row in failed}
+    payload = {"stage": "stage1", "status": "COMPLETE" if complete else "FAILED" if failed else "INCOMPLETE",
+               "completed_runs": len(rows), "failed_runs": len(failed),
+               "attempted_runs": len(rows) + len(failed), "planned_runs": len(plan("stage1")),
+               "not_attempted_runs": len(missing), "complete": complete, "missing": missing,
+               "failed_details": [{"run_id": row.get("run_id"), "issues": row.get("issues", []),
+                                   "diagnostics": diagnostics.get(row.get("run_id"), {})}
+                                  for row in failed],
+               "summary": summary, "paired_tests": tests,
+               "simulation_hardware_diff": differences, "plots": {},
+               "treatment_conclusions_available": bool(complete),
+               "raw_attempts_preserved": True}
+    (report_root / "summary.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    (report_root / "postmortem.json").write_text(json.dumps({"failed_attempt_diagnostics": all_diagnostics},
+                                                           indent=2) + "\n", encoding="utf-8")
+
+    smoke_rows, smoke_failed, smoke_missing = load_stage("smoke", output)
+    smoke_passed, smoke_planned = len(smoke_rows), len(plan("smoke"))
+    smoke_gate = "PASS" if smoke_passed == smoke_planned and not smoke_failed and not smoke_missing else "FAIL"
+    first = failed[0] if failed else None
+    diag = diagnostics.get(first.get("run_id"), {}) if first else {}
+    missing_copy = (diag.get("missing_data_copies") or [{}])[0]
+    sensor_markers = (diag.get("missing_data_evidence") or [{}])[0].get("sensor_tx_markers", [])
+    gateway_markers = (diag.get("missing_data_evidence") or [{}])[0].get("gateway_rx_markers", [])
+    firmware = {}
+    stage_manifest_path = report_root / "stage1_manifest.json"
+    if stage_manifest_path.is_file():
+        stage_manifest = json.loads(stage_manifest_path.read_text(encoding="utf-8"))
+        firmware = stage_manifest.get("firmware_images_sha256", {})
+        stage_manifest["analysis"] = {"generated_at": datetime.now(timezone.utc).isoformat(),
+            "completed_runs": len(rows), "failed_runs": len(failed),
+            "not_attempted_runs": len(missing), "gate_status": "FAIL",
+            "postmortem_code_sha256": sha(Path(__file__)),
+            "outputs": ["summary.json", "simulation_hardware_diff.csv", "metrics/physical_anomalies.csv",
+                        "postmortem.json", "stage1_report.md", "paper_update.md"]}
+        atomic_json(stage_manifest_path, stage_manifest)
+
+    run_id = first.get("run_id", "unknown") if first else "none"
+    lines = [
+        "# Stage 1 confirmatory hardware experiment report", "",
+        "## Outcome", "",
+        f"Stage 1 stopped after {len(rows)} complete runs and {len(failed)} failed STARTed attempt(s); "
+        f"{len(missing)} of {len(plan('stage1'))} planned runs were not attempted.",
+        "The preregistered stop rule was applied. No retry or later condition was run after the failed attempt.",
+        f"Smoke gate before Stage 1: {smoke_passed}/{smoke_planned} ({smoke_gate}). Stage 1 preflight: PASS.",
+        "Treatment-level statistics, equal-budget comparisons, and Pareto analysis are unavailable because "
+        "no condition has a complete paired seed set.", "",
+        "## Frozen provenance", "",
+        f"- Firmware recovery path: B (device image recovery; exact canonical image hashes matched the smoke pair).",
+        f"- Sensor SHA256: `{firmware.get('sensor', 'unavailable')}`",
+        f"- Gateway SHA256: `{firmware.get('gateway', 'unavailable')}`",
+        "- Algorithm/config/trace/fault hashes were checked at preflight; no firmware or frozen core was changed.",
+        "- Stage 1 outputs are isolated in this directory; the prior v2 smoke reports and raw data were not overwritten.", "",
+        "## Failed attempt diagnostic", "",
+        f"- Run: `{run_id}` ({first.get('strategy', '') if first else ''}, "
+        f"{first.get('loss_model', '') if first else ''} {first.get('loss_rate', 0):.0%}, "
+        f"seed {first.get('seed', '') if first else ''}).",
+        f"- Failure: {first.get('failure', {}).get('message', 'no failure record') if first else 'none'}.",
+        f"- Sensor DATA TX records: {diag.get('sensor_data_tx', 0)}; gateway post-injection RX: "
+        f"{diag.get('gateway_post_injection_rx', 0)}; planned DATA drops logged: {diag.get('planned_data_drops_logged', 0)}; "
+        f"physical DATA before injection: {diag.get('physical_data_before_injection', 0)}.",
+        f"- Uncontrolled physical DATA missing: {diag.get('uncontrolled_physical_data_missing', 0)}; "
+        f"uncontrolled physical ACK missing: {diag.get('uncontrolled_physical_ack_missing', 0)}.",
+        f"- Missing copy: sample {missing_copy.get('sample_id', 'n/a')} copy {missing_copy.get('copy_index', 'n/a')}; "
+        f"planned DATA drop={missing_copy.get('planned_data_drop', 'n/a')}.",
+        f"- Gateway ACK TX / Sensor physical ACK RX: {diag.get('physical_ack_frames', 0)} / "
+        f"{diag.get('physical_ack_received', 0)}; logged ACK timeouts: {diag.get('ack_timeouts_logged', 0)}.",
+        f"- CRC/UART/parser error lines captured: {len(diag.get('serial_or_parser_error_lines', []))}; "
+        f"loss-calendar mismatches: {len(diag.get('data_loss_calendar_mismatches', []))}.",
+        f"- Sensor open ACK wait at last log: `{json.dumps(diag.get('open_ack_wait_at_last_sensor_log'), ensure_ascii=False)}`. "
+        "No subsequent ACK or TIMEOUT record for that copy was captured before the runner's firmware END timeout.",
+        f"- Sensor TX-path markers for the missing copy: `{'; '.join(sensor_markers) or 'none'}`.",
+        f"- Matching Gateway RX markers: `{'; '.join(gateway_markers) or 'none'}`.",
+        "The evidence places the unexplained disappearance after the Sensor firmware logged UART completion/AUX-ready "
+        "and before any matching Gateway parser receive marker. It does not distinguish E220 buffering, RF, or the "
+        "Gateway receive path; this report does not label it an RF loss.",
+        "No arbitrary delay was introduced. No parser/firmware change was made during this Stage 1 attempt.", "",
+        "## Research questions", "",
+        "- EventGuard vs Importance Only: not evaluated; no complete Stage 1 pair.",
+        "- EventGuard vs Uniform Budget: not evaluated; no complete Stage 1 pair.",
+        "- EventGuard vs Random Budget: not evaluated; no complete Stage 1 pair.",
+        "- RANDOM_COPY 20%/30% and BURST_SAMPLE 20%/30%: no treatment conclusion; the first attempted "
+        "condition (UNIFORM_BUDGET, RANDOM_COPY 20%, seed 31) failed.",
+        "- Pareto status: unavailable; no completed matched condition.",
+        "- Link adaptation usefulness: UNKNOWN from this Stage 1 attempt.",
+        "- Host/firmware agreement: full sample-level agreement is unavailable for this truncated run; one "
+        "unplanned TX-to-Gateway observation gap is confirmed from the retained logs.", "",
+        "## Decision", "",
+        "- Hardware runs completed: 0 / 160 PASS.",
+        f"- Failed runs: {len(failed)}; not attempted: {len(missing)}.",
+        "- Uncontrolled physical anomalies: 1 DATA copy; 0 observed missing ACK frames; 0 captured CRC/parser errors.",
+        "- Simulation/firmware divergences: full-run parity cannot be scored; one transport-level DATA observation divergence at sample 25 copy 1.",
+        "- Need full 400 runs: NO. Stage 1 did not pass; do not expand the matrix.",
+        "- Recommended next action: retain this attempt and perform separately authorized receive-path engineering diagnosis "
+        "before any new confirmatory run. The Stage 1 matrix remains stopped.", "",
+        "This is an incomplete engineering feasibility observation, not a strategy effect estimate. No reliability, "
+        "cost, or Pareto claim is made from this attempt.",
+    ]
+    (report_root / "stage1_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (report_root / "paper_update.md").write_text(
+        "# Hardware validation paper update\n\n"
+        "Stage 1 was stopped after its first STARTed attempt failed firmware END validation. The retained log "
+        "contains one unplanned Sensor-TX-to-Gateway-observation gap (sample 25, copy 1), while no captured CRC, "
+        "UART, or parser error localizes its cause. No treatment comparisons are available, and this attempt does "
+        "not support a strategy-effect claim. Preserve it as an engineering feasibility observation; do not update "
+        "the paper's treatment results from this incomplete run.\n",
+        encoding="utf-8")
+    (plots_dir / "README.md").write_text(
+        "No Pareto plots were generated: Stage 1 stopped after its first failed attempt, so no matched "
+        "condition has completed treatment data.\n", encoding="utf-8")
+    return {"completed": len(rows), "failed": len(failed), "not_attempted": len(missing),
+            "planned": len(plan("stage1")), "complete": complete, "metric_disagreements": 0,
+            "transport_divergences": sum(d.get("uncontrolled_physical_data_missing") == 1
+                                         for d in diagnostics.values()),
+            "paired_tests": len(tests), "report_dir": str(report_root)}

@@ -1,0 +1,121 @@
+{
+  "recovered_at_utc": "2026-09-26T06:44:31.409067+00:00",
+  "read_only": true,
+  "partition_table_tool": "ESP-IDF gen_esp32part.py from ESP-IDF v5.4.4",
+  "partition_table_offset_source": "parsed from build/sdkconfig.<role>; used only to locate the table for read_flash",
+  "partition_table_read_length_source": "size of ESP-IDF generated partition-table.bin; 3072 bytes",
+  "devices": {
+    "sensor": {
+      "serial_port": "/dev/cu.usbmodem1401",
+      "mac": "80:65:99:a7:a8:a4",
+      "chip": "ESP32-S3",
+      "partition_table_offset": 32768,
+      "partition_table_length": 3072,
+      "partition_table_sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820",
+      "generated_table_sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820",
+      "partitions": [
+        {
+          "Name": "nvs",
+          "Type": "data",
+          "SubType": "nvs",
+          "Offset": "0x9000",
+          "Size": "24K",
+          "Flags": "",
+          "Offset_bytes": 36864,
+          "Size_bytes": 24576
+        },
+        {
+          "Name": "phy_init",
+          "Type": "data",
+          "SubType": "phy",
+          "Offset": "0xf000",
+          "Size": "4K",
+          "Flags": "",
+          "Offset_bytes": 61440,
+          "Size_bytes": 4096
+        },
+        {
+          "Name": "factory",
+          "Type": "app",
+          "SubType": "factory",
+          "Offset": "0x10000",
+          "Size": "1M",
+          "Flags": "",
+          "Offset_bytes": 65536,
+          "Size_bytes": 1048576
+        }
+      ],
+      "active_app_partition": "factory",
+      "active_app_selection": "only app partition present in the actual table; no OTA app slots",
+      "app_partition_offset_bytes": 65536,
+      "app_partition_size_bytes": 1048576,
+      "app_partition_dump": "results/firmware_recovery/device_dump/sensor_app_partition.bin",
+      "app_partition_dump_size_bytes": 1048576,
+      "app_partition_dump_sha256": "2ce9b7120f3bd12c2c2af726ddcbed8fb121df572d18afee692d83cf40d311d3",
+      "extracted_canonical_app": "results/firmware_recovery/device_dump/sensor_extracted_app.bin",
+      "canonical_image_size_bytes": 285568,
+      "extracted_app_sha256": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+      "image_parser": "esptool v4.12 ESP32S3FirmwareImage",
+      "parser_reported_image_body_size_bytes": 285536,
+      "structurally_parsed_appended_digest_bytes": 32,
+      "esp_image_checksum_valid": true,
+      "embedded_esp_sha256_digest_valid": true
+    },
+    "gateway": {
+      "serial_port": "/dev/cu.usbmodem1101",
+      "mac": "c0:4e:30:31:42:9c",
+      "chip": "ESP32-S3",
+      "partition_table_offset": 32768,
+      "partition_table_length": 3072,
+      "partition_table_sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820",
+      "generated_table_sha256": "7f00b6c042a89b15b0cac534f82ed988caf29278ff5700b0c511eb1b5bb7c820",
+      "partitions": [
+        {
+          "Name": "nvs",
+          "Type": "data",
+          "SubType": "nvs",
+          "Offset": "0x9000",
+          "Size": "24K",
+          "Flags": "",
+          "Offset_bytes": 36864,
+          "Size_bytes": 24576
+        },
+        {
+          "Name": "phy_init",
+          "Type": "data",
+          "SubType": "phy",
+          "Offset": "0xf000",
+          "Size": "4K",
+          "Flags": "",
+          "Offset_bytes": 61440,
+          "Size_bytes": 4096
+        },
+        {
+          "Name": "factory",
+          "Type": "app",
+          "SubType": "factory",
+          "Offset": "0x10000",
+          "Size": "1M",
+          "Flags": "",
+          "Offset_bytes": 65536,
+          "Size_bytes": 1048576
+        }
+      ],
+      "active_app_partition": "factory",
+      "active_app_selection": "only app partition present in the actual table; no OTA app slots",
+      "app_partition_offset_bytes": 65536,
+      "app_partition_size_bytes": 1048576,
+      "app_partition_dump": "results/firmware_recovery/device_dump/gateway_app_partition.bin",
+      "app_partition_dump_size_bytes": 1048576,
+      "app_partition_dump_sha256": "8f993fd2b1dd42ebfcb50ea05801664f5e45ff0068957b46e01a12be3ac5948b",
+      "extracted_canonical_app": "results/firmware_recovery/device_dump/gateway_extracted_app.bin",
+      "canonical_image_size_bytes": 254256,
+      "extracted_app_sha256": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac",
+      "image_parser": "esptool v4.12 ESP32S3FirmwareImage",
+      "parser_reported_image_body_size_bytes": 254224,
+      "structurally_parsed_appended_digest_bytes": 32,
+      "esp_image_checksum_valid": true,
+      "embedded_esp_sha256_digest_valid": true
+    }
+  }
+}

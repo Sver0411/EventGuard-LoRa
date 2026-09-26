@@ -1,0 +1,7196 @@
+{
+  "run_id": "uniform_budget_random_copy_20_seed31",
+  "stage": "stage1",
+  "sensor": [
+    {
+      "host_monotonic": 1342540.685064416,
+      "line": "EVT,0,0,NORMAL,0.0000,GOOD,3"
+    },
+    {
+      "host_monotonic": 1342540.68532775,
+      "line": "TX_BEGIN,0,0,0,3"
+    },
+    {
+      "host_monotonic": 1342540.685686375,
+      "line": "D_TX_BEGIN,0,0,0,2168730"
+    },
+    {
+      "host_monotonic": 1342540.686320791,
+      "line": "AUX,2169993,0"
+    },
+    {
+      "host_monotonic": 1342540.719030083,
+      "line": "AUX,2202368,1"
+    },
+    {
+      "host_monotonic": 1342540.719454583,
+      "line": "D_TX_UART_DONE,0,0,0,2196118"
+    },
+    {
+      "host_monotonic": 1342540.719875,
+      "line": "D_TX_AUX_READY,0,0,0,2202379"
+    },
+    {
+      "host_monotonic": 1342540.720086166,
+      "line": "TX,0,0,0,3,26"
+    },
+    {
+      "host_monotonic": 1342540.720523958,
+      "line": "D_ACK_WAIT_BEGIN,0,0,0,2202762"
+    },
+    {
+      "host_monotonic": 1342541.719289,
+      "line": "D_ACK_TIMEOUT,0,0,0,3202893"
+    },
+    {
+      "host_monotonic": 1342541.719354708,
+      "line": "TIMEOUT,0,0"
+    },
+    {
+      "host_monotonic": 1342541.719440333,
+      "line": "TX_BEGIN,0,0,1,3"
+    },
+    {
+      "host_monotonic": 1342541.719563958,
+      "line": "D_TX_BEGIN,0,1,0,3203198"
+    },
+    {
+      "host_monotonic": 1342541.720476041,
+      "line": "AUX,3204348,0"
+    },
+    {
+      "host_monotonic": 1342541.75006475,
+      "line": "D_TX_UART_DONE,0,1,0,3230441"
+    },
+    {
+      "host_monotonic": 1342541.750236958,
+      "line": "D_TX_AUX_READY,0,1,0,3233586"
+    },
+    {
+      "host_monotonic": 1342541.750324041,
+      "line": "TX,0,0,1,3,26"
+    },
+    {
+      "host_monotonic": 1342541.750503625,
+      "line": "D_ACK_WAIT_BEGIN,0,1,0,3233897"
+    },
+    {
+      "host_monotonic": 1342541.750589083,
+      "line": "AUX,3233575,1"
+    },
+    {
+      "host_monotonic": 1342542.438392041,
+      "line": "AUX,3922001,0"
+    },
+    {
+      "host_monotonic": 1342542.454704666,
+      "line": "AUX,3938061,1"
+    },
+    {
+      "host_monotonic": 1342542.465651125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,3948509,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342542.466065791,
+      "line": "D_ACK_RECEIVED,0,1,0,3948723"
+    },
+    {
+      "host_monotonic": 1342542.466271083,
+      "line": "ACK,0,0,1,OK"
+    },
+    {
+      "host_monotonic": 1342542.466519125,
+      "line": "TX_BEGIN,0,0,2,3"
+    },
+    {
+      "host_monotonic": 1342542.466882166,
+      "line": "D_TX_BEGIN,0,2,0,3949055"
+    },
+    {
+      "host_monotonic": 1342542.467101458,
+      "line": "AUX,3950221,0"
+    },
+    {
+      "host_monotonic": 1342542.496313416,
+      "line": "D_TX_UART_DONE,0,2,0,3976320"
+    },
+    {
+      "host_monotonic": 1342542.496650791,
+      "line": "D_TX_AUX_READY,0,2,0,3979461"
+    },
+    {
+      "host_monotonic": 1342542.496802583,
+      "line": "TX,0,0,2,3,26"
+    },
+    {
+      "host_monotonic": 1342542.49712475,
+      "line": "D_ACK_WAIT_BEGIN,0,2,0,3979792"
+    },
+    {
+      "host_monotonic": 1342542.497275041,
+      "line": "AUX,3979450,1"
+    },
+    {
+      "host_monotonic": 1342543.49638625,
+      "line": "D_ACK_TIMEOUT,0,2,0,4979918"
+    },
+    {
+      "host_monotonic": 1342543.496529916,
+      "line": "TIMEOUT,0,2"
+    },
+    {
+      "host_monotonic": 1342543.497377083,
+      "line": "SAMPLE,0,NORMAL,NORMAL,0.0000,GOOD,3,3,1,2811.839"
+    },
+    {
+      "host_monotonic": 1342543.497773208,
+      "line": "EVT,1,0,NORMAL,0.0139,BAD,3"
+    },
+    {
+      "host_monotonic": 1342543.498042583,
+      "line": "TX_BEGIN,1,1,0,3"
+    },
+    {
+      "host_monotonic": 1342543.498452875,
+      "line": "D_TX_BEGIN,1,0,1,4981075"
+    },
+    {
+      "host_monotonic": 1342543.498730583,
+      "line": "AUX,4982310,0"
+    },
+    {
+      "host_monotonic": 1342543.528076333,
+      "line": "AUX,5011537,1"
+    },
+    {
+      "host_monotonic": 1342543.528498375,
+      "line": "D_TX_UART_DONE,1,0,1,5008417"
+    },
+    {
+      "host_monotonic": 1342543.528908125,
+      "line": "D_TX_AUX_READY,1,0,1,5011549"
+    },
+    {
+      "host_monotonic": 1342543.529114583,
+      "line": "TX,1,1,0,3,26"
+    },
+    {
+      "host_monotonic": 1342543.529557666,
+      "line": "D_ACK_WAIT_BEGIN,1,0,1,5011938"
+    },
+    {
+      "host_monotonic": 1342544.213713333,
+      "line": "AUX,5697537,0"
+    },
+    {
+      "host_monotonic": 1342544.23014925,
+      "line": "AUX,5713741,1"
+    },
+    {
+      "host_monotonic": 1342544.241108125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,5724180,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342544.241534958,
+      "line": "D_ACK_RECEIVED,1,0,1,5724378"
+    },
+    {
+      "host_monotonic": 1342544.24172675,
+      "line": "ACK,1,1,0,OK"
+    },
+    {
+      "host_monotonic": 1342544.241925333,
+      "line": "TX_BEGIN,1,1,1,3"
+    },
+    {
+      "host_monotonic": 1342544.242142333,
+      "line": "D_TX_BEGIN,1,1,1,5724711"
+    },
+    {
+      "host_monotonic": 1342544.242259458,
+      "line": "AUX,5725892,0"
+    },
+    {
+      "host_monotonic": 1342544.271911791,
+      "line": "D_TX_UART_DONE,1,1,1,5751993"
+    },
+    {
+      "host_monotonic": 1342544.27236025,
+      "line": "D_TX_AUX_READY,1,1,1,5755134"
+    },
+    {
+      "host_monotonic": 1342544.272567791,
+      "line": "TX,1,1,1,3,26"
+    },
+    {
+      "host_monotonic": 1342544.273002041,
+      "line": "D_ACK_WAIT_BEGIN,1,1,1,5755479"
+    },
+    {
+      "host_monotonic": 1342544.273207625,
+      "line": "AUX,5755117,1"
+    },
+    {
+      "host_monotonic": 1342544.957450875,
+      "line": "AUX,6441192,0"
+    },
+    {
+      "host_monotonic": 1342544.973433,
+      "line": "AUX,6457050,1"
+    },
+    {
+      "host_monotonic": 1342544.984223958,
+      "line": "UART_BUFFER,FRAME_COMPLETE,6467459,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342544.984634041,
+      "line": "D_ACK_RECEIVED,1,1,1,6467622"
+    },
+    {
+      "host_monotonic": 1342544.984853458,
+      "line": "ACK,1,1,1,DROP"
+    },
+    {
+      "host_monotonic": 1342544.985166916,
+      "line": "TX_BEGIN,1,1,2,3"
+    },
+    {
+      "host_monotonic": 1342544.985527541,
+      "line": "D_TX_BEGIN,1,2,1,6467954"
+    },
+    {
+      "host_monotonic": 1342544.985736041,
+      "line": "AUX,6469140,0"
+    },
+    {
+      "host_monotonic": 1342545.014910791,
+      "line": "AUX,6498367,1"
+    },
+    {
+      "host_monotonic": 1342545.015355166,
+      "line": "D_TX_UART_DONE,1,2,1,6495241"
+    },
+    {
+      "host_monotonic": 1342545.015761708,
+      "line": "D_TX_AUX_READY,1,2,1,6498381"
+    },
+    {
+      "host_monotonic": 1342545.015986416,
+      "line": "TX,1,1,2,3,26"
+    },
+    {
+      "host_monotonic": 1342545.01644675,
+      "line": "D_ACK_WAIT_BEGIN,1,2,1,6498773"
+    },
+    {
+      "host_monotonic": 1342545.700908208,
+      "line": "AUX,7184662,0"
+    },
+    {
+      "host_monotonic": 1342545.716899125,
+      "line": "AUX,7200490,1"
+    },
+    {
+      "host_monotonic": 1342545.727747875,
+      "line": "UART_BUFFER,FRAME_COMPLETE,7210889,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342545.728184583,
+      "line": "D_ACK_RECEIVED,1,2,1,7211058"
+    },
+    {
+      "host_monotonic": 1342545.728378916,
+      "line": "ACK,1,1,2,OK"
+    },
+    {
+      "host_monotonic": 1342545.729057833,
+      "line": "SAMPLE,1,NORMAL,NORMAL,0.0139,BAD,3,3,1,2230.579"
+    },
+    {
+      "host_monotonic": 1342545.72952775,
+      "line": "EVT,2,0,NORMAL,0.0495,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342545.729877625,
+      "line": "TX_BEGIN,2,2,0,3"
+    },
+    {
+      "host_monotonic": 1342545.730141166,
+      "line": "D_TX_BEGIN,2,0,2,7212172"
+    },
+    {
+      "host_monotonic": 1342545.730292625,
+      "line": "AUX,7213418,0"
+    },
+    {
+      "host_monotonic": 1342545.759287375,
+      "line": "D_TX_UART_DONE,2,0,2,7239532"
+    },
+    {
+      "host_monotonic": 1342545.759763166,
+      "line": "D_TX_AUX_READY,2,0,2,7242662"
+    },
+    {
+      "host_monotonic": 1342545.759977166,
+      "line": "TX,2,2,0,3,26"
+    },
+    {
+      "host_monotonic": 1342545.760417333,
+      "line": "D_ACK_WAIT_BEGIN,2,0,2,7243002"
+    },
+    {
+      "host_monotonic": 1342545.760626625,
+      "line": "AUX,7242652,1"
+    },
+    {
+      "host_monotonic": 1342546.4454605,
+      "line": "AUX,7929266,0"
+    },
+    {
+      "host_monotonic": 1342546.461168583,
+      "line": "AUX,7944996,1"
+    },
+    {
+      "host_monotonic": 1342546.471781625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,7955331,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342546.471983916,
+      "line": "D_ACK_RECEIVED,2,0,2,7955521"
+    },
+    {
+      "host_monotonic": 1342546.47207925,
+      "line": "ACK,2,2,0,OK"
+    },
+    {
+      "host_monotonic": 1342546.472199416,
+      "line": "TX_BEGIN,2,2,1,3"
+    },
+    {
+      "host_monotonic": 1342546.472380541,
+      "line": "D_TX_BEGIN,2,1,2,7955854"
+    },
+    {
+      "host_monotonic": 1342546.473131416,
+      "line": "AUX,7957038,0"
+    },
+    {
+      "host_monotonic": 1342546.502763958,
+      "line": "D_TX_UART_DONE,2,1,2,7983137"
+    },
+    {
+      "host_monotonic": 1342546.502960416,
+      "line": "D_TX_AUX_READY,2,1,2,7986269"
+    },
+    {
+      "host_monotonic": 1342546.503057708,
+      "line": "TX,2,2,1,3,26"
+    },
+    {
+      "host_monotonic": 1342546.503265,
+      "line": "D_ACK_WAIT_BEGIN,2,1,2,7986611"
+    },
+    {
+      "host_monotonic": 1342546.503362125,
+      "line": "AUX,7986260,1"
+    },
+    {
+      "host_monotonic": 1342547.189057083,
+      "line": "AUX,8672743,0"
+    },
+    {
+      "host_monotonic": 1342547.204799458,
+      "line": "AUX,8688518,1"
+    },
+    {
+      "host_monotonic": 1342547.215724916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,8698814,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342547.216151,
+      "line": "D_ACK_RECEIVED,2,1,2,8698968"
+    },
+    {
+      "host_monotonic": 1342547.216385916,
+      "line": "ACK,2,2,1,DROP"
+    },
+    {
+      "host_monotonic": 1342547.216638333,
+      "line": "TX_BEGIN,2,2,2,3"
+    },
+    {
+      "host_monotonic": 1342547.216983208,
+      "line": "D_TX_BEGIN,2,2,2,8699294"
+    },
+    {
+      "host_monotonic": 1342547.21715525,
+      "line": "AUX,8700474,0"
+    },
+    {
+      "host_monotonic": 1342547.246566166,
+      "line": "D_TX_UART_DONE,2,2,2,8726577"
+    },
+    {
+      "host_monotonic": 1342547.246995125,
+      "line": "D_TX_AUX_READY,2,2,2,8729719"
+    },
+    {
+      "host_monotonic": 1342547.247202166,
+      "line": "TX,2,2,2,3,26"
+    },
+    {
+      "host_monotonic": 1342547.247642125,
+      "line": "D_ACK_WAIT_BEGIN,2,2,2,8730049"
+    },
+    {
+      "host_monotonic": 1342547.247868125,
+      "line": "AUX,8729703,1"
+    },
+    {
+      "host_monotonic": 1342548.246836958,
+      "line": "D_ACK_TIMEOUT,2,2,2,9730182"
+    },
+    {
+      "host_monotonic": 1342548.247043208,
+      "line": "TIMEOUT,2,2"
+    },
+    {
+      "host_monotonic": 1342548.247814958,
+      "line": "SAMPLE,2,NORMAL,NORMAL,0.0495,DEGRADED,3,3,1,2518.543"
+    },
+    {
+      "host_monotonic": 1342548.248294916,
+      "line": "EVT,3,0,NORMAL,0.0696,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342548.248621916,
+      "line": "TX_BEGIN,3,3,0,3"
+    },
+    {
+      "host_monotonic": 1342548.248984875,
+      "line": "D_TX_BEGIN,3,0,3,9731261"
+    },
+    {
+      "host_monotonic": 1342548.249193375,
+      "line": "AUX,9732508,0"
+    },
+    {
+      "host_monotonic": 1342548.278117666,
+      "line": "AUX,9761737,1"
+    },
+    {
+      "host_monotonic": 1342548.278535208,
+      "line": "D_TX_UART_DONE,3,0,3,9758617"
+    },
+    {
+      "host_monotonic": 1342548.278946041,
+      "line": "D_TX_AUX_READY,3,0,3,9761748"
+    },
+    {
+      "host_monotonic": 1342548.279153875,
+      "line": "TX,3,3,0,3,26"
+    },
+    {
+      "host_monotonic": 1342548.279586958,
+      "line": "D_ACK_WAIT_BEGIN,3,0,3,9762120"
+    },
+    {
+      "host_monotonic": 1342548.963332125,
+      "line": "AUX,10447102,0"
+    },
+    {
+      "host_monotonic": 1342548.979666666,
+      "line": "AUX,10463283,1"
+    },
+    {
+      "host_monotonic": 1342548.990074166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,10473104,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342548.990509375,
+      "line": "D_ACK_RECEIVED,3,0,3,10473301"
+    },
+    {
+      "host_monotonic": 1342548.990717208,
+      "line": "ACK,3,3,0,OK"
+    },
+    {
+      "host_monotonic": 1342548.990967416,
+      "line": "TX_BEGIN,3,3,1,3"
+    },
+    {
+      "host_monotonic": 1342548.991336916,
+      "line": "D_TX_BEGIN,3,1,3,10473644"
+    },
+    {
+      "host_monotonic": 1342548.991628291,
+      "line": "AUX,10474824,0"
+    },
+    {
+      "host_monotonic": 1342549.020274458,
+      "line": "AUX,10504054,1"
+    },
+    {
+      "host_monotonic": 1342549.020644291,
+      "line": "D_TX_UART_DONE,3,1,3,10500926"
+    },
+    {
+      "host_monotonic": 1342549.020955958,
+      "line": "D_TX_AUX_READY,3,1,3,10504069"
+    },
+    {
+      "host_monotonic": 1342549.021106333,
+      "line": "TX,3,3,1,3,26"
+    },
+    {
+      "host_monotonic": 1342549.021519958,
+      "line": "D_ACK_WAIT_BEGIN,3,1,3,10504488"
+    },
+    {
+      "host_monotonic": 1342549.705969333,
+      "line": "AUX,11189659,0"
+    },
+    {
+      "host_monotonic": 1342549.722140375,
+      "line": "AUX,11205840,1"
+    },
+    {
+      "host_monotonic": 1342549.732824708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,11216039,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342549.7332695,
+      "line": "D_ACK_RECEIVED,3,1,3,11216202"
+    },
+    {
+      "host_monotonic": 1342549.733464375,
+      "line": "ACK,3,3,1,OK"
+    },
+    {
+      "host_monotonic": 1342549.733730916,
+      "line": "TX_BEGIN,3,3,2,3"
+    },
+    {
+      "host_monotonic": 1342549.734107583,
+      "line": "D_TX_BEGIN,3,2,3,11216528"
+    },
+    {
+      "host_monotonic": 1342549.734346041,
+      "line": "AUX,11217705,0"
+    },
+    {
+      "host_monotonic": 1342549.76354875,
+      "line": "D_TX_UART_DONE,3,2,3,11243806"
+    },
+    {
+      "host_monotonic": 1342549.76386475,
+      "line": "D_TX_AUX_READY,3,2,3,11246950"
+    },
+    {
+      "host_monotonic": 1342549.764037708,
+      "line": "TX,3,3,2,3,26"
+    },
+    {
+      "host_monotonic": 1342549.7643635,
+      "line": "D_ACK_WAIT_BEGIN,3,2,3,11247298"
+    },
+    {
+      "host_monotonic": 1342549.764525375,
+      "line": "AUX,11246940,1"
+    },
+    {
+      "host_monotonic": 1342550.449772375,
+      "line": "AUX,11933422,0"
+    },
+    {
+      "host_monotonic": 1342550.465548208,
+      "line": "AUX,11949175,1"
+    },
+    {
+      "host_monotonic": 1342550.476297208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,11959468,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342550.476740416,
+      "line": "D_ACK_RECEIVED,3,2,3,11959619"
+    },
+    {
+      "host_monotonic": 1342550.476964958,
+      "line": "ACK,3,3,2,DROP"
+    },
+    {
+      "host_monotonic": 1342550.477710125,
+      "line": "SAMPLE,3,NORMAL,NORMAL,0.0696,DEGRADED,3,3,1,2228.914"
+    },
+    {
+      "host_monotonic": 1342550.478185583,
+      "line": "EVT,4,0,NORMAL,0.0580,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342550.478436458,
+      "line": "TX_BEGIN,4,4,0,3"
+    },
+    {
+      "host_monotonic": 1342550.478803625,
+      "line": "D_TX_BEGIN,4,0,4,11960750"
+    },
+    {
+      "host_monotonic": 1342550.479024125,
+      "line": "AUX,11961996,0"
+    },
+    {
+      "host_monotonic": 1342550.507498083,
+      "line": "D_TX_UART_DONE,4,0,4,11988109"
+    },
+    {
+      "host_monotonic": 1342550.507767875,
+      "line": "D_TX_AUX_READY,4,0,4,11991244"
+    },
+    {
+      "host_monotonic": 1342550.507883333,
+      "line": "TX,4,4,0,3,26"
+    },
+    {
+      "host_monotonic": 1342550.508104916,
+      "line": "D_ACK_WAIT_BEGIN,4,0,4,11991556"
+    },
+    {
+      "host_monotonic": 1342550.508212333,
+      "line": "AUX,11991233,1"
+    },
+    {
+      "host_monotonic": 1342551.193148958,
+      "line": "AUX,12676957,0"
+    },
+    {
+      "host_monotonic": 1342551.209002958,
+      "line": "AUX,12692618,1"
+    },
+    {
+      "host_monotonic": 1342551.219721916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,12703163,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342551.220034916,
+      "line": "D_ACK_RECEIVED,4,0,4,12703369"
+    },
+    {
+      "host_monotonic": 1342551.220175625,
+      "line": "ACK,4,4,0,OK"
+    },
+    {
+      "host_monotonic": 1342551.220355458,
+      "line": "TX_BEGIN,4,4,1,3"
+    },
+    {
+      "host_monotonic": 1342551.220695666,
+      "line": "D_TX_BEGIN,4,1,4,12703711"
+    },
+    {
+      "host_monotonic": 1342551.221015375,
+      "line": "AUX,12704886,0"
+    },
+    {
+      "host_monotonic": 1342551.250807625,
+      "line": "D_TX_UART_DONE,4,1,4,12730992"
+    },
+    {
+      "host_monotonic": 1342551.25124375,
+      "line": "D_TX_AUX_READY,4,1,4,12734130"
+    },
+    {
+      "host_monotonic": 1342551.251452958,
+      "line": "TX,4,4,1,3,26"
+    },
+    {
+      "host_monotonic": 1342551.251909458,
+      "line": "D_ACK_WAIT_BEGIN,4,1,4,12734459"
+    },
+    {
+      "host_monotonic": 1342551.252133333,
+      "line": "AUX,12734119,1"
+    },
+    {
+      "host_monotonic": 1342551.936460875,
+      "line": "AUX,13420063,0"
+    },
+    {
+      "host_monotonic": 1342551.952390625,
+      "line": "AUX,13436101,1"
+    },
+    {
+      "host_monotonic": 1342551.9635495,
+      "line": "UART_BUFFER,FRAME_COMPLETE,13446608,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342551.964003041,
+      "line": "D_ACK_RECEIVED,4,1,4,13446765"
+    },
+    {
+      "host_monotonic": 1342551.964209583,
+      "line": "ACK,4,4,1,OK"
+    },
+    {
+      "host_monotonic": 1342551.964457833,
+      "line": "TX_BEGIN,4,4,2,3"
+    },
+    {
+      "host_monotonic": 1342551.96483125,
+      "line": "D_TX_BEGIN,4,2,4,13447093"
+    },
+    {
+      "host_monotonic": 1342551.965052333,
+      "line": "AUX,13448268,0"
+    },
+    {
+      "host_monotonic": 1342551.99408425,
+      "line": "D_TX_UART_DONE,4,2,4,13474371"
+    },
+    {
+      "host_monotonic": 1342551.994511041,
+      "line": "D_TX_AUX_READY,4,2,4,13477513"
+    },
+    {
+      "host_monotonic": 1342551.994729583,
+      "line": "TX,4,4,2,3,26"
+    },
+    {
+      "host_monotonic": 1342551.995176375,
+      "line": "D_ACK_WAIT_BEGIN,4,2,4,13477833"
+    },
+    {
+      "host_monotonic": 1342551.995396666,
+      "line": "AUX,13477498,1"
+    },
+    {
+      "host_monotonic": 1342552.994541041,
+      "line": "D_ACK_TIMEOUT,4,2,4,14478006"
+    },
+    {
+      "host_monotonic": 1342552.99473875,
+      "line": "TIMEOUT,4,2"
+    },
+    {
+      "host_monotonic": 1342552.9955325,
+      "line": "SAMPLE,4,NORMAL,NORMAL,0.0580,DEGRADED,3,3,1,2517.785"
+    },
+    {
+      "host_monotonic": 1342552.995966333,
+      "line": "EVT,5,0,NORMAL,0.0310,GOOD,3"
+    },
+    {
+      "host_monotonic": 1342552.996226541,
+      "line": "TX_BEGIN,5,5,0,3"
+    },
+    {
+      "host_monotonic": 1342552.996606125,
+      "line": "D_TX_BEGIN,5,0,5,14479088"
+    },
+    {
+      "host_monotonic": 1342552.996767875,
+      "line": "AUX,14480333,0"
+    },
+    {
+      "host_monotonic": 1342553.025734291,
+      "line": "AUX,14509557,1"
+    },
+    {
+      "host_monotonic": 1342553.026065,
+      "line": "D_TX_UART_DONE,5,0,5,14506445"
+    },
+    {
+      "host_monotonic": 1342553.0264785,
+      "line": "D_TX_AUX_READY,5,0,5,14509572"
+    },
+    {
+      "host_monotonic": 1342553.026710375,
+      "line": "TX,5,5,0,3,26"
+    },
+    {
+      "host_monotonic": 1342553.027160583,
+      "line": "D_ACK_WAIT_BEGIN,5,0,5,14509971"
+    },
+    {
+      "host_monotonic": 1342554.026766208,
+      "line": "D_ACK_TIMEOUT,5,0,5,15510103"
+    },
+    {
+      "host_monotonic": 1342554.02695625,
+      "line": "TIMEOUT,5,0"
+    },
+    {
+      "host_monotonic": 1342554.027233958,
+      "line": "TX_BEGIN,5,5,1,3"
+    },
+    {
+      "host_monotonic": 1342554.027635,
+      "line": "D_TX_BEGIN,5,1,5,15510408"
+    },
+    {
+      "host_monotonic": 1342554.027857208,
+      "line": "AUX,15511561,0"
+    },
+    {
+      "host_monotonic": 1342554.057421208,
+      "line": "D_TX_UART_DONE,5,1,5,15537660"
+    },
+    {
+      "host_monotonic": 1342554.057852166,
+      "line": "D_TX_AUX_READY,5,1,5,15540800"
+    },
+    {
+      "host_monotonic": 1342554.058058708,
+      "line": "TX,5,5,1,3,26"
+    },
+    {
+      "host_monotonic": 1342554.058708083,
+      "line": "D_ACK_WAIT_BEGIN,5,1,5,15541116"
+    },
+    {
+      "host_monotonic": 1342554.058929541,
+      "line": "AUX,15540789,1"
+    },
+    {
+      "host_monotonic": 1342554.74291075,
+      "line": "AUX,16226698,0"
+    },
+    {
+      "host_monotonic": 1342554.758411208,
+      "line": "AUX,16242201,1"
+    },
+    {
+      "host_monotonic": 1342554.769394583,
+      "line": "UART_BUFFER,FRAME_COMPLETE,16252751,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342554.769820666,
+      "line": "D_ACK_RECEIVED,5,1,5,16252937"
+    },
+    {
+      "host_monotonic": 1342554.770014583,
+      "line": "ACK,5,5,1,OK"
+    },
+    {
+      "host_monotonic": 1342554.770333041,
+      "line": "TX_BEGIN,5,5,2,3"
+    },
+    {
+      "host_monotonic": 1342554.770704291,
+      "line": "D_TX_BEGIN,5,2,5,16253264"
+    },
+    {
+      "host_monotonic": 1342554.77094675,
+      "line": "AUX,16254439,0"
+    },
+    {
+      "host_monotonic": 1342554.799863833,
+      "line": "D_TX_UART_DONE,5,2,5,16280539"
+    },
+    {
+      "host_monotonic": 1342554.800077416,
+      "line": "D_TX_AUX_READY,5,2,5,16283683"
+    },
+    {
+      "host_monotonic": 1342554.800180416,
+      "line": "TX,5,5,2,3,26"
+    },
+    {
+      "host_monotonic": 1342554.800404208,
+      "line": "D_ACK_WAIT_BEGIN,5,2,5,16284028"
+    },
+    {
+      "host_monotonic": 1342554.800511875,
+      "line": "AUX,16283672,1"
+    },
+    {
+      "host_monotonic": 1342555.485519708,
+      "line": "AUX,16969324,0"
+    },
+    {
+      "host_monotonic": 1342555.501978375,
+      "line": "AUX,16985736,1"
+    },
+    {
+      "host_monotonic": 1342555.513043,
+      "line": "UART_BUFFER,FRAME_COMPLETE,16996237,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342555.513504791,
+      "line": "D_ACK_RECEIVED,5,2,5,16996400"
+    },
+    {
+      "host_monotonic": 1342555.513732375,
+      "line": "ACK,5,5,2,DROP"
+    },
+    {
+      "host_monotonic": 1342555.514435458,
+      "line": "SAMPLE,5,NORMAL,NORMAL,0.0310,GOOD,3,3,1,2517.876"
+    },
+    {
+      "host_monotonic": 1342555.514945625,
+      "line": "EVT,6,1,IMPORTANT,1.4355,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342555.515192125,
+      "line": "TX_BEGIN,6,6,0,3"
+    },
+    {
+      "host_monotonic": 1342555.515579541,
+      "line": "D_TX_BEGIN,6,0,6,16997534"
+    },
+    {
+      "host_monotonic": 1342555.515807791,
+      "line": "AUX,16998776,0"
+    },
+    {
+      "host_monotonic": 1342555.544474166,
+      "line": "AUX,17028006,1"
+    },
+    {
+      "host_monotonic": 1342555.544938458,
+      "line": "D_TX_UART_DONE,6,0,6,17024886"
+    },
+    {
+      "host_monotonic": 1342555.545367083,
+      "line": "D_TX_AUX_READY,6,0,6,17028016"
+    },
+    {
+      "host_monotonic": 1342555.545583916,
+      "line": "TX,6,6,0,3,26"
+    },
+    {
+      "host_monotonic": 1342555.546055208,
+      "line": "D_ACK_WAIT_BEGIN,6,0,6,17028417"
+    },
+    {
+      "host_monotonic": 1342556.230245208,
+      "line": "AUX,17713928,0"
+    },
+    {
+      "host_monotonic": 1342556.246529291,
+      "line": "AUX,17730270,1"
+    },
+    {
+      "host_monotonic": 1342556.257537833,
+      "line": "UART_BUFFER,FRAME_COMPLETE,17740817,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342556.25796825,
+      "line": "D_ACK_RECEIVED,6,0,6,17741011"
+    },
+    {
+      "host_monotonic": 1342556.258164166,
+      "line": "ACK,6,6,0,OK"
+    },
+    {
+      "host_monotonic": 1342556.258426291,
+      "line": "TX_BEGIN,6,6,1,3"
+    },
+    {
+      "host_monotonic": 1342556.258882083,
+      "line": "D_TX_BEGIN,6,1,6,17741344"
+    },
+    {
+      "host_monotonic": 1342556.259044666,
+      "line": "AUX,17742520,0"
+    },
+    {
+      "host_monotonic": 1342556.287895125,
+      "line": "AUX,17771747,1"
+    },
+    {
+      "host_monotonic": 1342556.288214708,
+      "line": "D_TX_UART_DONE,6,1,6,17768619"
+    },
+    {
+      "host_monotonic": 1342556.288576333,
+      "line": "D_TX_AUX_READY,6,1,6,17771763"
+    },
+    {
+      "host_monotonic": 1342556.288799458,
+      "line": "TX,6,6,1,3,26"
+    },
+    {
+      "host_monotonic": 1342556.289250541,
+      "line": "D_ACK_WAIT_BEGIN,6,1,6,17772156"
+    },
+    {
+      "host_monotonic": 1342557.288654541,
+      "line": "D_ACK_TIMEOUT,6,1,6,18772280"
+    },
+    {
+      "host_monotonic": 1342557.288793083,
+      "line": "TIMEOUT,6,1"
+    },
+    {
+      "host_monotonic": 1342557.288974958,
+      "line": "TX_BEGIN,6,6,2,3"
+    },
+    {
+      "host_monotonic": 1342557.289256166,
+      "line": "D_TX_BEGIN,6,2,6,18772561"
+    },
+    {
+      "host_monotonic": 1342557.289665375,
+      "line": "AUX,18773704,0"
+    },
+    {
+      "host_monotonic": 1342557.319517875,
+      "line": "D_TX_UART_DONE,6,2,6,18799800"
+    },
+    {
+      "host_monotonic": 1342557.319954083,
+      "line": "D_TX_AUX_READY,6,2,6,18802946"
+    },
+    {
+      "host_monotonic": 1342557.320167625,
+      "line": "TX,6,6,2,3,26"
+    },
+    {
+      "host_monotonic": 1342557.320621375,
+      "line": "D_ACK_WAIT_BEGIN,6,2,6,18803278"
+    },
+    {
+      "host_monotonic": 1342557.32104425,
+      "line": "AUX,18802935,1"
+    },
+    {
+      "host_monotonic": 1342558.320266875,
+      "line": "D_ACK_TIMEOUT,6,2,6,19803412"
+    },
+    {
+      "host_monotonic": 1342558.320465666,
+      "line": "TIMEOUT,6,2"
+    },
+    {
+      "host_monotonic": 1342558.321299875,
+      "line": "SAMPLE,6,IMPORTANT,IMPORTANT,1.4355,DEGRADED,3,3,1,2806.417"
+    },
+    {
+      "host_monotonic": 1342558.321930875,
+      "line": "EVT,7,1,IMPORTANT,2.0274,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342558.322188666,
+      "line": "TX_BEGIN,7,7,0,3"
+    },
+    {
+      "host_monotonic": 1342558.322680541,
+      "line": "D_TX_BEGIN,7,0,7,19804494"
+    },
+    {
+      "host_monotonic": 1342558.32293425,
+      "line": "AUX,19805724,0"
+    },
+    {
+      "host_monotonic": 1342558.351280875,
+      "line": "D_TX_UART_DONE,7,0,7,19831833"
+    },
+    {
+      "host_monotonic": 1342558.351593916,
+      "line": "D_TX_AUX_READY,7,0,7,19834962"
+    },
+    {
+      "host_monotonic": 1342558.351745166,
+      "line": "TX,7,7,0,3,26"
+    },
+    {
+      "host_monotonic": 1342558.352079208,
+      "line": "D_ACK_WAIT_BEGIN,7,0,7,19835306"
+    },
+    {
+      "host_monotonic": 1342558.3522395,
+      "line": "AUX,19834952,1"
+    },
+    {
+      "host_monotonic": 1342559.037677375,
+      "line": "AUX,20521442,0"
+    },
+    {
+      "host_monotonic": 1342559.053530416,
+      "line": "AUX,20537408,1"
+    },
+    {
+      "host_monotonic": 1342559.064803583,
+      "line": "UART_BUFFER,FRAME_COMPLETE,20547957,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342559.065397458,
+      "line": "D_ACK_RECEIVED,7,0,7,20548141"
+    },
+    {
+      "host_monotonic": 1342559.065622625,
+      "line": "ACK,7,7,0,DROP"
+    },
+    {
+      "host_monotonic": 1342559.065885708,
+      "line": "TX_BEGIN,7,7,1,3"
+    },
+    {
+      "host_monotonic": 1342559.066257625,
+      "line": "D_TX_BEGIN,7,1,7,20548496"
+    },
+    {
+      "host_monotonic": 1342559.066476625,
+      "line": "AUX,20549672,0"
+    },
+    {
+      "host_monotonic": 1342559.095635125,
+      "line": "D_TX_UART_DONE,7,1,7,20575771"
+    },
+    {
+      "host_monotonic": 1342559.096067708,
+      "line": "D_TX_AUX_READY,7,1,7,20578921"
+    },
+    {
+      "host_monotonic": 1342559.096277708,
+      "line": "TX,7,7,1,3,26"
+    },
+    {
+      "host_monotonic": 1342559.096731958,
+      "line": "D_ACK_WAIT_BEGIN,7,1,7,20579246"
+    },
+    {
+      "host_monotonic": 1342559.09695475,
+      "line": "AUX,20578904,1"
+    },
+    {
+      "host_monotonic": 1342560.095870333,
+      "line": "D_ACK_TIMEOUT,7,1,7,21579384"
+    },
+    {
+      "host_monotonic": 1342560.096059666,
+      "line": "TIMEOUT,7,1"
+    },
+    {
+      "host_monotonic": 1342560.0963305,
+      "line": "TX_BEGIN,7,7,2,3"
+    },
+    {
+      "host_monotonic": 1342560.0967475,
+      "line": "D_TX_BEGIN,7,2,7,21579668"
+    },
+    {
+      "host_monotonic": 1342560.096970333,
+      "line": "AUX,21580814,0"
+    },
+    {
+      "host_monotonic": 1342560.126525,
+      "line": "D_TX_UART_DONE,7,2,7,21606912"
+    },
+    {
+      "host_monotonic": 1342560.126961958,
+      "line": "D_TX_AUX_READY,7,2,7,21610055"
+    },
+    {
+      "host_monotonic": 1342560.12716925,
+      "line": "TX,7,7,2,3,26"
+    },
+    {
+      "host_monotonic": 1342560.127622625,
+      "line": "D_ACK_WAIT_BEGIN,7,2,7,21610379"
+    },
+    {
+      "host_monotonic": 1342560.127843125,
+      "line": "AUX,21610044,1"
+    },
+    {
+      "host_monotonic": 1342561.12690775,
+      "line": "D_ACK_TIMEOUT,7,2,7,22610512"
+    },
+    {
+      "host_monotonic": 1342561.127108833,
+      "line": "TIMEOUT,7,2"
+    },
+    {
+      "host_monotonic": 1342561.12803325,
+      "line": "SAMPLE,7,IMPORTANT,IMPORTANT,2.0274,DEGRADED,3,3,0,2806.532"
+    },
+    {
+      "host_monotonic": 1342561.128557708,
+      "line": "EVT,8,1,IMPORTANT,2.4119,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342561.128809875,
+      "line": "TX_BEGIN,8,8,0,3"
+    },
+    {
+      "host_monotonic": 1342561.129183541,
+      "line": "D_TX_BEGIN,8,0,8,22611606"
+    },
+    {
+      "host_monotonic": 1342561.1294055,
+      "line": "AUX,22612844,0"
+    },
+    {
+      "host_monotonic": 1342561.158216333,
+      "line": "AUX,22642068,1"
+    },
+    {
+      "host_monotonic": 1342561.158544,
+      "line": "D_TX_UART_DONE,8,0,8,22638950"
+    },
+    {
+      "host_monotonic": 1342561.158871625,
+      "line": "D_TX_AUX_READY,8,0,8,22642085"
+    },
+    {
+      "host_monotonic": 1342561.159022916,
+      "line": "TX,8,8,0,3,26"
+    },
+    {
+      "host_monotonic": 1342561.159350291,
+      "line": "D_ACK_WAIT_BEGIN,8,0,8,22642465"
+    },
+    {
+      "host_monotonic": 1342561.843997083,
+      "line": "AUX,23327892,0"
+    },
+    {
+      "host_monotonic": 1342561.859693375,
+      "line": "AUX,23343589,1"
+    },
+    {
+      "host_monotonic": 1342561.870731125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,23354132,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342561.871179958,
+      "line": "D_ACK_RECEIVED,8,0,8,23354322"
+    },
+    {
+      "host_monotonic": 1342561.871403583,
+      "line": "ACK,8,8,0,DROP"
+    },
+    {
+      "host_monotonic": 1342561.871659833,
+      "line": "TX_BEGIN,8,8,1,3"
+    },
+    {
+      "host_monotonic": 1342561.872031208,
+      "line": "D_TX_BEGIN,8,1,8,23354669"
+    },
+    {
+      "host_monotonic": 1342561.872215666,
+      "line": "AUX,23355840,0"
+    },
+    {
+      "host_monotonic": 1342561.901271416,
+      "line": "AUX,23385067,1"
+    },
+    {
+      "host_monotonic": 1342561.90172825,
+      "line": "D_TX_UART_DONE,8,1,8,23381942"
+    },
+    {
+      "host_monotonic": 1342561.90215525,
+      "line": "D_TX_AUX_READY,8,1,8,23385084"
+    },
+    {
+      "host_monotonic": 1342561.90236325,
+      "line": "TX,8,8,1,3,26"
+    },
+    {
+      "host_monotonic": 1342561.902910833,
+      "line": "D_ACK_WAIT_BEGIN,8,1,8,23385484"
+    },
+    {
+      "host_monotonic": 1342562.587712583,
+      "line": "AUX,24071549,0"
+    },
+    {
+      "host_monotonic": 1342562.60322675,
+      "line": "AUX,24087108,1"
+    },
+    {
+      "host_monotonic": 1342562.614225291,
+      "line": "UART_BUFFER,FRAME_COMPLETE,24097618,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342562.614657791,
+      "line": "D_ACK_RECEIVED,8,1,8,24097785"
+    },
+    {
+      "host_monotonic": 1342562.614852416,
+      "line": "ACK,8,8,1,OK"
+    },
+    {
+      "host_monotonic": 1342562.615101458,
+      "line": "TX_BEGIN,8,8,2,3"
+    },
+    {
+      "host_monotonic": 1342562.615469291,
+      "line": "D_TX_BEGIN,8,2,8,24098116"
+    },
+    {
+      "host_monotonic": 1342562.615690416,
+      "line": "AUX,24099287,0"
+    },
+    {
+      "host_monotonic": 1342562.644838916,
+      "line": "AUX,24128515,1"
+    },
+    {
+      "host_monotonic": 1342562.645297958,
+      "line": "D_TX_UART_DONE,8,2,8,24125389"
+    },
+    {
+      "host_monotonic": 1342562.645740666,
+      "line": "D_TX_AUX_READY,8,2,8,24128536"
+    },
+    {
+      "host_monotonic": 1342562.645962083,
+      "line": "TX,8,8,2,3,26"
+    },
+    {
+      "host_monotonic": 1342562.646452916,
+      "line": "D_ACK_WAIT_BEGIN,8,2,8,24128931"
+    },
+    {
+      "host_monotonic": 1342563.6453925,
+      "line": "D_ACK_TIMEOUT,8,2,8,25129055"
+    },
+    {
+      "host_monotonic": 1342563.645599583,
+      "line": "TIMEOUT,8,2"
+    },
+    {
+      "host_monotonic": 1342563.646496333,
+      "line": "SAMPLE,8,IMPORTANT,IMPORTANT,2.4119,DEGRADED,3,3,1,2517.984"
+    },
+    {
+      "host_monotonic": 1342563.647003541,
+      "line": "EVT,9,1,IMPORTANT,2.5773,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342563.647222875,
+      "line": "TX_BEGIN,9,9,0,3"
+    },
+    {
+      "host_monotonic": 1342563.647510583,
+      "line": "D_TX_BEGIN,9,0,9,25130108"
+    },
+    {
+      "host_monotonic": 1342563.647681166,
+      "line": "AUX,25131339,0"
+    },
+    {
+      "host_monotonic": 1342563.676804458,
+      "line": "AUX,25160564,1"
+    },
+    {
+      "host_monotonic": 1342563.67725925,
+      "line": "D_TX_UART_DONE,9,0,9,25157446"
+    },
+    {
+      "host_monotonic": 1342563.677688083,
+      "line": "D_TX_AUX_READY,9,0,9,25160575"
+    },
+    {
+      "host_monotonic": 1342563.677895375,
+      "line": "TX,9,9,0,3,26"
+    },
+    {
+      "host_monotonic": 1342563.678345,
+      "line": "D_ACK_WAIT_BEGIN,9,0,9,25160958"
+    },
+    {
+      "host_monotonic": 1342564.677343333,
+      "line": "D_ACK_TIMEOUT,9,0,9,26161083"
+    },
+    {
+      "host_monotonic": 1342564.677532708,
+      "line": "TIMEOUT,9,0"
+    },
+    {
+      "host_monotonic": 1342564.677782458,
+      "line": "TX_BEGIN,9,9,1,3"
+    },
+    {
+      "host_monotonic": 1342564.6781725,
+      "line": "D_TX_BEGIN,9,1,9,26161390"
+    },
+    {
+      "host_monotonic": 1342564.678465375,
+      "line": "AUX,26162539,0"
+    },
+    {
+      "host_monotonic": 1342564.708125791,
+      "line": "D_TX_UART_DONE,9,1,9,26188634"
+    },
+    {
+      "host_monotonic": 1342564.70855475,
+      "line": "D_TX_AUX_READY,9,1,9,26191784"
+    },
+    {
+      "host_monotonic": 1342564.708762333,
+      "line": "TX,9,9,1,3,26"
+    },
+    {
+      "host_monotonic": 1342564.709220541,
+      "line": "D_ACK_WAIT_BEGIN,9,1,9,26192109"
+    },
+    {
+      "host_monotonic": 1342564.709448625,
+      "line": "AUX,26191769,1"
+    },
+    {
+      "host_monotonic": 1342565.394106458,
+      "line": "AUX,26878129,0"
+    },
+    {
+      "host_monotonic": 1342565.410483875,
+      "line": "AUX,26894327,1"
+    },
+    {
+      "host_monotonic": 1342565.421589208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,26904872,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342565.422021875,
+      "line": "D_ACK_RECEIVED,9,1,9,26905051"
+    },
+    {
+      "host_monotonic": 1342565.422309666,
+      "line": "ACK,9,9,1,DROP"
+    },
+    {
+      "host_monotonic": 1342565.422566958,
+      "line": "TX_BEGIN,9,9,2,3"
+    },
+    {
+      "host_monotonic": 1342565.422937208,
+      "line": "D_TX_BEGIN,9,2,9,26905374"
+    },
+    {
+      "host_monotonic": 1342565.423158708,
+      "line": "AUX,26906555,0"
+    },
+    {
+      "host_monotonic": 1342565.452074458,
+      "line": "AUX,26935786,1"
+    },
+    {
+      "host_monotonic": 1342565.452503458,
+      "line": "D_TX_UART_DONE,9,2,9,26932657"
+    },
+    {
+      "host_monotonic": 1342565.452977416,
+      "line": "D_TX_AUX_READY,9,2,9,26935803"
+    },
+    {
+      "host_monotonic": 1342565.453184958,
+      "line": "TX,9,9,2,3,26"
+    },
+    {
+      "host_monotonic": 1342565.453636166,
+      "line": "D_ACK_WAIT_BEGIN,9,2,9,26936208"
+    },
+    {
+      "host_monotonic": 1342566.137056458,
+      "line": "AUX,27621014,0"
+    },
+    {
+      "host_monotonic": 1342566.152715916,
+      "line": "AUX,27636825,1"
+    },
+    {
+      "host_monotonic": 1342566.16391825,
+      "line": "UART_BUFFER,FRAME_COMPLETE,27647332,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342566.164253291,
+      "line": "D_ACK_RECEIVED,9,2,9,27647493"
+    },
+    {
+      "host_monotonic": 1342566.164395208,
+      "line": "ACK,9,9,2,OK"
+    },
+    {
+      "host_monotonic": 1342566.165007041,
+      "line": "SAMPLE,9,IMPORTANT,IMPORTANT,2.5773,DEGRADED,3,3,1,2517.922"
+    },
+    {
+      "host_monotonic": 1342566.165364541,
+      "line": "EVT,10,1,IMPORTANT,2.7214,BAD,3"
+    },
+    {
+      "host_monotonic": 1342566.165590541,
+      "line": "TX_BEGIN,10,10,0,3"
+    },
+    {
+      "host_monotonic": 1342566.165878708,
+      "line": "D_TX_BEGIN,10,0,10,27648621"
+    },
+    {
+      "host_monotonic": 1342566.166039583,
+      "line": "AUX,27649864,0"
+    },
+    {
+      "host_monotonic": 1342566.195166375,
+      "line": "AUX,27679093,1"
+    },
+    {
+      "host_monotonic": 1342566.195620708,
+      "line": "D_TX_UART_DONE,10,0,10,27675973"
+    },
+    {
+      "host_monotonic": 1342566.196085208,
+      "line": "D_TX_AUX_READY,10,0,10,27679104"
+    },
+    {
+      "host_monotonic": 1342566.196319666,
+      "line": "TX,10,10,0,3,26"
+    },
+    {
+      "host_monotonic": 1342566.196961583,
+      "line": "D_ACK_WAIT_BEGIN,10,0,10,27679524"
+    },
+    {
+      "host_monotonic": 1342566.881520875,
+      "line": "AUX,28365478,0"
+    },
+    {
+      "host_monotonic": 1342566.897203666,
+      "line": "AUX,28381262,1"
+    },
+    {
+      "host_monotonic": 1342566.908399583,
+      "line": "UART_BUFFER,FRAME_COMPLETE,28391805,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342566.908857875,
+      "line": "D_ACK_RECEIVED,10,0,10,28391997"
+    },
+    {
+      "host_monotonic": 1342566.909153208,
+      "line": "ACK,10,10,0,DROP"
+    },
+    {
+      "host_monotonic": 1342566.909432583,
+      "line": "TX_BEGIN,10,10,1,3"
+    },
+    {
+      "host_monotonic": 1342566.909893083,
+      "line": "D_TX_BEGIN,10,1,10,28392366"
+    },
+    {
+      "host_monotonic": 1342566.910117791,
+      "line": "AUX,28393554,0"
+    },
+    {
+      "host_monotonic": 1342566.939143125,
+      "line": "D_TX_UART_DONE,10,1,10,28419651"
+    },
+    {
+      "host_monotonic": 1342566.939660625,
+      "line": "D_TX_AUX_READY,10,1,10,28422796"
+    },
+    {
+      "host_monotonic": 1342566.939914,
+      "line": "TX,10,10,1,3,26"
+    },
+    {
+      "host_monotonic": 1342566.940388291,
+      "line": "D_ACK_WAIT_BEGIN,10,1,10,28423154"
+    },
+    {
+      "host_monotonic": 1342566.940616166,
+      "line": "AUX,28422781,1"
+    },
+    {
+      "host_monotonic": 1342567.939571541,
+      "line": "D_ACK_TIMEOUT,10,1,10,29423295"
+    },
+    {
+      "host_monotonic": 1342567.939773708,
+      "line": "TIMEOUT,10,1"
+    },
+    {
+      "host_monotonic": 1342567.940049166,
+      "line": "TX_BEGIN,10,10,2,3"
+    },
+    {
+      "host_monotonic": 1342567.940455333,
+      "line": "D_TX_BEGIN,10,2,10,29423586"
+    },
+    {
+      "host_monotonic": 1342567.940676333,
+      "line": "AUX,29424737,0"
+    },
+    {
+      "host_monotonic": 1342567.970517458,
+      "line": "D_TX_UART_DONE,10,2,10,29450833"
+    },
+    {
+      "host_monotonic": 1342567.971002208,
+      "line": "D_TX_AUX_READY,10,2,10,29453979"
+    },
+    {
+      "host_monotonic": 1342567.971238833,
+      "line": "TX,10,10,2,3,26"
+    },
+    {
+      "host_monotonic": 1342567.971715833,
+      "line": "D_ACK_WAIT_BEGIN,10,2,10,29454335"
+    },
+    {
+      "host_monotonic": 1342567.97193675,
+      "line": "AUX,29453968,1"
+    },
+    {
+      "host_monotonic": 1342568.655835583,
+      "line": "AUX,30139810,0"
+    },
+    {
+      "host_monotonic": 1342568.672166958,
+      "line": "AUX,30156184,1"
+    },
+    {
+      "host_monotonic": 1342568.682908458,
+      "line": "UART_BUFFER,FRAME_COMPLETE,30166694,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342568.683259958,
+      "line": "D_ACK_RECEIVED,10,2,10,30166851"
+    },
+    {
+      "host_monotonic": 1342568.683428875,
+      "line": "ACK,10,10,2,OK"
+    },
+    {
+      "host_monotonic": 1342568.684066875,
+      "line": "SAMPLE,10,IMPORTANT,IMPORTANT,2.7214,BAD,3,3,1,2518.847"
+    },
+    {
+      "host_monotonic": 1342568.684673166,
+      "line": "EVT,11,1,IMPORTANT,2.8690,BAD,3"
+    },
+    {
+      "host_monotonic": 1342568.685127041,
+      "line": "TX_BEGIN,11,11,0,3"
+    },
+    {
+      "host_monotonic": 1342568.685622625,
+      "line": "D_TX_BEGIN,11,0,11,30167997"
+    },
+    {
+      "host_monotonic": 1342568.685846083,
+      "line": "AUX,30169225,0"
+    },
+    {
+      "host_monotonic": 1342568.714598041,
+      "line": "AUX,30198456,1"
+    },
+    {
+      "host_monotonic": 1342568.715066125,
+      "line": "D_TX_UART_DONE,11,0,11,30195338"
+    },
+    {
+      "host_monotonic": 1342568.715519083,
+      "line": "D_TX_AUX_READY,11,0,11,30198471"
+    },
+    {
+      "host_monotonic": 1342568.715753875,
+      "line": "TX,11,11,0,3,26"
+    },
+    {
+      "host_monotonic": 1342568.716301916,
+      "line": "D_ACK_WAIT_BEGIN,11,0,11,30198879"
+    },
+    {
+      "host_monotonic": 1342569.7154595,
+      "line": "D_ACK_TIMEOUT,11,0,11,31199016"
+    },
+    {
+      "host_monotonic": 1342569.715663833,
+      "line": "TIMEOUT,11,0"
+    },
+    {
+      "host_monotonic": 1342569.715959458,
+      "line": "TX_BEGIN,11,11,1,3"
+    },
+    {
+      "host_monotonic": 1342569.716385458,
+      "line": "D_TX_BEGIN,11,1,11,31199334"
+    },
+    {
+      "host_monotonic": 1342569.716606083,
+      "line": "AUX,31200489,0"
+    },
+    {
+      "host_monotonic": 1342569.746166666,
+      "line": "D_TX_UART_DONE,11,1,11,31226585"
+    },
+    {
+      "host_monotonic": 1342569.746634166,
+      "line": "D_TX_AUX_READY,11,1,11,31229731"
+    },
+    {
+      "host_monotonic": 1342569.746869333,
+      "line": "TX,11,11,1,3,26"
+    },
+    {
+      "host_monotonic": 1342569.747344458,
+      "line": "D_ACK_WAIT_BEGIN,11,1,11,31230062"
+    },
+    {
+      "host_monotonic": 1342569.747564875,
+      "line": "AUX,31229720,1"
+    },
+    {
+      "host_monotonic": 1342570.746431,
+      "line": "D_ACK_TIMEOUT,11,1,11,32230199"
+    },
+    {
+      "host_monotonic": 1342570.746635583,
+      "line": "TIMEOUT,11,1"
+    },
+    {
+      "host_monotonic": 1342570.74692225,
+      "line": "TX_BEGIN,11,11,2,3"
+    },
+    {
+      "host_monotonic": 1342570.747350125,
+      "line": "D_TX_BEGIN,11,2,11,32230513"
+    },
+    {
+      "host_monotonic": 1342570.74757175,
+      "line": "AUX,32231666,0"
+    },
+    {
+      "host_monotonic": 1342570.777362583,
+      "line": "D_TX_UART_DONE,11,2,11,32257761"
+    },
+    {
+      "host_monotonic": 1342570.77783475,
+      "line": "D_TX_AUX_READY,11,2,11,32260905"
+    },
+    {
+      "host_monotonic": 1342570.778071375,
+      "line": "TX,11,11,2,3,26"
+    },
+    {
+      "host_monotonic": 1342570.778579208,
+      "line": "D_ACK_WAIT_BEGIN,11,2,11,32261227"
+    },
+    {
+      "host_monotonic": 1342570.778819416,
+      "line": "AUX,32260889,1"
+    },
+    {
+      "host_monotonic": 1342571.462354666,
+      "line": "AUX,32946466,0"
+    },
+    {
+      "host_monotonic": 1342571.4783825,
+      "line": "AUX,32962478,1"
+    },
+    {
+      "host_monotonic": 1342571.489626083,
+      "line": "UART_BUFFER,FRAME_COMPLETE,32973022,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342571.490083625,
+      "line": "D_ACK_RECEIVED,11,2,11,32973233"
+    },
+    {
+      "host_monotonic": 1342571.490305041,
+      "line": "ACK,11,11,2,OK"
+    },
+    {
+      "host_monotonic": 1342571.491086041,
+      "line": "SAMPLE,11,IMPORTANT,IMPORTANT,2.8690,BAD,3,3,1,2805.832"
+    },
+    {
+      "host_monotonic": 1342571.491542083,
+      "line": "EVT,12,1,IMPORTANT,4.2778,BAD,3"
+    },
+    {
+      "host_monotonic": 1342571.4917435,
+      "line": "TX_BEGIN,12,12,0,3"
+    },
+    {
+      "host_monotonic": 1342571.492041833,
+      "line": "D_TX_BEGIN,12,0,12,32974331"
+    },
+    {
+      "host_monotonic": 1342571.492202625,
+      "line": "AUX,32975560,0"
+    },
+    {
+      "host_monotonic": 1342571.521161,
+      "line": "D_TX_UART_DONE,12,0,12,33001673"
+    },
+    {
+      "host_monotonic": 1342571.521765416,
+      "line": "D_TX_AUX_READY,12,0,12,33004801"
+    },
+    {
+      "host_monotonic": 1342571.522002291,
+      "line": "TX,12,12,0,3,26"
+    },
+    {
+      "host_monotonic": 1342571.522560125,
+      "line": "D_ACK_WAIT_BEGIN,12,0,12,33005148"
+    },
+    {
+      "host_monotonic": 1342571.522797541,
+      "line": "AUX,33004790,1"
+    },
+    {
+      "host_monotonic": 1342572.207041375,
+      "line": "AUX,33691106,0"
+    },
+    {
+      "host_monotonic": 1342572.223062625,
+      "line": "AUX,33707105,1"
+    },
+    {
+      "host_monotonic": 1342572.233530375,
+      "line": "UART_BUFFER,FRAME_COMPLETE,33717328,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342572.233860291,
+      "line": "D_ACK_RECEIVED,12,0,12,33717515"
+    },
+    {
+      "host_monotonic": 1342572.234023166,
+      "line": "ACK,12,12,0,OK"
+    },
+    {
+      "host_monotonic": 1342572.234225083,
+      "line": "TX_BEGIN,12,12,1,3"
+    },
+    {
+      "host_monotonic": 1342572.234521458,
+      "line": "D_TX_BEGIN,12,1,12,33717865"
+    },
+    {
+      "host_monotonic": 1342572.234780375,
+      "line": "AUX,33719056,0"
+    },
+    {
+      "host_monotonic": 1342572.264676875,
+      "line": "D_TX_UART_DONE,12,1,12,33745154"
+    },
+    {
+      "host_monotonic": 1342572.265137083,
+      "line": "D_TX_AUX_READY,12,1,12,33748289"
+    },
+    {
+      "host_monotonic": 1342572.265393333,
+      "line": "TX,12,12,1,3,26"
+    },
+    {
+      "host_monotonic": 1342572.265893166,
+      "line": "D_ACK_WAIT_BEGIN,12,1,12,33748652"
+    },
+    {
+      "host_monotonic": 1342572.266136791,
+      "line": "AUX,33748280,1"
+    },
+    {
+      "host_monotonic": 1342572.950604916,
+      "line": "AUX,34434684,0"
+    },
+    {
+      "host_monotonic": 1342572.966676041,
+      "line": "AUX,34450673,1"
+    },
+    {
+      "host_monotonic": 1342572.97689425,
+      "line": "UART_BUFFER,FRAME_COMPLETE,34460346,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342572.977354333,
+      "line": "D_ACK_RECEIVED,12,1,12,34460498"
+    },
+    {
+      "host_monotonic": 1342572.977587625,
+      "line": "ACK,12,12,1,OK"
+    },
+    {
+      "host_monotonic": 1342572.977862083,
+      "line": "TX_BEGIN,12,12,2,3"
+    },
+    {
+      "host_monotonic": 1342572.978320125,
+      "line": "D_TX_BEGIN,12,2,12,34460867"
+    },
+    {
+      "host_monotonic": 1342572.978540416,
+      "line": "AUX,34462047,0"
+    },
+    {
+      "host_monotonic": 1342573.007215125,
+      "line": "AUX,34491277,1"
+    },
+    {
+      "host_monotonic": 1342573.007703291,
+      "line": "D_TX_UART_DONE,12,2,12,34488149"
+    },
+    {
+      "host_monotonic": 1342573.008160625,
+      "line": "D_TX_AUX_READY,12,2,12,34491292"
+    },
+    {
+      "host_monotonic": 1342573.008482958,
+      "line": "TX,12,12,2,3,26"
+    },
+    {
+      "host_monotonic": 1342573.0089635,
+      "line": "D_ACK_WAIT_BEGIN,12,2,12,34491710"
+    },
+    {
+      "host_monotonic": 1342573.693028416,
+      "line": "AUX,35177241,0"
+    },
+    {
+      "host_monotonic": 1342573.709132583,
+      "line": "AUX,35193192,1"
+    },
+    {
+      "host_monotonic": 1342573.719799958,
+      "line": "UART_BUFFER,FRAME_COMPLETE,35203490,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342573.7202545,
+      "line": "D_ACK_RECEIVED,12,2,12,35203646"
+    },
+    {
+      "host_monotonic": 1342573.720524875,
+      "line": "ACK,12,12,2,OK"
+    },
+    {
+      "host_monotonic": 1342573.721290291,
+      "line": "SAMPLE,12,IMPORTANT,IMPORTANT,4.2778,BAD,3,3,1,2229.898"
+    },
+    {
+      "host_monotonic": 1342573.721803833,
+      "line": "EVT,13,1,IMPORTANT,4.6033,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342573.722075625,
+      "line": "TX_BEGIN,13,13,0,3"
+    },
+    {
+      "host_monotonic": 1342573.722491458,
+      "line": "D_TX_BEGIN,13,0,13,35204802"
+    },
+    {
+      "host_monotonic": 1342573.722733791,
+      "line": "AUX,35206041,0"
+    },
+    {
+      "host_monotonic": 1342573.751285041,
+      "line": "D_TX_UART_DONE,13,0,13,35232147"
+    },
+    {
+      "host_monotonic": 1342573.751618625,
+      "line": "D_TX_AUX_READY,13,0,13,35235280"
+    },
+    {
+      "host_monotonic": 1342573.751855541,
+      "line": "TX,13,13,0,3,26"
+    },
+    {
+      "host_monotonic": 1342573.7523445,
+      "line": "D_ACK_WAIT_BEGIN,13,0,13,35235629"
+    },
+    {
+      "host_monotonic": 1342573.752566458,
+      "line": "AUX,35235269,1"
+    },
+    {
+      "host_monotonic": 1342574.437511125,
+      "line": "AUX,35921630,0"
+    },
+    {
+      "host_monotonic": 1342574.453625708,
+      "line": "AUX,35937699,1"
+    },
+    {
+      "host_monotonic": 1342574.464423541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,35948034,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342574.464879166,
+      "line": "D_ACK_RECEIVED,13,0,13,35948228"
+    },
+    {
+      "host_monotonic": 1342574.465109375,
+      "line": "ACK,13,13,0,OK"
+    },
+    {
+      "host_monotonic": 1342574.465468416,
+      "line": "TX_BEGIN,13,13,1,3"
+    },
+    {
+      "host_monotonic": 1342574.465868791,
+      "line": "D_TX_BEGIN,13,1,13,35948587"
+    },
+    {
+      "host_monotonic": 1342574.466090083,
+      "line": "AUX,35949773,0"
+    },
+    {
+      "host_monotonic": 1342574.494866333,
+      "line": "AUX,35979002,1"
+    },
+    {
+      "host_monotonic": 1342574.495217,
+      "line": "D_TX_UART_DONE,13,1,13,35975875"
+    },
+    {
+      "host_monotonic": 1342574.495561791,
+      "line": "D_TX_AUX_READY,13,1,13,35979023"
+    },
+    {
+      "host_monotonic": 1342574.495732541,
+      "line": "TX,13,13,1,3,26"
+    },
+    {
+      "host_monotonic": 1342574.496118625,
+      "line": "D_ACK_WAIT_BEGIN,13,1,13,35979424"
+    },
+    {
+      "host_monotonic": 1342575.495733791,
+      "line": "D_ACK_TIMEOUT,13,1,13,36979558"
+    },
+    {
+      "host_monotonic": 1342575.495936625,
+      "line": "TIMEOUT,13,1"
+    },
+    {
+      "host_monotonic": 1342575.49621275,
+      "line": "TX_BEGIN,13,13,2,3"
+    },
+    {
+      "host_monotonic": 1342575.496842125,
+      "line": "D_TX_BEGIN,13,2,13,36979857"
+    },
+    {
+      "host_monotonic": 1342575.497067833,
+      "line": "AUX,36981011,0"
+    },
+    {
+      "host_monotonic": 1342575.526404541,
+      "line": "D_TX_UART_DONE,13,2,13,37007104"
+    },
+    {
+      "host_monotonic": 1342575.526862375,
+      "line": "D_TX_AUX_READY,13,2,13,37010250"
+    },
+    {
+      "host_monotonic": 1342575.527209791,
+      "line": "TX,13,13,2,3,26"
+    },
+    {
+      "host_monotonic": 1342575.527695083,
+      "line": "D_ACK_WAIT_BEGIN,13,2,13,37010592"
+    },
+    {
+      "host_monotonic": 1342575.527915166,
+      "line": "AUX,37010240,1"
+    },
+    {
+      "host_monotonic": 1342576.212035125,
+      "line": "AUX,37696251,0"
+    },
+    {
+      "host_monotonic": 1342576.22843675,
+      "line": "AUX,37712672,1"
+    },
+    {
+      "host_monotonic": 1342576.238862458,
+      "line": "UART_BUFFER,FRAME_COMPLETE,37722556,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342576.239342625,
+      "line": "D_ACK_RECEIVED,13,2,13,37722724"
+    },
+    {
+      "host_monotonic": 1342576.239678875,
+      "line": "ACK,13,13,2,OK"
+    },
+    {
+      "host_monotonic": 1342576.240619208,
+      "line": "SAMPLE,13,IMPORTANT,IMPORTANT,4.6033,DEGRADED,3,3,1,2518.548"
+    },
+    {
+      "host_monotonic": 1342576.24113875,
+      "line": "EVT,14,1,IMPORTANT,4.8997,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342576.241415958,
+      "line": "TX_BEGIN,14,14,0,3"
+    },
+    {
+      "host_monotonic": 1342576.241812916,
+      "line": "D_TX_BEGIN,14,0,14,37723889"
+    },
+    {
+      "host_monotonic": 1342576.242033041,
+      "line": "AUX,37725122,0"
+    },
+    {
+      "host_monotonic": 1342576.270216583,
+      "line": "AUX,37754352,1"
+    },
+    {
+      "host_monotonic": 1342576.270779291,
+      "line": "D_TX_UART_DONE,14,0,14,37751230"
+    },
+    {
+      "host_monotonic": 1342576.271229958,
+      "line": "D_TX_AUX_READY,14,0,14,37754363"
+    },
+    {
+      "host_monotonic": 1342576.271462666,
+      "line": "TX,14,14,0,3,26"
+    },
+    {
+      "host_monotonic": 1342576.271935791,
+      "line": "D_ACK_WAIT_BEGIN,14,0,14,37754798"
+    },
+    {
+      "host_monotonic": 1342576.9565825,
+      "line": "AUX,38440687,0"
+    },
+    {
+      "host_monotonic": 1342576.972086916,
+      "line": "AUX,38456252,1"
+    },
+    {
+      "host_monotonic": 1342576.983046833,
+      "line": "UART_BUFFER,FRAME_COMPLETE,38466686,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342576.9835195,
+      "line": "D_ACK_RECEIVED,14,0,14,38466880"
+    },
+    {
+      "host_monotonic": 1342576.983743291,
+      "line": "ACK,14,14,0,OK"
+    },
+    {
+      "host_monotonic": 1342576.984035041,
+      "line": "TX_BEGIN,14,14,1,3"
+    },
+    {
+      "host_monotonic": 1342576.984430833,
+      "line": "D_TX_BEGIN,14,1,14,38467240"
+    },
+    {
+      "host_monotonic": 1342576.9846635,
+      "line": "AUX,38468428,0"
+    },
+    {
+      "host_monotonic": 1342577.014022,
+      "line": "D_TX_UART_DONE,14,1,14,38494525"
+    },
+    {
+      "host_monotonic": 1342577.014478416,
+      "line": "D_TX_AUX_READY,14,1,14,38497661"
+    },
+    {
+      "host_monotonic": 1342577.014825,
+      "line": "TX,14,14,1,3,26"
+    },
+    {
+      "host_monotonic": 1342577.015319708,
+      "line": "D_ACK_WAIT_BEGIN,14,1,14,38498016"
+    },
+    {
+      "host_monotonic": 1342577.015552958,
+      "line": "AUX,38497651,1"
+    },
+    {
+      "host_monotonic": 1342577.700102875,
+      "line": "AUX,39184189,0"
+    },
+    {
+      "host_monotonic": 1342577.71566475,
+      "line": "AUX,39199777,1"
+    },
+    {
+      "host_monotonic": 1342577.726511208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,39210179,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342577.726989166,
+      "line": "D_ACK_RECEIVED,14,1,14,39210342"
+    },
+    {
+      "host_monotonic": 1342577.727214875,
+      "line": "ACK,14,14,1,OK"
+    },
+    {
+      "host_monotonic": 1342577.727499833,
+      "line": "TX_BEGIN,14,14,2,3"
+    },
+    {
+      "host_monotonic": 1342577.727894291,
+      "line": "D_TX_BEGIN,14,2,14,39210685"
+    },
+    {
+      "host_monotonic": 1342577.728121083,
+      "line": "AUX,39211866,0"
+    },
+    {
+      "host_monotonic": 1342577.757107,
+      "line": "D_TX_UART_DONE,14,2,14,39237965"
+    },
+    {
+      "host_monotonic": 1342577.757443541,
+      "line": "D_TX_AUX_READY,14,2,14,39241106"
+    },
+    {
+      "host_monotonic": 1342577.75762475,
+      "line": "TX,14,14,2,3,26"
+    },
+    {
+      "host_monotonic": 1342577.758021,
+      "line": "D_ACK_WAIT_BEGIN,14,2,14,39241452"
+    },
+    {
+      "host_monotonic": 1342577.758340125,
+      "line": "AUX,39241096,1"
+    },
+    {
+      "host_monotonic": 1342578.443447333,
+      "line": "AUX,39927562,0"
+    },
+    {
+      "host_monotonic": 1342578.45914575,
+      "line": "AUX,39943314,1"
+    },
+    {
+      "host_monotonic": 1342578.469940791,
+      "line": "UART_BUFFER,FRAME_COMPLETE,39953716,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342578.470557041,
+      "line": "D_ACK_RECEIVED,14,2,14,39953869"
+    },
+    {
+      "host_monotonic": 1342578.470806041,
+      "line": "ACK,14,14,2,DROP"
+    },
+    {
+      "host_monotonic": 1342578.471587541,
+      "line": "SAMPLE,14,IMPORTANT,IMPORTANT,4.8997,DEGRADED,3,3,1,2230.580"
+    },
+    {
+      "host_monotonic": 1342578.471964416,
+      "line": "EVT,15,1,IMPORTANT,4.8884,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342578.472194625,
+      "line": "TX_BEGIN,15,15,0,3"
+    },
+    {
+      "host_monotonic": 1342578.472483333,
+      "line": "D_TX_BEGIN,15,0,15,39955037"
+    },
+    {
+      "host_monotonic": 1342578.472643791,
+      "line": "AUX,39956271,0"
+    },
+    {
+      "host_monotonic": 1342578.501790541,
+      "line": "D_TX_UART_DONE,15,0,15,39982384"
+    },
+    {
+      "host_monotonic": 1342578.50236975,
+      "line": "D_TX_AUX_READY,15,0,15,39985520"
+    },
+    {
+      "host_monotonic": 1342578.5026425,
+      "line": "TX,15,15,0,3,26"
+    },
+    {
+      "host_monotonic": 1342578.503087916,
+      "line": "D_ACK_WAIT_BEGIN,15,0,15,39985877"
+    },
+    {
+      "host_monotonic": 1342578.503403041,
+      "line": "AUX,39985509,1"
+    },
+    {
+      "host_monotonic": 1342579.187141708,
+      "line": "AUX,40671333,0"
+    },
+    {
+      "host_monotonic": 1342579.2036015,
+      "line": "AUX,40687753,1"
+    },
+    {
+      "host_monotonic": 1342579.21488525,
+      "line": "UART_BUFFER,FRAME_COMPLETE,40698187,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342579.215395708,
+      "line": "D_ACK_RECEIVED,15,0,15,40698392"
+    },
+    {
+      "host_monotonic": 1342579.215620958,
+      "line": "ACK,15,15,0,OK"
+    },
+    {
+      "host_monotonic": 1342579.215896916,
+      "line": "TX_BEGIN,15,15,1,3"
+    },
+    {
+      "host_monotonic": 1342579.216303375,
+      "line": "D_TX_BEGIN,15,1,15,40698744"
+    },
+    {
+      "host_monotonic": 1342579.216539458,
+      "line": "AUX,40699929,0"
+    },
+    {
+      "host_monotonic": 1342579.245489458,
+      "line": "D_TX_UART_DONE,15,1,15,40726029"
+    },
+    {
+      "host_monotonic": 1342579.245959083,
+      "line": "D_TX_AUX_READY,15,1,15,40729174"
+    },
+    {
+      "host_monotonic": 1342579.246206625,
+      "line": "TX,15,15,1,3,26"
+    },
+    {
+      "host_monotonic": 1342579.246834458,
+      "line": "D_ACK_WAIT_BEGIN,15,1,15,40729524"
+    },
+    {
+      "host_monotonic": 1342579.247058041,
+      "line": "AUX,40729163,1"
+    },
+    {
+      "host_monotonic": 1342579.93075475,
+      "line": "AUX,41414767,0"
+    },
+    {
+      "host_monotonic": 1342579.946079416,
+      "line": "AUX,41430247,1"
+    },
+    {
+      "host_monotonic": 1342579.956722541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,41440645,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342579.957127791,
+      "line": "D_ACK_RECEIVED,15,1,15,41440811"
+    },
+    {
+      "host_monotonic": 1342579.957319083,
+      "line": "ACK,15,15,1,OK"
+    },
+    {
+      "host_monotonic": 1342579.9575265,
+      "line": "TX_BEGIN,15,15,2,3"
+    },
+    {
+      "host_monotonic": 1342579.957826625,
+      "line": "D_TX_BEGIN,15,2,15,41441158"
+    },
+    {
+      "host_monotonic": 1342579.957952041,
+      "line": "AUX,41442339,0"
+    },
+    {
+      "host_monotonic": 1342579.9875295,
+      "line": "AUX,41471564,1"
+    },
+    {
+      "host_monotonic": 1342579.987868083,
+      "line": "D_TX_UART_DONE,15,2,15,41468438"
+    },
+    {
+      "host_monotonic": 1342579.988124333,
+      "line": "D_TX_AUX_READY,15,2,15,41471581"
+    },
+    {
+      "host_monotonic": 1342579.98825925,
+      "line": "TX,15,15,2,3,26"
+    },
+    {
+      "host_monotonic": 1342579.988562041,
+      "line": "D_ACK_WAIT_BEGIN,15,2,15,41472002"
+    },
+    {
+      "host_monotonic": 1342580.673179125,
+      "line": "AUX,42157435,0"
+    },
+    {
+      "host_monotonic": 1342580.689477958,
+      "line": "AUX,42173810,1"
+    },
+    {
+      "host_monotonic": 1342580.70069225,
+      "line": "UART_BUFFER,FRAME_COMPLETE,42184209,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342580.701234833,
+      "line": "D_ACK_RECEIVED,15,2,15,42184373"
+    },
+    {
+      "host_monotonic": 1342580.701489,
+      "line": "ACK,15,15,2,DROP"
+    },
+    {
+      "host_monotonic": 1342580.702625375,
+      "line": "SAMPLE,15,IMPORTANT,IMPORTANT,4.8884,DEGRADED,3,3,1,2229.955"
+    },
+    {
+      "host_monotonic": 1342580.703006791,
+      "line": "EVT,16,1,IMPORTANT,4.9425,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342580.703207083,
+      "line": "TX_BEGIN,16,16,0,3"
+    },
+    {
+      "host_monotonic": 1342580.7034985,
+      "line": "D_TX_BEGIN,16,0,16,42185519"
+    },
+    {
+      "host_monotonic": 1342580.703659083,
+      "line": "AUX,42186753,0"
+    },
+    {
+      "host_monotonic": 1342580.731818958,
+      "line": "AUX,42215979,1"
+    },
+    {
+      "host_monotonic": 1342580.732293375,
+      "line": "D_TX_UART_DONE,16,0,16,42212863"
+    },
+    {
+      "host_monotonic": 1342580.732741416,
+      "line": "D_TX_AUX_READY,16,0,16,42215996"
+    },
+    {
+      "host_monotonic": 1342580.732974666,
+      "line": "TX,16,16,0,3,26"
+    },
+    {
+      "host_monotonic": 1342580.733579125,
+      "line": "D_ACK_WAIT_BEGIN,16,0,16,42216400"
+    },
+    {
+      "host_monotonic": 1342581.417610458,
+      "line": "AUX,42901805,0"
+    },
+    {
+      "host_monotonic": 1342581.43311025,
+      "line": "AUX,42917361,1"
+    },
+    {
+      "host_monotonic": 1342581.444189625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,42927797,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342581.444668666,
+      "line": "D_ACK_RECEIVED,16,0,16,42927996"
+    },
+    {
+      "host_monotonic": 1342581.444968125,
+      "line": "ACK,16,16,0,DROP"
+    },
+    {
+      "host_monotonic": 1342581.445242958,
+      "line": "TX_BEGIN,16,16,1,3"
+    },
+    {
+      "host_monotonic": 1342581.445655333,
+      "line": "D_TX_BEGIN,16,1,16,42928367"
+    },
+    {
+      "host_monotonic": 1342581.445878583,
+      "line": "AUX,42929553,0"
+    },
+    {
+      "host_monotonic": 1342581.475005291,
+      "line": "D_TX_UART_DONE,16,1,16,42955654"
+    },
+    {
+      "host_monotonic": 1342581.475470791,
+      "line": "D_TX_AUX_READY,16,1,16,42958798"
+    },
+    {
+      "host_monotonic": 1342581.475710583,
+      "line": "TX,16,16,1,3,26"
+    },
+    {
+      "host_monotonic": 1342581.476200458,
+      "line": "D_ACK_WAIT_BEGIN,16,1,16,42959141"
+    },
+    {
+      "host_monotonic": 1342581.476428291,
+      "line": "AUX,42958787,1"
+    },
+    {
+      "host_monotonic": 1342582.475343833,
+      "line": "D_ACK_TIMEOUT,16,1,16,43959283"
+    },
+    {
+      "host_monotonic": 1342582.475545583,
+      "line": "TIMEOUT,16,1"
+    },
+    {
+      "host_monotonic": 1342582.475829625,
+      "line": "TX_BEGIN,16,16,2,3"
+    },
+    {
+      "host_monotonic": 1342582.476239791,
+      "line": "D_TX_BEGIN,16,2,16,43959574"
+    },
+    {
+      "host_monotonic": 1342582.476460708,
+      "line": "AUX,43960723,0"
+    },
+    {
+      "host_monotonic": 1342582.505816875,
+      "line": "D_TX_UART_DONE,16,2,16,43986821"
+    },
+    {
+      "host_monotonic": 1342582.506082416,
+      "line": "D_TX_AUX_READY,16,2,16,43989964"
+    },
+    {
+      "host_monotonic": 1342582.506216541,
+      "line": "TX,16,16,2,3,26"
+    },
+    {
+      "host_monotonic": 1342582.506494875,
+      "line": "D_ACK_WAIT_BEGIN,16,2,16,43990310"
+    },
+    {
+      "host_monotonic": 1342582.506620541,
+      "line": "AUX,43989950,1"
+    },
+    {
+      "host_monotonic": 1342583.192151666,
+      "line": "AUX,44676470,0"
+    },
+    {
+      "host_monotonic": 1342583.207946541,
+      "line": "AUX,44692193,1"
+    },
+    {
+      "host_monotonic": 1342583.2192825,
+      "line": "UART_BUFFER,FRAME_COMPLETE,44702595,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342583.219835416,
+      "line": "D_ACK_RECEIVED,16,2,16,44702760"
+    },
+    {
+      "host_monotonic": 1342583.220086625,
+      "line": "ACK,16,16,2,DROP"
+    },
+    {
+      "host_monotonic": 1342583.221076708,
+      "line": "SAMPLE,16,IMPORTANT,IMPORTANT,4.9425,DEGRADED,3,3,0,2517.864"
+    },
+    {
+      "host_monotonic": 1342583.221449666,
+      "line": "EVT,17,1,IMPORTANT,5.0021,BAD,3"
+    },
+    {
+      "host_monotonic": 1342583.221652083,
+      "line": "TX_BEGIN,17,17,0,3"
+    },
+    {
+      "host_monotonic": 1342583.221941583,
+      "line": "D_TX_BEGIN,17,0,17,44703923"
+    },
+    {
+      "host_monotonic": 1342583.222102875,
+      "line": "AUX,44705166,0"
+    },
+    {
+      "host_monotonic": 1342583.25034775,
+      "line": "AUX,44734394,1"
+    },
+    {
+      "host_monotonic": 1342583.250807458,
+      "line": "D_TX_UART_DONE,17,0,17,44731272"
+    },
+    {
+      "host_monotonic": 1342583.251261083,
+      "line": "D_TX_AUX_READY,17,0,17,44734404"
+    },
+    {
+      "host_monotonic": 1342583.2514975,
+      "line": "TX,17,17,0,3,26"
+    },
+    {
+      "host_monotonic": 1342583.2520145,
+      "line": "D_ACK_WAIT_BEGIN,17,0,17,44734884"
+    },
+    {
+      "host_monotonic": 1342583.935854208,
+      "line": "AUX,45420133,0"
+    },
+    {
+      "host_monotonic": 1342583.95151375,
+      "line": "AUX,45435678,1"
+    },
+    {
+      "host_monotonic": 1342583.962514166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,45446117,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342583.962978333,
+      "line": "D_ACK_RECEIVED,17,0,17,45446317"
+    },
+    {
+      "host_monotonic": 1342583.963286375,
+      "line": "ACK,17,17,0,OK"
+    },
+    {
+      "host_monotonic": 1342583.963488166,
+      "line": "TX_BEGIN,17,17,1,3"
+    },
+    {
+      "host_monotonic": 1342583.963827291,
+      "line": "D_TX_BEGIN,17,1,17,45446676"
+    },
+    {
+      "host_monotonic": 1342583.963993041,
+      "line": "AUX,45447864,0"
+    },
+    {
+      "host_monotonic": 1342583.992869625,
+      "line": "AUX,45477091,1"
+    },
+    {
+      "host_monotonic": 1342583.993447458,
+      "line": "D_TX_UART_DONE,17,1,17,45473963"
+    },
+    {
+      "host_monotonic": 1342583.993902166,
+      "line": "D_TX_AUX_READY,17,1,17,45477107"
+    },
+    {
+      "host_monotonic": 1342583.994142791,
+      "line": "TX,17,17,1,3,26"
+    },
+    {
+      "host_monotonic": 1342583.994626625,
+      "line": "D_ACK_WAIT_BEGIN,17,1,17,45477534"
+    },
+    {
+      "host_monotonic": 1342584.679525583,
+      "line": "AUX,46163623,0"
+    },
+    {
+      "host_monotonic": 1342584.694945,
+      "line": "AUX,46179192,1"
+    },
+    {
+      "host_monotonic": 1342584.705840333,
+      "line": "UART_BUFFER,FRAME_COMPLETE,46189594,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342584.706329541,
+      "line": "D_ACK_RECEIVED,17,1,17,46189777"
+    },
+    {
+      "host_monotonic": 1342584.706589458,
+      "line": "ACK,17,17,1,DROP"
+    },
+    {
+      "host_monotonic": 1342584.706877625,
+      "line": "TX_BEGIN,17,17,2,3"
+    },
+    {
+      "host_monotonic": 1342584.70727525,
+      "line": "D_TX_BEGIN,17,2,17,46190120"
+    },
+    {
+      "host_monotonic": 1342584.707496666,
+      "line": "AUX,46191301,0"
+    },
+    {
+      "host_monotonic": 1342584.736632375,
+      "line": "D_TX_UART_DONE,17,2,17,46217404"
+    },
+    {
+      "host_monotonic": 1342584.737085666,
+      "line": "D_TX_AUX_READY,17,2,17,46220546"
+    },
+    {
+      "host_monotonic": 1342584.737321083,
+      "line": "TX,17,17,2,3,26"
+    },
+    {
+      "host_monotonic": 1342584.73779625,
+      "line": "D_ACK_WAIT_BEGIN,17,2,17,46220929"
+    },
+    {
+      "host_monotonic": 1342584.738018125,
+      "line": "AUX,46220536,1"
+    },
+    {
+      "host_monotonic": 1342585.422798416,
+      "line": "AUX,46907073,0"
+    },
+    {
+      "host_monotonic": 1342585.438423583,
+      "line": "AUX,46922730,1"
+    },
+    {
+      "host_monotonic": 1342585.449347625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,46933133,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342585.449909125,
+      "line": "D_ACK_RECEIVED,17,2,17,46933303"
+    },
+    {
+      "host_monotonic": 1342585.4501335,
+      "line": "ACK,17,17,2,OK"
+    },
+    {
+      "host_monotonic": 1342585.450921625,
+      "line": "SAMPLE,17,IMPORTANT,IMPORTANT,5.0021,BAD,3,3,1,2229.981"
+    },
+    {
+      "host_monotonic": 1342585.451544166,
+      "line": "EVT,18,1,IMPORTANT,5.9236,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342585.451786625,
+      "line": "TX_BEGIN,18,18,0,3"
+    },
+    {
+      "host_monotonic": 1342585.452396916,
+      "line": "D_TX_BEGIN,18,0,18,46934435"
+    },
+    {
+      "host_monotonic": 1342585.452565166,
+      "line": "AUX,46935662,0"
+    },
+    {
+      "host_monotonic": 1342585.480620458,
+      "line": "AUX,46964890,1"
+    },
+    {
+      "host_monotonic": 1342585.48106075,
+      "line": "D_TX_UART_DONE,18,0,18,46961775"
+    },
+    {
+      "host_monotonic": 1342585.481399583,
+      "line": "D_TX_AUX_READY,18,0,18,46964901"
+    },
+    {
+      "host_monotonic": 1342585.481573041,
+      "line": "TX,18,18,0,3,26"
+    },
+    {
+      "host_monotonic": 1342585.48192225,
+      "line": "D_ACK_WAIT_BEGIN,18,0,18,46965309"
+    },
+    {
+      "host_monotonic": 1342586.166365208,
+      "line": "AUX,47650748,0"
+    },
+    {
+      "host_monotonic": 1342586.183019375,
+      "line": "AUX,47667207,1"
+    },
+    {
+      "host_monotonic": 1342586.193692458,
+      "line": "UART_BUFFER,FRAME_COMPLETE,47677540,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342586.194161458,
+      "line": "D_ACK_RECEIVED,18,0,18,47677728"
+    },
+    {
+      "host_monotonic": 1342586.194413583,
+      "line": "ACK,18,18,0,DROP"
+    },
+    {
+      "host_monotonic": 1342586.194702583,
+      "line": "TX_BEGIN,18,18,1,3"
+    },
+    {
+      "host_monotonic": 1342586.195105875,
+      "line": "D_TX_BEGIN,18,1,18,47678114"
+    },
+    {
+      "host_monotonic": 1342586.195327958,
+      "line": "AUX,47679301,0"
+    },
+    {
+      "host_monotonic": 1342586.224097583,
+      "line": "AUX,47708526,1"
+    },
+    {
+      "host_monotonic": 1342586.224484333,
+      "line": "D_TX_UART_DONE,18,1,18,47705399"
+    },
+    {
+      "host_monotonic": 1342586.224894666,
+      "line": "D_TX_AUX_READY,18,1,18,47708547"
+    },
+    {
+      "host_monotonic": 1342586.225069875,
+      "line": "TX,18,18,1,3,26"
+    },
+    {
+      "host_monotonic": 1342586.225422333,
+      "line": "D_ACK_WAIT_BEGIN,18,1,18,47708965"
+    },
+    {
+      "host_monotonic": 1342586.90995075,
+      "line": "AUX,48394315,0"
+    },
+    {
+      "host_monotonic": 1342586.926182208,
+      "line": "AUX,48410741,1"
+    },
+    {
+      "host_monotonic": 1342586.937310166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,48421043,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342586.937658083,
+      "line": "D_ACK_RECEIVED,18,1,18,48421207"
+    },
+    {
+      "host_monotonic": 1342586.937827333,
+      "line": "ACK,18,18,1,OK"
+    },
+    {
+      "host_monotonic": 1342586.938176375,
+      "line": "TX_BEGIN,18,18,2,3"
+    },
+    {
+      "host_monotonic": 1342586.938923208,
+      "line": "D_TX_BEGIN,18,2,18,48421544"
+    },
+    {
+      "host_monotonic": 1342586.939093666,
+      "line": "AUX,48422725,0"
+    },
+    {
+      "host_monotonic": 1342586.967451541,
+      "line": "AUX,48451954,1"
+    },
+    {
+      "host_monotonic": 1342586.967680333,
+      "line": "D_TX_UART_DONE,18,2,18,48448826"
+    },
+    {
+      "host_monotonic": 1342586.96789525,
+      "line": "D_TX_AUX_READY,18,2,18,48451969"
+    },
+    {
+      "host_monotonic": 1342586.968007625,
+      "line": "TX,18,18,2,3,26"
+    },
+    {
+      "host_monotonic": 1342586.968231916,
+      "line": "D_ACK_WAIT_BEGIN,18,2,18,48452382"
+    },
+    {
+      "host_monotonic": 1342587.653435708,
+      "line": "AUX,49137710,0"
+    },
+    {
+      "host_monotonic": 1342587.669082166,
+      "line": "AUX,49153247,1"
+    },
+    {
+      "host_monotonic": 1342587.679711541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,49163441,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342587.680238708,
+      "line": "D_ACK_RECEIVED,18,2,18,49163590"
+    },
+    {
+      "host_monotonic": 1342587.680463541,
+      "line": "ACK,18,18,2,OK"
+    },
+    {
+      "host_monotonic": 1342587.68130575,
+      "line": "SAMPLE,18,IMPORTANT,IMPORTANT,5.9236,DEGRADED,3,3,1,2229.742"
+    },
+    {
+      "host_monotonic": 1342587.681634333,
+      "line": "EVT,19,1,IMPORTANT,5.8630,BAD,3"
+    },
+    {
+      "host_monotonic": 1342587.681834375,
+      "line": "TX_BEGIN,19,19,0,3"
+    },
+    {
+      "host_monotonic": 1342587.682123375,
+      "line": "D_TX_BEGIN,19,0,19,49164737"
+    },
+    {
+      "host_monotonic": 1342587.682283375,
+      "line": "AUX,49165973,0"
+    },
+    {
+      "host_monotonic": 1342587.711198,
+      "line": "AUX,49195208,1"
+    },
+    {
+      "host_monotonic": 1342587.711702791,
+      "line": "D_TX_UART_DONE,19,0,19,49192086"
+    },
+    {
+      "host_monotonic": 1342587.712176375,
+      "line": "D_TX_AUX_READY,19,0,19,49195218"
+    },
+    {
+      "host_monotonic": 1342587.712413458,
+      "line": "TX,19,19,0,3,26"
+    },
+    {
+      "host_monotonic": 1342587.712894083,
+      "line": "D_ACK_WAIT_BEGIN,19,0,19,49195634"
+    },
+    {
+      "host_monotonic": 1342588.397117416,
+      "line": "AUX,49881282,0"
+    },
+    {
+      "host_monotonic": 1342588.413424833,
+      "line": "AUX,49897690,1"
+    },
+    {
+      "host_monotonic": 1342588.423187291,
+      "line": "UART_BUFFER,FRAME_COMPLETE,49907398,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342588.423412625,
+      "line": "D_ACK_RECEIVED,19,0,19,49907592"
+    },
+    {
+      "host_monotonic": 1342588.423534916,
+      "line": "ACK,19,19,0,DROP"
+    },
+    {
+      "host_monotonic": 1342588.423669083,
+      "line": "TX_BEGIN,19,19,1,3"
+    },
+    {
+      "host_monotonic": 1342588.423856708,
+      "line": "D_TX_BEGIN,19,1,19,49907961"
+    },
+    {
+      "host_monotonic": 1342588.424500333,
+      "line": "AUX,49909166,0"
+    },
+    {
+      "host_monotonic": 1342588.454664666,
+      "line": "D_TX_UART_DONE,19,1,19,49935263"
+    },
+    {
+      "host_monotonic": 1342588.455180666,
+      "line": "D_TX_AUX_READY,19,1,19,49938406"
+    },
+    {
+      "host_monotonic": 1342588.455419791,
+      "line": "TX,19,19,1,3,26"
+    },
+    {
+      "host_monotonic": 1342588.455900958,
+      "line": "D_ACK_WAIT_BEGIN,19,1,19,49938758"
+    },
+    {
+      "host_monotonic": 1342588.456207875,
+      "line": "AUX,49938395,1"
+    },
+    {
+      "host_monotonic": 1342589.140547458,
+      "line": "AUX,50624916,0"
+    },
+    {
+      "host_monotonic": 1342589.156856166,
+      "line": "AUX,50641200,1"
+    },
+    {
+      "host_monotonic": 1342589.167455,
+      "line": "UART_BUFFER,FRAME_COMPLETE,50651392,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342589.167934958,
+      "line": "D_ACK_RECEIVED,19,1,19,50651561"
+    },
+    {
+      "host_monotonic": 1342589.16818925,
+      "line": "ACK,19,19,1,OK"
+    },
+    {
+      "host_monotonic": 1342589.168520625,
+      "line": "TX_BEGIN,19,19,2,3"
+    },
+    {
+      "host_monotonic": 1342589.168968,
+      "line": "D_TX_BEGIN,19,2,19,50651912"
+    },
+    {
+      "host_monotonic": 1342589.169130958,
+      "line": "AUX,50653093,0"
+    },
+    {
+      "host_monotonic": 1342589.198063208,
+      "line": "AUX,50682322,1"
+    },
+    {
+      "host_monotonic": 1342589.198543958,
+      "line": "D_TX_UART_DONE,19,2,19,50679195"
+    },
+    {
+      "host_monotonic": 1342589.198996375,
+      "line": "D_TX_AUX_READY,19,2,19,50682343"
+    },
+    {
+      "host_monotonic": 1342589.199249916,
+      "line": "TX,19,19,2,3,26"
+    },
+    {
+      "host_monotonic": 1342589.199727708,
+      "line": "D_ACK_WAIT_BEGIN,19,2,19,50682755"
+    },
+    {
+      "host_monotonic": 1342589.883910541,
+      "line": "AUX,51368323,0"
+    },
+    {
+      "host_monotonic": 1342589.90042425,
+      "line": "AUX,51384752,1"
+    },
+    {
+      "host_monotonic": 1342589.911175125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,51395047,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342589.911700041,
+      "line": "D_ACK_RECEIVED,19,2,19,51395205"
+    },
+    {
+      "host_monotonic": 1342589.911923541,
+      "line": "ACK,19,19,2,OK"
+    },
+    {
+      "host_monotonic": 1342589.912696416,
+      "line": "SAMPLE,19,IMPORTANT,IMPORTANT,5.8630,BAD,3,3,1,2231.092"
+    },
+    {
+      "host_monotonic": 1342589.913147791,
+      "line": "EVT,20,1,IMPORTANT,5.7549,BAD,3"
+    },
+    {
+      "host_monotonic": 1342589.913424041,
+      "line": "TX_BEGIN,20,20,0,3"
+    },
+    {
+      "host_monotonic": 1342589.9138205,
+      "line": "D_TX_BEGIN,20,0,20,51396350"
+    },
+    {
+      "host_monotonic": 1342589.914044416,
+      "line": "AUX,51397579,0"
+    },
+    {
+      "host_monotonic": 1342589.942416041,
+      "line": "AUX,51426812,1"
+    },
+    {
+      "host_monotonic": 1342589.942759458,
+      "line": "D_TX_UART_DONE,20,0,20,51423691"
+    },
+    {
+      "host_monotonic": 1342589.943088333,
+      "line": "D_TX_AUX_READY,20,0,20,51426823"
+    },
+    {
+      "host_monotonic": 1342589.943267208,
+      "line": "TX,20,20,0,3,26"
+    },
+    {
+      "host_monotonic": 1342589.943730875,
+      "line": "D_ACK_WAIT_BEGIN,20,0,20,51427246"
+    },
+    {
+      "host_monotonic": 1342590.943597875,
+      "line": "D_ACK_TIMEOUT,20,0,20,52428008"
+    },
+    {
+      "host_monotonic": 1342590.943658583,
+      "line": "TIMEOUT,20,0"
+    },
+    {
+      "host_monotonic": 1342590.943742583,
+      "line": "TX_BEGIN,20,20,1,3"
+    },
+    {
+      "host_monotonic": 1342590.943862791,
+      "line": "D_TX_BEGIN,20,1,20,52428331"
+    },
+    {
+      "host_monotonic": 1342590.944764791,
+      "line": "AUX,52429487,0"
+    },
+    {
+      "host_monotonic": 1342590.974124166,
+      "line": "AUX,52458717,1"
+    },
+    {
+      "host_monotonic": 1342590.974285208,
+      "line": "D_TX_UART_DONE,20,1,20,52455583"
+    },
+    {
+      "host_monotonic": 1342590.974443791,
+      "line": "D_TX_AUX_READY,20,1,20,52458738"
+    },
+    {
+      "host_monotonic": 1342590.974525041,
+      "line": "TX,20,20,1,3,26"
+    },
+    {
+      "host_monotonic": 1342590.97469075,
+      "line": "D_ACK_WAIT_BEGIN,20,1,20,52459132"
+    },
+    {
+      "host_monotonic": 1342591.975151916,
+      "line": "D_ACK_TIMEOUT,20,1,20,53459264"
+    },
+    {
+      "host_monotonic": 1342591.975353916,
+      "line": "TIMEOUT,20,1"
+    },
+    {
+      "host_monotonic": 1342591.97563125,
+      "line": "TX_BEGIN,20,20,2,3"
+    },
+    {
+      "host_monotonic": 1342591.976038291,
+      "line": "D_TX_BEGIN,20,2,20,53459576"
+    },
+    {
+      "host_monotonic": 1342591.976258708,
+      "line": "AUX,53460733,0"
+    },
+    {
+      "host_monotonic": 1342592.005992541,
+      "line": "D_TX_UART_DONE,20,2,20,53486829"
+    },
+    {
+      "host_monotonic": 1342592.006492416,
+      "line": "D_TX_AUX_READY,20,2,20,53489977"
+    },
+    {
+      "host_monotonic": 1342592.006665,
+      "line": "TX,20,20,2,3,26"
+    },
+    {
+      "host_monotonic": 1342592.007012666,
+      "line": "D_ACK_WAIT_BEGIN,20,2,20,53490312"
+    },
+    {
+      "host_monotonic": 1342592.007174083,
+      "line": "AUX,53489962,1"
+    },
+    {
+      "host_monotonic": 1342592.690906833,
+      "line": "AUX,54175650,0"
+    },
+    {
+      "host_monotonic": 1342592.707364333,
+      "line": "AUX,54192108,1"
+    },
+    {
+      "host_monotonic": 1342592.718062833,
+      "line": "UART_BUFFER,FRAME_COMPLETE,54202656,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342592.718140791,
+      "line": "D_ACK_RECEIVED,20,2,20,54202847"
+    },
+    {
+      "host_monotonic": 1342592.718178083,
+      "line": "ACK,20,20,2,OK"
+    },
+    {
+      "host_monotonic": 1342592.718730583,
+      "line": "SAMPLE,20,IMPORTANT,IMPORTANT,5.7549,BAD,3,3,1,2807.096"
+    },
+    {
+      "host_monotonic": 1342592.718988833,
+      "line": "EVT,21,1,IMPORTANT,5.2883,BAD,3"
+    },
+    {
+      "host_monotonic": 1342592.719085916,
+      "line": "TX_BEGIN,21,21,0,3"
+    },
+    {
+      "host_monotonic": 1342592.719250791,
+      "line": "D_TX_BEGIN,21,0,21,54203994"
+    },
+    {
+      "host_monotonic": 1342592.720508208,
+      "line": "AUX,54205229,0"
+    },
+    {
+      "host_monotonic": 1342592.749863541,
+      "line": "D_TX_UART_DONE,21,0,21,54231339"
+    },
+    {
+      "host_monotonic": 1342592.749940833,
+      "line": "D_TX_AUX_READY,21,0,21,54234475"
+    },
+    {
+      "host_monotonic": 1342592.749979583,
+      "line": "TX,21,21,0,3,26"
+    },
+    {
+      "host_monotonic": 1342592.750116666,
+      "line": "D_ACK_WAIT_BEGIN,21,0,21,54234832"
+    },
+    {
+      "host_monotonic": 1342592.750207458,
+      "line": "AUX,54234464,1"
+    },
+    {
+      "host_monotonic": 1342593.435743666,
+      "line": "AUX,54920305,0"
+    },
+    {
+      "host_monotonic": 1342593.452106666,
+      "line": "AUX,54936593,1"
+    },
+    {
+      "host_monotonic": 1342593.464208333,
+      "line": "UART_BUFFER,FRAME_COMPLETE,54947132,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342593.46456575,
+      "line": "D_ACK_RECEIVED,21,0,21,54947328"
+    },
+    {
+      "host_monotonic": 1342593.464672708,
+      "line": "ACK,21,21,0,OK"
+    },
+    {
+      "host_monotonic": 1342593.46480425,
+      "line": "TX_BEGIN,21,21,1,3"
+    },
+    {
+      "host_monotonic": 1342593.464993583,
+      "line": "D_TX_BEGIN,21,1,21,54947681"
+    },
+    {
+      "host_monotonic": 1342593.465098875,
+      "line": "AUX,54948866,0"
+    },
+    {
+      "host_monotonic": 1342593.493602458,
+      "line": "D_TX_UART_DONE,21,1,21,54974965"
+    },
+    {
+      "host_monotonic": 1342593.493696291,
+      "line": "D_TX_AUX_READY,21,1,21,54978109"
+    },
+    {
+      "host_monotonic": 1342593.493743708,
+      "line": "TX,21,21,1,3,26"
+    },
+    {
+      "host_monotonic": 1342593.493839375,
+      "line": "D_ACK_WAIT_BEGIN,21,1,21,54978461"
+    },
+    {
+      "host_monotonic": 1342593.493883916,
+      "line": "AUX,54978098,1"
+    },
+    {
+      "host_monotonic": 1342594.180212333,
+      "line": "AUX,55664645,0"
+    },
+    {
+      "host_monotonic": 1342594.19675225,
+      "line": "AUX,55681143,1"
+    },
+    {
+      "host_monotonic": 1342594.207744541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,55691654,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342594.208204625,
+      "line": "D_ACK_RECEIVED,21,1,21,55691828"
+    },
+    {
+      "host_monotonic": 1342594.208425708,
+      "line": "ACK,21,21,1,OK"
+    },
+    {
+      "host_monotonic": 1342594.208701291,
+      "line": "TX_BEGIN,21,21,2,3"
+    },
+    {
+      "host_monotonic": 1342594.209099666,
+      "line": "D_TX_BEGIN,21,2,21,55692173"
+    },
+    {
+      "host_monotonic": 1342594.20932025,
+      "line": "AUX,55693356,0"
+    },
+    {
+      "host_monotonic": 1342594.238732,
+      "line": "D_TX_UART_DONE,21,2,21,55719454"
+    },
+    {
+      "host_monotonic": 1342594.239197083,
+      "line": "D_TX_AUX_READY,21,2,21,55722599"
+    },
+    {
+      "host_monotonic": 1342594.239434083,
+      "line": "TX,21,21,2,3,26"
+    },
+    {
+      "host_monotonic": 1342594.23991475,
+      "line": "D_ACK_WAIT_BEGIN,21,2,21,55722954"
+    },
+    {
+      "host_monotonic": 1342594.240143916,
+      "line": "AUX,55722588,1"
+    },
+    {
+      "host_monotonic": 1342594.924030125,
+      "line": "AUX,56408381,0"
+    },
+    {
+      "host_monotonic": 1342594.940231458,
+      "line": "AUX,56424612,1"
+    },
+    {
+      "host_monotonic": 1342594.950986208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,56435114,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342594.951327291,
+      "line": "D_ACK_RECEIVED,21,2,21,56435277"
+    },
+    {
+      "host_monotonic": 1342594.951490166,
+      "line": "ACK,21,21,2,OK"
+    },
+    {
+      "host_monotonic": 1342594.952054291,
+      "line": "SAMPLE,21,IMPORTANT,IMPORTANT,5.2883,BAD,3,3,1,2231.891"
+    },
+    {
+      "host_monotonic": 1342594.952433875,
+      "line": "EVT,22,1,IMPORTANT,4.3983,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342594.95263475,
+      "line": "TX_BEGIN,22,22,0,3"
+    },
+    {
+      "host_monotonic": 1342594.952924791,
+      "line": "D_TX_BEGIN,22,0,22,56436443"
+    },
+    {
+      "host_monotonic": 1342594.953085541,
+      "line": "AUX,56437675,0"
+    },
+    {
+      "host_monotonic": 1342594.982936666,
+      "line": "D_TX_UART_DONE,22,0,22,56463785"
+    },
+    {
+      "host_monotonic": 1342594.983389875,
+      "line": "D_TX_AUX_READY,22,0,22,56466917"
+    },
+    {
+      "host_monotonic": 1342594.983624583,
+      "line": "TX,22,22,0,3,26"
+    },
+    {
+      "host_monotonic": 1342594.984154708,
+      "line": "D_ACK_WAIT_BEGIN,22,0,22,56467260"
+    },
+    {
+      "host_monotonic": 1342594.984376833,
+      "line": "AUX,56466906,1"
+    },
+    {
+      "host_monotonic": 1342595.668371916,
+      "line": "AUX,57152757,0"
+    },
+    {
+      "host_monotonic": 1342595.684521166,
+      "line": "AUX,57169030,1"
+    },
+    {
+      "host_monotonic": 1342595.695481083,
+      "line": "UART_BUFFER,FRAME_COMPLETE,57179565,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342595.695973958,
+      "line": "D_ACK_RECEIVED,22,0,22,57179762"
+    },
+    {
+      "host_monotonic": 1342595.696213791,
+      "line": "ACK,22,22,0,OK"
+    },
+    {
+      "host_monotonic": 1342595.696499541,
+      "line": "TX_BEGIN,22,22,1,3"
+    },
+    {
+      "host_monotonic": 1342595.696913916,
+      "line": "D_TX_BEGIN,22,1,22,57180120"
+    },
+    {
+      "host_monotonic": 1342595.69715425,
+      "line": "AUX,57181306,0"
+    },
+    {
+      "host_monotonic": 1342595.726510208,
+      "line": "D_TX_UART_DONE,22,1,22,57207405"
+    },
+    {
+      "host_monotonic": 1342595.726961333,
+      "line": "D_TX_AUX_READY,22,1,22,57210549"
+    },
+    {
+      "host_monotonic": 1342595.727194041,
+      "line": "TX,22,22,1,3,26"
+    },
+    {
+      "host_monotonic": 1342595.727668416,
+      "line": "D_ACK_WAIT_BEGIN,22,1,22,57210884"
+    },
+    {
+      "host_monotonic": 1342595.727889916,
+      "line": "AUX,57210538,1"
+    },
+    {
+      "host_monotonic": 1342596.72817075,
+      "line": "D_ACK_TIMEOUT,22,1,22,58211031"
+    },
+    {
+      "host_monotonic": 1342596.728271,
+      "line": "TIMEOUT,22,1"
+    },
+    {
+      "host_monotonic": 1342596.728404708,
+      "line": "TX_BEGIN,22,22,2,3"
+    },
+    {
+      "host_monotonic": 1342596.728593666,
+      "line": "D_TX_BEGIN,22,2,22,58211374"
+    },
+    {
+      "host_monotonic": 1342596.728699,
+      "line": "AUX,58212525,0"
+    },
+    {
+      "host_monotonic": 1342596.757744208,
+      "line": "D_TX_UART_DONE,22,2,22,58238621"
+    },
+    {
+      "host_monotonic": 1342596.758204125,
+      "line": "D_TX_AUX_READY,22,2,22,58241767"
+    },
+    {
+      "host_monotonic": 1342596.758439666,
+      "line": "TX,22,22,2,3,26"
+    },
+    {
+      "host_monotonic": 1342596.75893725,
+      "line": "D_ACK_WAIT_BEGIN,22,2,22,58242096"
+    },
+    {
+      "host_monotonic": 1342596.759176958,
+      "line": "AUX,58241756,1"
+    },
+    {
+      "host_monotonic": 1342597.443782041,
+      "line": "AUX,58928311,0"
+    },
+    {
+      "host_monotonic": 1342597.4592795,
+      "line": "AUX,58943846,1"
+    },
+    {
+      "host_monotonic": 1342597.470273833,
+      "line": "UART_BUFFER,FRAME_COMPLETE,58954353,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342597.470731333,
+      "line": "D_ACK_RECEIVED,22,2,22,58954510"
+    },
+    {
+      "host_monotonic": 1342597.470981958,
+      "line": "ACK,22,22,2,DROP"
+    },
+    {
+      "host_monotonic": 1342597.471807125,
+      "line": "SAMPLE,22,IMPORTANT,IMPORTANT,4.3983,DEGRADED,3,3,1,2518.696"
+    },
+    {
+      "host_monotonic": 1342597.472189708,
+      "line": "EVT,23,1,IMPORTANT,3.5502,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342597.47249425,
+      "line": "TX_BEGIN,23,23,0,3"
+    },
+    {
+      "host_monotonic": 1342597.472821416,
+      "line": "D_TX_BEGIN,23,0,23,58955662"
+    },
+    {
+      "host_monotonic": 1342597.472987,
+      "line": "AUX,58956903,0"
+    },
+    {
+      "host_monotonic": 1342597.501680833,
+      "line": "AUX,58986131,1"
+    },
+    {
+      "host_monotonic": 1342597.50214225,
+      "line": "D_TX_UART_DONE,23,0,23,58983010"
+    },
+    {
+      "host_monotonic": 1342597.502594,
+      "line": "D_TX_AUX_READY,23,0,23,58986142"
+    },
+    {
+      "host_monotonic": 1342597.502830666,
+      "line": "TX,23,23,0,3,26"
+    },
+    {
+      "host_monotonic": 1342597.503307791,
+      "line": "D_ACK_WAIT_BEGIN,23,0,23,58986567"
+    },
+    {
+      "host_monotonic": 1342598.187574625,
+      "line": "AUX,59671939,0"
+    },
+    {
+      "host_monotonic": 1342598.203720416,
+      "line": "AUX,59688329,1"
+    },
+    {
+      "host_monotonic": 1342598.214707541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,59698863,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342598.214970916,
+      "line": "D_ACK_RECEIVED,23,0,23,59699064"
+    },
+    {
+      "host_monotonic": 1342598.215097791,
+      "line": "ACK,23,23,0,OK"
+    },
+    {
+      "host_monotonic": 1342598.215262041,
+      "line": "TX_BEGIN,23,23,1,3"
+    },
+    {
+      "host_monotonic": 1342598.215494208,
+      "line": "D_TX_BEGIN,23,1,23,59699434"
+    },
+    {
+      "host_monotonic": 1342598.215810666,
+      "line": "AUX,59700625,0"
+    },
+    {
+      "host_monotonic": 1342598.245450291,
+      "line": "AUX,59729858,1"
+    },
+    {
+      "host_monotonic": 1342598.245923666,
+      "line": "D_TX_UART_DONE,23,1,23,59726723"
+    },
+    {
+      "host_monotonic": 1342598.246375541,
+      "line": "D_TX_AUX_READY,23,1,23,59729878"
+    },
+    {
+      "host_monotonic": 1342598.246984041,
+      "line": "TX,23,23,1,3,26"
+    },
+    {
+      "host_monotonic": 1342598.247550041,
+      "line": "D_ACK_WAIT_BEGIN,23,1,23,59730296"
+    },
+    {
+      "host_monotonic": 1342599.246220708,
+      "line": "D_ACK_TIMEOUT,23,1,23,60730434"
+    },
+    {
+      "host_monotonic": 1342599.246427416,
+      "line": "TIMEOUT,23,1"
+    },
+    {
+      "host_monotonic": 1342599.246723291,
+      "line": "TX_BEGIN,23,23,2,3"
+    },
+    {
+      "host_monotonic": 1342599.247133291,
+      "line": "D_TX_BEGIN,23,2,23,60730732"
+    },
+    {
+      "host_monotonic": 1342599.247363541,
+      "line": "AUX,60731883,0"
+    },
+    {
+      "host_monotonic": 1342599.276945541,
+      "line": "D_TX_UART_DONE,23,2,23,60757990"
+    },
+    {
+      "host_monotonic": 1342599.2775575,
+      "line": "D_TX_AUX_READY,23,2,23,60761125"
+    },
+    {
+      "host_monotonic": 1342599.277817208,
+      "line": "TX,23,23,2,3,26"
+    },
+    {
+      "host_monotonic": 1342599.278330208,
+      "line": "D_ACK_WAIT_BEGIN,23,2,23,60761476"
+    },
+    {
+      "host_monotonic": 1342599.278559,
+      "line": "AUX,60761115,1"
+    },
+    {
+      "host_monotonic": 1342599.962573583,
+      "line": "AUX,61447116,0"
+    },
+    {
+      "host_monotonic": 1342599.978788291,
+      "line": "AUX,61463382,1"
+    },
+    {
+      "host_monotonic": 1342599.989880375,
+      "line": "UART_BUFFER,FRAME_COMPLETE,61473888,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342599.990389416,
+      "line": "D_ACK_RECEIVED,23,2,23,61474073"
+    },
+    {
+      "host_monotonic": 1342599.990638375,
+      "line": "ACK,23,23,2,DROP"
+    },
+    {
+      "host_monotonic": 1342599.991523666,
+      "line": "SAMPLE,23,IMPORTANT,IMPORTANT,3.5502,DEGRADED,3,3,1,2519.002"
+    },
+    {
+      "host_monotonic": 1342599.991920625,
+      "line": "EVT,24,2,CRITICAL,5.4016,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342599.992156916,
+      "line": "TX_BEGIN,24,24,0,3"
+    },
+    {
+      "host_monotonic": 1342599.992448083,
+      "line": "D_TX_BEGIN,24,0,24,61475190"
+    },
+    {
+      "host_monotonic": 1342599.992610416,
+      "line": "AUX,61476419,0"
+    },
+    {
+      "host_monotonic": 1342600.021314666,
+      "line": "D_TX_UART_DONE,24,0,24,61502531"
+    },
+    {
+      "host_monotonic": 1342600.021780625,
+      "line": "D_TX_AUX_READY,24,0,24,61505663"
+    },
+    {
+      "host_monotonic": 1342600.022017458,
+      "line": "TX,24,24,0,3,26"
+    },
+    {
+      "host_monotonic": 1342600.022506916,
+      "line": "D_ACK_WAIT_BEGIN,24,0,24,61506015"
+    },
+    {
+      "host_monotonic": 1342600.022730583,
+      "line": "AUX,61505653,1"
+    },
+    {
+      "host_monotonic": 1342600.707274166,
+      "line": "AUX,62192005,0"
+    },
+    {
+      "host_monotonic": 1342600.723254541,
+      "line": "AUX,62207992,1"
+    },
+    {
+      "host_monotonic": 1342600.734101916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,62218527,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342600.734323958,
+      "line": "D_ACK_RECEIVED,24,0,24,62218713"
+    },
+    {
+      "host_monotonic": 1342600.734432583,
+      "line": "ACK,24,24,0,OK"
+    },
+    {
+      "host_monotonic": 1342600.734567791,
+      "line": "TX_BEGIN,24,24,1,3"
+    },
+    {
+      "host_monotonic": 1342600.734760041,
+      "line": "D_TX_BEGIN,24,1,24,62219065"
+    },
+    {
+      "host_monotonic": 1342600.73544925,
+      "line": "AUX,62220249,0"
+    },
+    {
+      "host_monotonic": 1342600.765800083,
+      "line": "D_TX_UART_DONE,24,1,24,62246348"
+    },
+    {
+      "host_monotonic": 1342600.766155291,
+      "line": "D_TX_AUX_READY,24,1,24,62249492"
+    },
+    {
+      "host_monotonic": 1342600.766461833,
+      "line": "TX,24,24,1,3,26"
+    },
+    {
+      "host_monotonic": 1342600.767131833,
+      "line": "D_ACK_WAIT_BEGIN,24,1,24,62249840"
+    },
+    {
+      "host_monotonic": 1342600.767474416,
+      "line": "AUX,62249481,1"
+    },
+    {
+      "host_monotonic": 1342601.450828208,
+      "line": "AUX,62935411,0"
+    },
+    {
+      "host_monotonic": 1342601.466982666,
+      "line": "AUX,62951558,1"
+    },
+    {
+      "host_monotonic": 1342601.477896125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,62962065,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342601.4783945,
+      "line": "D_ACK_RECEIVED,24,1,24,62962214"
+    },
+    {
+      "host_monotonic": 1342601.478655416,
+      "line": "ACK,24,24,1,OK"
+    },
+    {
+      "host_monotonic": 1342601.478937875,
+      "line": "TX_BEGIN,24,24,2,3"
+    },
+    {
+      "host_monotonic": 1342601.4794545,
+      "line": "D_TX_BEGIN,24,2,24,62962560"
+    },
+    {
+      "host_monotonic": 1342601.479619166,
+      "line": "AUX,62963748,0"
+    },
+    {
+      "host_monotonic": 1342601.508459208,
+      "line": "AUX,62992976,1"
+    },
+    {
+      "host_monotonic": 1342601.508913958,
+      "line": "D_TX_UART_DONE,24,2,24,62989846"
+    },
+    {
+      "host_monotonic": 1342601.509364375,
+      "line": "D_TX_AUX_READY,24,2,24,62992993"
+    },
+    {
+      "host_monotonic": 1342601.509605916,
+      "line": "TX,24,24,2,3,26"
+    },
+    {
+      "host_monotonic": 1342601.51009575,
+      "line": "D_ACK_WAIT_BEGIN,24,2,24,62993399"
+    },
+    {
+      "host_monotonic": 1342602.194316625,
+      "line": "AUX,63679030,0"
+    },
+    {
+      "host_monotonic": 1342602.210285541,
+      "line": "AUX,63695112,1"
+    },
+    {
+      "host_monotonic": 1342602.221206916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,63705619,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342602.22146725,
+      "line": "D_ACK_RECEIVED,24,2,24,63705787"
+    },
+    {
+      "host_monotonic": 1342602.221576708,
+      "line": "ACK,24,24,2,OK"
+    },
+    {
+      "host_monotonic": 1342602.222059208,
+      "line": "SAMPLE,24,CRITICAL,CRITICAL,5.4016,DEGRADED,3,3,1,2231.184"
+    },
+    {
+      "host_monotonic": 1342602.222308333,
+      "line": "EVT,25,2,CRITICAL,1.7029,DEGRADED,3"
+    },
+    {
+      "host_monotonic": 1342602.222442708,
+      "line": "TX_BEGIN,25,25,0,3"
+    },
+    {
+      "host_monotonic": 1342602.222654458,
+      "line": "D_TX_BEGIN,25,0,25,63706942"
+    },
+    {
+      "host_monotonic": 1342602.223379583,
+      "line": "AUX,63708180,0"
+    },
+    {
+      "host_monotonic": 1342602.252992333,
+      "line": "D_TX_UART_DONE,25,0,25,63734290"
+    },
+    {
+      "host_monotonic": 1342602.253254666,
+      "line": "D_TX_AUX_READY,25,0,25,63737422"
+    },
+    {
+      "host_monotonic": 1342602.2533895,
+      "line": "TX,25,25,0,3,26"
+    },
+    {
+      "host_monotonic": 1342602.253664291,
+      "line": "D_ACK_WAIT_BEGIN,25,0,25,63737759"
+    },
+    {
+      "host_monotonic": 1342602.25379375,
+      "line": "AUX,63737411,1"
+    },
+    {
+      "host_monotonic": 1342602.938746416,
+      "line": "AUX,64423400,0"
+    },
+    {
+      "host_monotonic": 1342602.954680333,
+      "line": "AUX,64439536,1"
+    },
+    {
+      "host_monotonic": 1342602.965560125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,64450073,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342602.965802541,
+      "line": "D_ACK_RECEIVED,25,0,25,64450267"
+    },
+    {
+      "host_monotonic": 1342602.965925375,
+      "line": "ACK,25,25,0,OK"
+    },
+    {
+      "host_monotonic": 1342602.966054291,
+      "line": "TX_BEGIN,25,25,1,3"
+    },
+    {
+      "host_monotonic": 1342602.96625875,
+      "line": "D_TX_BEGIN,25,1,25,64450630"
+    },
+    {
+      "host_monotonic": 1342602.966933208,
+      "line": "AUX,64451813,0"
+    },
+    {
+      "host_monotonic": 1342602.996704375,
+      "line": "D_TX_UART_DONE,25,1,25,64477915"
+    },
+    {
+      "host_monotonic": 1342602.997160958,
+      "line": "D_TX_AUX_READY,25,1,25,64481057"
+    },
+    {
+      "host_monotonic": 1342602.997396666,
+      "line": "TX,25,25,1,3,26"
+    },
+    {
+      "host_monotonic": 1342602.9978765,
+      "line": "D_ACK_WAIT_BEGIN,25,1,25,64481429"
+    },
+    {
+      "host_monotonic": 1342602.998108583,
+      "line": "AUX,64481042,1"
+    }
+  ],
+  "gateway": [
+    {
+      "host_monotonic": 1342540.349784708,
+      "line": "ARMED,54"
+    },
+    {
+      "host_monotonic": 1342541.063971083,
+      "line": "AUX,1911714,0"
+    },
+    {
+      "host_monotonic": 1342541.093453916,
+      "line": "AUX,1941201,1"
+    },
+    {
+      "host_monotonic": 1342541.104180416,
+      "line": "D_RX_FIRST_BYTE,0,0,0,1951318"
+    },
+    {
+      "host_monotonic": 1342541.104680041,
+      "line": "D_RX_HEADER_COMPLETE,0,0,0,1951397"
+    },
+    {
+      "host_monotonic": 1342541.105161833,
+      "line": "D_RX_FRAME_COMPLETE,0,0,0,1951494"
+    },
+    {
+      "host_monotonic": 1342541.105532791,
+      "line": "D_RX_CRC_OK,0,0,0,1951494"
+    },
+    {
+      "host_monotonic": 1342541.106150416,
+      "line": "UART_BUFFER,FRAME_COMPLETE,1951957,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342541.106385666,
+      "line": "DROP,DATA,0,0,0"
+    },
+    {
+      "host_monotonic": 1342542.094885208,
+      "line": "AUX,2942920,0"
+    },
+    {
+      "host_monotonic": 1342542.123925541,
+      "line": "AUX,2971992,1"
+    },
+    {
+      "host_monotonic": 1342542.134435333,
+      "line": "D_RX_FIRST_BYTE,0,1,0,2981859"
+    },
+    {
+      "host_monotonic": 1342542.134813416,
+      "line": "D_RX_HEADER_COMPLETE,0,1,0,2981922"
+    },
+    {
+      "host_monotonic": 1342542.13515925,
+      "line": "D_RX_FRAME_COMPLETE,0,1,0,2981994"
+    },
+    {
+      "host_monotonic": 1342542.135431708,
+      "line": "D_RX_CRC_OK,0,1,0,2981994"
+    },
+    {
+      "host_monotonic": 1342542.135870541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,2982426,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342542.136014791,
+      "line": "RX,0,0,1,NEW"
+    },
+    {
+      "host_monotonic": 1342542.136145791,
+      "line": "DELIVER,0,0"
+    },
+    {
+      "host_monotonic": 1342542.136309916,
+      "line": "AUX,2983860,0"
+    },
+    {
+      "host_monotonic": 1342542.15476675,
+      "line": "AUX,3002679,1"
+    },
+    {
+      "host_monotonic": 1342542.154965791,
+      "line": "ACK_TX,0,0,1,13"
+    },
+    {
+      "host_monotonic": 1342542.840795166,
+      "line": "AUX,3688801,0"
+    },
+    {
+      "host_monotonic": 1342542.870397083,
+      "line": "AUX,3718475,1"
+    },
+    {
+      "host_monotonic": 1342542.881070041,
+      "line": "D_RX_FIRST_BYTE,0,2,0,3728860"
+    },
+    {
+      "host_monotonic": 1342542.881247833,
+      "line": "D_RX_HEADER_COMPLETE,0,2,0,3728921"
+    },
+    {
+      "host_monotonic": 1342542.881417125,
+      "line": "D_RX_FRAME_COMPLETE,0,2,0,3729004"
+    },
+    {
+      "host_monotonic": 1342542.881545041,
+      "line": "D_RX_CRC_OK,0,2,0,3729004"
+    },
+    {
+      "host_monotonic": 1342542.881751916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,3729451,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342542.881832541,
+      "line": "DROP,DATA,0,0,2"
+    },
+    {
+      "host_monotonic": 1342543.873005625,
+      "line": "AUX,4720894,0"
+    },
+    {
+      "host_monotonic": 1342543.9024345,
+      "line": "AUX,4750329,1"
+    },
+    {
+      "host_monotonic": 1342543.9132745,
+      "line": "D_RX_FIRST_BYTE,1,0,1,4760606"
+    },
+    {
+      "host_monotonic": 1342543.913783833,
+      "line": "D_RX_HEADER_COMPLETE,1,0,1,4760673"
+    },
+    {
+      "host_monotonic": 1342543.914264416,
+      "line": "D_RX_FRAME_COMPLETE,1,0,1,4760748"
+    },
+    {
+      "host_monotonic": 1342543.914631708,
+      "line": "D_RX_CRC_OK,1,0,1,4760748"
+    },
+    {
+      "host_monotonic": 1342543.915233708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,4761174,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342543.915425916,
+      "line": "RX,1,1,0,NEW"
+    },
+    {
+      "host_monotonic": 1342543.915630875,
+      "line": "DELIVER,1,1"
+    },
+    {
+      "host_monotonic": 1342543.915854916,
+      "line": "AUX,4762540,0"
+    },
+    {
+      "host_monotonic": 1342543.930492125,
+      "line": "ACK_TX,1,1,0,13"
+    },
+    {
+      "host_monotonic": 1342543.930727541,
+      "line": "AUX,4778214,1"
+    },
+    {
+      "host_monotonic": 1342544.616561,
+      "line": "AUX,5464477,0"
+    },
+    {
+      "host_monotonic": 1342544.646115666,
+      "line": "AUX,5493911,1"
+    },
+    {
+      "host_monotonic": 1342544.6569055,
+      "line": "D_RX_FIRST_BYTE,1,1,1,5504296"
+    },
+    {
+      "host_monotonic": 1342544.657421833,
+      "line": "D_RX_HEADER_COMPLETE,1,1,1,5504358"
+    },
+    {
+      "host_monotonic": 1342544.65791675,
+      "line": "D_RX_FRAME_COMPLETE,1,1,1,5504440"
+    },
+    {
+      "host_monotonic": 1342544.658288,
+      "line": "D_RX_CRC_OK,1,1,1,5504440"
+    },
+    {
+      "host_monotonic": 1342544.658878708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,5504880,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342544.659072791,
+      "line": "RX,1,1,1,DUP"
+    },
+    {
+      "host_monotonic": 1342544.659291875,
+      "line": "AUX,5506203,0"
+    },
+    {
+      "host_monotonic": 1342544.674052958,
+      "line": "ACK_TX,1,1,1,13"
+    },
+    {
+      "host_monotonic": 1342544.674263791,
+      "line": "AUX,5521880,1"
+    },
+    {
+      "host_monotonic": 1342545.359769,
+      "line": "AUX,6207730,0"
+    },
+    {
+      "host_monotonic": 1342545.389485166,
+      "line": "AUX,6237393,1"
+    },
+    {
+      "host_monotonic": 1342545.400392375,
+      "line": "D_RX_FIRST_BYTE,1,2,1,6247780"
+    },
+    {
+      "host_monotonic": 1342545.400907333,
+      "line": "D_RX_HEADER_COMPLETE,1,2,1,6247839"
+    },
+    {
+      "host_monotonic": 1342545.401431416,
+      "line": "D_RX_FRAME_COMPLETE,1,2,1,6247921"
+    },
+    {
+      "host_monotonic": 1342545.401827333,
+      "line": "D_RX_CRC_OK,1,2,1,6247921"
+    },
+    {
+      "host_monotonic": 1342545.402430166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,6248360,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342545.402624083,
+      "line": "RX,1,1,2,DUP"
+    },
+    {
+      "host_monotonic": 1342545.402829583,
+      "line": "AUX,6249673,0"
+    },
+    {
+      "host_monotonic": 1342545.417363583,
+      "line": "AUX,6265353,1"
+    },
+    {
+      "host_monotonic": 1342545.417543458,
+      "line": "ACK_TX,1,1,2,13"
+    },
+    {
+      "host_monotonic": 1342546.104275333,
+      "line": "AUX,6952017,0"
+    },
+    {
+      "host_monotonic": 1342546.134115875,
+      "line": "AUX,6981928,1"
+    },
+    {
+      "host_monotonic": 1342546.144817583,
+      "line": "D_RX_FIRST_BYTE,2,0,2,6992314"
+    },
+    {
+      "host_monotonic": 1342546.145326375,
+      "line": "D_RX_HEADER_COMPLETE,2,0,2,6992380"
+    },
+    {
+      "host_monotonic": 1342546.145820333,
+      "line": "D_RX_FRAME_COMPLETE,2,0,2,6992462"
+    },
+    {
+      "host_monotonic": 1342546.146263541,
+      "line": "D_RX_CRC_OK,2,0,2,6992462"
+    },
+    {
+      "host_monotonic": 1342546.1467635,
+      "line": "UART_BUFFER,FRAME_COMPLETE,6992905,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342546.146910041,
+      "line": "RX,2,2,0,NEW"
+    },
+    {
+      "host_monotonic": 1342546.147041333,
+      "line": "DELIVER,2,2"
+    },
+    {
+      "host_monotonic": 1342546.147191125,
+      "line": "AUX,6994287,0"
+    },
+    {
+      "host_monotonic": 1342546.162219083,
+      "line": "ACK_TX,2,2,0,13"
+    },
+    {
+      "host_monotonic": 1342546.162432625,
+      "line": "AUX,7009964,1"
+    },
+    {
+      "host_monotonic": 1342546.847769541,
+      "line": "AUX,7695628,0"
+    },
+    {
+      "host_monotonic": 1342546.877676041,
+      "line": "AUX,7725475,1"
+    },
+    {
+      "host_monotonic": 1342546.888243541,
+      "line": "D_RX_FIRST_BYTE,2,1,2,7735857"
+    },
+    {
+      "host_monotonic": 1342546.888535541,
+      "line": "D_RX_HEADER_COMPLETE,2,1,2,7735915"
+    },
+    {
+      "host_monotonic": 1342546.888831041,
+      "line": "D_RX_FRAME_COMPLETE,2,1,2,7735998"
+    },
+    {
+      "host_monotonic": 1342546.889050541,
+      "line": "D_RX_CRC_OK,2,1,2,7735998"
+    },
+    {
+      "host_monotonic": 1342546.889402083,
+      "line": "UART_BUFFER,FRAME_COMPLETE,7736439,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342546.889519708,
+      "line": "RX,2,2,1,DUP"
+    },
+    {
+      "host_monotonic": 1342546.889641208,
+      "line": "AUX,7737759,0"
+    },
+    {
+      "host_monotonic": 1342546.905547166,
+      "line": "ACK_TX,2,2,1,13"
+    },
+    {
+      "host_monotonic": 1342546.905757541,
+      "line": "AUX,7753443,1"
+    },
+    {
+      "host_monotonic": 1342547.591310333,
+      "line": "AUX,8439072,0"
+    },
+    {
+      "host_monotonic": 1342547.620003583,
+      "line": "AUX,8468043,1"
+    },
+    {
+      "host_monotonic": 1342547.63073925,
+      "line": "D_RX_FIRST_BYTE,2,2,2,8478420"
+    },
+    {
+      "host_monotonic": 1342547.631112125,
+      "line": "D_RX_HEADER_COMPLETE,2,2,2,8478483"
+    },
+    {
+      "host_monotonic": 1342547.631462125,
+      "line": "D_RX_FRAME_COMPLETE,2,2,2,8478565"
+    },
+    {
+      "host_monotonic": 1342547.631731083,
+      "line": "D_RX_CRC_OK,2,2,2,8478565"
+    },
+    {
+      "host_monotonic": 1342547.632166166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,8479050,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342547.632338083,
+      "line": "DROP,DATA,2,2,2"
+    },
+    {
+      "host_monotonic": 1342548.623043666,
+      "line": "AUX,9471101,0"
+    },
+    {
+      "host_monotonic": 1342548.651983375,
+      "line": "AUX,9500127,1"
+    },
+    {
+      "host_monotonic": 1342548.662304791,
+      "line": "D_RX_FIRST_BYTE,3,0,3,9510197"
+    },
+    {
+      "host_monotonic": 1342548.662522083,
+      "line": "D_RX_HEADER_COMPLETE,3,0,3,9510258"
+    },
+    {
+      "host_monotonic": 1342548.662716458,
+      "line": "D_RX_FRAME_COMPLETE,3,0,3,9510332"
+    },
+    {
+      "host_monotonic": 1342548.662864375,
+      "line": "D_RX_CRC_OK,3,0,3,9510332"
+    },
+    {
+      "host_monotonic": 1342548.663105041,
+      "line": "UART_BUFFER,FRAME_COMPLETE,9510754,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342548.663182916,
+      "line": "RX,3,3,0,NEW"
+    },
+    {
+      "host_monotonic": 1342548.663254791,
+      "line": "DELIVER,3,3"
+    },
+    {
+      "host_monotonic": 1342548.663914541,
+      "line": "AUX,9512115,0"
+    },
+    {
+      "host_monotonic": 1342548.679712875,
+      "line": "ACK_TX,3,3,0,13"
+    },
+    {
+      "host_monotonic": 1342548.679796583,
+      "line": "AUX,9527795,1"
+    },
+    {
+      "host_monotonic": 1342549.365447791,
+      "line": "AUX,10213423,0"
+    },
+    {
+      "host_monotonic": 1342549.394529208,
+      "line": "AUX,10242591,1"
+    },
+    {
+      "host_monotonic": 1342549.405758125,
+      "line": "D_RX_FIRST_BYTE,3,1,3,10252757"
+    },
+    {
+      "host_monotonic": 1342549.406272875,
+      "line": "D_RX_HEADER_COMPLETE,3,1,3,10252819"
+    },
+    {
+      "host_monotonic": 1342549.406842583,
+      "line": "D_RX_FRAME_COMPLETE,3,1,3,10252901"
+    },
+    {
+      "host_monotonic": 1342549.407241666,
+      "line": "D_RX_CRC_OK,3,1,3,10252901"
+    },
+    {
+      "host_monotonic": 1342549.407798416,
+      "line": "UART_BUFFER,FRAME_COMPLETE,10253354,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342549.407939375,
+      "line": "RX,3,3,1,DUP"
+    },
+    {
+      "host_monotonic": 1342549.408108791,
+      "line": "ACK_TX,3,3,1,13"
+    },
+    {
+      "host_monotonic": 1342549.408269,
+      "line": "AUX,10254686,0"
+    },
+    {
+      "host_monotonic": 1342549.42228625,
+      "line": "AUX,10270357,1"
+    },
+    {
+      "host_monotonic": 1342550.108250166,
+      "line": "AUX,10956313,0"
+    },
+    {
+      "host_monotonic": 1342550.13817725,
+      "line": "AUX,10986162,1"
+    },
+    {
+      "host_monotonic": 1342550.148848166,
+      "line": "D_RX_FIRST_BYTE,3,2,3,10996545"
+    },
+    {
+      "host_monotonic": 1342550.149221291,
+      "line": "D_RX_HEADER_COMPLETE,3,2,3,10996607"
+    },
+    {
+      "host_monotonic": 1342550.149585958,
+      "line": "D_RX_FRAME_COMPLETE,3,2,3,10996683"
+    },
+    {
+      "host_monotonic": 1342550.149865083,
+      "line": "D_RX_CRC_OK,3,2,3,10996683"
+    },
+    {
+      "host_monotonic": 1342550.150318875,
+      "line": "UART_BUFFER,FRAME_COMPLETE,10997129,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342550.150460083,
+      "line": "RX,3,3,2,DUP"
+    },
+    {
+      "host_monotonic": 1342550.150621125,
+      "line": "AUX,10998454,0"
+    },
+    {
+      "host_monotonic": 1342550.166308625,
+      "line": "ACK_TX,3,3,2,13"
+    },
+    {
+      "host_monotonic": 1342550.16653825,
+      "line": "AUX,11014129,1"
+    },
+    {
+      "host_monotonic": 1342550.852704708,
+      "line": "AUX,11700604,0"
+    },
+    {
+      "host_monotonic": 1342550.881621541,
+      "line": "AUX,11729629,1"
+    },
+    {
+      "host_monotonic": 1342550.892317208,
+      "line": "D_RX_FIRST_BYTE,4,0,4,11740014"
+    },
+    {
+      "host_monotonic": 1342550.892695291,
+      "line": "D_RX_HEADER_COMPLETE,4,0,4,11740077"
+    },
+    {
+      "host_monotonic": 1342550.8935895,
+      "line": "D_RX_FRAME_COMPLETE,4,0,4,11740159"
+    },
+    {
+      "host_monotonic": 1342550.893979208,
+      "line": "D_RX_CRC_OK,4,0,4,11740159"
+    },
+    {
+      "host_monotonic": 1342550.894620916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,11740605,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342550.8948155,
+      "line": "RX,4,4,0,NEW"
+    },
+    {
+      "host_monotonic": 1342550.894996625,
+      "line": "DELIVER,4,4"
+    },
+    {
+      "host_monotonic": 1342550.895239791,
+      "line": "AUX,11741987,0"
+    },
+    {
+      "host_monotonic": 1342550.909732083,
+      "line": "ACK_TX,4,4,0,13"
+    },
+    {
+      "host_monotonic": 1342550.909962583,
+      "line": "AUX,11757668,1"
+    },
+    {
+      "host_monotonic": 1342551.595480708,
+      "line": "AUX,12443503,0"
+    },
+    {
+      "host_monotonic": 1342551.625196666,
+      "line": "AUX,12473203,1"
+    },
+    {
+      "host_monotonic": 1342551.635437291,
+      "line": "D_RX_FIRST_BYTE,4,1,4,12483169"
+    },
+    {
+      "host_monotonic": 1342551.635875625,
+      "line": "D_RX_HEADER_COMPLETE,4,1,4,12483235"
+    },
+    {
+      "host_monotonic": 1342551.636291291,
+      "line": "D_RX_FRAME_COMPLETE,4,1,4,12483317"
+    },
+    {
+      "host_monotonic": 1342551.636574041,
+      "line": "D_RX_CRC_OK,4,1,4,12483317"
+    },
+    {
+      "host_monotonic": 1342551.637103291,
+      "line": "UART_BUFFER,FRAME_COMPLETE,12483764,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342551.637262666,
+      "line": "RX,4,4,1,DUP"
+    },
+    {
+      "host_monotonic": 1342551.637425666,
+      "line": "AUX,12485092,0"
+    },
+    {
+      "host_monotonic": 1342551.652815333,
+      "line": "ACK_TX,4,4,1,13"
+    },
+    {
+      "host_monotonic": 1342551.654296375,
+      "line": "AUX,12500774,1"
+    },
+    {
+      "host_monotonic": 1342552.338919208,
+      "line": "AUX,13186884,0"
+    },
+    {
+      "host_monotonic": 1342552.368568333,
+      "line": "AUX,13216598,1"
+    },
+    {
+      "host_monotonic": 1342552.379519125,
+      "line": "D_RX_FIRST_BYTE,4,2,4,13226774"
+    },
+    {
+      "host_monotonic": 1342552.380071166,
+      "line": "D_RX_HEADER_COMPLETE,4,2,4,13226836"
+    },
+    {
+      "host_monotonic": 1342552.380561666,
+      "line": "D_RX_FRAME_COMPLETE,4,2,4,13226919"
+    },
+    {
+      "host_monotonic": 1342552.380946291,
+      "line": "D_RX_CRC_OK,4,2,4,13226919"
+    },
+    {
+      "host_monotonic": 1342552.381584875,
+      "line": "UART_BUFFER,FRAME_COMPLETE,13227421,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342552.381820291,
+      "line": "DROP,DATA,4,4,2"
+    },
+    {
+      "host_monotonic": 1342553.370986541,
+      "line": "AUX,14218946,0"
+    },
+    {
+      "host_monotonic": 1342553.400605458,
+      "line": "AUX,14248580,1"
+    },
+    {
+      "host_monotonic": 1342553.411428833,
+      "line": "D_RX_FIRST_BYTE,5,0,5,14258857"
+    },
+    {
+      "host_monotonic": 1342553.411943666,
+      "line": "D_RX_HEADER_COMPLETE,5,0,5,14258920"
+    },
+    {
+      "host_monotonic": 1342553.41245375,
+      "line": "D_RX_FRAME_COMPLETE,5,0,5,14258994"
+    },
+    {
+      "host_monotonic": 1342553.412835208,
+      "line": "D_RX_CRC_OK,5,0,5,14258994"
+    },
+    {
+      "host_monotonic": 1342553.41350975,
+      "line": "UART_BUFFER,FRAME_COMPLETE,14259450,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342553.413762916,
+      "line": "DROP,DATA,5,5,0"
+    },
+    {
+      "host_monotonic": 1342554.402117416,
+      "line": "AUX,15250179,0"
+    },
+    {
+      "host_monotonic": 1342554.431433458,
+      "line": "AUX,15279504,1"
+    },
+    {
+      "host_monotonic": 1342554.442130916,
+      "line": "D_RX_FIRST_BYTE,5,1,5,15289775"
+    },
+    {
+      "host_monotonic": 1342554.44264675,
+      "line": "D_RX_HEADER_COMPLETE,5,1,5,15289839"
+    },
+    {
+      "host_monotonic": 1342554.443142541,
+      "line": "D_RX_FRAME_COMPLETE,5,1,5,15289914"
+    },
+    {
+      "host_monotonic": 1342554.443542125,
+      "line": "D_RX_CRC_OK,5,1,5,15289914"
+    },
+    {
+      "host_monotonic": 1342554.444079791,
+      "line": "UART_BUFFER,FRAME_COMPLETE,15290368,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342554.444221125,
+      "line": "RX,5,5,1,NEW"
+    },
+    {
+      "host_monotonic": 1342554.444358166,
+      "line": "DELIVER,5,5"
+    },
+    {
+      "host_monotonic": 1342554.444560208,
+      "line": "AUX,15291739,0"
+    },
+    {
+      "host_monotonic": 1342554.459414,
+      "line": "ACK_TX,5,5,1,13"
+    },
+    {
+      "host_monotonic": 1342554.459669,
+      "line": "AUX,15307414,1"
+    },
+    {
+      "host_monotonic": 1342555.1449825,
+      "line": "AUX,15993063,0"
+    },
+    {
+      "host_monotonic": 1342555.173966708,
+      "line": "AUX,16022073,1"
+    },
+    {
+      "host_monotonic": 1342555.184626625,
+      "line": "D_RX_FIRST_BYTE,5,2,5,16032452"
+    },
+    {
+      "host_monotonic": 1342555.185278083,
+      "line": "D_RX_HEADER_COMPLETE,5,2,5,16032510"
+    },
+    {
+      "host_monotonic": 1342555.185975041,
+      "line": "D_RX_FRAME_COMPLETE,5,2,5,16032592"
+    },
+    {
+      "host_monotonic": 1342555.18636425,
+      "line": "D_RX_CRC_OK,5,2,5,16032592"
+    },
+    {
+      "host_monotonic": 1342555.186988875,
+      "line": "UART_BUFFER,FRAME_COMPLETE,16033039,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342555.187202875,
+      "line": "RX,5,5,2,DUP"
+    },
+    {
+      "host_monotonic": 1342555.187425125,
+      "line": "AUX,16034366,0"
+    },
+    {
+      "host_monotonic": 1342555.202083708,
+      "line": "ACK_TX,5,5,2,13"
+    },
+    {
+      "host_monotonic": 1342555.202319291,
+      "line": "AUX,16050046,1"
+    },
+    {
+      "host_monotonic": 1342555.889407208,
+      "line": "AUX,16737398,0"
+    },
+    {
+      "host_monotonic": 1342555.918429208,
+      "line": "AUX,16766616,1"
+    },
+    {
+      "host_monotonic": 1342555.92917575,
+      "line": "D_RX_FIRST_BYTE,6,0,6,16776994"
+    },
+    {
+      "host_monotonic": 1342555.929561083,
+      "line": "D_RX_HEADER_COMPLETE,6,0,6,16777053"
+    },
+    {
+      "host_monotonic": 1342555.929984875,
+      "line": "D_RX_FRAME_COMPLETE,6,0,6,16777135"
+    },
+    {
+      "host_monotonic": 1342555.930273291,
+      "line": "D_RX_CRC_OK,6,0,6,16777135"
+    },
+    {
+      "host_monotonic": 1342555.93074625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,16777582,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342555.930892041,
+      "line": "RX,6,6,0,NEW"
+    },
+    {
+      "host_monotonic": 1342555.931027166,
+      "line": "DELIVER,6,6"
+    },
+    {
+      "host_monotonic": 1342555.93119125,
+      "line": "AUX,16778972,0"
+    },
+    {
+      "host_monotonic": 1342555.946544166,
+      "line": "ACK_TX,6,6,0,13"
+    },
+    {
+      "host_monotonic": 1342555.9467695,
+      "line": "AUX,16794648,1"
+    },
+    {
+      "host_monotonic": 1342556.633109083,
+      "line": "AUX,17481137,0"
+    },
+    {
+      "host_monotonic": 1342556.662167791,
+      "line": "AUX,17510218,1"
+    },
+    {
+      "host_monotonic": 1342556.672961833,
+      "line": "D_RX_FIRST_BYTE,6,1,6,17520603"
+    },
+    {
+      "host_monotonic": 1342556.673474,
+      "line": "D_RX_HEADER_COMPLETE,6,1,6,17520669"
+    },
+    {
+      "host_monotonic": 1342556.673968291,
+      "line": "D_RX_FRAME_COMPLETE,6,1,6,17520752"
+    },
+    {
+      "host_monotonic": 1342556.674363666,
+      "line": "D_RX_CRC_OK,6,1,6,17520752"
+    },
+    {
+      "host_monotonic": 1342556.67497325,
+      "line": "UART_BUFFER,FRAME_COMPLETE,17521198,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342556.675206333,
+      "line": "DROP,DATA,6,6,1"
+    },
+    {
+      "host_monotonic": 1342557.664294791,
+      "line": "AUX,18512333,0"
+    },
+    {
+      "host_monotonic": 1342557.693901958,
+      "line": "AUX,18542182,1"
+    },
+    {
+      "host_monotonic": 1342557.705235666,
+      "line": "D_RX_FIRST_BYTE,6,2,6,18552564"
+    },
+    {
+      "host_monotonic": 1342557.705742083,
+      "line": "D_RX_HEADER_COMPLETE,6,2,6,18552626"
+    },
+    {
+      "host_monotonic": 1342557.706242416,
+      "line": "D_RX_FRAME_COMPLETE,6,2,6,18552701"
+    },
+    {
+      "host_monotonic": 1342557.706729583,
+      "line": "D_RX_CRC_OK,6,2,6,18552701"
+    },
+    {
+      "host_monotonic": 1342557.707347375,
+      "line": "UART_BUFFER,FRAME_COMPLETE,18553139,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342557.707583916,
+      "line": "DROP,DATA,6,6,2"
+    },
+    {
+      "host_monotonic": 1342558.696327333,
+      "line": "AUX,19544361,0"
+    },
+    {
+      "host_monotonic": 1342558.726057,
+      "line": "AUX,19574139,1"
+    },
+    {
+      "host_monotonic": 1342558.736887125,
+      "line": "D_RX_FIRST_BYTE,7,0,7,19584519"
+    },
+    {
+      "host_monotonic": 1342558.73739325,
+      "line": "D_RX_HEADER_COMPLETE,7,0,7,19584585"
+    },
+    {
+      "host_monotonic": 1342558.738022416,
+      "line": "D_RX_FRAME_COMPLETE,7,0,7,19584659"
+    },
+    {
+      "host_monotonic": 1342558.738407458,
+      "line": "D_RX_CRC_OK,7,0,7,19584659"
+    },
+    {
+      "host_monotonic": 1342558.738899166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,19585096,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342558.739040708,
+      "line": "RX,7,7,0,NEW"
+    },
+    {
+      "host_monotonic": 1342558.739172541,
+      "line": "DELIVER,7,7"
+    },
+    {
+      "host_monotonic": 1342558.739332541,
+      "line": "AUX,19586500,0"
+    },
+    {
+      "host_monotonic": 1342558.753998125,
+      "line": "ACK_TX,7,7,0,13"
+    },
+    {
+      "host_monotonic": 1342558.754166041,
+      "line": "AUX,19602175,1"
+    },
+    {
+      "host_monotonic": 1342559.440195416,
+      "line": "AUX,20288305,0"
+    },
+    {
+      "host_monotonic": 1342559.469760041,
+      "line": "AUX,20317742,1"
+    },
+    {
+      "host_monotonic": 1342559.480445125,
+      "line": "D_RX_FIRST_BYTE,7,1,7,20328128"
+    },
+    {
+      "host_monotonic": 1342559.480953416,
+      "line": "D_RX_HEADER_COMPLETE,7,1,7,20328187"
+    },
+    {
+      "host_monotonic": 1342559.481442208,
+      "line": "D_RX_FRAME_COMPLETE,7,1,7,20328269"
+    },
+    {
+      "host_monotonic": 1342559.481823916,
+      "line": "D_RX_CRC_OK,7,1,7,20328269"
+    },
+    {
+      "host_monotonic": 1342559.482433625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,20328720,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342559.482690833,
+      "line": "DROP,DATA,7,7,1"
+    },
+    {
+      "host_monotonic": 1342560.4712405,
+      "line": "AUX,21319446,0"
+    },
+    {
+      "host_monotonic": 1342560.500627541,
+      "line": "AUX,21348788,1"
+    },
+    {
+      "host_monotonic": 1342560.511086125,
+      "line": "D_RX_FIRST_BYTE,7,2,7,21358754"
+    },
+    {
+      "host_monotonic": 1342560.511598208,
+      "line": "D_RX_HEADER_COMPLETE,7,2,7,21358817"
+    },
+    {
+      "host_monotonic": 1342560.512096958,
+      "line": "D_RX_FRAME_COMPLETE,7,2,7,21358891"
+    },
+    {
+      "host_monotonic": 1342560.512493291,
+      "line": "D_RX_CRC_OK,7,2,7,21358891"
+    },
+    {
+      "host_monotonic": 1342560.513139125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,21359324,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342560.513370666,
+      "line": "DROP,DATA,7,7,2"
+    },
+    {
+      "host_monotonic": 1342561.503368541,
+      "line": "AUX,22351479,0"
+    },
+    {
+      "host_monotonic": 1342561.53272725,
+      "line": "AUX,22380806,1"
+    },
+    {
+      "host_monotonic": 1342561.543341083,
+      "line": "D_RX_FIRST_BYTE,8,0,8,22390977"
+    },
+    {
+      "host_monotonic": 1342561.543861625,
+      "line": "D_RX_HEADER_COMPLETE,8,0,8,22391040"
+    },
+    {
+      "host_monotonic": 1342561.544349166,
+      "line": "D_RX_FRAME_COMPLETE,8,0,8,22391114"
+    },
+    {
+      "host_monotonic": 1342561.544731083,
+      "line": "D_RX_CRC_OK,8,0,8,22391114"
+    },
+    {
+      "host_monotonic": 1342561.545358208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,22391586,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342561.545551125,
+      "line": "RX,8,8,0,NEW"
+    },
+    {
+      "host_monotonic": 1342561.545759375,
+      "line": "DELIVER,8,8"
+    },
+    {
+      "host_monotonic": 1342561.545979083,
+      "line": "AUX,22392955,0"
+    },
+    {
+      "host_monotonic": 1342561.56048175,
+      "line": "ACK_TX,8,8,0,13"
+    },
+    {
+      "host_monotonic": 1342561.560708291,
+      "line": "AUX,22408632,1"
+    },
+    {
+      "host_monotonic": 1342562.246490333,
+      "line": "AUX,23094486,0"
+    },
+    {
+      "host_monotonic": 1342562.2761315,
+      "line": "AUX,23124321,1"
+    },
+    {
+      "host_monotonic": 1342562.286706083,
+      "line": "D_RX_FIRST_BYTE,8,1,8,23134701"
+    },
+    {
+      "host_monotonic": 1342562.287094791,
+      "line": "D_RX_HEADER_COMPLETE,8,1,8,23134763"
+    },
+    {
+      "host_monotonic": 1342562.287557833,
+      "line": "D_RX_FRAME_COMPLETE,8,1,8,23134846"
+    },
+    {
+      "host_monotonic": 1342562.287881083,
+      "line": "D_RX_CRC_OK,8,1,8,23134846"
+    },
+    {
+      "host_monotonic": 1342562.288370708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,23135292,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342562.288512,
+      "line": "RX,8,8,1,DUP"
+    },
+    {
+      "host_monotonic": 1342562.288684166,
+      "line": "AUX,23136618,0"
+    },
+    {
+      "host_monotonic": 1342562.304187916,
+      "line": "ACK_TX,8,8,1,13"
+    },
+    {
+      "host_monotonic": 1342562.304419958,
+      "line": "AUX,23152300,1"
+    },
+    {
+      "host_monotonic": 1342562.989761375,
+      "line": "AUX,23837937,0"
+    },
+    {
+      "host_monotonic": 1342563.019678916,
+      "line": "AUX,23867918,1"
+    },
+    {
+      "host_monotonic": 1342563.03046175,
+      "line": "D_RX_FIRST_BYTE,8,2,8,23878302"
+    },
+    {
+      "host_monotonic": 1342563.030848958,
+      "line": "D_RX_HEADER_COMPLETE,8,2,8,23878365"
+    },
+    {
+      "host_monotonic": 1342563.03121175,
+      "line": "D_RX_FRAME_COMPLETE,8,2,8,23878447"
+    },
+    {
+      "host_monotonic": 1342563.031492083,
+      "line": "D_RX_CRC_OK,8,2,8,23878447"
+    },
+    {
+      "host_monotonic": 1342563.032139666,
+      "line": "UART_BUFFER,FRAME_COMPLETE,23878893,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342563.032375833,
+      "line": "DROP,DATA,8,8,2"
+    },
+    {
+      "host_monotonic": 1342564.021790208,
+      "line": "AUX,24869988,0"
+    },
+    {
+      "host_monotonic": 1342564.051687125,
+      "line": "AUX,24899876,1"
+    },
+    {
+      "host_monotonic": 1342564.062501416,
+      "line": "D_RX_FIRST_BYTE,9,0,9,24910155"
+    },
+    {
+      "host_monotonic": 1342564.063081375,
+      "line": "D_RX_HEADER_COMPLETE,9,0,9,24910217"
+    },
+    {
+      "host_monotonic": 1342564.063585458,
+      "line": "D_RX_FRAME_COMPLETE,9,0,9,24910291"
+    },
+    {
+      "host_monotonic": 1342564.064006625,
+      "line": "D_RX_CRC_OK,9,0,9,24910291"
+    },
+    {
+      "host_monotonic": 1342564.064643041,
+      "line": "UART_BUFFER,FRAME_COMPLETE,24910776,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342564.064877583,
+      "line": "DROP,DATA,9,9,0"
+    },
+    {
+      "host_monotonic": 1342565.052919041,
+      "line": "AUX,25901194,0"
+    },
+    {
+      "host_monotonic": 1342565.08278625,
+      "line": "AUX,25930987,1"
+    },
+    {
+      "host_monotonic": 1342565.09358175,
+      "line": "D_RX_FIRST_BYTE,9,1,9,25941263"
+    },
+    {
+      "host_monotonic": 1342565.094100458,
+      "line": "D_RX_HEADER_COMPLETE,9,1,9,25941326"
+    },
+    {
+      "host_monotonic": 1342565.094590708,
+      "line": "D_RX_FRAME_COMPLETE,9,1,9,25941400"
+    },
+    {
+      "host_monotonic": 1342565.094973041,
+      "line": "D_RX_CRC_OK,9,1,9,25941400"
+    },
+    {
+      "host_monotonic": 1342565.095562208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,25941833,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342565.095708375,
+      "line": "RX,9,9,1,NEW"
+    },
+    {
+      "host_monotonic": 1342565.095841833,
+      "line": "DELIVER,9,9"
+    },
+    {
+      "host_monotonic": 1342565.096002333,
+      "line": "AUX,25943201,0"
+    },
+    {
+      "host_monotonic": 1342565.110796791,
+      "line": "ACK_TX,9,9,1,13"
+    },
+    {
+      "host_monotonic": 1342565.111027291,
+      "line": "AUX,25958882,1"
+    },
+    {
+      "host_monotonic": 1342565.797008291,
+      "line": "AUX,26645207,0"
+    },
+    {
+      "host_monotonic": 1342565.826074541,
+      "line": "AUX,26674521,1"
+    },
+    {
+      "host_monotonic": 1342565.836354875,
+      "line": "D_RX_FIRST_BYTE,9,2,9,26684173"
+    },
+    {
+      "host_monotonic": 1342565.836868041,
+      "line": "D_RX_HEADER_COMPLETE,9,2,9,26684235"
+    },
+    {
+      "host_monotonic": 1342565.8373585,
+      "line": "D_RX_FRAME_COMPLETE,9,2,9,26684317"
+    },
+    {
+      "host_monotonic": 1342565.837748333,
+      "line": "D_RX_CRC_OK,9,2,9,26684317"
+    },
+    {
+      "host_monotonic": 1342565.838356958,
+      "line": "UART_BUFFER,FRAME_COMPLETE,26684768,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342565.838522,
+      "line": "RX,9,9,2,DUP"
+    },
+    {
+      "host_monotonic": 1342565.838682458,
+      "line": "AUX,26686091,0"
+    },
+    {
+      "host_monotonic": 1342565.853730083,
+      "line": "ACK_TX,9,9,2,13"
+    },
+    {
+      "host_monotonic": 1342565.8539665,
+      "line": "AUX,26701773,1"
+    },
+    {
+      "host_monotonic": 1342566.540207416,
+      "line": "AUX,27388525,0"
+    },
+    {
+      "host_monotonic": 1342566.569793125,
+      "line": "AUX,27418144,1"
+    },
+    {
+      "host_monotonic": 1342566.580786166,
+      "line": "D_RX_FIRST_BYTE,10,0,10,27428528"
+    },
+    {
+      "host_monotonic": 1342566.581328,
+      "line": "D_RX_HEADER_COMPLETE,10,0,10,27428593"
+    },
+    {
+      "host_monotonic": 1342566.582014416,
+      "line": "D_RX_FRAME_COMPLETE,10,0,10,27428676"
+    },
+    {
+      "host_monotonic": 1342566.582430583,
+      "line": "D_RX_CRC_OK,10,0,10,27428676"
+    },
+    {
+      "host_monotonic": 1342566.583051,
+      "line": "UART_BUFFER,FRAME_COMPLETE,27429158,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342566.583334708,
+      "line": "RX,10,10,0,NEW"
+    },
+    {
+      "host_monotonic": 1342566.583546041,
+      "line": "DELIVER,10,10"
+    },
+    {
+      "host_monotonic": 1342566.58376725,
+      "line": "AUX,27430566,0"
+    },
+    {
+      "host_monotonic": 1342566.597959416,
+      "line": "AUX,27446238,1"
+    },
+    {
+      "host_monotonic": 1342566.598246333,
+      "line": "ACK_TX,10,10,0,13"
+    },
+    {
+      "host_monotonic": 1342567.283938625,
+      "line": "AUX,28132206,0"
+    },
+    {
+      "host_monotonic": 1342567.313457208,
+      "line": "AUX,28161637,1"
+    },
+    {
+      "host_monotonic": 1342567.324011916,
+      "line": "D_RX_FIRST_BYTE,10,1,10,28171918"
+    },
+    {
+      "host_monotonic": 1342567.324550416,
+      "line": "D_RX_HEADER_COMPLETE,10,1,10,28171976"
+    },
+    {
+      "host_monotonic": 1342567.325230833,
+      "line": "D_RX_FRAME_COMPLETE,10,1,10,28172059"
+    },
+    {
+      "host_monotonic": 1342567.325653666,
+      "line": "D_RX_CRC_OK,10,1,10,28172059"
+    },
+    {
+      "host_monotonic": 1342567.326259875,
+      "line": "UART_BUFFER,FRAME_COMPLETE,28172535,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342567.326518541,
+      "line": "DROP,DATA,10,10,1"
+    },
+    {
+      "host_monotonic": 1342568.315193291,
+      "line": "AUX,29163402,0"
+    },
+    {
+      "host_monotonic": 1342568.344382791,
+      "line": "AUX,29192664,1"
+    },
+    {
+      "host_monotonic": 1342568.355173333,
+      "line": "D_RX_FIRST_BYTE,10,2,10,29202940"
+    },
+    {
+      "host_monotonic": 1342568.355837875,
+      "line": "D_RX_HEADER_COMPLETE,10,2,10,29203003"
+    },
+    {
+      "host_monotonic": 1342568.356470375,
+      "line": "D_RX_FRAME_COMPLETE,10,2,10,29203077"
+    },
+    {
+      "host_monotonic": 1342568.356889125,
+      "line": "D_RX_CRC_OK,10,2,10,29203077"
+    },
+    {
+      "host_monotonic": 1342568.357502708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,29203540,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342568.35772975,
+      "line": "RX,10,10,2,DUP"
+    },
+    {
+      "host_monotonic": 1342568.357990916,
+      "line": "AUX,29204884,0"
+    },
+    {
+      "host_monotonic": 1342568.372385541,
+      "line": "ACK_TX,10,10,2,13"
+    },
+    {
+      "host_monotonic": 1342568.372612291,
+      "line": "AUX,29220570,1"
+    },
+    {
+      "host_monotonic": 1342569.059516958,
+      "line": "AUX,29907890,0"
+    },
+    {
+      "host_monotonic": 1342569.088915458,
+      "line": "AUX,29937250,1"
+    },
+    {
+      "host_monotonic": 1342569.099599458,
+      "line": "D_RX_FIRST_BYTE,11,0,11,29947531"
+    },
+    {
+      "host_monotonic": 1342569.100141458,
+      "line": "D_RX_HEADER_COMPLETE,11,0,11,29947597"
+    },
+    {
+      "host_monotonic": 1342569.100660458,
+      "line": "D_RX_FRAME_COMPLETE,11,0,11,29947679"
+    },
+    {
+      "host_monotonic": 1342569.101068583,
+      "line": "D_RX_CRC_OK,11,0,11,29947679"
+    },
+    {
+      "host_monotonic": 1342569.101701125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,29948165,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342569.102107458,
+      "line": "DROP,DATA,11,11,0"
+    },
+    {
+      "host_monotonic": 1342570.090724416,
+      "line": "AUX,30939160,0"
+    },
+    {
+      "host_monotonic": 1342570.120020166,
+      "line": "AUX,30968297,1"
+    },
+    {
+      "host_monotonic": 1342570.130902333,
+      "line": "D_RX_FIRST_BYTE,11,1,11,30978676"
+    },
+    {
+      "host_monotonic": 1342570.131475833,
+      "line": "D_RX_HEADER_COMPLETE,11,1,11,30978739"
+    },
+    {
+      "host_monotonic": 1342570.132002,
+      "line": "D_RX_FRAME_COMPLETE,11,1,11,30978813"
+    },
+    {
+      "host_monotonic": 1342570.132407375,
+      "line": "D_RX_CRC_OK,11,1,11,30978813"
+    },
+    {
+      "host_monotonic": 1342570.133063041,
+      "line": "UART_BUFFER,FRAME_COMPLETE,30979281,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342570.1333245,
+      "line": "DROP,DATA,11,11,1"
+    },
+    {
+      "host_monotonic": 1342571.12199325,
+      "line": "AUX,31970328,0"
+    },
+    {
+      "host_monotonic": 1342571.150984416,
+      "line": "AUX,31999301,1"
+    },
+    {
+      "host_monotonic": 1342571.161722291,
+      "line": "D_RX_FIRST_BYTE,11,2,11,32009572"
+    },
+    {
+      "host_monotonic": 1342571.162421833,
+      "line": "D_RX_HEADER_COMPLETE,11,2,11,32009634"
+    },
+    {
+      "host_monotonic": 1342571.163056625,
+      "line": "D_RX_FRAME_COMPLETE,11,2,11,32009708"
+    },
+    {
+      "host_monotonic": 1342571.163374083,
+      "line": "D_RX_CRC_OK,11,2,11,32009708"
+    },
+    {
+      "host_monotonic": 1342571.163820625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,32010171,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342571.163982375,
+      "line": "RX,11,11,2,NEW"
+    },
+    {
+      "host_monotonic": 1342571.164133708,
+      "line": "DELIVER,11,11"
+    },
+    {
+      "host_monotonic": 1342571.164294541,
+      "line": "AUX,32011555,0"
+    },
+    {
+      "host_monotonic": 1342571.178904041,
+      "line": "AUX,32027241,1"
+    },
+    {
+      "host_monotonic": 1342571.17916875,
+      "line": "ACK_TX,11,11,2,13"
+    },
+    {
+      "host_monotonic": 1342571.865955166,
+      "line": "AUX,32714236,0"
+    },
+    {
+      "host_monotonic": 1342571.895451041,
+      "line": "AUX,32743860,1"
+    },
+    {
+      "host_monotonic": 1342571.9063985,
+      "line": "D_RX_FIRST_BYTE,12,0,12,32754139"
+    },
+    {
+      "host_monotonic": 1342571.906959166,
+      "line": "D_RX_HEADER_COMPLETE,12,0,12,32754198"
+    },
+    {
+      "host_monotonic": 1342571.907496208,
+      "line": "D_RX_FRAME_COMPLETE,12,0,12,32754280"
+    },
+    {
+      "host_monotonic": 1342571.907728625,
+      "line": "D_RX_CRC_OK,12,0,12,32754280"
+    },
+    {
+      "host_monotonic": 1342571.908085625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,32754798,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342571.908212,
+      "line": "RX,12,12,0,NEW"
+    },
+    {
+      "host_monotonic": 1342571.908329583,
+      "line": "DELIVER,12,12"
+    },
+    {
+      "host_monotonic": 1342571.90845475,
+      "line": "AUX,32756204,0"
+    },
+    {
+      "host_monotonic": 1342571.923598083,
+      "line": "ACK_TX,12,12,0,13"
+    },
+    {
+      "host_monotonic": 1342571.923825791,
+      "line": "AUX,32771884,1"
+    },
+    {
+      "host_monotonic": 1342572.609179666,
+      "line": "AUX,33457730,0"
+    },
+    {
+      "host_monotonic": 1342572.639017291,
+      "line": "AUX,33487433,1"
+    },
+    {
+      "host_monotonic": 1342572.64981625,
+      "line": "D_RX_FIRST_BYTE,12,1,12,33497818"
+    },
+    {
+      "host_monotonic": 1342572.650361208,
+      "line": "D_RX_HEADER_COMPLETE,12,1,12,33497880"
+    },
+    {
+      "host_monotonic": 1342572.650872625,
+      "line": "D_RX_FRAME_COMPLETE,12,1,12,33497961"
+    },
+    {
+      "host_monotonic": 1342572.651288166,
+      "line": "D_RX_CRC_OK,12,1,12,33497961"
+    },
+    {
+      "host_monotonic": 1342572.651802583,
+      "line": "UART_BUFFER,FRAME_COMPLETE,33498449,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342572.651962291,
+      "line": "RX,12,12,1,DUP"
+    },
+    {
+      "host_monotonic": 1342572.65212125,
+      "line": "AUX,33499786,0"
+    },
+    {
+      "host_monotonic": 1342572.667197583,
+      "line": "ACK_TX,12,12,1,13"
+    },
+    {
+      "host_monotonic": 1342572.667419541,
+      "line": "AUX,33515465,1"
+    },
+    {
+      "host_monotonic": 1342573.35234425,
+      "line": "AUX,34200726,0"
+    },
+    {
+      "host_monotonic": 1342573.381639416,
+      "line": "AUX,34229996,1"
+    },
+    {
+      "host_monotonic": 1342573.392393083,
+      "line": "D_RX_FIRST_BYTE,12,2,12,34240379"
+    },
+    {
+      "host_monotonic": 1342573.393030166,
+      "line": "D_RX_HEADER_COMPLETE,12,2,12,34240441"
+    },
+    {
+      "host_monotonic": 1342573.393815,
+      "line": "D_RX_FRAME_COMPLETE,12,2,12,34240523"
+    },
+    {
+      "host_monotonic": 1342573.394227333,
+      "line": "D_RX_CRC_OK,12,2,12,34240523"
+    },
+    {
+      "host_monotonic": 1342573.394700208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,34241000,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342573.394867125,
+      "line": "RX,12,12,2,DUP"
+    },
+    {
+      "host_monotonic": 1342573.395027708,
+      "line": "AUX,34242345,0"
+    },
+    {
+      "host_monotonic": 1342573.409648791,
+      "line": "ACK_TX,12,12,2,13"
+    },
+    {
+      "host_monotonic": 1342573.409873333,
+      "line": "AUX,34258027,1"
+    },
+    {
+      "host_monotonic": 1342574.09605175,
+      "line": "AUX,34944721,0"
+    },
+    {
+      "host_monotonic": 1342574.12606175,
+      "line": "AUX,34974523,1"
+    },
+    {
+      "host_monotonic": 1342574.13670975,
+      "line": "D_RX_FIRST_BYTE,13,0,13,34984698"
+    },
+    {
+      "host_monotonic": 1342574.137380625,
+      "line": "D_RX_HEADER_COMPLETE,13,0,13,34984761"
+    },
+    {
+      "host_monotonic": 1342574.137920916,
+      "line": "D_RX_FRAME_COMPLETE,13,0,13,34984843"
+    },
+    {
+      "host_monotonic": 1342574.138346,
+      "line": "D_RX_CRC_OK,13,0,13,34984843"
+    },
+    {
+      "host_monotonic": 1342574.13895825,
+      "line": "UART_BUFFER,FRAME_COMPLETE,34985322,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342574.139178958,
+      "line": "RX,13,13,0,NEW"
+    },
+    {
+      "host_monotonic": 1342574.139417625,
+      "line": "DELIVER,13,13"
+    },
+    {
+      "host_monotonic": 1342574.139543916,
+      "line": "AUX,34986732,0"
+    },
+    {
+      "host_monotonic": 1342574.153832708,
+      "line": "AUX,35002416,1"
+    },
+    {
+      "host_monotonic": 1342574.154027416,
+      "line": "ACK_TX,13,13,0,13"
+    },
+    {
+      "host_monotonic": 1342574.840015166,
+      "line": "AUX,35688459,0"
+    },
+    {
+      "host_monotonic": 1342574.869619666,
+      "line": "AUX,35718017,1"
+    },
+    {
+      "host_monotonic": 1342574.880383458,
+      "line": "D_RX_FIRST_BYTE,13,1,13,35728395"
+    },
+    {
+      "host_monotonic": 1342574.880920791,
+      "line": "D_RX_HEADER_COMPLETE,13,1,13,35728453"
+    },
+    {
+      "host_monotonic": 1342574.881437541,
+      "line": "D_RX_FRAME_COMPLETE,13,1,13,35728536"
+    },
+    {
+      "host_monotonic": 1342574.881846166,
+      "line": "D_RX_CRC_OK,13,1,13,35728536"
+    },
+    {
+      "host_monotonic": 1342574.8824565,
+      "line": "UART_BUFFER,FRAME_COMPLETE,35729012,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342574.882720541,
+      "line": "DROP,DATA,13,13,1"
+    },
+    {
+      "host_monotonic": 1342575.871333458,
+      "line": "AUX,36719699,0"
+    },
+    {
+      "host_monotonic": 1342575.900606833,
+      "line": "AUX,36749003,1"
+    },
+    {
+      "host_monotonic": 1342575.911480833,
+      "line": "D_RX_FIRST_BYTE,13,2,13,36759384"
+    },
+    {
+      "host_monotonic": 1342575.912191833,
+      "line": "D_RX_HEADER_COMPLETE,13,2,13,36759446"
+    },
+    {
+      "host_monotonic": 1342575.912830916,
+      "line": "D_RX_FRAME_COMPLETE,13,2,13,36759520"
+    },
+    {
+      "host_monotonic": 1342575.913240875,
+      "line": "D_RX_CRC_OK,13,2,13,36759520"
+    },
+    {
+      "host_monotonic": 1342575.913865625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,36760036,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342575.914086958,
+      "line": "RX,13,13,2,DUP"
+    },
+    {
+      "host_monotonic": 1342575.914308666,
+      "line": "AUX,36761359,0"
+    },
+    {
+      "host_monotonic": 1342575.928674208,
+      "line": "ACK_TX,13,13,2,13"
+    },
+    {
+      "host_monotonic": 1342575.928911791,
+      "line": "AUX,36777040,1"
+    },
+    {
+      "host_monotonic": 1342576.615234708,
+      "line": "AUX,37463811,0"
+    },
+    {
+      "host_monotonic": 1342576.644951291,
+      "line": "AUX,37493484,1"
+    },
+    {
+      "host_monotonic": 1342576.656053458,
+      "line": "D_RX_FIRST_BYTE,14,0,14,37503762"
+    },
+    {
+      "host_monotonic": 1342576.656585458,
+      "line": "D_RX_HEADER_COMPLETE,14,0,14,37503828"
+    },
+    {
+      "host_monotonic": 1342576.657201875,
+      "line": "D_RX_FRAME_COMPLETE,14,0,14,37503911"
+    },
+    {
+      "host_monotonic": 1342576.657619083,
+      "line": "D_RX_CRC_OK,14,0,14,37503911"
+    },
+    {
+      "host_monotonic": 1342576.658230916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,37504387,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342576.658452333,
+      "line": "RX,14,14,0,NEW"
+    },
+    {
+      "host_monotonic": 1342576.658659833,
+      "line": "DELIVER,14,14"
+    },
+    {
+      "host_monotonic": 1342576.658879458,
+      "line": "AUX,37505799,0"
+    },
+    {
+      "host_monotonic": 1342576.6730695,
+      "line": "ACK_TX,14,14,0,13"
+    },
+    {
+      "host_monotonic": 1342576.673297958,
+      "line": "AUX,37521478,1"
+    },
+    {
+      "host_monotonic": 1342577.358531833,
+      "line": "AUX,38207116,0"
+    },
+    {
+      "host_monotonic": 1342577.388544833,
+      "line": "AUX,38236927,1"
+    },
+    {
+      "host_monotonic": 1342577.399401458,
+      "line": "D_RX_FIRST_BYTE,14,1,14,38247312"
+    },
+    {
+      "host_monotonic": 1342577.399963166,
+      "line": "D_RX_HEADER_COMPLETE,14,1,14,38247371"
+    },
+    {
+      "host_monotonic": 1342577.400607833,
+      "line": "D_RX_FRAME_COMPLETE,14,1,14,38247453"
+    },
+    {
+      "host_monotonic": 1342577.401025041,
+      "line": "D_RX_CRC_OK,14,1,14,38247453"
+    },
+    {
+      "host_monotonic": 1342577.401629125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,38247966,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342577.401811208,
+      "line": "RX,14,14,1,DUP"
+    },
+    {
+      "host_monotonic": 1342577.401973375,
+      "line": "AUX,38249304,0"
+    },
+    {
+      "host_monotonic": 1342577.41651125,
+      "line": "AUX,38264984,1"
+    },
+    {
+      "host_monotonic": 1342577.416774083,
+      "line": "ACK_TX,14,14,1,13"
+    },
+    {
+      "host_monotonic": 1342578.101886125,
+      "line": "AUX,38950557,0"
+    },
+    {
+      "host_monotonic": 1342578.13184575,
+      "line": "AUX,38980532,1"
+    },
+    {
+      "host_monotonic": 1342578.14225925,
+      "line": "D_RX_FIRST_BYTE,14,2,14,38990709"
+    },
+    {
+      "host_monotonic": 1342578.142519791,
+      "line": "D_RX_HEADER_COMPLETE,14,2,14,38990775"
+    },
+    {
+      "host_monotonic": 1342578.142765916,
+      "line": "D_RX_FRAME_COMPLETE,14,2,14,38990858"
+    },
+    {
+      "host_monotonic": 1342578.142969291,
+      "line": "D_RX_CRC_OK,14,2,14,38990858"
+    },
+    {
+      "host_monotonic": 1342578.143300958,
+      "line": "UART_BUFFER,FRAME_COMPLETE,38991340,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342578.143407208,
+      "line": "RX,14,14,2,DUP"
+    },
+    {
+      "host_monotonic": 1342578.143865208,
+      "line": "AUX,38992683,0"
+    },
+    {
+      "host_monotonic": 1342578.159661083,
+      "line": "ACK_TX,14,14,2,13"
+    },
+    {
+      "host_monotonic": 1342578.159777458,
+      "line": "AUX,39008357,1"
+    },
+    {
+      "host_monotonic": 1342578.846484791,
+      "line": "AUX,39694972,0"
+    },
+    {
+      "host_monotonic": 1342578.875475541,
+      "line": "AUX,39724046,1"
+    },
+    {
+      "host_monotonic": 1342578.886247375,
+      "line": "D_RX_FIRST_BYTE,15,0,15,39734423"
+    },
+    {
+      "host_monotonic": 1342578.886684333,
+      "line": "D_RX_HEADER_COMPLETE,15,0,15,39734482"
+    },
+    {
+      "host_monotonic": 1342578.887068416,
+      "line": "D_RX_FRAME_COMPLETE,15,0,15,39734564"
+    },
+    {
+      "host_monotonic": 1342578.887368083,
+      "line": "D_RX_CRC_OK,15,0,15,39734564"
+    },
+    {
+      "host_monotonic": 1342578.887814583,
+      "line": "UART_BUFFER,FRAME_COMPLETE,39735040,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342578.88797875,
+      "line": "RX,15,15,0,NEW"
+    },
+    {
+      "host_monotonic": 1342578.888130083,
+      "line": "DELIVER,15,15"
+    },
+    {
+      "host_monotonic": 1342578.888290833,
+      "line": "AUX,39736449,0"
+    },
+    {
+      "host_monotonic": 1342578.903572083,
+      "line": "AUX,39752128,1"
+    },
+    {
+      "host_monotonic": 1342578.903841291,
+      "line": "ACK_TX,15,15,0,13"
+    },
+    {
+      "host_monotonic": 1342579.590123541,
+      "line": "AUX,40438628,0"
+    },
+    {
+      "host_monotonic": 1342579.618947833,
+      "line": "AUX,40467646,1"
+    },
+    {
+      "host_monotonic": 1342579.629640208,
+      "line": "D_RX_FIRST_BYTE,15,1,15,40477923"
+    },
+    {
+      "host_monotonic": 1342579.630041791,
+      "line": "D_RX_HEADER_COMPLETE,15,1,15,40477982"
+    },
+    {
+      "host_monotonic": 1342579.630417583,
+      "line": "D_RX_FRAME_COMPLETE,15,1,15,40478064"
+    },
+    {
+      "host_monotonic": 1342579.630742208,
+      "line": "D_RX_CRC_OK,15,1,15,40478064"
+    },
+    {
+      "host_monotonic": 1342579.631252916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,40478552,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342579.631417708,
+      "line": "RX,15,15,1,DUP"
+    },
+    {
+      "host_monotonic": 1342579.631579208,
+      "line": "AUX,40479889,0"
+    },
+    {
+      "host_monotonic": 1342579.647164,
+      "line": "ACK_TX,15,15,1,13"
+    },
+    {
+      "host_monotonic": 1342579.647393291,
+      "line": "AUX,40495568,1"
+    },
+    {
+      "host_monotonic": 1342580.332596166,
+      "line": "AUX,41181039,0"
+    },
+    {
+      "host_monotonic": 1342580.361748875,
+      "line": "AUX,41210206,1"
+    },
+    {
+      "host_monotonic": 1342580.37256,
+      "line": "D_RX_FIRST_BYTE,15,2,15,41220589"
+    },
+    {
+      "host_monotonic": 1342580.37310325,
+      "line": "D_RX_HEADER_COMPLETE,15,2,15,41220652"
+    },
+    {
+      "host_monotonic": 1342580.373782916,
+      "line": "D_RX_FRAME_COMPLETE,15,2,15,41220734"
+    },
+    {
+      "host_monotonic": 1342580.37420025,
+      "line": "D_RX_CRC_OK,15,2,15,41220734"
+    },
+    {
+      "host_monotonic": 1342580.374833916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,41221217,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342580.375056333,
+      "line": "RX,15,15,2,DUP"
+    },
+    {
+      "host_monotonic": 1342580.375286416,
+      "line": "AUX,41222556,0"
+    },
+    {
+      "host_monotonic": 1342580.389899166,
+      "line": "ACK_TX,15,15,2,13"
+    },
+    {
+      "host_monotonic": 1342580.390222791,
+      "line": "AUX,41238236,1"
+    },
+    {
+      "host_monotonic": 1342581.077081416,
+      "line": "AUX,41925450,0"
+    },
+    {
+      "host_monotonic": 1342581.10613775,
+      "line": "AUX,41954718,1"
+    },
+    {
+      "host_monotonic": 1342581.117000916,
+      "line": "D_RX_FIRST_BYTE,16,0,16,41964895"
+    },
+    {
+      "host_monotonic": 1342581.117543083,
+      "line": "D_RX_HEADER_COMPLETE,16,0,16,41964958"
+    },
+    {
+      "host_monotonic": 1342581.118095875,
+      "line": "D_RX_FRAME_COMPLETE,16,0,16,41965040"
+    },
+    {
+      "host_monotonic": 1342581.118514708,
+      "line": "D_RX_CRC_OK,16,0,16,41965040"
+    },
+    {
+      "host_monotonic": 1342581.119183416,
+      "line": "UART_BUFFER,FRAME_COMPLETE,41965523,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342581.119408708,
+      "line": "RX,16,16,0,NEW"
+    },
+    {
+      "host_monotonic": 1342581.119617166,
+      "line": "DELIVER,16,16"
+    },
+    {
+      "host_monotonic": 1342581.119838791,
+      "line": "AUX,41966927,0"
+    },
+    {
+      "host_monotonic": 1342581.134195666,
+      "line": "ACK_TX,16,16,0,13"
+    },
+    {
+      "host_monotonic": 1342581.134423375,
+      "line": "AUX,41982612,1"
+    },
+    {
+      "host_monotonic": 1342581.819689,
+      "line": "AUX,42668268,0"
+    },
+    {
+      "host_monotonic": 1342581.849700833,
+      "line": "AUX,42698221,1"
+    },
+    {
+      "host_monotonic": 1342581.86054975,
+      "line": "D_RX_FIRST_BYTE,16,1,16,42708599"
+    },
+    {
+      "host_monotonic": 1342581.861096541,
+      "line": "D_RX_HEADER_COMPLETE,16,1,16,42708657"
+    },
+    {
+      "host_monotonic": 1342581.861620875,
+      "line": "D_RX_FRAME_COMPLETE,16,1,16,42708739"
+    },
+    {
+      "host_monotonic": 1342581.862035125,
+      "line": "D_RX_CRC_OK,16,1,16,42708739"
+    },
+    {
+      "host_monotonic": 1342581.862759,
+      "line": "UART_BUFFER,FRAME_COMPLETE,42709222,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342581.863004083,
+      "line": "DROP,DATA,16,16,1"
+    },
+    {
+      "host_monotonic": 1342582.851000541,
+      "line": "AUX,43699433,0"
+    },
+    {
+      "host_monotonic": 1342582.880659875,
+      "line": "AUX,43729294,1"
+    },
+    {
+      "host_monotonic": 1342582.891440166,
+      "line": "D_RX_FIRST_BYTE,16,2,16,43739677"
+    },
+    {
+      "host_monotonic": 1342582.892169625,
+      "line": "D_RX_HEADER_COMPLETE,16,2,16,43739742"
+    },
+    {
+      "host_monotonic": 1342582.892620208,
+      "line": "D_RX_FRAME_COMPLETE,16,2,16,43739816"
+    },
+    {
+      "host_monotonic": 1342582.892924041,
+      "line": "D_RX_CRC_OK,16,2,16,43739816"
+    },
+    {
+      "host_monotonic": 1342582.893557541,
+      "line": "UART_BUFFER,FRAME_COMPLETE,43740280,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342582.893721041,
+      "line": "RX,16,16,2,DUP"
+    },
+    {
+      "host_monotonic": 1342582.893858166,
+      "line": "AUX,43741603,0"
+    },
+    {
+      "host_monotonic": 1342582.908491625,
+      "line": "ACK_TX,16,16,2,13"
+    },
+    {
+      "host_monotonic": 1342582.908601625,
+      "line": "AUX,43757281,1"
+    },
+    {
+      "host_monotonic": 1342583.595269333,
+      "line": "AUX,44443874,0"
+    },
+    {
+      "host_monotonic": 1342583.624293833,
+      "line": "AUX,44472838,1"
+    },
+    {
+      "host_monotonic": 1342583.635299583,
+      "line": "D_RX_FIRST_BYTE,17,0,17,44483221"
+    },
+    {
+      "host_monotonic": 1342583.63588175,
+      "line": "D_RX_HEADER_COMPLETE,17,0,17,44483285"
+    },
+    {
+      "host_monotonic": 1342583.636437916,
+      "line": "D_RX_FRAME_COMPLETE,17,0,17,44483367"
+    },
+    {
+      "host_monotonic": 1342583.636852791,
+      "line": "D_RX_CRC_OK,17,0,17,44483367"
+    },
+    {
+      "host_monotonic": 1342583.637470625,
+      "line": "UART_BUFFER,FRAME_COMPLETE,44483848,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342583.637695625,
+      "line": "RX,17,17,0,NEW"
+    },
+    {
+      "host_monotonic": 1342583.63790325,
+      "line": "DELIVER,17,17"
+    },
+    {
+      "host_monotonic": 1342583.638124666,
+      "line": "AUX,44485273,0"
+    },
+    {
+      "host_monotonic": 1342583.652457958,
+      "line": "ACK_TX,17,17,0,13"
+    },
+    {
+      "host_monotonic": 1342583.65268975,
+      "line": "AUX,44500951,1"
+    },
+    {
+      "host_monotonic": 1342584.3380945,
+      "line": "AUX,45186580,0"
+    },
+    {
+      "host_monotonic": 1342584.367825583,
+      "line": "AUX,45216475,1"
+    },
+    {
+      "host_monotonic": 1342584.378710625,
+      "line": "D_RX_FIRST_BYTE,17,1,17,45226753"
+    },
+    {
+      "host_monotonic": 1342584.379257583,
+      "line": "D_RX_HEADER_COMPLETE,17,1,17,45226812"
+    },
+    {
+      "host_monotonic": 1342584.379778333,
+      "line": "D_RX_FRAME_COMPLETE,17,1,17,45226894"
+    },
+    {
+      "host_monotonic": 1342584.380181041,
+      "line": "D_RX_CRC_OK,17,1,17,45226894"
+    },
+    {
+      "host_monotonic": 1342584.381328708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,45227419,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342584.381538833,
+      "line": "RX,17,17,1,DUP"
+    },
+    {
+      "host_monotonic": 1342584.381710125,
+      "line": "AUX,45228760,0"
+    },
+    {
+      "host_monotonic": 1342584.395945708,
+      "line": "ACK_TX,17,17,1,13"
+    },
+    {
+      "host_monotonic": 1342584.396177875,
+      "line": "AUX,45244438,1"
+    },
+    {
+      "host_monotonic": 1342585.081286625,
+      "line": "AUX,45930023,0"
+    },
+    {
+      "host_monotonic": 1342585.111469541,
+      "line": "AUX,45959967,1"
+    },
+    {
+      "host_monotonic": 1342585.122438208,
+      "line": "D_RX_FIRST_BYTE,17,2,17,45970241"
+    },
+    {
+      "host_monotonic": 1342585.122992458,
+      "line": "D_RX_HEADER_COMPLETE,17,2,17,45970307"
+    },
+    {
+      "host_monotonic": 1342585.123643625,
+      "line": "D_RX_FRAME_COMPLETE,17,2,17,45970389"
+    },
+    {
+      "host_monotonic": 1342585.124054916,
+      "line": "D_RX_CRC_OK,17,2,17,45970389"
+    },
+    {
+      "host_monotonic": 1342585.124665166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,45970872,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342585.124887208,
+      "line": "RX,17,17,2,DUP"
+    },
+    {
+      "host_monotonic": 1342585.125108833,
+      "line": "AUX,45972213,0"
+    },
+    {
+      "host_monotonic": 1342585.139335541,
+      "line": "ACK_TX,17,17,2,13"
+    },
+    {
+      "host_monotonic": 1342585.139598583,
+      "line": "AUX,45987890,1"
+    },
+    {
+      "host_monotonic": 1342585.82547225,
+      "line": "AUX,46674378,0"
+    },
+    {
+      "host_monotonic": 1342585.854943166,
+      "line": "AUX,46703585,1"
+    },
+    {
+      "host_monotonic": 1342585.865736458,
+      "line": "D_RX_FIRST_BYTE,18,0,18,46713864"
+    },
+    {
+      "host_monotonic": 1342585.866315458,
+      "line": "D_RX_HEADER_COMPLETE,18,0,18,46713923"
+    },
+    {
+      "host_monotonic": 1342585.866849666,
+      "line": "D_RX_FRAME_COMPLETE,18,0,18,46714005"
+    },
+    {
+      "host_monotonic": 1342585.867152041,
+      "line": "D_RX_CRC_OK,18,0,18,46714005"
+    },
+    {
+      "host_monotonic": 1342585.867614125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,46714482,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342585.867778916,
+      "line": "RX,18,18,0,NEW"
+    },
+    {
+      "host_monotonic": 1342585.867951125,
+      "line": "DELIVER,18,18"
+    },
+    {
+      "host_monotonic": 1342585.868126625,
+      "line": "AUX,46715890,0"
+    },
+    {
+      "host_monotonic": 1342585.882923958,
+      "line": "ACK_TX,18,18,0,13"
+    },
+    {
+      "host_monotonic": 1342585.883153833,
+      "line": "AUX,46731566,1"
+    },
+    {
+      "host_monotonic": 1342586.569325375,
+      "line": "AUX,47418016,0"
+    },
+    {
+      "host_monotonic": 1342586.598471833,
+      "line": "AUX,47447065,1"
+    },
+    {
+      "host_monotonic": 1342586.609219958,
+      "line": "D_RX_FIRST_BYTE,18,1,18,47457444"
+    },
+    {
+      "host_monotonic": 1342586.609767833,
+      "line": "D_RX_HEADER_COMPLETE,18,1,18,47457507"
+    },
+    {
+      "host_monotonic": 1342586.610309375,
+      "line": "D_RX_FRAME_COMPLETE,18,1,18,47457589"
+    },
+    {
+      "host_monotonic": 1342586.610707291,
+      "line": "D_RX_CRC_OK,18,1,18,47457589"
+    },
+    {
+      "host_monotonic": 1342586.611161166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,47458087,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342586.611332958,
+      "line": "RX,18,18,1,DUP"
+    },
+    {
+      "host_monotonic": 1342586.611565833,
+      "line": "AUX,47459461,0"
+    },
+    {
+      "host_monotonic": 1342586.626487833,
+      "line": "ACK_TX,18,18,1,13"
+    },
+    {
+      "host_monotonic": 1342586.6267275,
+      "line": "AUX,47475134,1"
+    },
+    {
+      "host_monotonic": 1342587.312774,
+      "line": "AUX,48161448,0"
+    },
+    {
+      "host_monotonic": 1342587.34192725,
+      "line": "AUX,48190661,1"
+    },
+    {
+      "host_monotonic": 1342587.352537125,
+      "line": "D_RX_FIRST_BYTE,18,2,18,48200835"
+    },
+    {
+      "host_monotonic": 1342587.352793916,
+      "line": "D_RX_HEADER_COMPLETE,18,2,18,48200897"
+    },
+    {
+      "host_monotonic": 1342587.353039541,
+      "line": "D_RX_FRAME_COMPLETE,18,2,18,48200979"
+    },
+    {
+      "host_monotonic": 1342587.353233291,
+      "line": "D_RX_CRC_OK,18,2,18,48200979"
+    },
+    {
+      "host_monotonic": 1342587.353522,
+      "line": "UART_BUFFER,FRAME_COMPLETE,48201509,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342587.353626,
+      "line": "RX,18,18,2,DUP"
+    },
+    {
+      "host_monotonic": 1342587.353852333,
+      "line": "AUX,48202854,0"
+    },
+    {
+      "host_monotonic": 1342587.369879875,
+      "line": "ACK_TX,18,18,2,13"
+    },
+    {
+      "host_monotonic": 1342587.370108208,
+      "line": "AUX,48218533,1"
+    },
+    {
+      "host_monotonic": 1342588.056036125,
+      "line": "AUX,48904699,0"
+    },
+    {
+      "host_monotonic": 1342588.085326208,
+      "line": "AUX,48934118,1"
+    },
+    {
+      "host_monotonic": 1342588.096150791,
+      "line": "D_RX_FIRST_BYTE,19,0,19,48944395"
+    },
+    {
+      "host_monotonic": 1342588.096700958,
+      "line": "D_RX_HEADER_COMPLETE,19,0,19,48944460"
+    },
+    {
+      "host_monotonic": 1342588.097236583,
+      "line": "D_RX_FRAME_COMPLETE,19,0,19,48944542"
+    },
+    {
+      "host_monotonic": 1342588.097649958,
+      "line": "D_RX_CRC_OK,19,0,19,48944542"
+    },
+    {
+      "host_monotonic": 1342588.098288208,
+      "line": "UART_BUFFER,FRAME_COMPLETE,48945020,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342588.098524541,
+      "line": "RX,19,19,0,NEW"
+    },
+    {
+      "host_monotonic": 1342588.098732,
+      "line": "DELIVER,19,19"
+    },
+    {
+      "host_monotonic": 1342588.098974166,
+      "line": "AUX,48946428,0"
+    },
+    {
+      "host_monotonic": 1342588.113476458,
+      "line": "ACK_TX,19,19,0,13"
+    },
+    {
+      "host_monotonic": 1342588.113708458,
+      "line": "AUX,48962110,1"
+    },
+    {
+      "host_monotonic": 1342588.799114083,
+      "line": "AUX,49647891,0"
+    },
+    {
+      "host_monotonic": 1342588.829050916,
+      "line": "AUX,49677716,1"
+    },
+    {
+      "host_monotonic": 1342588.839939916,
+      "line": "D_RX_FIRST_BYTE,19,1,19,49688102"
+    },
+    {
+      "host_monotonic": 1342588.840486375,
+      "line": "D_RX_HEADER_COMPLETE,19,1,19,49688160"
+    },
+    {
+      "host_monotonic": 1342588.840969041,
+      "line": "D_RX_FRAME_COMPLETE,19,1,19,49688242"
+    },
+    {
+      "host_monotonic": 1342588.841266833,
+      "line": "D_RX_CRC_OK,19,1,19,49688242"
+    },
+    {
+      "host_monotonic": 1342588.841712125,
+      "line": "UART_BUFFER,FRAME_COMPLETE,49688723,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342588.841872958,
+      "line": "RX,19,19,1,DUP"
+    },
+    {
+      "host_monotonic": 1342588.842033625,
+      "line": "AUX,49690062,0"
+    },
+    {
+      "host_monotonic": 1342588.856899791,
+      "line": "ACK_TX,19,19,1,13"
+    },
+    {
+      "host_monotonic": 1342588.857013583,
+      "line": "AUX,49705741,1"
+    },
+    {
+      "host_monotonic": 1342589.543049833,
+      "line": "AUX,50391825,0"
+    },
+    {
+      "host_monotonic": 1342589.572420083,
+      "line": "AUX,50421217,1"
+    },
+    {
+      "host_monotonic": 1342589.583244416,
+      "line": "D_RX_FIRST_BYTE,19,2,19,50431497"
+    },
+    {
+      "host_monotonic": 1342589.583775416,
+      "line": "D_RX_HEADER_COMPLETE,19,2,19,50431563"
+    },
+    {
+      "host_monotonic": 1342589.584300416,
+      "line": "D_RX_FRAME_COMPLETE,19,2,19,50431645"
+    },
+    {
+      "host_monotonic": 1342589.584711083,
+      "line": "D_RX_CRC_OK,19,2,19,50431645"
+    },
+    {
+      "host_monotonic": 1342589.585287416,
+      "line": "UART_BUFFER,FRAME_COMPLETE,50432128,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342589.585448458,
+      "line": "RX,19,19,2,DUP"
+    },
+    {
+      "host_monotonic": 1342589.585657708,
+      "line": "AUX,50433470,0"
+    },
+    {
+      "host_monotonic": 1342589.600483416,
+      "line": "ACK_TX,19,19,2,13"
+    },
+    {
+      "host_monotonic": 1342589.600706291,
+      "line": "AUX,50449150,1"
+    },
+    {
+      "host_monotonic": 1342590.287495541,
+      "line": "AUX,51136306,0"
+    },
+    {
+      "host_monotonic": 1342590.317036625,
+      "line": "AUX,51165733,1"
+    },
+    {
+      "host_monotonic": 1342590.327816125,
+      "line": "D_RX_FIRST_BYTE,20,0,20,51176014"
+    },
+    {
+      "host_monotonic": 1342590.328372791,
+      "line": "D_RX_HEADER_COMPLETE,20,0,20,51176072"
+    },
+    {
+      "host_monotonic": 1342590.328894166,
+      "line": "D_RX_FRAME_COMPLETE,20,0,20,51176155"
+    },
+    {
+      "host_monotonic": 1342590.329320375,
+      "line": "D_RX_CRC_OK,20,0,20,51176155"
+    },
+    {
+      "host_monotonic": 1342590.329983875,
+      "line": "UART_BUFFER,FRAME_COMPLETE,51176631,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342590.330176333,
+      "line": "DROP,DATA,20,20,0"
+    },
+    {
+      "host_monotonic": 1342591.319462625,
+      "line": "AUX,52168222,0"
+    },
+    {
+      "host_monotonic": 1342591.348898875,
+      "line": "AUX,52197609,1"
+    },
+    {
+      "host_monotonic": 1342591.359344666,
+      "line": "D_RX_FIRST_BYTE,20,1,20,52207883"
+    },
+    {
+      "host_monotonic": 1342591.359746916,
+      "line": "D_RX_HEADER_COMPLETE,20,1,20,52207942"
+    },
+    {
+      "host_monotonic": 1342591.360224125,
+      "line": "D_RX_FRAME_COMPLETE,20,1,20,52208016"
+    },
+    {
+      "host_monotonic": 1342591.360531875,
+      "line": "D_RX_CRC_OK,20,1,20,52208016"
+    },
+    {
+      "host_monotonic": 1342591.361018041,
+      "line": "UART_BUFFER,FRAME_COMPLETE,52208507,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342591.361284166,
+      "line": "DROP,DATA,20,20,1"
+    },
+    {
+      "host_monotonic": 1342592.350736416,
+      "line": "AUX,53199472,0"
+    },
+    {
+      "host_monotonic": 1342592.37967,
+      "line": "AUX,53228534,1"
+    },
+    {
+      "host_monotonic": 1342592.390352833,
+      "line": "D_RX_FIRST_BYTE,20,2,20,53238810"
+    },
+    {
+      "host_monotonic": 1342592.39079625,
+      "line": "D_RX_HEADER_COMPLETE,20,2,20,53238873"
+    },
+    {
+      "host_monotonic": 1342592.391186375,
+      "line": "D_RX_FRAME_COMPLETE,20,2,20,53238947"
+    },
+    {
+      "host_monotonic": 1342592.391485,
+      "line": "D_RX_CRC_OK,20,2,20,53238947"
+    },
+    {
+      "host_monotonic": 1342592.391952,
+      "line": "UART_BUFFER,FRAME_COMPLETE,53239422,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342592.392189458,
+      "line": "RX,20,20,2,NEW"
+    },
+    {
+      "host_monotonic": 1342592.392348208,
+      "line": "DELIVER,20,20"
+    },
+    {
+      "host_monotonic": 1342592.392512791,
+      "line": "AUX,53240810,0"
+    },
+    {
+      "host_monotonic": 1342592.407755791,
+      "line": "ACK_TX,20,20,2,13"
+    },
+    {
+      "host_monotonic": 1342592.407986125,
+      "line": "AUX,53256490,1"
+    },
+    {
+      "host_monotonic": 1342593.094865791,
+      "line": "AUX,53943970,0"
+    },
+    {
+      "host_monotonic": 1342593.123925833,
+      "line": "AUX,53973038,1"
+    },
+    {
+      "host_monotonic": 1342593.134512583,
+      "line": "D_RX_FIRST_BYTE,21,0,21,53983415"
+    },
+    {
+      "host_monotonic": 1342593.134623166,
+      "line": "D_RX_HEADER_COMPLETE,21,0,21,53983474"
+    },
+    {
+      "host_monotonic": 1342593.134712083,
+      "line": "D_RX_FRAME_COMPLETE,21,0,21,53983556"
+    },
+    {
+      "host_monotonic": 1342593.134789625,
+      "line": "D_RX_CRC_OK,21,0,21,53983556"
+    },
+    {
+      "host_monotonic": 1342593.134986458,
+      "line": "UART_BUFFER,FRAME_COMPLETE,53984037,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342593.135079791,
+      "line": "RX,21,21,0,NEW"
+    },
+    {
+      "host_monotonic": 1342593.135115041,
+      "line": "DELIVER,21,21"
+    },
+    {
+      "host_monotonic": 1342593.13634375,
+      "line": "AUX,53985478,0"
+    },
+    {
+      "host_monotonic": 1342593.152061916,
+      "line": "ACK_TX,21,21,0,13"
+    },
+    {
+      "host_monotonic": 1342593.152099291,
+      "line": "AUX,54001148,1"
+    },
+    {
+      "host_monotonic": 1342593.841096833,
+      "line": "AUX,54687611,0"
+    },
+    {
+      "host_monotonic": 1342593.870104041,
+      "line": "AUX,54717529,1"
+    },
+    {
+      "host_monotonic": 1342593.879114166,
+      "line": "D_RX_FIRST_BYTE,21,1,21,54727802"
+    },
+    {
+      "host_monotonic": 1342593.8796835,
+      "line": "D_RX_HEADER_COMPLETE,21,1,21,54727861"
+    },
+    {
+      "host_monotonic": 1342593.880044458,
+      "line": "D_RX_FRAME_COMPLETE,21,1,21,54727943"
+    },
+    {
+      "host_monotonic": 1342593.880244208,
+      "line": "D_RX_CRC_OK,21,1,21,54727943"
+    },
+    {
+      "host_monotonic": 1342593.880771166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,54728468,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342593.88087875,
+      "line": "RX,21,21,1,DUP"
+    },
+    {
+      "host_monotonic": 1342593.880985166,
+      "line": "AUX,54729807,0"
+    },
+    {
+      "host_monotonic": 1342593.896499083,
+      "line": "ACK_TX,21,21,1,13"
+    },
+    {
+      "host_monotonic": 1342593.896642666,
+      "line": "AUX,54745487,1"
+    },
+    {
+      "host_monotonic": 1342594.583120583,
+      "line": "AUX,55432102,0"
+    },
+    {
+      "host_monotonic": 1342594.613090125,
+      "line": "AUX,55462026,1"
+    },
+    {
+      "host_monotonic": 1342594.622891625,
+      "line": "D_RX_FIRST_BYTE,21,2,21,55471577"
+    },
+    {
+      "host_monotonic": 1342594.623151125,
+      "line": "D_RX_HEADER_COMPLETE,21,2,21,55471640"
+    },
+    {
+      "host_monotonic": 1342594.6233965,
+      "line": "D_RX_FRAME_COMPLETE,21,2,21,55471722"
+    },
+    {
+      "host_monotonic": 1342594.623589166,
+      "line": "D_RX_CRC_OK,21,2,21,55471722"
+    },
+    {
+      "host_monotonic": 1342594.623880708,
+      "line": "UART_BUFFER,FRAME_COMPLETE,55472205,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342594.623989291,
+      "line": "RX,21,21,2,DUP"
+    },
+    {
+      "host_monotonic": 1342594.624442583,
+      "line": "AUX,55473547,0"
+    },
+    {
+      "host_monotonic": 1342594.641170208,
+      "line": "ACK_TX,21,21,2,13"
+    },
+    {
+      "host_monotonic": 1342594.641281833,
+      "line": "AUX,55489227,1"
+    },
+    {
+      "host_monotonic": 1342595.327600458,
+      "line": "AUX,56176416,0"
+    },
+    {
+      "host_monotonic": 1342595.356742583,
+      "line": "AUX,56205621,1"
+    },
+    {
+      "host_monotonic": 1342595.367923833,
+      "line": "D_RX_FIRST_BYTE,22,0,22,56215898"
+    },
+    {
+      "host_monotonic": 1342595.369396958,
+      "line": "D_RX_HEADER_COMPLETE,22,0,22,56215957"
+    },
+    {
+      "host_monotonic": 1342595.369793708,
+      "line": "D_RX_FRAME_COMPLETE,22,0,22,56216039"
+    },
+    {
+      "host_monotonic": 1342595.370096583,
+      "line": "D_RX_CRC_OK,22,0,22,56216039"
+    },
+    {
+      "host_monotonic": 1342595.37054825,
+      "line": "UART_BUFFER,FRAME_COMPLETE,56216522,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342595.37071125,
+      "line": "RX,22,22,0,NEW"
+    },
+    {
+      "host_monotonic": 1342595.370864791,
+      "line": "DELIVER,22,22"
+    },
+    {
+      "host_monotonic": 1342595.371027166,
+      "line": "AUX,56217931,0"
+    },
+    {
+      "host_monotonic": 1342595.38483625,
+      "line": "ACK_TX,22,22,0,13"
+    },
+    {
+      "host_monotonic": 1342595.385063583,
+      "line": "AUX,56233605,1"
+    },
+    {
+      "host_monotonic": 1342596.070873791,
+      "line": "AUX,56920055,0"
+    },
+    {
+      "host_monotonic": 1342596.099925458,
+      "line": "AUX,56949125,1"
+    },
+    {
+      "host_monotonic": 1342596.110160291,
+      "line": "D_RX_FIRST_BYTE,22,1,22,56959193"
+    },
+    {
+      "host_monotonic": 1342596.1102805,
+      "line": "D_RX_HEADER_COMPLETE,22,1,22,56959255"
+    },
+    {
+      "host_monotonic": 1342596.110397875,
+      "line": "D_RX_FRAME_COMPLETE,22,1,22,56959338"
+    },
+    {
+      "host_monotonic": 1342596.110466791,
+      "line": "D_RX_CRC_OK,22,1,22,56959338"
+    },
+    {
+      "host_monotonic": 1342596.110671916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,56959821,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342596.110715666,
+      "line": "DROP,DATA,22,22,1"
+    },
+    {
+      "host_monotonic": 1342597.102290791,
+      "line": "AUX,57951279,0"
+    },
+    {
+      "host_monotonic": 1342597.132149666,
+      "line": "AUX,57981186,1"
+    },
+    {
+      "host_monotonic": 1342597.142766541,
+      "line": "D_RX_FIRST_BYTE,22,2,22,57991569"
+    },
+    {
+      "host_monotonic": 1342597.143048041,
+      "line": "D_RX_HEADER_COMPLETE,22,2,22,57991635"
+    },
+    {
+      "host_monotonic": 1342597.143785958,
+      "line": "D_RX_FRAME_COMPLETE,22,2,22,57991709"
+    },
+    {
+      "host_monotonic": 1342597.143984208,
+      "line": "D_RX_CRC_OK,22,2,22,57991709"
+    },
+    {
+      "host_monotonic": 1342597.144276041,
+      "line": "UART_BUFFER,FRAME_COMPLETE,57992172,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342597.144382208,
+      "line": "RX,22,22,2,DUP"
+    },
+    {
+      "host_monotonic": 1342597.144551208,
+      "line": "AUX,57993493,0"
+    },
+    {
+      "host_monotonic": 1342597.160101541,
+      "line": "ACK_TX,22,22,2,13"
+    },
+    {
+      "host_monotonic": 1342597.160209208,
+      "line": "AUX,58009169,1"
+    },
+    {
+      "host_monotonic": 1342597.8465275,
+      "line": "AUX,58695657,0"
+    },
+    {
+      "host_monotonic": 1342597.8755155,
+      "line": "AUX,58724705,1"
+    },
+    {
+      "host_monotonic": 1342597.886085875,
+      "line": "D_RX_FIRST_BYTE,23,0,23,58735087"
+    },
+    {
+      "host_monotonic": 1342597.886189541,
+      "line": "D_RX_HEADER_COMPLETE,23,0,23,58735149"
+    },
+    {
+      "host_monotonic": 1342597.886288541,
+      "line": "D_RX_FRAME_COMPLETE,23,0,23,58735231"
+    },
+    {
+      "host_monotonic": 1342597.886365666,
+      "line": "D_RX_CRC_OK,23,0,23,58735231"
+    },
+    {
+      "host_monotonic": 1342597.886517916,
+      "line": "UART_BUFFER,FRAME_COMPLETE,58735709,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342597.886560958,
+      "line": "RX,23,23,0,NEW"
+    },
+    {
+      "host_monotonic": 1342597.886634166,
+      "line": "DELIVER,23,23"
+    },
+    {
+      "host_monotonic": 1342597.887858791,
+      "line": "AUX,58737118,0"
+    },
+    {
+      "host_monotonic": 1342597.903628958,
+      "line": "ACK_TX,23,23,0,13"
+    },
+    {
+      "host_monotonic": 1342597.903676666,
+      "line": "AUX,58752801,1"
+    },
+    {
+      "host_monotonic": 1342598.590513,
+      "line": "AUX,59439389,0"
+    },
+    {
+      "host_monotonic": 1342598.620290625,
+      "line": "AUX,59469202,1"
+    },
+    {
+      "host_monotonic": 1342598.631615833,
+      "line": "D_RX_FIRST_BYTE,23,1,23,59479588"
+    },
+    {
+      "host_monotonic": 1342598.632203958,
+      "line": "D_RX_HEADER_COMPLETE,23,1,23,59479651"
+    },
+    {
+      "host_monotonic": 1342598.634927708,
+      "line": "D_RX_FRAME_COMPLETE,23,1,23,59479733"
+    },
+    {
+      "host_monotonic": 1342598.635328708,
+      "line": "D_RX_CRC_OK,23,1,23,59479733"
+    },
+    {
+      "host_monotonic": 1342598.635773166,
+      "line": "UART_BUFFER,FRAME_COMPLETE,59480210,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342598.635962125,
+      "line": "DROP,DATA,23,23,1"
+    },
+    {
+      "host_monotonic": 1342599.621759541,
+      "line": "AUX,60470646,0"
+    },
+    {
+      "host_monotonic": 1342599.65111925,
+      "line": "AUX,60500203,1"
+    },
+    {
+      "host_monotonic": 1342599.661869791,
+      "line": "D_RX_FIRST_BYTE,23,2,23,60510377"
+    },
+    {
+      "host_monotonic": 1342599.662412458,
+      "line": "D_RX_HEADER_COMPLETE,23,2,23,60510439"
+    },
+    {
+      "host_monotonic": 1342599.662930583,
+      "line": "D_RX_FRAME_COMPLETE,23,2,23,60510514"
+    },
+    {
+      "host_monotonic": 1342599.663292625,
+      "line": "D_RX_CRC_OK,23,2,23,60510514"
+    },
+    {
+      "host_monotonic": 1342599.663748416,
+      "line": "UART_BUFFER,FRAME_COMPLETE,60510977,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342599.663915041,
+      "line": "RX,23,23,2,DUP"
+    },
+    {
+      "host_monotonic": 1342599.664076375,
+      "line": "AUX,60512302,0"
+    },
+    {
+      "host_monotonic": 1342599.678953625,
+      "line": "ACK_TX,23,23,2,13"
+    },
+    {
+      "host_monotonic": 1342599.679118916,
+      "line": "AUX,60527974,1"
+    },
+    {
+      "host_monotonic": 1342600.366295458,
+      "line": "AUX,61215192,0"
+    },
+    {
+      "host_monotonic": 1342600.3958025,
+      "line": "AUX,61244743,1"
+    },
+    {
+      "host_monotonic": 1342600.406507208,
+      "line": "D_RX_FIRST_BYTE,24,0,24,61255126"
+    },
+    {
+      "host_monotonic": 1342600.407084833,
+      "line": "D_RX_HEADER_COMPLETE,24,0,24,61255188"
+    },
+    {
+      "host_monotonic": 1342600.407623708,
+      "line": "D_RX_FRAME_COMPLETE,24,0,24,61255270"
+    },
+    {
+      "host_monotonic": 1342600.408066666,
+      "line": "D_RX_CRC_OK,24,0,24,61255270"
+    },
+    {
+      "host_monotonic": 1342600.408714583,
+      "line": "UART_BUFFER,FRAME_COMPLETE,61255787,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342600.408934666,
+      "line": "RX,24,24,0,NEW"
+    },
+    {
+      "host_monotonic": 1342600.409157416,
+      "line": "DELIVER,24,24"
+    },
+    {
+      "host_monotonic": 1342600.409438,
+      "line": "AUX,61257190,0"
+    },
+    {
+      "host_monotonic": 1342600.423899333,
+      "line": "ACK_TX,24,24,0,13"
+    },
+    {
+      "host_monotonic": 1342600.424124833,
+      "line": "AUX,61272873,1"
+    },
+    {
+      "host_monotonic": 1342601.109912166,
+      "line": "AUX,61959017,0"
+    },
+    {
+      "host_monotonic": 1342601.139152291,
+      "line": "AUX,61988252,1"
+    },
+    {
+      "host_monotonic": 1342601.149833458,
+      "line": "D_RX_FIRST_BYTE,24,1,24,61998635"
+    },
+    {
+      "host_monotonic": 1342601.150157125,
+      "line": "D_RX_HEADER_COMPLETE,24,1,24,61998697"
+    },
+    {
+      "host_monotonic": 1342601.150404666,
+      "line": "D_RX_FRAME_COMPLETE,24,1,24,61998780"
+    },
+    {
+      "host_monotonic": 1342601.1505985,
+      "line": "D_RX_CRC_OK,24,1,24,61998780"
+    },
+    {
+      "host_monotonic": 1342601.150895041,
+      "line": "UART_BUFFER,FRAME_COMPLETE,61999257,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342601.150999375,
+      "line": "RX,24,24,1,DUP"
+    },
+    {
+      "host_monotonic": 1342601.151335625,
+      "line": "AUX,62000602,0"
+    },
+    {
+      "host_monotonic": 1342601.167150791,
+      "line": "ACK_TX,24,24,1,13"
+    },
+    {
+      "host_monotonic": 1342601.167260125,
+      "line": "AUX,62016278,1"
+    },
+    {
+      "host_monotonic": 1342601.853608041,
+      "line": "AUX,62702515,0"
+    },
+    {
+      "host_monotonic": 1342601.882886875,
+      "line": "AUX,62731872,1"
+    },
+    {
+      "host_monotonic": 1342601.89382725,
+      "line": "D_RX_FIRST_BYTE,24,2,24,62742253"
+    },
+    {
+      "host_monotonic": 1342601.894384416,
+      "line": "D_RX_HEADER_COMPLETE,24,2,24,62742317"
+    },
+    {
+      "host_monotonic": 1342601.894921083,
+      "line": "D_RX_FRAME_COMPLETE,24,2,24,62742399"
+    },
+    {
+      "host_monotonic": 1342601.895348666,
+      "line": "D_RX_CRC_OK,24,2,24,62742399"
+    },
+    {
+      "host_monotonic": 1342601.89601225,
+      "line": "UART_BUFFER,FRAME_COMPLETE,62742879,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342601.89624375,
+      "line": "RX,24,24,2,DUP"
+    },
+    {
+      "host_monotonic": 1342601.896463041,
+      "line": "AUX,62744227,0"
+    },
+    {
+      "host_monotonic": 1342601.910821708,
+      "line": "ACK_TX,24,24,2,13"
+    },
+    {
+      "host_monotonic": 1342601.911053458,
+      "line": "AUX,62759903,1"
+    },
+    {
+      "host_monotonic": 1342602.597894416,
+      "line": "AUX,63446950,0"
+    },
+    {
+      "host_monotonic": 1342602.627401625,
+      "line": "AUX,63476390,1"
+    },
+    {
+      "host_monotonic": 1342602.638108875,
+      "line": "D_RX_FIRST_BYTE,25,0,25,63486563"
+    },
+    {
+      "host_monotonic": 1342602.63864625,
+      "line": "D_RX_HEADER_COMPLETE,25,0,25,63486622"
+    },
+    {
+      "host_monotonic": 1342602.639170125,
+      "line": "D_RX_FRAME_COMPLETE,25,0,25,63486704"
+    },
+    {
+      "host_monotonic": 1342602.639585541,
+      "line": "D_RX_CRC_OK,25,0,25,63486704"
+    },
+    {
+      "host_monotonic": 1342602.640221333,
+      "line": "UART_BUFFER,FRAME_COMPLETE,63487185,0,0,0,0"
+    },
+    {
+      "host_monotonic": 1342602.640441,
+      "line": "RX,25,25,0,NEW"
+    },
+    {
+      "host_monotonic": 1342602.640654333,
+      "line": "DELIVER,25,25"
+    },
+    {
+      "host_monotonic": 1342602.640891375,
+      "line": "AUX,63488589,0"
+    },
+    {
+      "host_monotonic": 1342602.655075,
+      "line": "ACK_TX,25,25,0,13"
+    },
+    {
+      "host_monotonic": 1342602.655239875,
+      "line": "AUX,63504267,1"
+    }
+  ],
+  "reset": {
+    "sensor_reset": [
+      "RESET,OK"
+    ],
+    "gateway_reset": [
+      "RESET,OK"
+    ],
+    "sensor_ready": [
+      "ROLE,SENSOR,1,17,16",
+      "E220_READY"
+    ],
+    "gateway_ready": [
+      "ROLE,GATEWAY,2,17,16",
+      "E220_READY"
+    ],
+    "reset_contract": "Sensor RESET clears sequence/classifier/link/counters and E220 parser diagnostics; Gateway RESET clears duplicate table/sequence/counters/armed state and E220 parser diagnostics"
+  },
+  "configured_sensor": [
+    "CONFIGURED,UNIFORM_BUDGET,0.2000,RANDOM_COPY,31,3,2,3"
+  ],
+  "configured_gateway": [
+    "CONFIGURED,UNIFORM_BUDGET,0.2000,RANDOM_COPY,31,3,2,3"
+  ],
+  "trace_ready": [
+    "TRACE_READY,54"
+  ],
+  "start_command_attempted": true,
+  "failure": "TimeoutError('uniform_budget_random_copy_20_seed31: firmware END timeout')"
+}

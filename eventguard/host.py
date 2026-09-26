@@ -23,6 +23,7 @@ from .trace import generate_trace, trace_fingerprint
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
+SERIAL_CAPTURE_VERSION = "chunked-read-4096-incremental-line-framing-v1"
 
 
 def load_config() -> dict:
@@ -112,6 +113,9 @@ class SerialLogReader:
         self.serial = serial.Serial(port, baudrate=baud, timeout=0.05, write_timeout=2)
         self.lines: list[tuple[float, str]] = []
         self.lock = threading.Lock()
+        self._framer = SerialLineFramer()
+        self._capture_stats = {"bytes_read": 0, "lines_read": 0, "read_calls": 0,
+                               "max_read_chunk_bytes": 0, "reader_errors": 0}
         self.stop_event = threading.Event()
         self.thread = threading.Thread(target=self._read, name=f"serial-{Path(port).name}", daemon=True)
         self.thread.start()
@@ -119,13 +123,23 @@ class SerialLogReader:
     def _read(self):
         while not self.stop_event.is_set():
             try:
-                raw = self.serial.readline()
+                # Read chunks and frame lines locally. pyserial.readline() reads a byte at a
+                # time; under simultaneous verbose Sensor/Gateway output that needlessly
+                # increases syscall overhead and can let the USB serial receive queue lag.
+                raw = self.serial.read(4096)
                 if raw:
-                    line = raw.decode("utf-8", errors="replace").strip()
+                    read_at = time.monotonic()
                     with self.lock:
-                        self.lines.append((time.monotonic(), line))
+                        lines = self._framer.feed(raw)
+                        self._capture_stats["bytes_read"] += len(raw)
+                        self._capture_stats["read_calls"] += 1
+                        self._capture_stats["max_read_chunk_bytes"] = max(
+                            self._capture_stats["max_read_chunk_bytes"], len(raw))
+                        self._capture_stats["lines_read"] += len(lines)
+                        self.lines.extend((read_at, line) for line in lines)
             except Exception as exc:
                 with self.lock:
+                    self._capture_stats["reader_errors"] += 1
                     self.lines.append((time.monotonic(), f"HOST_SERIAL_ERROR,{exc!r}"))
                 return
 
@@ -138,10 +152,41 @@ class SerialLogReader:
             lines, self.lines = self.lines, []
         return lines
 
+    def capture_snapshot(self) -> dict:
+        with self.lock:
+            return {**self._capture_stats, "pending_bytes": self._framer.pending_bytes}
+
     def close(self):
         self.stop_event.set()
         self.thread.join(timeout=1)
         self.serial.close()
+
+
+class SerialLineFramer:
+    """Incrementally split a byte stream into complete UTF-8 serial log lines."""
+
+    def __init__(self, max_line_bytes: int = 65536):
+        self._buffer = bytearray()
+        self.max_line_bytes = max_line_bytes
+
+    @property
+    def pending_bytes(self) -> int:
+        return len(self._buffer)
+
+    def feed(self, chunk: bytes) -> list[str]:
+        self._buffer.extend(chunk)
+        lines = []
+        while True:
+            newline = self._buffer.find(b"\n")
+            if newline < 0:
+                if len(self._buffer) > self.max_line_bytes:
+                    self._buffer.clear()
+                    raise ValueError(f"serial line exceeded {self.max_line_bytes} bytes without newline")
+                break
+            raw_line = bytes(self._buffer[:newline]).rstrip(b"\r")
+            del self._buffer[:newline + 1]
+            lines.append(raw_line.decode("utf-8", errors="replace").strip())
+        return lines
 
 
 def discover_boards(discovery_seconds: float = 12.0) -> tuple[dict, dict[str, SerialLogReader]]:

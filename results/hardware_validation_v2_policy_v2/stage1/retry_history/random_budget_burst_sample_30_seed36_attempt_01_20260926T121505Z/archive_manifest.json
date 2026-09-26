@@ -1,0 +1,23 @@
+{
+  "run_id": "random_budget_burst_sample_30_seed36",
+  "attempt": 1,
+  "archived_at_utc": "2026-09-26T12:15:05.027695+00:00",
+  "raw_sha256": "86637da68e18586e1302227e44f21a8891d8721072a158d62047efe34c9b6d5c",
+  "run_manifest_sha256": "4dee6b2846daa03784473c8ed61c76e450c740bec8de418055b9d676c01592e3",
+  "firmware_images_sha256": {
+    "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+    "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+  },
+  "classification": "incomplete USB console log capture; firmware completed all 54 samples",
+  "evidence": {
+    "sensor_end": "END,54,145,79,0",
+    "gateway_end": "END,54,103,38,65,103,0,42,16,0",
+    "sensor_uart_diag": "UART_DIAG,uart_bytes_received,1339,frames_started,103,frames_completed,103,partial_header_timeouts,0,partial_body_timeouts,0,short_reads,0,parser_resyncs,0,crc_failures,0,invalid_type,0,invalid_version,0,rx_buffered_bytes_peak,12,aux_interrupts,496,aux_ring_overflow,0",
+    "gateway_uart_diag": "UART_DIAG,uart_bytes_received,3770,frames_started,145,frames_completed,145,partial_header_timeouts,0,partial_body_timeouts,0,short_reads,0,parser_resyncs,0,crc_failures,0,invalid_type,0,invalid_version,0,rx_buffered_bytes_peak,25,aux_interrupts,496,aux_ring_overflow,0",
+    "sensor_console_tx_lines": 115,
+    "gateway_console_rx_and_drop_lines": 115,
+    "sensor_sample_event_lines": 43,
+    "sensor_sample_summary_lines": 43
+  },
+  "retry_authorization": "User explicitly requested: rerun run 93 and continue the Stage 1 sequence."
+}

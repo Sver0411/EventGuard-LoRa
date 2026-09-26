@@ -1,0 +1,44 @@
+{
+  "run_id": "random_budget_burst_sample_30_seed36",
+  "attempt": 2,
+  "archived_at_utc": "2026-09-26T12:22:09.453307+00:00",
+  "raw_sha256": "080f0f4cb017315c0eb7c5295bd8df200510ac4e8126ecb4fb1b7d425e4a86c2",
+  "run_manifest_sha256": "dc593621d540bb630470caa4d431e59e0960126f52fd2b12634e8828424b46c9",
+  "firmware_images_sha256": {
+    "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+    "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+  },
+  "classification": "host validation false positive: total physical ACK receptions were compared with accepted ACKs",
+  "evidence": {
+    "sensor_end": "END,54,145,79,0",
+    "gateway_end": "END,54,103,38,65,103,0,42,16,0",
+    "sensor_uart_diag": "UART_DIAG,uart_bytes_received,1339,frames_started,103,frames_completed,103,partial_header_timeouts,0,partial_body_timeouts,0,short_reads,0,parser_resyncs,0,crc_failures,0,invalid_type,0,invalid_version,0,rx_buffered_bytes_peak,12,aux_interrupts,496,aux_ring_overflow,0",
+    "gateway_uart_diag": "UART_DIAG,uart_bytes_received,3770,frames_started,145,frames_completed,145,partial_header_timeouts,0,partial_body_timeouts,0,short_reads,0,parser_resyncs,0,crc_failures,0,invalid_type,0,invalid_version,0,rx_buffered_bytes_peak,25,aux_interrupts,496,aux_ring_overflow,0",
+    "sensor_console_tx_lines": 145,
+    "sensor_console_ack_ok_lines": 79,
+    "sensor_console_ack_drop_lines": 24,
+    "sensor_console_sample_event_lines": 54,
+    "sensor_console_sample_summary_lines": 54,
+    "gateway_console_rx_and_drop_lines": 145,
+    "gateway_console_frame_complete_lines": 145,
+    "sensor_uart_completed_ack_frames": 103,
+    "sensor_firmware_accepted_ack_count": 79,
+    "sensor_console_capture": {
+      "bytes_read": 48970,
+      "lines_read": 1870,
+      "read_calls": 295,
+      "reader_errors": 0,
+      "max_read_chunk_bytes": 480,
+      "pending_bytes_at_end": 0
+    },
+    "gateway_console_capture": {
+      "bytes_read": 40186,
+      "lines_read": 1515,
+      "read_calls": 298,
+      "reader_errors": 0,
+      "max_read_chunk_bytes": 307,
+      "pending_bytes_at_end": 0
+    }
+  },
+  "retry_authorization": "User explicitly requested: rerun run 93 and continue the Stage 1 sequence."
+}

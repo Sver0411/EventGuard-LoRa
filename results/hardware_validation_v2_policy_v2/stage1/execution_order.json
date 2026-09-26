@@ -1,0 +1,1125 @@
+{
+  "execution_order_seed": 4170411,
+  "execution_order": [
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 1
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 2
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "RANDOM_BUDGET",
+      "order": 3
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "EVENTGUARD",
+      "order": 4
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "RANDOM_BUDGET",
+      "order": 5
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 6
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "EVENTGUARD",
+      "order": 7
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 8
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "EVENTGUARD",
+      "order": 9
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 10
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "RANDOM_BUDGET",
+      "order": 11
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 31,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 12
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "EVENTGUARD",
+      "order": 13
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "RANDOM_BUDGET",
+      "order": 14
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 15
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 31,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 16
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "EVENTGUARD",
+      "order": 17
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "RANDOM_BUDGET",
+      "order": 18
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 19
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 20
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 21
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 22
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "RANDOM_BUDGET",
+      "order": 23
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "EVENTGUARD",
+      "order": 24
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "EVENTGUARD",
+      "order": 25
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "RANDOM_BUDGET",
+      "order": 26
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 27
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 32,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 28
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "EVENTGUARD",
+      "order": 29
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 30
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "RANDOM_BUDGET",
+      "order": 31
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 32,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 32
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "RANDOM_BUDGET",
+      "order": 33
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 34
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "EVENTGUARD",
+      "order": 35
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 36
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 37
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "RANDOM_BUDGET",
+      "order": 38
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 39
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "EVENTGUARD",
+      "order": 40
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 41
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "EVENTGUARD",
+      "order": 42
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "RANDOM_BUDGET",
+      "order": 43
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 33,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 44
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 45
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "RANDOM_BUDGET",
+      "order": 46
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "EVENTGUARD",
+      "order": 47
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 33,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 48
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "EVENTGUARD",
+      "order": 49
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 50
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "RANDOM_BUDGET",
+      "order": 51
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 52
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 53
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "RANDOM_BUDGET",
+      "order": 54
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 55
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "EVENTGUARD",
+      "order": 56
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "RANDOM_BUDGET",
+      "order": 57
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "EVENTGUARD",
+      "order": 58
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 59
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 34,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 60
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "RANDOM_BUDGET",
+      "order": 61
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "EVENTGUARD",
+      "order": 62
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 63
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 34,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 64
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "RANDOM_BUDGET",
+      "order": 65
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 66
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 67
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "EVENTGUARD",
+      "order": 68
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 69
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "EVENTGUARD",
+      "order": 70
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "RANDOM_BUDGET",
+      "order": 71
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 72
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "RANDOM_BUDGET",
+      "order": 73
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 74
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "EVENTGUARD",
+      "order": 75
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 35,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 76
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "RANDOM_BUDGET",
+      "order": 77
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 78
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "EVENTGUARD",
+      "order": 79
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 35,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 80
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 81
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "EVENTGUARD",
+      "order": 82
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 83
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "RANDOM_BUDGET",
+      "order": 84
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 85
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "RANDOM_BUDGET",
+      "order": 86
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 87
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "EVENTGUARD",
+      "order": 88
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "RANDOM_BUDGET",
+      "order": 89
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "EVENTGUARD",
+      "order": 90
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 91
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 36,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 92
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "RANDOM_BUDGET",
+      "order": 93
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 94
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "EVENTGUARD",
+      "order": 95
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 36,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 96
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "RANDOM_BUDGET",
+      "order": 97
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 98
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "EVENTGUARD",
+      "order": 99
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 100
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "RANDOM_BUDGET",
+      "order": 101
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 102
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 103
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "EVENTGUARD",
+      "order": 104
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "RANDOM_BUDGET",
+      "order": 105
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "EVENTGUARD",
+      "order": 106
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 107
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 37,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 108
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "RANDOM_BUDGET",
+      "order": 109
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 110
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 111
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 37,
+      "strategy": "EVENTGUARD",
+      "order": 112
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "EVENTGUARD",
+      "order": 113
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "RANDOM_BUDGET",
+      "order": 114
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 115
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 116
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 117
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "RANDOM_BUDGET",
+      "order": 118
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "EVENTGUARD",
+      "order": 119
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 120
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 121
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "EVENTGUARD",
+      "order": 122
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 123
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 38,
+      "strategy": "RANDOM_BUDGET",
+      "order": 124
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 125
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "RANDOM_BUDGET",
+      "order": 126
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 127
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 38,
+      "strategy": "EVENTGUARD",
+      "order": 128
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "RANDOM_BUDGET",
+      "order": 129
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 130
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "EVENTGUARD",
+      "order": 131
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 132
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "EVENTGUARD",
+      "order": 133
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 134
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 135
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "RANDOM_BUDGET",
+      "order": 136
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "EVENTGUARD",
+      "order": 137
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "RANDOM_BUDGET",
+      "order": 138
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 139
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 39,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 140
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "RANDOM_BUDGET",
+      "order": 141
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "EVENTGUARD",
+      "order": 142
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 143
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 39,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 144
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 145
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 146
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "RANDOM_BUDGET",
+      "order": 147
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "EVENTGUARD",
+      "order": 148
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 149
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 150
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "EVENTGUARD",
+      "order": 151
+    },
+    {
+      "model": "RANDOM_COPY",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "RANDOM_BUDGET",
+      "order": 152
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 153
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "RANDOM_BUDGET",
+      "order": 154
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 155
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.2,
+      "seed": 40,
+      "strategy": "EVENTGUARD",
+      "order": 156
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "EVENTGUARD",
+      "order": 157
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "IMPORTANCE_ONLY",
+      "order": 158
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "UNIFORM_BUDGET",
+      "order": 159
+    },
+    {
+      "model": "BURST_SAMPLE",
+      "rate": 0.3,
+      "seed": 40,
+      "strategy": "RANDOM_BUDGET",
+      "order": 160
+    }
+  ]
+}

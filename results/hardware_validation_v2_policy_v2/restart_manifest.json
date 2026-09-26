@@ -1,0 +1,17 @@
+{
+  "restart_study": "hardware_validation_v2_policy_v2",
+  "restart_from": "results/hardware_validation_v2",
+  "reason": "Preserve the first STARTed END-timeout attempt and apply the versioned physical-noise gate to a fresh Stage 1 dataset.",
+  "old_failed_attempt": "uniform_budget_random_copy_20_seed31",
+  "old_failed_attempt_raw_sha256": "6b979cfb4a68c3520ef3f1bbd1115ab720959c99d35ee9bc9c7cd588a530f7eb",
+  "policy_path": "stage1/stage1_policy_amendment_v1.md",
+  "policy_sha256": "67ca92f8c53ad96f5cfd3ec9ab8ed8dfc99ffe753673a0f298a395ad8cc8b48a",
+  "diagnostic_manifest": "results/hardware_validation_v2/end_timeout_diagnostic_v1/diagnostic_manifest.json",
+  "diagnostic_status": "complete",
+  "copied_smoke_runs": 12,
+  "firmware_images_sha256": {
+    "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+    "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+  },
+  "formal_stage1_started": false
+}

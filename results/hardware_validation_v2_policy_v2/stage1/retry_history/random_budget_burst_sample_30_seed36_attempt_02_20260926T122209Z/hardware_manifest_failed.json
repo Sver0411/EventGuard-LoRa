@@ -1,0 +1,1402 @@
+{
+  "git_commit": "5fa78641edc8efdd0007a2033a28762d688633f5",
+  "branch": "codex/e220-receive-diagnostic-v1",
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_spec_v1_sha256": "ab07fd9cac09acb53a6335e398c2e9f9d32f916bf5da34696ca69d349ce0d522",
+  "config_sha256": "687f92948fdb49e06079f2df9c2a3bc03c39a776b90f13b639f6be36f6dbf234",
+  "frozen_core_sha256": {
+    "eventguard/importance.py": "e8a32c16ce9f2a8c8e1d8aa9060162190ac1e567e8350b7a95b2d61bfe908d6d",
+    "eventguard/strategy.py": "d46893ca68b30481115a6ea02c40e331c1e6f4b09a16d3b58d3b9949876773f3",
+    "eventguard/faults.py": "db1995b06d165af614c16ec661919f017e6e788b92759b86095365294a97a660",
+    "eventguard/simulator.py": "7b86c81316dad083b2615f9b0b80e1fd03a8fdd1b52e0ea39608a2b60e57b4a6",
+    "eventguard/trace.py": "e05f9dbb5f9c250459cc37e89e56349030d10a774914ceb326b5c86c21009614",
+    "eventguard/model.py": "bedb4d63e841489d84cf68d763837172a5fd78bf03b8b4215e4b825b5a1f9daa",
+    "firmware/common/importance.c": "26342d36b2bbe9f9743ea797f073c64bbd64feeffac0d68f954d003849ce3e14",
+    "firmware/common/strategy.c": "cd9a17696ee2e76ce656ae00d5fb7fe4b11b6b14a4f95064f2bd874118a21061",
+    "firmware/common/faults.c": "8366d31c29a8f2f927c468ef9b43cb61c29a228e87929d0b2b3db17c96e59129",
+    "firmware/main/main.c": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302"
+  },
+  "firmware_main_additive_diagnostic_extension": true,
+  "sensor_firmware_source_sha256": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302",
+  "gateway_firmware_source_sha256": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302",
+  "firmware_images_sha256": {
+    "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+    "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+  },
+  "firmware_image_manifest_commit": "b7ff9f374dd76b1be39bb04a84e1ad24ff0ea213",
+  "firmware_hash_source": "active app partitions read from Sensor/Gateway; exact canonical image hashes match v2 smoke",
+  "e220_configuration": {
+    "uart_num": 1,
+    "tx_gpio": 17,
+    "rx_gpio": 16,
+    "aux_gpio": 15,
+    "m0_gpio": 13,
+    "m1_gpio": 14,
+    "baud": 9600,
+    "address": 0,
+    "reg0": 98,
+    "channel": 23
+  },
+  "compatibility_fixes": [
+    "SAMPLE serial parser corrected from fields 2/4/5 to 3/5/6 after an initial smoke attempt; affected condition rerun",
+    "E220 receive parser retains stream state and incrementally accumulates short UART reads",
+    "Gateway END s_rx_count is validated against post-injection physical_data_received",
+    "Stage 1 uses frozen device-recovered firmware artifacts; current build/ output is never used",
+    "Stage 1 strategy order is shuffled across all four strategies using the recorded seed",
+    "Stage 1 equal-DATA budgets are computed from frozen host references before the first START"
+  ],
+  "hardware": {
+    "sensor_port": "/dev/cu.usbmodem1401",
+    "gateway_port": "/dev/cu.usbmodem1101",
+    "candidates": [
+      {
+        "device": "/dev/cu.usbmodem1101",
+        "description": "USB JTAG/serial debug unit",
+        "hwid": "USB VID:PID=303A:1001 SER=C0:4E:30:31:42:9C LOCATION=1-1"
+      },
+      {
+        "device": "/dev/cu.usbmodem1401",
+        "description": "USB JTAG/serial debug unit",
+        "hwid": "USB VID:PID=303A:1001 SER=80:65:99:A7:A8:A4 LOCATION=0-1.4"
+      }
+    ],
+    "discovery_lines": {
+      "/dev/cu.usbmodem1101": [
+        "ROLE,GATEWAY,2,17,16",
+        "E220_READY"
+      ],
+      "/dev/cu.usbmodem1401": [
+        "ROLE,SENSOR,1,17,16",
+        "E220_READY"
+      ]
+    },
+    "identified_at": "2026-09-26T12:15:23.783870+00:00",
+    "chip_macs": {
+      "sensor": "80:65:99:a7:a8:a4",
+      "gateway": "c0:4e:30:31:42:9c"
+    }
+  },
+  "execution_order_seed": 4170411,
+  "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
+  "airtime_proxy": "10 bits per UART byte at 9600 baud; includes start/stop bits, excludes E220 RF PHY airtime",
+  "energy": "not estimated; no current sensor",
+  "stages": {
+    "smoke": {
+      "planned_runs": 12,
+      "execution_order": [
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 1
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 2
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "FIXED_2",
+          "order": 3
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 4
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 5
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "FIXED_2",
+          "order": 6
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 7
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "FIXED_2",
+          "order": 8
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 9
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 10
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 11
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "FIXED_2",
+          "order": 12
+        }
+      ],
+      "passed_runs": 12,
+      "failed_runs": 0,
+      "not_attempted_runs": 0,
+      "gate_status": "PASS"
+    },
+    "stage1": {
+      "planned_runs": 160,
+      "execution_order": [
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 1
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 2
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "RANDOM_BUDGET",
+          "order": 3
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 4
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "RANDOM_BUDGET",
+          "order": 5
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 6
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 7
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 8
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 9
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 10
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "RANDOM_BUDGET",
+          "order": 11
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 12
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 13
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "RANDOM_BUDGET",
+          "order": 14
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 15
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 31,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 16
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 17
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "RANDOM_BUDGET",
+          "order": 18
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 19
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 20
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 21
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 22
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "RANDOM_BUDGET",
+          "order": 23
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 24
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 25
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "RANDOM_BUDGET",
+          "order": 26
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 27
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 28
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 29
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 30
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "RANDOM_BUDGET",
+          "order": 31
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 32
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "RANDOM_BUDGET",
+          "order": 33
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 34
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "EVENTGUARD",
+          "order": 35
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 36
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 37
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "RANDOM_BUDGET",
+          "order": 38
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 39
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "EVENTGUARD",
+          "order": 40
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 41
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "EVENTGUARD",
+          "order": 42
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "RANDOM_BUDGET",
+          "order": 43
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 33,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 44
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 45
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "RANDOM_BUDGET",
+          "order": 46
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "EVENTGUARD",
+          "order": 47
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 33,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 48
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "EVENTGUARD",
+          "order": 49
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 50
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "RANDOM_BUDGET",
+          "order": 51
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 52
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 53
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "RANDOM_BUDGET",
+          "order": 54
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 55
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "EVENTGUARD",
+          "order": 56
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "RANDOM_BUDGET",
+          "order": 57
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "EVENTGUARD",
+          "order": 58
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 59
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 34,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 60
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "RANDOM_BUDGET",
+          "order": 61
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "EVENTGUARD",
+          "order": 62
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 63
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 34,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 64
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "RANDOM_BUDGET",
+          "order": 65
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 66
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 67
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "EVENTGUARD",
+          "order": 68
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 69
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "EVENTGUARD",
+          "order": 70
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "RANDOM_BUDGET",
+          "order": 71
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 72
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "RANDOM_BUDGET",
+          "order": 73
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 74
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "EVENTGUARD",
+          "order": 75
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 35,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 76
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "RANDOM_BUDGET",
+          "order": 77
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 78
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "EVENTGUARD",
+          "order": 79
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 35,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 80
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 81
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "EVENTGUARD",
+          "order": 82
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 83
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "RANDOM_BUDGET",
+          "order": 84
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 85
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "RANDOM_BUDGET",
+          "order": 86
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 87
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "EVENTGUARD",
+          "order": 88
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "RANDOM_BUDGET",
+          "order": 89
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "EVENTGUARD",
+          "order": 90
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 91
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 36,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 92
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "RANDOM_BUDGET",
+          "order": 93
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 94
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "EVENTGUARD",
+          "order": 95
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 36,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 96
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "RANDOM_BUDGET",
+          "order": 97
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 98
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "EVENTGUARD",
+          "order": 99
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 100
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "RANDOM_BUDGET",
+          "order": 101
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 102
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 103
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "EVENTGUARD",
+          "order": 104
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "RANDOM_BUDGET",
+          "order": 105
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "EVENTGUARD",
+          "order": 106
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 107
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 37,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 108
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "RANDOM_BUDGET",
+          "order": 109
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 110
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 111
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 37,
+          "strategy": "EVENTGUARD",
+          "order": 112
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "EVENTGUARD",
+          "order": 113
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "RANDOM_BUDGET",
+          "order": 114
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 115
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 116
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 117
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "RANDOM_BUDGET",
+          "order": 118
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "EVENTGUARD",
+          "order": 119
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 120
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 121
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "EVENTGUARD",
+          "order": 122
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 123
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 38,
+          "strategy": "RANDOM_BUDGET",
+          "order": 124
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 125
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "RANDOM_BUDGET",
+          "order": 126
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 127
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 38,
+          "strategy": "EVENTGUARD",
+          "order": 128
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "RANDOM_BUDGET",
+          "order": 129
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 130
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "EVENTGUARD",
+          "order": 131
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 132
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "EVENTGUARD",
+          "order": 133
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 134
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 135
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "RANDOM_BUDGET",
+          "order": 136
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "EVENTGUARD",
+          "order": 137
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "RANDOM_BUDGET",
+          "order": 138
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 139
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 39,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 140
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "RANDOM_BUDGET",
+          "order": 141
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "EVENTGUARD",
+          "order": 142
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 143
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 39,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 144
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 145
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 146
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "RANDOM_BUDGET",
+          "order": 147
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "EVENTGUARD",
+          "order": 148
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 149
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 150
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "EVENTGUARD",
+          "order": 151
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "RANDOM_BUDGET",
+          "order": 152
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 153
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "RANDOM_BUDGET",
+          "order": 154
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 155
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.2,
+          "seed": 40,
+          "strategy": "EVENTGUARD",
+          "order": 156
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "EVENTGUARD",
+          "order": 157
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 158
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "UNIFORM_BUDGET",
+          "order": 159
+        },
+        {
+          "model": "BURST_SAMPLE",
+          "rate": 0.3,
+          "seed": 40,
+          "strategy": "RANDOM_BUDGET",
+          "order": 160
+        }
+      ],
+      "retry_history": "stage1/retry_history.json",
+      "retry_attempt_count": 1,
+      "gate_status": "FAIL",
+      "completed_runs": 92,
+      "failed_run_id": "random_budget_burst_sample_30_seed36",
+      "failure": {
+        "type": "RuntimeError",
+        "message": "random_budget_burst_sample_30_seed36 failed: ['serial console capture mismatch: Sensor console ACK capture 103 != firmware END accepted_ack 79']"
+      }
+    }
+  },
+  "engineering_bug_log": "engineering_bug_log.md",
+  "receive_path_diagnostic": {
+    "fix_commit": "b9992de1108208393b48b32314568cc97b8688e2",
+    "diagnostic_manifest": "../e220_receive_diagnostic/diagnostic_manifest.json",
+    "diagnostic_report": "../e220_receive_diagnostic/diagnostic_report.md",
+    "firmware_images_sha256": {
+      "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+      "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+    },
+    "pre_fix_firmware": {
+      "git_commit": "13860fb6ef83de552a5c4a2f946a80b15c698770",
+      "sensor_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+      "gateway_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+      "e220_driver_source_sha256": "cb99941ccb20d3416c2177142ca349247a428f3258a94f5240c9206d651cd2f1",
+      "firmware_images_sha256": {
+        "sensor": "ed005d22ed2c5f44c33d9fa52fc5077dd2b68ce0f8030f991540e4ba51f6115d",
+        "gateway": "83492c7972d8f8fb2d5b2dff20cdfc3872db919dfb433031c23f0805be4f25dd"
+      }
+    },
+    "root_cause": "The legacy parser had a confirmed partial-frame loss defect: parser state was local to one receive call and a short body read discarded accumulated bytes. The historical 13 missing frames all followed a no-ACK/DATA-drop path, consistent with that failure mode; original per-byte/AUX logs were not captured, so attribution of each historical frame is not conclusive.",
+    "diagnostic_evidence": {
+      "A": {
+        "status": "pass",
+        "uncontrolled_physical_data_missing": 0,
+        "parser_error_total": 0,
+        "partial_header_timeouts": 0,
+        "partial_body_timeouts": 0
+      },
+      "B": {
+        "status": "pass",
+        "uncontrolled_physical_data_missing": 0,
+        "parser_error_total": 0,
+        "partial_header_timeouts": 0,
+        "partial_body_timeouts": 0
+      },
+      "C": {
+        "status": "pass",
+        "uncontrolled_physical_data_missing": 0,
+        "parser_error_total": 0,
+        "partial_header_timeouts": 0,
+        "partial_body_timeouts": 0
+      }
+    },
+    "timing_sweep_conditions": 0
+  },
+  "hardware_runner_sha256": "853a84fe4cae2428f9377c50e1c6d54a62eaf078e7fe9fde2b0765df8025e793",
+  "hardware_analysis_sha256": "6070719da09ff8a4e212541ad7126163e789a4ab977daceafda3a35afb2d9462",
+  "git_worktree_status": [
+    " M eventguard/hardware_analysis.py",
+    " M eventguard/hardware_validation.py",
+    " M eventguard/host.py",
+    " M eventguard/research_analysis.py",
+    " M results/hardware_validation_v2/hardware_manifest.json",
+    " M tests/test_hardware_validation.py",
+    " M tools/run_hardware_validation.py",
+    "?? artifacts/",
+    "?? eventguard/hardware_diagnostic.py",
+    "?? results/firmware_recovery/",
+    "?? results/hardware_validation_v2/end_timeout_diagnostic_v1/",
+    "?? results/hardware_validation_v2/engineering_bug_log.md",
+    "?? results/hardware_validation_v2/raw/stage1/",
+    "?? results/hardware_validation_v2/runs/stage1/",
+    "?? results/hardware_validation_v2/stage1/",
+    "?? results/hardware_validation_v2/stage1_policy_amendment_v1.md",
+    "?? results/hardware_validation_v2_policy_v2/",
+    "?? tools/archive_stage1_failed_attempt.py",
+    "?? tools/prepare_stage1_policy_restart.py",
+    "?? tools/run_end_timeout_diagnostic.py"
+  ],
+  "git_worktree_clean": false,
+  "firmware_artifact_directory": "artifacts/final_stage1_firmware",
+  "recovery_manifest": "artifacts/final_stage1_firmware/manifest.json",
+  "restart_context": {
+    "restart_study": "hardware_validation_v2_policy_v2",
+    "restart_from": "results/hardware_validation_v2",
+    "reason": "Preserve the first STARTed END-timeout attempt and apply the versioned physical-noise gate to a fresh Stage 1 dataset.",
+    "old_failed_attempt": "uniform_budget_random_copy_20_seed31",
+    "old_failed_attempt_raw_sha256": "6b979cfb4a68c3520ef3f1bbd1115ab720959c99d35ee9bc9c7cd588a530f7eb",
+    "policy_path": "stage1/stage1_policy_amendment_v1.md",
+    "policy_sha256": "67ca92f8c53ad96f5cfd3ec9ab8ed8dfc99ffe753673a0f298a395ad8cc8b48a",
+    "diagnostic_manifest": "results/hardware_validation_v2/end_timeout_diagnostic_v1/diagnostic_manifest.json",
+    "diagnostic_status": "complete",
+    "copied_smoke_runs": 12,
+    "firmware_images_sha256": {
+      "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+      "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+    },
+    "formal_stage1_started": false
+  },
+  "serial_console_capture_version": "chunked-read-4096-incremental-line-framing-v1"
+}
