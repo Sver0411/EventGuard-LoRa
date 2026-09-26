@@ -294,6 +294,7 @@ static uint32_t s_rx_count, s_delivery_count, s_duplicate_count, s_ack_tx_count,
 static uint32_t s_sequence_gaps, s_out_of_order;
 static uint16_t s_last_sequence[256];
 static bool s_have_sequence[256];
+static volatile bool s_rx_pause_requested;
 #if CONFIG_EG_DIAGNOSTIC_MODE
 static volatile bool s_rx_diag_mode;
 static volatile char s_rx_diag_test;
@@ -307,23 +308,27 @@ static bool seen_before(uint8_t node, uint16_t sequence) {
 }
 
 static void clear_gateway_run(void) {
+    s_rx_pause_requested = true;
     memset(s_seen, 0, sizeof(s_seen)); s_seen_count = 0;
     memset(s_last_sequence, 0, sizeof(s_last_sequence)); memset(s_have_sequence, 0, sizeof(s_have_sequence));
     s_rx_count = s_delivery_count = s_duplicate_count = s_ack_tx_count = s_crc_errors = s_drop_count = 0;
     s_sequence_gaps = s_out_of_order = 0;
     eg_e220_reset_diagnostics();
+    s_rx_pause_requested = false;
 }
 
 static void gateway_rx_task(void *unused) {
     (void)unused;
     uint8_t frame[EG_DATA_FRAME_SIZE];
     while (true) {
+        if (s_rx_pause_requested) { vTaskDelay(pdMS_TO_TICKS(1)); continue; }
 #if CONFIG_EG_DIAGNOSTIC_MODE
         uint32_t poll_timeout_ms = s_rx_diag_mode ? s_rx_diag_poll_timeout_ms : 250;
         int length = eg_e220_receive(frame, sizeof(frame), poll_timeout_ms);
 #else
         int length = eg_e220_receive(frame, sizeof(frame), 250);
 #endif
+        if (s_rx_pause_requested) continue;
         if (length == 0) continue;
         if (length < 0) { printf("ERR,UART_RX\n"); continue; }
         eg_data_packet_t packet;
@@ -505,10 +510,10 @@ static void handle_command(char *line) {
     }
     if (!strcasecmp(command, "RESET")) {
 #if CONFIG_EG_ROLE_SENSOR
-        s_stop_requested = true; reset_sensor_run();
 #if CONFIG_EG_DIAGNOSTIC_MODE
         s_rx_diag_stop_requested = true;
 #endif
+        s_stop_requested = true; reset_sensor_run();
 #else
         s_armed = false; clear_gateway_run();
 #if CONFIG_EG_DIAGNOSTIC_MODE
@@ -605,11 +610,13 @@ static void handle_command(char *line) {
     if (!strcasecmp(command, "STOP")) { s_armed = false; printf("STOP,OK\n"); return; }
     if (!strcasecmp(command, "ENDRUN")) {
         s_armed = false;
+        s_rx_pause_requested = true;
         print_e220_diagnostics();
 #if CONFIG_EG_DIAGNOSTIC_MODE
         if (s_rx_diag_mode) printf("DIAG_GATEWAY_END,%u,%u,%u\n", (unsigned)s_rx_count,
             (unsigned)s_drop_count, (unsigned)s_ack_tx_count);
 #endif
+        s_rx_pause_requested = false;
         printf("END,%u,%u,%u,%u,%u,%u,%u,%u,%u\n", (unsigned)s_gateway_expected, (unsigned)s_rx_count, (unsigned)s_delivery_count,
                (unsigned)s_duplicate_count, (unsigned)s_ack_tx_count, (unsigned)s_crc_errors, (unsigned)s_drop_count,
                (unsigned)s_sequence_gaps, (unsigned)s_out_of_order); return;

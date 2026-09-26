@@ -37,6 +37,11 @@ def sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def sha_at_commit(commit: str, relative_path: str) -> str:
+    content = subprocess.check_output(["git", "show", f"{commit}:{relative_path}"], cwd=ROOT)
+    return hashlib.sha256(content).hexdigest()
+
+
 def atomic_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(path.suffix + ".tmp")
@@ -334,12 +339,13 @@ def _prepare_boards(skip_flash: bool) -> tuple[dict, dict[str, SerialLogReader],
                "gateway": SerialLogReader(mapping["gateway_port"])}
     status = {}
     for role, reader in readers.items():
-        reader.write("STATUS")
-        lines = _await(reader, "E220_READY", 15)
-        values = [line for _, line in lines]
         expected_role = "SENSOR" if role == "sensor" else "GATEWAY"
-        if not any(line.startswith(f"ROLE,{expected_role},") for line in values):
-            raise RuntimeError(f"Expected {expected_role} on {reader.port}: {values}")
+        reader.drain()
+        reader.write("STATUS")
+        lines = _await(reader, f"ROLE,{expected_role},", 15)
+        values = [line for _, line in lines]
+        if not any(line == "E220_READY" for line in values):
+            values.extend(line for _, line in _await(reader, "E220_READY", 5))
         status[role] = values
     provenance = {
         "git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
@@ -375,6 +381,11 @@ def _write_report(manifest: dict, tests: list[dict], sweep: list[dict]) -> None:
         f"- Algorithm spec SHA256: `{manifest['algorithm_spec_v1_sha256']}`",
         f"- Serial ports: Sensor `{manifest['serial_ports']['sensor']}`, Gateway `{manifest['serial_ports']['gateway']}`",
         f"- E220 config read/verification: `{manifest['e220_configuration']}`; both boards reported E220_READY.",
+        f"- Pre-fix commit: `{manifest['pre_fix']['git_commit']}`; Sensor/Gateway image SHA256: `{manifest['pre_fix']['firmware_images_sha256']}`.",
+        "",
+        "## Historical 13-Frame Pattern",
+        "",
+        "PR #3 的 141 个 Sensor DATA TX 中，Gateway 在注入前记录 128 帧（100 个 RX、28 个计划 DROP）；另有 13 帧无 RX/DROP 记录。历史日志中 13/13 都紧随前一帧的 `DROP,DATA`，Sensor 未收到 ACK。旧日志没有 AUX edge、UART buffer 或每字节 parser 时间戳，因此它本身不能证明这些帧是 RF 丢失。",
         "",
         "## Test A/B/C",
         "",
@@ -447,6 +458,10 @@ def main() -> int:
     args = parser.parse_args()
     for directory in (OUT / "raw", OUT / "metrics", OUT / "plots"):
         directory.mkdir(parents=True, exist_ok=True)
+    for old in ((OUT / "diagnostic_manifest.json"), (OUT / "metrics/summary.json"),
+                *(OUT / "raw").glob("build_*.log"), *(OUT / "raw").glob("flash_*.log"),
+                *(OUT / "raw").glob("size_*.log"), (OUT / "firmware_size.json")):
+        _preserve_existing(old)
 
     frozen = subprocess.run([str(ROOT / ".venv/bin/python"), "-c",
                              "from eventguard.hardware_validation import frozen_guard; frozen_guard()"],
@@ -454,6 +469,15 @@ def main() -> int:
     if frozen.returncode:
         raise RuntimeError(f"Frozen algorithm guard failed before diagnostic: {frozen.stderr}")
     mapping, readers, provenance = _prepare_boards(args.skip_flash)
+    previous = json.loads((ROOT / "results/hardware_validation_v1/hardware_manifest.json").read_text(encoding="utf-8"))
+    old_commit = previous["git_commit"]
+    provenance["pre_fix"] = {
+        "git_commit": old_commit,
+        "sensor_firmware_source_sha256": previous["sensor_firmware_source_sha256"],
+        "gateway_firmware_source_sha256": previous["gateway_firmware_source_sha256"],
+        "e220_driver_source_sha256": sha_at_commit(old_commit, "firmware/common/e220.c"),
+        "firmware_images_sha256": previous["firmware_images_sha256"],
+    }
     manifest = {**provenance, "created_at_utc": datetime.now(timezone.utc).isoformat(),
                 "purpose": "engineering_only_e220_receive_diagnostic",
                 "tests": {"A": "normal RX+ACK", "B": "ACK suppressed for seq % 5 == 0",
@@ -498,6 +522,7 @@ def main() -> int:
                 "diagnostic_manifest": "../e220_receive_diagnostic/diagnostic_manifest.json",
                 "diagnostic_report": "../e220_receive_diagnostic/diagnostic_report.md",
                 "firmware_images_sha256": provenance["firmware_images_sha256"],
+                "pre_fix_firmware": provenance["pre_fix"],
                 "root_cause": ("The legacy parser had a confirmed partial-frame loss defect: parser state was local to one receive call and a short body read discarded accumulated bytes. The historical 13 missing frames all followed a no-ACK/DATA-drop path, consistent with that failure mode; original per-byte/AUX logs were not captured, so attribution of each historical frame is not conclusive."),
                 "diagnostic_evidence": {item["test"]: {
                     "status": item["status"],
