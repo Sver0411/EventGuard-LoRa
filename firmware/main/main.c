@@ -321,7 +321,7 @@ static void gateway_rx_task(void *unused) {
     (void)unused;
     uint8_t frame[EG_DATA_FRAME_SIZE];
     while (true) {
-        if (s_rx_pause_requested) { vTaskDelay(pdMS_TO_TICKS(1)); continue; }
+        if (s_rx_pause_requested) { vTaskDelay(1); continue; }
 #if CONFIG_EG_DIAGNOSTIC_MODE
         uint32_t poll_timeout_ms = s_rx_diag_mode ? s_rx_diag_poll_timeout_ms : 250;
         int length = eg_e220_receive(frame, sizeof(frame), poll_timeout_ms);
