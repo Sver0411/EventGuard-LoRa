@@ -5,6 +5,7 @@ import csv
 import hashlib
 import json
 import random
+import shutil
 import subprocess
 import time
 from collections import defaultdict
@@ -235,6 +236,14 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
                 return saved
         except (OSError, ValueError, KeyError, TypeError):
             pass
+    # Preserve every failed or incomplete attempt before the same condition is rerun.
+    if raw_path.exists() or manifest_path.exists():
+        archive = OUT / "raw" / "attempts" / stage / run_id
+        archive.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        for source in (raw_path, manifest_path):
+            if source.exists():
+                shutil.copy2(source, archive / f"{stamp}_{source.parent.name}_{source.name}")
     reset = test_run_state_isolation(sensor, gateway, load_config())
     sensor.write(_config_command(config)); gateway.write(_config_command(config))
     configured_sensor = [line for _, line in _lines(sensor, "CONFIGURED")]
@@ -286,6 +295,11 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
         issues.append("incomplete per-sample log")
     if metrics["crc_errors"] or metrics["invalid_packets"] or metrics["out_of_order_packets"]:
         issues.append("CRC, invalid packet, or out-of-order anomaly")
+    for field in ("physical_data_transmissions", "duplicate_packets", "physical_ack_received",
+                  "accepted_ack", "data_injected_drops", "ack_injected_drops", "total_bytes_transmitted"):
+        if metrics[field] != reference["metrics"][field]:
+            issues.append(f"simulation/firmware {field} differs: hardware={metrics[field]}, "
+                          f"host={reference['metrics'][field]}")
     if sensor_end and gateway_end:
         sensor_totals = [int(x) for x in sensor_end[0].split(",")[1:]]
         gateway_totals = [int(x) for x in gateway_end[0].split(",")[1:]]
@@ -338,7 +352,10 @@ def run(stage: str, skip_flash: bool = False) -> dict:
         flash_firmware(images, mapping, cfg, output)
     provenance["firmware_images_sha256"] = {role: sha(path) for role, path in images.items()}
     provenance["e220_configuration"] = cfg["e220"]
-    provenance["compatibility_fixes"] = ["host build/flash logs redirected to hardware_validation_v1; no firmware source changes"]
+    provenance["compatibility_fixes"] = [
+        "host build/flash logs redirected to hardware_validation_v1; no firmware source changes",
+        "SAMPLE serial parser corrected from fields 2/4/5 to 3/5/6 after the first smoke attempt; affected condition rerun",
+    ]
     study = {**provenance, "hardware": mapping, "execution_order_seed": ORDER_SEED,
              "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
              "airtime_proxy": "10 bits per UART byte at 9600 baud; includes start/stop bits, excludes E220 RF PHY airtime",
