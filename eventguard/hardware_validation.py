@@ -123,6 +123,13 @@ def _lines(reader: SerialLogReader, token: str, timeout: float = 8.0):
     return _wait_for_ack(reader, token, timeout)
 
 
+def _ensure_uart_diag(reader: SerialLogReader, captured: list[tuple[float, str]]) -> list[tuple[float, str]]:
+    """Do not wait for a diagnostic line that the END drain already captured."""
+    if any(line.startswith("UART_DIAG,") for _, line in captured):
+        return captured
+    return captured + _lines(reader, "UART_DIAG,", 3)
+
+
 def _status(sensor: SerialLogReader, gateway: SerialLogReader) -> dict:
     result = {}
     for name, reader, role in (("sensor", sensor, "SENSOR"), ("gateway", gateway, "GATEWAY")):
@@ -358,7 +365,7 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
     else:
         raise TimeoutError(f"{run_id}: firmware END timeout")
     sensor_lines.extend(sensor.drain())
-    sensor_lines.extend(_lines(sensor, "UART_DIAG,", 3))
+    sensor_lines = _ensure_uart_diag(sensor, sensor_lines)
     gateway.write("ENDRUN")
     gateway_lines.extend(_lines(gateway, "END,", 6))
     end = time.monotonic()

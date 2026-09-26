@@ -450,7 +450,7 @@ def _write_report(manifest: dict, tests: list[dict], sweep: list[dict]) -> None:
         "",
         "## Diagnostic Runner Incidents",
         "",
-        "初次运行在任何 A/B/C DATA 开始前遇到 Gateway RESET 无响应；后续复查分别发现诊断互斥锁与高优先级轮询的控制路径竞争、100 Hz FreeRTOS 下 1 ms delay 被量化为 0 tick，以及 smoke runner 把 boot `E220_READY` 当作 STATUS 响应。以上已在工程代码中修复；这些尝试未产生 A/B/C 无线实验数据，也未计入 missing frame。详情见 `metrics/runner_incidents.json`。",
+        "A/B/C 诊断开始前遇到的 Gateway RESET 控制路径竞争、100 Hz FreeRTOS 下 1 ms delay 被量化为 0 tick，以及 smoke runner 把 boot `E220_READY` 当作 STATUS 响应，均已修复；这些尝试未产生 A/B/C 无线数据。另有一次 v2 smoke 已启动 DATA run，但 END 同批次中的 `UART_DIAG` 被读入内存后，host runner 又等待第二条 `UART_DIAG` 并超时；该次没有保存 raw/run manifest，按未验证 runner 中断处理并重跑。上述均不按 missing frame 计数，见 `metrics/runner_incidents.json`。",
         "",
         "## Test A/B/C",
         "",
@@ -658,6 +658,9 @@ def main() -> int:
                 {"observation": "v2 smoke status handshake stopped on a boot E220_READY line before seeing the explicit STATUS role response.",
                  "fix": "Require the numeric role/port STATUS response and E220_READY.",
                  "experiment_started": False},
+                {"observation": "A v2 smoke DATA run reached Sensor END; its UART_DIAG had already been drained with END, then the host runner waited a second time and timed out before persisting raw/run files.",
+                 "fix": "Use the UART_DIAG line already captured in the END drain instead of waiting for it twice; rerun the unverified smoke condition.",
+                 "experiment_started": True, "raw_run_saved": False, "repeat_required": True},
             ],
         })
         manifest["completed_at_utc"] = datetime.now(timezone.utc).isoformat()

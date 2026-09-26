@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from eventguard.hardware_validation import (_gateway_end_counter_issues, frozen_guard, plan,
                                             _is_status_role_line,
+                                            _ensure_uart_diag,
                                             test_run_state_isolation as check_isolation)
 from eventguard.host import _parse_metrics, _run_config, load_config
 from eventguard.trace import generate_trace, trace_fingerprint
@@ -36,6 +37,12 @@ class HardwareValidationTests(unittest.TestCase):
     def test_status_requires_explicit_role_response_not_boot_mac_line(self):
         self.assertFalse(_is_status_role_line('ROLE,GATEWAY,c0:4e:30:31:42:9c', 'GATEWAY'))
         self.assertTrue(_is_status_role_line('ROLE,GATEWAY,2,17,16', 'GATEWAY'))
+
+    def test_uart_diagnostic_captured_with_end_is_not_waited_for_again(self):
+        reader = FakeReader('SENSOR')
+        captured = [(1.0, 'END,36,40,31,0'), (1.1, 'UART_DIAG,frames_completed,40')]
+        with patch('eventguard.hardware_validation._lines', side_effect=AssertionError('unexpected extra wait')):
+            self.assertEqual(_ensure_uart_diag(reader, captured), captured)
 
     def test_interleaved_design(self):
         for stage, expected in (('smoke', 12), ('stage1', 160), ('full', 400)):
