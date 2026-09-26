@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-09-26T18:18:17.212633+00:00",
+  "git_commit_sha": "e93ad239b2ffbac85ada812c50ef483161442bdc",
+  "script_sha256": "65b917860e7ec28e46e3423e5faaab05e6568f877488d540ed22dd192b36c105",
+  "frozen_v1_reference_commit": "84fe41701597b250c315002eabaa99638ef17a95",
+  "frozen_v1_reference_tag": "v1.0.0",
+  "source_runs_csv_sha256": "959d7bacc3409edc520a2e2bb8ce22ce714b36bee31e1b0ba018daf9ec6ce3a8",
+  "source_runs_json_sha256": "77955393864886011126fc689e1a90a2542454679900bcf225e359cea72148d8",
+  "protocol_sha256": "1fc31d536de378e7cbd4d77298e08dd35638975886f6cc628cd10c10a1db1841",
+  "protocol_snapshot_sha256": "1fc31d536de378e7cbd4d77298e08dd35638975886f6cc628cd10c10a1db1841",
+  "seed_range": [
+    31,
+    130
+  ],
+  "loss_model": "RANDOM_COPY",
+  "loss_rates": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "baseline_algorithm_version": "IMPORTANCE_MATCHED_BUDGET_V1",
+  "classification_source": "unchanged frozen v1 ImportanceClassifier",
+  "allocation_order": "ascending SHA256 digest, sample index tie-break; see protocol",
+  "run_type": "POST_HOC_HOST_ONLY_OFFLINE_COUNTERFACTUAL",
+  "analysis_generated_at_utc": "2026-09-26T18:18:28.098240+00:00",
+  "analysis_git_commit": "e93ad239b2ffbac85ada812c50ef483161442bdc",
+  "analysis_script_sha256": "996533cb8409c454929b54c9a0ace796856385797d9c39a2d734885265fd782e"
+}

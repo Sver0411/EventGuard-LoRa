@@ -1,0 +1,33 @@
+{
+  "status": "complete",
+  "run_type": "POST_HOC_HOST_ONLY_OFFLINE_COUNTERFACTUAL",
+  "protocol_sha256": "1fc31d536de378e7cbd4d77298e08dd35638975886f6cc628cd10c10a1db1841",
+  "source_runs_csv_sha256": "959d7bacc3409edc520a2e2bb8ce22ce714b36bee31e1b0ba018daf9ec6ce3a8",
+  "new_strategy": "IMPORTANCE_MATCHED_BUDGET",
+  "new_host_runs": 500,
+  "rates": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    31,
+    130
+  ],
+  "primary_rates": [
+    0.2,
+    0.3
+  ],
+  "primary_endpoints": [
+    "important_event_delivery_ratio",
+    "overall_delivery_ratio"
+  ],
+  "primary_contrasts": 4,
+  "exact_data_budget_checks": 500,
+  "trace_checks": 500,
+  "calendar_checks": 500,
+  "frozen_importance_only_replay_checks": 500,
+  "runs_csv_sha256": "914946a1469bf37d328bc376d40783fd69ad7bc0032d999e813bdb4a7b153f6e"
+}

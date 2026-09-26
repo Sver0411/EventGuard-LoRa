@@ -1,0 +1,13 @@
+{
+  "attempt_type": "CSV_SERIALIZATION_ENGINEERING_CORRECTION",
+  "first_attempt_new_host_runs": 500,
+  "final_scientific_conditions": 500,
+  "first_attempt_runs_csv_sha256": "5b7dcc268261a7675a18fd5b720483ec929a7889658f22a13c6757fc5239c499",
+  "final_runs_csv_sha256": "914946a1469bf37d328bc376d40783fd69ad7bc0032d999e813bdb4a7b153f6e",
+  "parsed_run_rows_identical": true,
+  "parsed_primary_statistics_identical": true,
+  "archive_sha256": "0c6dd6803ae56c8cb2da843592292b826a5dca08e53d7a6b88cb3cc7d879dd7d",
+  "first_attempt_git_commit": "075adb0af90e6e6eaf584b339c0c4295c95d722b",
+  "final_git_commit": "e93ad239b2ffbac85ada812c50ef483161442bdc",
+  "note": "Only CSV CRLF-to-LF serialization changed; protocol, allocation, input conditions and numeric results are identical."
+}
