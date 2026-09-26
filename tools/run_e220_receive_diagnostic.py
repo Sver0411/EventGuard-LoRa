@@ -349,7 +349,7 @@ def _run_test(sensor: SerialLogReader, gateway: SerialLogReader, test: str,
     return metrics
 
 
-def _prepare_boards(skip_flash: bool) -> tuple[dict, dict[str, SerialLogReader], dict]:
+def _prepare_boards(skip_flash: bool, flashed_manifest: dict | None = None) -> tuple[dict, dict[str, SerialLogReader], dict]:
     mapping, discovered = discover_boards()
     for reader in discovered.values():
         reader.close()
@@ -360,10 +360,39 @@ def _prepare_boards(skip_flash: bool) -> tuple[dict, dict[str, SerialLogReader],
         mapping["chip_macs"]["sensor"] = probe_mac(mapping["sensor_port"])
         mapping["chip_macs"]["gateway"] = probe_mac(mapping["gateway_port"])
     config = load_config()
-    outputs = build_firmware(config, OUT, diagnostic_mode=True)
-    image_hashes = {role: sha(path) for role, path in outputs.items()}
-    if not skip_flash:
+    current_sources = {
+        "sensor_firmware_source_sha256": sha(ROOT / "firmware/main/main.c"),
+        "gateway_firmware_source_sha256": sha(ROOT / "firmware/main/main.c"),
+        "e220_driver_source_sha256": sha(ROOT / "firmware/common/e220.c"),
+        "stream_parser_source_sha256": sha(ROOT / "firmware/common/e220_stream_parser.c"),
+        "config_sha256": sha(ROOT / "configs/default.json"),
+        "algorithm_spec_v1_sha256": sha(ROOT / "docs/algorithm_spec_v1.md"),
+    }
+    if skip_flash:
+        if not flashed_manifest:
+            raise RuntimeError("--skip-flash requires a prior manifest attesting the currently flashed images")
+        mismatches = [key for key, value in current_sources.items() if flashed_manifest.get(key) != value]
+        if mismatches:
+            raise RuntimeError(f"--skip-flash source/config differs from the flashed-image manifest: {mismatches}")
+        expected_macs = flashed_manifest.get("chip_macs") or {
+            "sensor": flashed_manifest.get("sensor_mac"),
+            "gateway": flashed_manifest.get("gateway_mac"),
+        }
+        if expected_macs and any(expected_macs.get(role) != mapping["chip_macs"][role]
+                                 for role in ("sensor", "gateway")):
+            raise RuntimeError("--skip-flash board MACs differ from the flashed-image manifest")
+        image_hashes = flashed_manifest.get("firmware_images_sha256")
+        if not isinstance(image_hashes, dict) or set(image_hashes) != {"sensor", "gateway"}:
+            raise RuntimeError("--skip-flash prior manifest has no complete firmware image hashes")
+        image_manifest_commit = flashed_manifest.get("firmware_image_manifest_commit",
+                                                     flashed_manifest.get("git_commit"))
+        firmware_hash_source = "previous diagnostic manifest; no flash operation since that attestation"
+    else:
+        outputs = build_firmware(config, OUT, diagnostic_mode=True)
+        image_hashes = {role: sha(path) for role, path in outputs.items()}
         flash_firmware(outputs, mapping, config, OUT)
+        image_manifest_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        firmware_hash_source = "images built and flashed in this diagnostic run"
     readers = {"sensor": SerialLogReader(mapping["sensor_port"]),
                "gateway": SerialLogReader(mapping["gateway_port"])}
     status = {}
@@ -379,6 +408,8 @@ def _prepare_boards(skip_flash: bool) -> tuple[dict, dict[str, SerialLogReader],
     provenance = {
         "git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "branch": subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip(),
+        "firmware_image_manifest_commit": image_manifest_commit,
+        "firmware_hash_source": firmware_hash_source,
         "algorithm_version": json.loads((ROOT / "results/experiment_manifest.json").read_text())["algorithm_version"],
         "algorithm_spec_v1_sha256": sha(ROOT / "docs/algorithm_spec_v1.md"),
         "config_sha256": sha(ROOT / "configs/default.json"),
@@ -405,6 +436,7 @@ def _write_report(manifest: dict, tests: list[dict], sweep: list[dict]) -> None:
         "## Provenance",
         "",
         f"- Git commit: `{manifest['git_commit']}` (`{manifest['branch']}`)",
+        f"- Firmware image manifest commit: `{manifest.get('firmware_image_manifest_commit', 'not recorded')}`; hash source: `{manifest.get('firmware_hash_source', 'not recorded')}`.",
         f"- Sensor image SHA256: `{manifest['firmware_images_sha256']['sensor']}`",
         f"- Gateway image SHA256: `{manifest['firmware_images_sha256']['gateway']}`",
         f"- Algorithm spec SHA256: `{manifest['algorithm_spec_v1_sha256']}`",
@@ -506,7 +538,7 @@ def main() -> int:
                             cwd=ROOT, capture_output=True, text=True)
     if frozen.returncode:
         raise RuntimeError(f"Frozen algorithm guard failed before diagnostic: {frozen.stderr}")
-    mapping, readers, provenance = _prepare_boards(args.skip_flash)
+    mapping, readers, provenance = _prepare_boards(args.skip_flash, previous_manifest)
     resume_allowed = all(previous_manifest.get(key) == provenance.get(key) for key in (
         "firmware_images_sha256", "sensor_firmware_source_sha256", "gateway_firmware_source_sha256",
         "e220_driver_source_sha256", "stream_parser_source_sha256", "config_sha256",

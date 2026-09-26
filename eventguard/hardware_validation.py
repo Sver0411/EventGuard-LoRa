@@ -442,14 +442,36 @@ def run(stage: str, skip_flash: bool = False, output_dir: Path | None = None) ->
     mapping, readers = discover_boards(3)
     for reader in readers.values(): reader.close()
     mapping["chip_macs"] = {role: probe_mac(mapping[f"{role}_port"]) for role in ("sensor", "gateway")}
+    manifest_path = output / "hardware_manifest.json"
+    previous_study = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {}
     if skip_flash:
         images = {role: ROOT / "build" / role / "eventguard.bin" for role in ("sensor", "gateway")}
         if any(not path.exists() for path in images.values()):
             raise RuntimeError("--skip-flash requires built images")
+        expected_sources = {
+            "sensor_firmware_source_sha256": sha(ROOT / "firmware/main/main.c"),
+            "gateway_firmware_source_sha256": sha(ROOT / "firmware/main/main.c"),
+            "config_sha256": sha(ROOT / "configs/default.json"),
+        }
+        source_mismatches = [key for key, value in expected_sources.items()
+                             if previous_study.get(key) != value]
+        if source_mismatches or not previous_study.get("firmware_images_sha256"):
+            raise RuntimeError("--skip-flash cannot attest currently flashed images from the existing manifest; "
+                               f"source mismatches={source_mismatches}")
+        expected_macs = previous_study.get("hardware", {}).get("chip_macs", {})
+        if expected_macs and any(expected_macs.get(role) != mapping["chip_macs"][role]
+                                 for role in ("sensor", "gateway")):
+            raise RuntimeError("--skip-flash board MACs differ from the existing hardware manifest")
+        provenance["firmware_images_sha256"] = previous_study["firmware_images_sha256"]
+        provenance["firmware_image_manifest_commit"] = previous_study.get("firmware_image_manifest_commit",
+                                                                            previous_study.get("git_commit"))
+        provenance["firmware_hash_source"] = "existing hardware manifest; no flash operation since that attestation"
     else:
         images = build_firmware(cfg, output)
         flash_firmware(images, mapping, cfg, output)
-    provenance["firmware_images_sha256"] = {role: sha(path) for role, path in images.items()}
+        provenance["firmware_images_sha256"] = {role: sha(path) for role, path in images.items()}
+        provenance["firmware_image_manifest_commit"] = provenance["git_commit"]
+        provenance["firmware_hash_source"] = "images built and flashed in this hardware validation run"
     provenance["e220_configuration"] = cfg["e220"]
     provenance["compatibility_fixes"] = [
         "host build/flash logs redirected to hardware_validation_v1; no firmware source changes",
@@ -461,7 +483,6 @@ def run(stage: str, skip_flash: bool = False, output_dir: Path | None = None) ->
              "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
              "airtime_proxy": "10 bits per UART byte at 9600 baud; includes start/stop bits, excludes E220 RF PHY airtime",
              "energy": "not estimated; no current sensor", "stages": {}}
-    manifest_path = output / "hardware_manifest.json"
     if manifest_path.exists():
         previous = json.loads(manifest_path.read_text())
         if previous.get("firmware_images_sha256") != provenance["firmware_images_sha256"]:
