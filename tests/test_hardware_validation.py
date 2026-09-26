@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from eventguard.hardware_validation import (_gateway_end_counter_issues, frozen_guard, plan,
+                                            _is_status_role_line,
                                             test_run_state_isolation as check_isolation)
 from eventguard.host import _parse_metrics, _run_config, load_config
 from eventguard.trace import generate_trace, trace_fingerprint
@@ -15,17 +16,26 @@ class FakeReader:
     def __init__(self, role):
         self.role = role
         self.commands = []
+        self.pending = []
 
     def drain(self):
-        return []
+        lines = self.pending
+        self.pending = []
+        return list(enumerate(lines))
 
     def write(self, command):
         self.commands.append(command)
+        if command == 'STATUS':
+            self.pending.extend([f'ROLE,{self.role},1,17,16', 'E220_READY'])
 
 
 class HardwareValidationTests(unittest.TestCase):
     def test_frozen_core(self):
         self.assertEqual(frozen_guard()['algorithm_version'], 'EventGuard-v1')
+
+    def test_status_requires_explicit_role_response_not_boot_mac_line(self):
+        self.assertFalse(_is_status_role_line('ROLE,GATEWAY,c0:4e:30:31:42:9c', 'GATEWAY'))
+        self.assertTrue(_is_status_role_line('ROLE,GATEWAY,2,17,16', 'GATEWAY'))
 
     def test_interleaved_design(self):
         for stage, expected in (('smoke', 12), ('stage1', 160), ('full', 400)):
@@ -42,7 +52,6 @@ class HardwareValidationTests(unittest.TestCase):
 
         def reply(reader, token, timeout=8):
             if token == 'RESET,OK': return [(0, 'RESET,OK')]
-            if token == 'E220_READY': return [(0, f'ROLE,{reader.role},1,17,16'), (0, 'E220_READY')]
             raise AssertionError(token)
 
         with patch('eventguard.hardware_validation._lines', side_effect=reply):

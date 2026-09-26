@@ -251,9 +251,37 @@ def _preserve_existing(path: Path) -> None:
     shutil.copy2(path, attempt_dir / f"{stamp}_{path.name}")
 
 
+def _completed_test(test: str, frames: int, rate: float, ack_timeout_ms: int,
+                    poll_timeout_ms: int, suffix: str, allow_resume: bool,
+                    firmware_hashes: dict[str, str]) -> dict | None:
+    if not allow_resume:
+        return None
+    run_id = f"test_{test}{suffix}_ack{ack_timeout_ms}_poll{poll_timeout_ms}"
+    sensor_raw = OUT / "raw" / f"{run_id}_sensor.jsonl"
+    gateway_raw = OUT / "raw" / f"{run_id}_gateway.jsonl"
+    metric_path = OUT / "metrics" / f"{run_id}.json"
+    if not sensor_raw.exists() or not gateway_raw.exists() or not metric_path.exists():
+        return None
+    try:
+        saved = json.loads(metric_path.read_text(encoding="utf-8"))
+        if (saved.get("status") != "pass" or saved.get("test") != test or
+                saved.get("frames_requested") != frames or saved.get("data_loss_rate") != rate or
+                saved.get("ack_timeout_ms") != ack_timeout_ms or
+                saved.get("rx_poll_timeout_ms") != poll_timeout_ms or
+                saved.get("sensor_raw_sha256") != sha(sensor_raw) or
+                saved.get("gateway_raw_sha256") != sha(gateway_raw)):
+            return None
+        saved_hashes = saved.get("firmware_images_sha256")
+        if saved_hashes is not None and saved_hashes != firmware_hashes:
+            return None
+        return saved
+    except (OSError, ValueError, TypeError):
+        return None
+
+
 def _run_test(sensor: SerialLogReader, gateway: SerialLogReader, test: str,
               frames: int, rate: float, ack_timeout_ms: int, poll_timeout_ms: int,
-              suffix: str = "") -> dict:
+              suffix: str = "", firmware_images_sha256: dict[str, str] | None = None) -> dict:
     run_id = f"test_{test}{suffix}_ack{ack_timeout_ms}_poll{poll_timeout_ms}"
     sensor_raw = OUT / "raw" / f"{run_id}_sensor.jsonl"
     gateway_raw = OUT / "raw" / f"{run_id}_gateway.jsonl"
@@ -313,6 +341,7 @@ def _run_test(sensor: SerialLogReader, gateway: SerialLogReader, test: str,
                     "duration_s": time.monotonic() - start,
                     "ack_timeout_ms": ack_timeout_ms, "rx_poll_timeout_ms": poll_timeout_ms,
                     "data_loss_rate": rate, "seed": 31,
+                    "firmware_images_sha256": firmware_images_sha256 or {},
                     "sensor_raw": str(sensor_raw.relative_to(ROOT)),
                     "gateway_raw": str(gateway_raw.relative_to(ROOT)),
                     "sensor_raw_sha256": sha(sensor_raw), "gateway_raw_sha256": sha(gateway_raw)})
@@ -387,6 +416,10 @@ def _write_report(manifest: dict, tests: list[dict], sweep: list[dict]) -> None:
         "",
         "PR #3 的 141 个 Sensor DATA TX 中，Gateway 在注入前记录 128 帧（100 个 RX、28 个计划 DROP）；另有 13 帧无 RX/DROP 记录。历史日志中 13/13 都紧随前一帧的 `DROP,DATA`，Sensor 未收到 ACK。旧日志没有 AUX edge、UART buffer 或每字节 parser 时间戳，因此它本身不能证明这些帧是 RF 丢失。",
         "",
+        "## Diagnostic Runner Incidents",
+        "",
+        "初次运行在任何 A/B/C DATA 开始前遇到 Gateway RESET 无响应；后续复查分别发现诊断互斥锁与高优先级轮询的控制路径竞争、100 Hz FreeRTOS 下 1 ms delay 被量化为 0 tick，以及 smoke runner 把 boot `E220_READY` 当作 STATUS 响应。以上已在工程代码中修复；这些尝试未产生 A/B/C 无线实验数据，也未计入 missing frame。详情见 `metrics/runner_incidents.json`。",
+        "",
         "## Test A/B/C",
         "",
         "| Test | Frames | Physical DATA missing | DATA drops | ACK timeouts | Parser errors | Status |",
@@ -456,6 +489,11 @@ def main() -> int:
     parser.add_argument("--skip-timing-sweep", action="store_true")
     parser.add_argument("--sweep-frames", type=int, default=20)
     args = parser.parse_args()
+    previous_manifest_path = OUT / "diagnostic_manifest.json"
+    try:
+        previous_manifest = json.loads(previous_manifest_path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        previous_manifest = {}
     for directory in (OUT / "raw", OUT / "metrics", OUT / "plots"):
         directory.mkdir(parents=True, exist_ok=True)
     for old in ((OUT / "diagnostic_manifest.json"), (OUT / "metrics/summary.json"),
@@ -469,6 +507,12 @@ def main() -> int:
     if frozen.returncode:
         raise RuntimeError(f"Frozen algorithm guard failed before diagnostic: {frozen.stderr}")
     mapping, readers, provenance = _prepare_boards(args.skip_flash)
+    resume_allowed = all(previous_manifest.get(key) == provenance.get(key) for key in (
+        "firmware_images_sha256", "sensor_firmware_source_sha256", "gateway_firmware_source_sha256",
+        "e220_driver_source_sha256", "stream_parser_source_sha256", "config_sha256",
+        "algorithm_spec_v1_sha256", "serial_ports", "sensor_mac", "gateway_mac"))
+    if args.skip_flash and previous_manifest.get("firmware_images_sha256") != provenance["firmware_images_sha256"]:
+        raise RuntimeError("--skip-flash firmware hashes do not match the previous diagnostic manifest")
     previous = json.loads((ROOT / "results/hardware_validation_v1/hardware_manifest.json").read_text(encoding="utf-8"))
     old_commit = previous["git_commit"]
     provenance["pre_fix"] = {
@@ -486,12 +530,21 @@ def main() -> int:
                 "default_ack_timeout_ms": DEFAULT_ACK_TIMEOUT_MS,
                 "default_gateway_rx_poll_timeout_ms": DEFAULT_POLL_TIMEOUT_MS,
                 "source_commit_state": "committed source required for reproducible firmware provenance"}
+    if resume_allowed:
+        manifest["resumed_test_execution_commit"] = previous_manifest.get("git_commit")
     atomic_json(OUT / "diagnostic_manifest.json", manifest)
     try:
         tests = []
         for test, rate in (("A", 0.0), ("B", 0.0), ("C", 0.20)):
-            result = _run_test(readers["sensor"], readers["gateway"], test, FRAMES, rate,
-                               DEFAULT_ACK_TIMEOUT_MS, DEFAULT_POLL_TIMEOUT_MS)
+            result = _completed_test(test, FRAMES, rate, DEFAULT_ACK_TIMEOUT_MS,
+                                     DEFAULT_POLL_TIMEOUT_MS, "", resume_allowed,
+                                     provenance["firmware_images_sha256"])
+            if result:
+                print(f"RESUME TEST {test}: validated raw hashes and firmware SHA256", flush=True)
+            else:
+                result = _run_test(readers["sensor"], readers["gateway"], test, FRAMES, rate,
+                                   DEFAULT_ACK_TIMEOUT_MS, DEFAULT_POLL_TIMEOUT_MS, "",
+                                   provenance["firmware_images_sha256"])
             tests.append(result)
             print(f"TEST {test}: {result['status']} missing={result['uncontrolled_physical_data_missing']} "
                   f"drops={result['observed_data_drops']} ack_timeout={result['sensor_ack_timeouts']}", flush=True)
@@ -502,53 +555,88 @@ def main() -> int:
             for test, rate in (("B", 0.0), ("C", 0.20)):
                 for ack_timeout in SWEEP_ACK_TIMEOUTS:
                     for poll_timeout in SWEEP_POLL_TIMEOUTS:
-                        result = _run_test(readers["sensor"], readers["gateway"], test,
-                                           args.sweep_frames, rate, ack_timeout, poll_timeout,
-                                           suffix=f"_sweep{args.sweep_frames}")
+                        suffix = f"_sweep{args.sweep_frames}"
+                        result = _completed_test(test, args.sweep_frames, rate, ack_timeout,
+                                                 poll_timeout, suffix, resume_allowed,
+                                                 provenance["firmware_images_sha256"])
+                        if result is None:
+                            result = _run_test(readers["sensor"], readers["gateway"], test,
+                                               args.sweep_frames, rate, ack_timeout, poll_timeout,
+                                               suffix=suffix,
+                                               firmware_images_sha256=provenance["firmware_images_sha256"])
                         sweep.append(result)
                         print(f"SWEEP {test} ack={ack_timeout} poll={poll_timeout}: "
                               f"missing={result['uncontrolled_physical_data_missing']}", flush=True)
         smoke_result = None
+        smoke_analysis = None
+        smoke_error = None
+        smoke_gate = "NOT_RUN_DIAGNOSTIC_FAIL"
         if all(item["status"] == "pass" for item in tests) and all(item["status"] == "pass" for item in sweep):
-            from eventguard.hardware_validation import run as run_hardware_validation
-            from eventguard.hardware_analysis import analyze
-            v2_dir = ROOT / "results/hardware_validation_v2"
-            smoke_result = run_hardware_validation("smoke", skip_flash=True, output_dir=v2_dir)
-            analysis = analyze("smoke", output_dir=v2_dir)
-            v2_manifest_path = v2_dir / "hardware_manifest.json"
-            v2_manifest = json.loads(v2_manifest_path.read_text(encoding="utf-8"))
-            v2_manifest["receive_path_diagnostic"] = {
-                "fix_commit": provenance["git_commit"],
-                "diagnostic_manifest": "../e220_receive_diagnostic/diagnostic_manifest.json",
-                "diagnostic_report": "../e220_receive_diagnostic/diagnostic_report.md",
-                "firmware_images_sha256": provenance["firmware_images_sha256"],
-                "pre_fix_firmware": provenance["pre_fix"],
-                "root_cause": ("The legacy parser had a confirmed partial-frame loss defect: parser state was local to one receive call and a short body read discarded accumulated bytes. The historical 13 missing frames all followed a no-ACK/DATA-drop path, consistent with that failure mode; original per-byte/AUX logs were not captured, so attribution of each historical frame is not conclusive."),
-                "diagnostic_evidence": {item["test"]: {
-                    "status": item["status"],
-                    "uncontrolled_physical_data_missing": item["uncontrolled_physical_data_missing"],
-                    "parser_error_total": item["parser_error_total"],
-                    "partial_header_timeouts": item["gateway_uart_diagnostics"].get("partial_header_timeouts", 0),
-                    "partial_body_timeouts": item["gateway_uart_diagnostics"].get("partial_body_timeouts", 0),
-                } for item in tests},
-                "timing_sweep_conditions": len(sweep),
-            }
-            atomic_json(v2_manifest_path, v2_manifest)
-            report_path = v2_dir / "hardware_report.md"
-            with report_path.open("a", encoding="utf-8") as report:
-                report.write("\n## E220 Receive-Path Fix\n\n")
-                report.write(f"Diagnostic gate: {'PASS' if analysis['complete'] else 'FAIL'} ({analysis['completed']}/12 smoke runs). ")
-                report.write(v2_manifest["receive_path_diagnostic"]["root_cause"] + "\n")
-            manifest["hardware_validation_v2_smoke"] = smoke_result
-            manifest["hardware_validation_v2_gate"] = "PASS" if analysis["complete"] else "FAIL"
+            try:
+                from eventguard.hardware_validation import run as run_hardware_validation
+                from eventguard.hardware_analysis import analyze
+                v2_dir = ROOT / "results/hardware_validation_v2"
+                smoke_result = run_hardware_validation("smoke", skip_flash=True, output_dir=v2_dir)
+                smoke_analysis = analyze("smoke", output_dir=v2_dir)
+                v2_manifest_path = v2_dir / "hardware_manifest.json"
+                v2_manifest = json.loads(v2_manifest_path.read_text(encoding="utf-8"))
+                v2_manifest["receive_path_diagnostic"] = {
+                    "fix_commit": provenance["git_commit"],
+                    "diagnostic_manifest": "../e220_receive_diagnostic/diagnostic_manifest.json",
+                    "diagnostic_report": "../e220_receive_diagnostic/diagnostic_report.md",
+                    "firmware_images_sha256": provenance["firmware_images_sha256"],
+                    "pre_fix_firmware": provenance["pre_fix"],
+                    "root_cause": ("The legacy parser had a confirmed partial-frame loss defect: parser state was local to one receive call and a short body read discarded accumulated bytes. The historical 13 missing frames all followed a no-ACK/DATA-drop path, consistent with that failure mode; original per-byte/AUX logs were not captured, so attribution of each historical frame is not conclusive."),
+                    "diagnostic_evidence": {item["test"]: {
+                        "status": item["status"],
+                        "uncontrolled_physical_data_missing": item["uncontrolled_physical_data_missing"],
+                        "parser_error_total": item["parser_error_total"],
+                        "partial_header_timeouts": item["gateway_uart_diagnostics"].get("partial_header_timeouts", 0),
+                        "partial_body_timeouts": item["gateway_uart_diagnostics"].get("partial_body_timeouts", 0),
+                    } for item in tests},
+                    "timing_sweep_conditions": len(sweep),
+                }
+                atomic_json(v2_manifest_path, v2_manifest)
+                report_path = v2_dir / "hardware_report.md"
+                with report_path.open("a", encoding="utf-8") as report:
+                    report.write("\n## E220 Receive-Path Fix\n\n")
+                    report.write(f"Diagnostic gate: {'PASS' if smoke_analysis['complete'] else 'FAIL'} ({smoke_analysis['completed']}/12 smoke runs). ")
+                    report.write(v2_manifest["receive_path_diagnostic"]["root_cause"] + "\n")
+                smoke_gate = "PASS" if smoke_analysis["complete"] else "FAIL"
+                manifest["hardware_validation_v2_smoke"] = smoke_result
+                manifest["hardware_validation_v2_gate"] = smoke_gate
+            except Exception as exc:
+                smoke_error = f"{type(exc).__name__}: {exc}"
+                smoke_gate = "FAIL"
+                manifest["hardware_validation_v2_gate"] = "FAIL"
+                manifest["hardware_validation_v2_smoke_error"] = smoke_error
+                print(f"HARDWARE VALIDATION V2 SMOKE FAILED: {smoke_error}", flush=True)
         atomic_json(OUT / "metrics" / "summary.json", {"tests": tests, "timing_sweep": sweep})
+        atomic_json(OUT / "metrics" / "runner_incidents.json", {
+            "classification": "runner/control-path issues; not E220 DATA loss observations",
+            "incidents": [
+                {"commit": "0b5b50d4c5b65fe937602c94ffeb350d9987eff1",
+                 "observation": "Gateway RESET did not respond while its high-priority receive task continuously reacquired the parser diagnostics mutex.",
+                 "fix": "Pause the receive task around parser-state reset and diagnostics snapshot.",
+                 "experiment_started": False},
+                {"commit": "686f2bd924e7ee3be630707bf7b8287aae3a6f42",
+                 "observation": "Gateway RX task hit Task WDT while paused because pdMS_TO_TICKS(1) was zero at CONFIG_FREERTOS_HZ=100.",
+                 "fix": "Use one actual FreeRTOS tick while the receive task is paused.",
+                 "experiment_started": False},
+                {"observation": "v2 smoke status handshake stopped on a boot E220_READY line before seeing the explicit STATUS role response.",
+                 "fix": "Require the numeric role/port STATUS response and E220_READY.",
+                 "experiment_started": False},
+            ],
+        })
         manifest["completed_at_utc"] = datetime.now(timezone.utc).isoformat()
         manifest["tests_status"] = {item["test"]: item["status"] for item in tests}
         manifest["timing_sweep_run_count"] = len(sweep)
+        manifest["hardware_validation_v2_gate"] = smoke_gate
         manifest["diagnostic_results_are_paper_treatments"] = False
         atomic_json(OUT / "diagnostic_manifest.json", manifest)
         _write_report(manifest, tests, sweep)
-        return 0 if all(item["status"] == "pass" for item in tests) and all(item["status"] == "pass" for item in sweep) else 1
+        diagnostics_pass = all(item["status"] == "pass" for item in tests) and all(item["status"] == "pass" for item in sweep)
+        return 0 if diagnostics_pass and smoke_gate == "PASS" else 1
     finally:
         for reader in readers.values():
             reader.close()

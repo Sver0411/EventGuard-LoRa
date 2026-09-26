@@ -128,12 +128,37 @@ def _status(sensor: SerialLogReader, gateway: SerialLogReader) -> dict:
     for name, reader, role in (("sensor", sensor, "SENSOR"), ("gateway", gateway, "GATEWAY")):
         reader.drain()
         reader.write("STATUS")
-        lines = _lines(reader, "E220_READY", 12)
-        values = [line for _, line in lines]
-        if not any(line.startswith(f"ROLE,{role}") for line in values):
-            raise RuntimeError(f"{name} role not confirmed: {values}")
+        values = []
+        role_confirmed = False
+        ready = False
+        deadline = time.monotonic() + 12
+        while time.monotonic() < deadline:
+            batch = reader.drain()
+            values.extend(line for _, line in batch)
+            if any(line.startswith(("ERR,", "E220_ERROR,")) for _, line in batch):
+                raise RuntimeError(f"{name} STATUS failed: {values[-20:]}")
+            role_confirmed |= any(_is_status_role_line(line, role) for _, line in batch)
+            ready |= any(line == "E220_READY" for _, line in batch)
+            if role_confirmed and ready:
+                break
+            time.sleep(.02)
+        if not role_confirmed or not ready:
+            raise RuntimeError(f"{name} role/readiness not confirmed: {values[-20:]}")
         result[name] = values
     return result
+
+
+def _is_status_role_line(line: str, role: str) -> bool:
+    fields = line.split(",")
+    if len(fields) != 5 or fields[0] != "ROLE" or fields[1] != role:
+        return False
+    try:
+        int(fields[2])
+        int(fields[3])
+        int(fields[4])
+        return True
+    except ValueError:
+        return False
 
 
 def test_run_state_isolation(sensor: SerialLogReader, gateway: SerialLogReader, cfg: dict) -> dict:
