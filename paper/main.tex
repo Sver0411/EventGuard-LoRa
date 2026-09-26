@@ -1,0 +1,383 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\EG}{\textsc{EventGuard}}
+\newcommand{\IO}{\textsc{Importance-Only}}
+\newcommand{\LO}{\textsc{Link-Only}}
+\newcommand{\UB}{\textsc{Uniform-Budget}}
+\newcommand{\RB}{\textsc{Random-Budget}}
+\newcommand{\Fone}{\textsc{Fixed-1}}
+\newcommand{\Ftwo}{\textsc{Fixed-2}}
+\newcommand{\Fthree}{\textsc{Fixed-3}}
+\title{Disentangling Event Importance and Link Adaptation for Reliable IoT Transmission: A Simulation and ESP32-S3/E220 Study}
+\author{Author Name\\Affiliation\\\texttt{Email}}
+\date{}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Periodic IoT traffic can contain rare observations whose loss matters more than the loss of routine samples, yet uniform redundancy spends communication resources without regard to event value. We study a frozen, interpretable policy that classifies each sensor sample as NORMAL, IMPORTANT, or CRITICAL and selects up to three proactive DATA copies using predicted importance and an ACK-based link state. We ask whether event-aware allocation improves critical-event delivery at an exactly matched DATA-copy budget, whether link adaptation adds value beyond importance alone, and how independent versus sample-correlated loss changes the result. The evaluation comprises 8,000 host-simulation runs, 11,000 host-only sensitivity runs, and a post-hoc balanced analysis of 96 completed runs on two ESP32-S3/E220-400T22D devices. The hardware subset uses the earliest six contiguous seeds with complete coverage after the planned 160-run experiment was interrupted; its sample size was not preregistered. An offline audit passed all 96 runs. \EG{} and \IO{} delivered exactly the same critical events in every selected hardware pair, while \EG{} used 21--33 more DATA copies per run on average. At equal copy budgets, \EG{} directed more traffic to critical samples than event-blind baselines, but its critical-delivery gains were small and confined to some independent-copy-loss conditions. Configured losses were injected in software after reception, not measured as RF packet errors. The evidence favors event importance as the useful allocation mechanism and does not support an incremental critical-delivery benefit from the evaluated link adaptation.
+
+\end{abstract}
+
+\noindent\textbf{Keywords:} constrained IoT communication; event importance; proactive redundancy; exact-budget evaluation; ESP32-S3; Sub-GHz radio.
+
+\section{Introduction}\label{sec:introduction}
+
+Periodic sensing is often evaluated by average packet delivery, which gives the same weight to a routine observation and a rare event that may demand intervention. In a constrained IoT link, sending additional copies of every sample consumes communication capacity; the number of copies alone says little about whether scarce transmissions reached the samples that matter. Event importance can guide this allocation. Recent ACK outcomes can also motivate adaptation to an estimated link state. These are distinct mechanisms, however, and a combined policy can obscure which one explains an observed delivery gain.
+
+The distinction matters especially when an importance rule already assigns the maximum allowed copies to a critical sample. A subsequent link-state transition may increase traffic for other classes while having no remaining action on the class used by the primary reliability metric. Without an importance-only ablation, the resulting benefit could be attributed incorrectly to link adaptation. Without a matched budget, a combined policy's higher delivery could instead reflect higher spending. We therefore compare \EG{} with \IO{} as a non-equal-cost component ablation, and separately with event-blind allocators that receive \EG{}'s \textbf{exact total DATA-copy budget} for each seed-specific trace and loss condition. Independent-copy and constructed sample-wide erasures test how the structure of loss changes the value of within-sample redundancy.
+
+The study combines a frozen Python/C policy, an 8,000-run host matrix on evaluation seeds 31--130, 11,000 host-only sensitivity runs, and execution through a two-device ESP32-S3/E220 DATA/ACK path. The original 160-run device experiment was interrupted by an unresolved receive-path stall. We analyze the earliest six contiguous seeds with complete four-strategy/four-condition coverage: a post-hoc balanced prefix selected by execution order and completeness, not by comparative outcome. Its \(n=6\) sample size was not preregistered, so the device results support descriptive mechanism analysis rather than confirmatory inference.
+
+This paper contributes:
+
+\begin{enumerate}
+\item A frozen, interpretable redundancy policy combining predicted event importance with first-copy ACK history, together with an explicit account of its action-space limits.
+\item Paired deterministic evaluation and exact-budget event-blind controls that separate allocation quality from extra communication expenditure.
+\item Importance-only and link-only ablations showing that event importance, rather than the evaluated link response, explains the observed critical-delivery benefit of frozen v1.
+\item A reproducible simulation and 96-run real-device execution study that retains negative results, an unresolved later anomaly, raw records, and provenance.
+\end{enumerate}
+
+Our principal finding is limited: event-aware allocation targets more communication toward critical samples and sometimes modestly improves their delivery over blind equal-budget allocation under independent copy loss. In the evaluated conditions, link adaptation added copies without improving critical-event delivery over the simpler importance-only rule.
+
+\section{Related Work}\label{sec:related-work}
+
+\subsection{LPWAN reliability and replication}\label{sec:lpwan-reliability-and-replication}
+
+LoRaWAN specifies confirmed uplink traffic and associated downlink behavior \cite{lorawan104}, but ACKs and retransmissions incur capacity and duty-cycle costs. Capuzzo \emph{et al.} analyze pitfalls of confirmed traffic \cite{capuzzo2018confirmed}, while Adelantado \emph{et al.} describe broader LoRaWAN operating limits \cite{adelantado2017limits} and Magrin \emph{et al.} examine how parameter choices, including confirmed-traffic settings, affect system performance \cite{magrin2020lorawan}. These studies motivate cost-aware reliability evaluation; they do not provide a direct protocol baseline because our E220 devices use a custom application protocol rather than LoRaWAN. Hybrid coded replication in LoRa networks explicitly trades redundancy against reliability \cite{santana2020hybrid}. Our proactive copies are uncoded and deliberately simple, making the allocation rule and its cost visible. The constructed \texttt{BURST\_SAMPLE} model further tests the limit of repeating copies within a single logical sample; it is not a measurement of LoRaWAN or RF burst errors.
+
+\subsection{Link-quality-aware adaptation}\label{sec:link-quality-aware-adaptation}
+
+Link estimation in sensor networks has long combined observations across protocol layers, including packet and ACK outcomes \cite{fonseca2007fourbit}. Srinivasan \emph{et al.} show that wireless losses can be bursty, so a single mean delivery rate need not characterize temporal behavior \cite{srinivasan2008beta}. LoRaWAN adaptive-data-rate work uses link observations to adjust radio parameters and studies convergence under changing conditions \cite{finnegan2020adr}. Our estimator is narrower: it uses accepted first-copy ACK history to select a bounded number of application DATA copies, without changing physical-layer settings. These references support examining when history predicts future outcomes; they do not establish that this estimator captures time-varying E220 channel quality under the software-injected losses studied here.
+
+\subsection{Importance-aware and event-aware communication}\label{sec:importance-aware-and-event-aware-communication}
+
+Data-importance-aware retransmission for edge learning allocates radio resources according to training-sample utility as well as channel conditions \cite{liu2021dataimportance}. Importance-aware user scheduling likewise incorporates learning-task value into wireless acquisition \cite{liu2021scheduling}. Broader semantic and task-oriented communication research asks how transmission should reflect the receiver's intended task rather than treating every bit as equally valuable \cite{lan2021semantic}. Event-triggered sensor-network transmission has also been studied to reduce communication devoted to measurements that do not warrant an update \cite{ge2019eventtriggered}. These works motivate application-aware prioritization, but their objectives, importance measures, and actions differ from ours: \EG{} uses a fixed synthetic sensor-event classifier and proactive whole-frame replication, not model-uncertainty ARQ, semantic encoding, or event-triggered omission of routine samples. We claim neither field validation for the four sensor modalities nor priority over those methods.
+
+\subsection{Position of this study}\label{sec:position-of-this-study}
+
+The methodological question here is narrower than a general claim for adaptive LPWAN reliability. We separate predicted event importance from ACK-history link response, compare allocation at an exact DATA-copy budget, and test both independent copy erasures and common-mode sample erasures. The real-device study checks execution of this frozen logic and its post-reception injection path on one E220 pair. It cannot adjudicate the relative performance of the cited methods on their own protocols, workloads, or measured radio channels.
+
+\section{System Model and Problem Formulation}\label{sec:system-model}
+
+A \textbf{logical sample} \(i\) is one timestamped vector \(x_i\) of temperature, humidity, light, and soil-moisture values. The synthetic trace generator also assigns a ground-truth event category \(g_i\in\{N,I,C\}\) from phase semantics and hazard criteria; the on-node classifier does not read \(g_i\). It predicts \(\hat g_i\) from sensor values and its prior state. A \textbf{physical DATA copy} is one transmitted frame for sample \(i\), identified by the same logical sequence number and a copy index. The gateway validates its CRC, applies any planned receive-side DATA erasure, and deduplicates copies before counting a logical delivery. Accepted DATA elicits an ACK frame. An ACK may be physically received yet rejected by a planned application-layer ACK erasure; only an accepted first-copy ACK enters the link estimator. A scheduled set of copies is proactive redundancy, not an ACK-timeout retransmission.
+
+Let \(r_i\in\{1,2,3\}\) be the selected number of DATA copies and \(Y_i=1\) when at least one copy of sample \(i\) is accepted after the specified injected-loss path; otherwise \(Y_i=0\). Let \(\mathcal C=\{i:g_i=C\}\). The primary reliability metric is
+
+\begin{equation}\label{eq:critical-delivery}
+R_C=\frac{\sum_{i\in \mathcal C}Y_i}{|\mathcal C|}, \qquad B=\sum_i r_i.
+\end{equation}
+
+At a fixed DATA-copy budget \(B\), the motivating allocation problem is to improve \(R_C\), while tracking physical DATA copies, DATA/ACK bytes, and other communication costs. \EG{} is a deterministic heuristic for this problem, not a claimed optimizer. Equal \(B\) does \textbf{not} imply equal total bytes because delivered copies generate ACK activity. Matching additionally holds the seed-specific trace and canonical DATA/ACK loss calendar fixed. The first-copy calendar is shared across strategies; effective loss over attempted copies can differ when strategies select different copy opportunities.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig1_system_architecture.pdf}
+\caption{Frozen v1 device and decision paths. The seed-specific trace drives classification and copy selection on the Sensor ESP32-S3. The main DATA path runs left to right from Sensor through E220 and Gateway reception to the accepted logical sample; ACK follows the return path. Dashed boxes mark software erasures applied after frame reception. Only accepted first-copy ACK outcomes update the link-state estimator and inform subsequent copy selection. Configured loss is not a measured RF packet-error rate.}
+\label{fig:system}
+\end{figure}
+
+\section{EventGuard Design}\label{sec:design}
+
+\subsection{Importance estimation}\label{sec:importance-estimation}
+
+The frozen classifier uses normalized inter-sample change, deviation from a normal-state baseline, rate of change, simultaneous change across channels, and event persistence. The four normalization scales are 0.5 \textdegree{}C, 5 humidity points, 100 lux, and 8 soil-moisture points. A directional risk rule identifies severe soil-moisture decline or combined elevated temperature/humidity. The IMPORTANT score threshold is 0.85 and the CRITICAL directional-risk threshold is 3.0. Normal observations update the baseline with coefficient 0.06. Exact equations and evaluation hashes are preserved in the frozen algorithm specification. The synthetic-trace classifier's CRITICAL precision (0.8125) and recall (1.0000) describe this constructed benchmark; they are not field accuracy estimates.
+
+\subsection{First-copy link-state estimation}\label{sec:first-copy-link-state-estimation}
+
+The estimator records accepted-ACK outcomes for the \textbf{first} DATA copy of each logical sample, avoiding the strategy-dependent observation count that would result from including every extra copy. A 12-observation sliding window gives a first-copy success ratio. State is BAD for three consecutive first-copy failures or a ratio below 0.50; otherwise DEGRADED below 0.80; otherwise GOOD. The initial no-observation ratio is one. Physical ACK reception, injected ACK drop, and accepted ACK remain separate records.
+
+\subsection{Redundancy allocation}\label{sec:redundancy-allocation}
+
+Table~\ref{tab:parameters} records the frozen parameters. The base mapping assigns NORMAL/IMPORTANT/CRITICAL to one/two/three copies on a GOOD link. DEGRADED adds one base copy, clipped to the three-copy cap. BAD adds two only to IMPORTANT or CRITICAL, likewise clipped; NORMAL remains at one. The complete decision map is shown in Fig.~\ref{fig:policy-matrix}. All selected copies are transmitted irrespective of an earlier ACK.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Frozen v1 parameters relevant to the primary evaluation. Study matrix fields are taken from the frozen evaluation manifest; the root default configuration also contains older pilot-matrix defaults, discussed in Section~\ref{sec:versioned-configuration}.}
+\label{tab:parameters}
+\begin{tabularx}{\linewidth}{@{}p{0.52\linewidth}X@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Trace & 9 phases \ensuremath{\times} 6 samples = 54 samples per seed \\
+Inter-sample interval & 10 s \\
+IMPORTANT / CRITICAL threshold & 0.85 / 3.0 \\
+Importance baseline coefficient & 0.06 \\
+Link window & 12 first-copy outcomes \\
+DEGRADED / BAD ratio thresholds & 0.80 / 0.50 \\
+BAD consecutive first-copy failures & 3 \\
+Maximum copies per sample & 3 \\
+ACK wait timeout & 1,000 ms \\
+DATA / ACK frame length & 26 / 13 bytes \\
+E220 UART rate & 9,600 bit/s \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig2_policy_matrix.pdf}
+\caption{Frozen v1 redundancy decision matrix. Cell values are proactive DATA copies per logical sample, indexed by predicted importance and pre-sample link state. The CRITICAL row remains 3/3/3 at the frozen three-copy cap; this is policy structure, not an empirical estimate.}
+\label{fig:policy-matrix}
+\end{figure}
+
+\subsection{Structural implication}\label{sec:structural-implication}
+
+For a \textbf{correctly classified} CRITICAL sample, \(r_i=3\) even when the link is GOOD. Because \(r_i\leq3\), no DEGRADED or BAD transition can raise its redundancy. This is a constraint of frozen v1, not an empirical estimate. Link adaptation can alter NORMAL and IMPORTANT copy counts, and might matter for a misclassified critical event; on the evaluated synthetic trace, however, CRITICAL recall was 1.0000. A critical-delivery advantage over \IO{} therefore had little policy action space in this experiment.
+
+\section{Baselines and Budget Fairness}\label{sec:baselines}
+
+Table~\ref{tab:strategies} separates diagnostic ablations from exact-budget comparisons. The fixed rules, \Fone{}, \Ftwo{}, and \Fthree{}, send a constant one, two, or three copies. \IO{} applies the frozen 1/2/3 importance rule without link adaptation. \LO{} applies 1/2/3 copies for GOOD, DEGRADED, and BAD, respectively, without importance. Neither fixed baselines nor component ablations are equal-cost by construction, so their delivery contrasts must be read alongside cost.
+
+For each matched model/rate/seed/trace, the \EG{} reference determines \(B\). \UB{} first assigns one copy to each sample, then allocates remaining copies by a fixed round-robin order up to the cap. \RB{} allocates the extras by a seeded hash ordering. Their decisions may use the sample index, fixed budget, and allocation seed, but not ground truth, predicted importance, classifier score, or sensor values. The hardware budget is computed from the frozen host reference before strategy execution, allowing a seeded, interleaved execution order rather than always running \EG{} first. Actual DATA-copy totals are checked against the reference budget.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Evaluated strategies and comparison roles. All eight appear in the host matrix; the four marked hardware appear in the final 96-run set.}
+\label{tab:strategies}
+\begin{tabularx}{\linewidth}{@{}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}Xc@{}}
+\toprule
+Strategy & Copy rule & Role & Hardware set \\
+\midrule
+\Fone{} & One per sample & Minimal fixed-copy comparison & No \\
+\Ftwo{} & Two per sample & Fixed-copy comparison & No \\
+\Fthree{} & Three per sample & Maximum fixed-copy comparison & No \\
+\IO{} & Predicted importance, 1/2/3 & Importance and link ablation & Yes \\
+\LO{} & GOOD/\allowbreak DEGRADED/\allowbreak BAD, 1/2/3 & Link-only ablation & No \\
+\EG{} & Importance plus first-copy link state, cap 3 & Combined treatment & Yes \\
+\UB{} & Event-blind round-robin, exact \(B\) & Equal-budget control & Yes \\
+\RB{} & Event-blind seeded order, exact \(B\) & Equal-budget control & Yes \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Experimental Methodology}\label{sec:methodology}
+
+\subsection{Synthetic trace and labels}\label{sec:synthetic-trace-and-labels}
+
+Each evaluation seed generates one deterministic 54-sample realization with nine phases and a 10-second sampling interval. Small seed-dependent sensor noise makes trace hashes differ across seeds. All strategies within a paired seed receive the same realization. Values cover temperature, humidity, light, and soil moisture; benchmark runs replay these values rather than sampling the attached physical sensors. Ground-truth categories derive from the generator's phase semantics and hazard conditions. Predicted importance derives only from observed values and classifier history. Calibration seeds 1--30 were kept separate from evaluation seeds 31--130.
+
+\subsection{Injected-loss models}\label{sec:injected-loss-models}
+
+\texttt{RANDOM\_COPY} makes deterministic, independently keyed DATA and ACK erasure decisions for canonical copy opportunities. \texttt{BURST\_SAMPLE} marks contiguous logical samples and erases all three canonical copy opportunities of an affected sample. DATA and ACK calendars are separate and shared across strategies at a fixed model, rate, and seed. By construction, extra copies within a \texttt{BURST\_SAMPLE}-erased sample cannot recover that sample. The model isolates common-mode failure; it does not represent every physical burst-fading process. Configured percentages are application-layer injection settings, not measured E220 packet-error rates. The host audit retains realized fairness alarms rather than discarding unusual calendars.
+
+\subsection{Host simulation}\label{sec:host-simulation}
+
+The frozen pre-hardware matrix contains eight strategies, five configured rates (0\%, 5\%, 10\%, 20\%, 30\%), two principal loss models, and 100 evaluation seeds (31--130): \textbf{8,000 runs}. Each uses its seed-specific trace and matched canonical calendars. Python/C parity checks cover importance decisions, copy selection, link transitions, fault decisions, and budget allocation. An earlier 300-run E220 pilot used a different 18-sample trace and is not pooled with frozen v1.
+
+\subsection{Sensitivity and ablation}\label{sec:sensitivity-and-ablation}
+
+An additional \textbf{11,000 host-only} runs vary one axis at a time: CRITICAL threshold \{2.0, 2.5, 3.0, 3.5, 4.0\}, link-window length \{8, 12, 16, 24\}, or maximum copies \{2, 3\}. These diagnostic perturbations do not retune the default experiment. Four copies are unsupported because v1 defines only three canonical copy opportunities; a fourth against the same calendar would receive an invalid, unerased slot. Component ablations compare \Ftwo{}, \IO{}, \LO{}, and \EG{}; exact-budget controls address allocation fairness.
+
+\subsection{Hardware execution}\label{sec:hardware-execution}
+
+Two ESP32-S3 boards carried Sensor and Gateway firmware through E220-400T22D modules under ESP-IDF v5.4.4. DATA and ACK were real transmitted frames on this single device pair, using 9,600-bit/s UART. The Sensor replayed the deterministic trace; attached environmental sensors did not generate benchmark data. The Gateway received, CRC-checked, and deduplicated DATA. Planned software erasures acted after receiver-side frame arrival. Raw Sensor/Gateway serial logs, END counters, UART diagnostics, and per-run manifests were retained. A v2 12-run smoke validation preceded Stage 1. Receive-parser and host-validation repairs were engineering changes; the frozen classifier, link estimator, redundancy policy, trace, and loss calendar were not changed for these results.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Hardware execution scope. This is a single validated path, not a general deployment.}
+\label{tab:hardware-setup}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.40\linewidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Item & Observed setup \\
+\midrule
+Nodes and topology & One Sensor ESP32-S3 and one Gateway ESP32-S3; one link \\
+Radio modules & One E220-400T22D per node \\
+Firmware environment & ESP-IDF v5.4.4; frozen \EG{}-v1 research logic \\
+Serial/radio path & E220 UART at 9,600 bit/s; real DATA and ACK frames \\
+Benchmark input & Seed-specific deterministic trace replay, 54 samples/run \\
+Programmed impairments & DATA/ACK software erasures after reception \\
+Preserved evidence & Raw logs, run manifests, firmware hashes, counters, diagnostics \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Construction of the balanced hardware analysis}\label{sec:construction-of-the-balanced-hardware-analysis}
+
+The original Stage 1 plan contained four strategies \ensuremath{\times} two models \ensuremath{\times} two rates (20\%, 30\%) \ensuremath{\times} ten seeds (31--40), or \textbf{160 runs}, with interleaved seeded strategy order.
+
+During later expansion, run103 (\UB{}, \texttt{RANDOM\_COPY}, 30\%, seed37) stalled while waiting for an ACK; one DATA frame was absent from Gateway pre-injection logs. Its low-level cause remains unresolved. The final set is a \textbf{post-hoc balanced analysis of the interrupted Stage 1 experiment}: the earliest contiguous seed prefix, 31--36, for which all four strategies and all four conditions were complete and auditable. This yields 96 completed runs and six paired seed units per condition. Selection used execution order, completeness, and auditability, not delivery outcomes. The sample size \(n=6\) was \textbf{not preregistered}. Partial seed-37 records and run103 remain preserved outside the paired analysis.
+
+\subsection{Integrity and reference checks}\label{sec:integrity-and-reference-checks}
+
+The offline finalizer re-parses preserved raw logs and checks raw/manifest hashes, firmware identities, run configuration, trace/calendar hashes, all 54 event/sample records, per-copy DATA/ACK decisions, importance and selected-copy sequences, link transitions, Sensor/Gateway END counters, UART diagnostics, and exact budget totals. All \textbf{96/96} selected runs passed. There were zero uncontrolled physical DATA misses, zero uncontrolled physical ACK misses, zero policy divergences, and zero sample-level delivery differences from matched host references. This establishes agreement for deterministic replay and software injection, not a measured RF error model. Independent USB reader byte-count telemetry absent from the historical raw schema cannot be reconstructed; firmware UART diagnostics and event lines were cross-checked instead.
+
+\subsection{Metrics and statistics}\label{sec:metrics-and-statistics}
+
+Critical-event delivery is \(R_C\); overall delivery is the delivered fraction of all logical samples. Physical DATA copies count every proactive frame transmission; bytes include DATA and ACK transmissions. Critical traffic share is the fraction of DATA copies assigned to ground-truth CRITICAL samples, computed only after the run. Truth is never an allocator input. The communication-time field is the UART serialization proxy \texttt{(DATA bytes + ACK bytes) \ensuremath{\times} 10 / 9600} seconds, not measured RF airtime. There is no measured energy or Joule estimate.
+
+The statistical unit is one paired seed/run under a fixed condition, not a packet, copy, or logical sample. Hardware summaries report mean, median, sample standard deviation, and a two-sided 95\% Student-t interval across six seed units. Paired tables also report wins/ties/losses, mean and median paired differences, and a two-sided exact conditional sign-randomization p-value for Wilcoxon signed ranks. Differences of magnitude at most \texttt{1e-12} are treated as zero and omitted from ranking; equal absolute nonzero differences receive midranks. The exact null distribution enumerates sign assignments conditional on these midranks. When every pair ties, the implementation reports \texttt{p=1} and rank-biserial effect size zero; otherwise rank-biserial is the positive-minus-negative signed-rank sum divided by the total rank sum. Holm-adjusted values cover the family of 12 critical-delivery contrasts (three baselines across four conditions); other metric p-values remain unadjusted. The unbounded t intervals may extend beyond [0,1] for a delivery ratio and are not clipped. Given post-hoc subset construction and only six paired seeds, \textbf{all p-values and intervals are descriptive/exploratory; no confirmatory significance claim is made}.
+
+\subsection{Versioned configuration and reproducibility}\label{sec:versioned-configuration}
+
+The frozen specification, study manifests, source hashes, archived firmware images, raw logs, and finalizer provenance identify the evaluated version. The root default configuration retains older pilot-oriented matrix defaults; the frozen-v1 study manifests and recorded calls define the 54-sample trace, evaluated strategies, and loss models used here. Reproduction should follow those versioned records rather than infer the completed experiment from the root defaults.
+
+\section{Results}\label{sec:results}
+
+\subsection{Host-simulation overview}\label{sec:host-simulation-overview}
+
+In the 100-seed host matrix, \EG{} and \IO{} had identical CRITICAL delivery in every matched run. Under \texttt{RANDOM\_COPY} at 20\% configured loss, their mean CRITICAL delivery was 0.9892, versus 0.9746 for equal-budget \UB{} and 0.9769 for equal-budget \RB{}. At 30\%, the corresponding means were 0.9723, 0.9438, and 0.9492. Directing the same total copy budget by predicted importance can help under independent copy erasures; this does not establish a gain from the link estimator. At 0\% loss, delivery saturated at 1.0000 for all strategies. Under \texttt{BURST\_SAMPLE}, all strategies tied in CRITICAL delivery within each rate.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig3_exact_budget_host.pdf}
+\caption{Exact-budget host comparison under software-injected \texttt{RANDOM\_\allowbreak COPY} loss. Panel A shows mean critical-event delivery ratios (vertical axis displayed from 0.87 to 1.01); Panel B shows mean physical DATA copies per 54-sample run. Error bars are two-sided 95\% Student-t intervals across 100 paired evaluation seeds (31--130). \EG{}, \UB{}, and \RB{} have exactly matched DATA-copy counts within each seed and configured loss rate (0\%, 5\%, 10\%, 20\%, 30\%); the single Panel B series represents all three.}
+\label{fig:exact-budget}
+\end{figure}
+
+\subsection{Ablation}\label{sec:ablation}
+
+\begingroup\emergencystretch=2em
+The host ablation separates importance from link response. At \texttt{RANDOM\_COPY} 20\%, \Ftwo{} delivered 0.9600 of CRITICAL events, versus 0.9892 for both \IO{} and \EG{}; their mean DATA-copy counts were 108.00, 112.00, and 140.68. At 30\%, the three CRITICAL delivery means were 0.9185, 0.9723, and 0.9723; \EG{} used 142.65 copies versus 112.00 for \IO{}. \LO{} delivered 0.942 at 20\% and 0.938 at 30\% in the same host model. These component comparisons are \textbf{not equal-budget tests}. Importance, rather than added link response, accounts for the combined policy's observed critical-delivery level.\par
+\endgroup
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig4_ablation_delivery_cost.pdf}
+\caption{Host ablation under software-injected \texttt{RANDOM\_COPY} loss. Panel A plots mean critical-event delivery ratios (vertical axis displayed from 0.86 to 1.01); Panel B plots mean physical DATA copies per 54-sample run for \Ftwo{}, \LO{}, \IO{}, and \EG{}. Each point summarizes 100 evaluation seeds at one configured loss rate. \IO{} and \EG{} coincide in Panel A, while their DATA-copy costs differ in Panel B. These component ablations are not equal-budget comparisons.}
+\label{fig:ablation}
+\end{figure}
+
+\subsection{Sensitivity}\label{sec:sensitivity}
+
+Across link-window lengths 8/12/16/24, mean CRITICAL delivery did not change within the reported host conditions, although mean copies and state transitions varied. The CRITICAL-threshold sweep from 2.0 to 4.0 likewise changed copy allocation slightly without changing reported condition-level CRITICAL delivery. Increasing the copy cap from two to three improved host CRITICAL delivery under \texttt{RANDOM\_COPY} (0.9600 to 0.9892 at 20\%; 0.9185 to 0.9723 at 30\%) at greater cost. Under \texttt{BURST\_SAMPLE} at 20\% or 30\%, the cap change left CRITICAL delivery unchanged. No cap-four result exists in frozen v1.
+
+The associated sensitivity visualization is presented as Fig.~\ref{fig:sensitivity} after the hardware cost figure.
+
+\subsection{Real-device execution results}\label{sec:real-device-execution-results}
+
+Table~\ref{tab:hardware-summary} reports means over the six paired hardware seeds. Ratios are fractions of ground-truth CRITICAL samples delivered, while copies and bytes are per-run means. Median, standard deviation, confidence interval, and paired statistics remain in the preserved final analysis files. All configured losses were injected in software after reception.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Final 96-run balanced hardware summary (six paired seeds per condition). RC denotes \texttt{RANDOM\_COPY}; BS denotes \texttt{BURST\_SAMPLE}. Critical traffic share uses truth only in retrospective analysis.}
+\label{tab:hardware-summary}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llrrrr@{}}
+\toprule
+Condition & Strategy & \shortstack{Critical\\delivery} & \shortstack{DATA\\copies} & \shortstack{Total\\bytes} & \shortstack{Critical\\traffic (\%)} \\
+\midrule
+RC 20\% & \EG{} & 0.9744 & 142.50 & 5,154.5 & 27.4 \\
+RC 20\% & \IO{} & 0.9744 & 112.00 & 4,056.0 & 34.8 \\
+RC 20\% & \UB{} & 0.9744 & 142.50 & 5,165.3 & 23.0 \\
+RC 20\% & \RB{} & 0.9615 & 142.50 & 5,167.5 & 24.1 \\
+RC 30\% & \EG{} & 0.9487 & 145.00 & 5,033.2 & 26.9 \\
+RC 30\% & \IO{} & 0.9487 & 112.00 & 3,913.0 & 34.8 \\
+RC 30\% & \UB{} & 0.9231 & 145.00 & 5,057.0 & 24.0 \\
+RC 30\% & \RB{} & 0.9231 & 145.00 & 5,063.5 & 24.0 \\
+BS 20\% & \EG{} & 0.7821 & 133.17 & 4,857.7 & 29.3 \\
+BS 20\% & \IO{} & 0.7821 & 112.00 & 4,084.2 & 34.8 \\
+BS 20\% & \UB{} & 0.7821 & 133.17 & 4,862.0 & 21.1 \\
+BS 20\% & \RB{} & 0.7821 & 133.17 & 4,851.2 & 23.9 \\
+BS 30\% & \EG{} & 0.7179 & 139.17 & 4,894.5 & 28.1 \\
+BS 30\% & \IO{} & 0.7179 & 112.00 & 3,943.3 & 34.8 \\
+BS 30\% & \UB{} & 0.7179 & 139.17 & 4,920.5 & 22.7 \\
+BS 30\% & \RB{} & 0.7179 & 139.17 & 4,894.5 & 23.9 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+All 96 selected runs passed offline checks and showed zero sample-level delivery differences from deterministic host references. This supports faithful execution of the frozen trace, policy, and injected calendar on the device path, not prediction of an uncontrolled radio channel.
+
+\subsection{Exact-budget paired comparisons}\label{sec:exact-budget-paired-comparisons}
+
+\UB{} and \RB{} used exactly \EG{}'s DATA-copy count in every selected condition and seed. \EG{} allocated a larger share of copies to ground-truth CRITICAL samples than either blind allocator in all four conditions (Table~\ref{tab:hardware-summary}). Under \texttt{RANDOM\_COPY} 30\%, \EG{} exceeded each blind baseline in \textbf{two of six} paired seeds and tied four; its mean paired critical-delivery difference was +0.0256 against each. The unadjusted exact Wilcoxon p-value was 0.50 for each, and the exploratory Holm-adjusted value across 12 critical-delivery comparisons was 1.00. Under \texttt{RANDOM\_COPY} 20\%, it tied \UB{} in all six pairs and exceeded \RB{} in one, with a +0.0128 mean difference. Both \texttt{BURST\_SAMPLE} rates yielded six ties against each blind baseline. These sparse differences support targeted allocation and limited condition-specific delivery gains, not confirmatory general superiority. Equal DATA-copy budgets need not produce identical total bytes because ACK activity varies.
+
+\subsection{Pareto tradeoff}\label{sec:pareto-tradeoff}
+
+\IO{} and \EG{} had \textbf{identical CRITICAL delivery in all 24 matched hardware seed/condition pairs}. \EG{} nevertheless used 30.50, 33.00, 21.17, and 27.17 additional DATA copies per run on average in RC 20\%, RC 30\%, BS 20\%, and BS 30\%. Extra total bytes were 1,098.5, 1,120.2, 773.5, and 951.2. On the empirical within-condition frontier of mean CRITICAL delivery versus DATA copies or bytes, \IO{} appeared in \textbf{4/4} conditions and \EG{} in \textbf{0/4}. These are descriptive frontiers over observed means, not uncertainty regions.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig5_hardware_pareto.pdf}
+\caption{Real-device critical-event delivery versus DATA-copy cost. Each panel is one configured software-injected loss model/rate; small faint markers show the six preserved seed-level runs (31--36) per strategy, while larger markers show condition means of critical-event delivery and physical DATA copies per 54-sample run. Seed-level points are plotted without jitter. The delivery axis is displayed from 0.64 to 1.025. The 96-run set is a post-hoc balanced prefix from one ESP32-S3/E220 device pair. The dashed horizontal segment connects \IO{} and \EG{} at identical observed mean delivery but different mean copy cost. Coincident event-blind mean points share their exact plotted coordinates. This empirical Pareto display is descriptive, not a significance test or measured RF-loss result.}
+\label{fig:hardware-pareto}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/fig6_sensitivity.pdf}
+\caption{Frozen host-only sensitivity under software-injected loss. Left: mean critical-event delivery and physical DATA copies per 54-sample run for first-copy link-history windows 8, 12, 16, and 24 under \texttt{RANDOM\_COPY} at 20\% and 30\%. Right: the same metrics for maximum redundancy 2 versus 3 under \texttt{RANDOM\_COPY} and \texttt{BURST\_SAMPLE} at 20\% and 30\%; thin straight segments connect only the two evaluated cap settings within each condition. Each plotted mean uses 100 evaluation seeds; the segments do not imply intermediate evaluations, and no cap-four result is shown.}
+\label{fig:sensitivity}
+\end{figure}
+
+\clearpage
+
+\section{Why Did Link Adaptation Not Help?}\label{sec:why-link-failed}
+
+The matched host and device-path comparisons provide an observed result: \EG{} and \IO{} delivered exactly the same critical events in the evaluated pairs, while \EG{} spent more DATA copies and bytes. The policy matrix explains why this negative ablation is plausible, but the matrix and the loss models should be separated from claims about an uncontrolled RF channel.
+
+\textbf{Structural saturation.} A correctly classified CRITICAL sample receives three copies in GOOD, DEGRADED, and BAD states. Since the frozen cap is also three, link adaptation has \textbf{no remaining action space} for that sample. This is a structural relationship between policy design and the critical-delivery objective, not an inference that another threshold would necessarily perform better. Link response could still affect a ground-truth critical event classified as NORMAL or IMPORTANT, but the synthetic-trace classifier's CRITICAL recall was 1.0000. That measured benchmark property limits this route in the current evaluation; it does not establish field recall.
+
+\begingroup\emergencystretch=1em
+\textbf{KPI--action-space mismatch.} The primary KPI is ground-truth critical-event delivery, whereas the remaining link-dependent copy changes apply principally to predicted NORMAL and IMPORTANT samples. Those changes could matter for other objectives, including important-event delivery, but they need not affect the reported critical-delivery ratio. The extra \EG{} copies therefore do not provide evidence of better protection for the objective class. Future link-aware policies would need explicit control authority for critical events, with costs and fault opportunities specified anew.\par
+\endgroup
+
+\textbf{Independent copy loss.} Under \texttt{RANDOM\_COPY}, erasures are independently keyed by copy opportunity. Past accepted first-copy ACK outcomes need not predict the next copy's programmed erasure. Weak predictive value is a mechanism hypothesis consistent with the observed zero incremental critical-delivery gain; it is \textbf{not} a measurement of E220 temporal correlation, fading, or interference. No RF-channel conclusion follows from this model alone.
+
+\textbf{Common-mode sample loss.} \texttt{BURST\_SAMPLE} erases all copy opportunities for a selected logical sample by construction. Repeating that sample cannot reverse its programmed erasure, regardless of estimated link state. This explains the observed ties under this specific model and does not imply that redundancy is ineffective under every bursty physical channel: real bursts may have different duration, timing, or diversity opportunities.
+
+\section{Discussion}\label{sec:discussion}
+
+The evaluation separates three claims that a single combined-policy comparison would conflate. First, importance-aware allocation changes \emph{where} copies are spent: \EG{} assigns a larger fraction of an identical DATA-copy budget to critical samples than event-blind controls. Second, this allocation produced only small, condition-dependent critical-delivery gains under independent copy loss; it produced none under programmed sample-wide erasure. Third, link adaptation changed \emph{how many} copies the combined policy spent relative to \IO{} without changing the critical events delivered in the selected pairs. Complexity did not automatically improve the target reliability metric, and the simpler ablation occupied the observed critical-delivery/cost frontier in all four conditions.
+
+The negative link result is informative about objective alignment. A controller cannot improve delivery for a correctly classified class by raising its copy count if that class already sits at the cap in every link state. Adding state estimation while leaving no effective action for the target class can increase cost without moving the primary KPI. Exact-budget controls prevent a separate confusion: additional transmissions are expenditure, whereas an advantage at the same expenditure is evidence about allocation. A future adaptive design should reserve actual control authority for its target class and test that authority under measured, time-varying RF conditions.
+
+The 96 selected device runs agree with matched host references at the sample-outcome and policy-decision levels, supporting faithful execution of the frozen logic and deterministic injection on one E220 path. They do not establish fading, interference tolerance, range, LoRaWAN behavior, or energy efficiency. The preserved incomplete run103 exposes an unresolved receive-path stall beyond the balanced prefix. These are distinct questions of simulator fidelity, device-path correctness, and channel performance; only the first two are addressed by the present study.
+
+\section{Limitations}\label{sec:limitations}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Scope boundaries and consequences. None changes the recorded negative ablation.}
+\label{tab:limitations}
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.40\linewidth}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Boundary & Consequence for interpretation \\
+\midrule
+Synthetic, seed-specific 54-sample traces & Limited event diversity; no field-labeled classifier validation \\
+One Sensor--Gateway device pair and one topology & No multi-node contention or multi-gateway diversity evidence \\
+Deterministic post-reception DATA/ACK injection & Configured 20\%/30\% loss is not measured physical RF PER \\
+No controlled fading, interference, or range sweep & No claim about uncontrolled time-varying RF performance \\
+UART serialization proxy only & No measured RF PHY airtime, regulatory duty-cycle, or Joule energy result \\
+Post-hoc complete prefix, six seeds per condition & Descriptive/exploratory inference; broad population claims unsupported \\
+Unresolved seed-37 run103 stall & Hardware reliability outside the selected clean runs remains uncertain \\
+Custom E220 application protocol & Results do not characterize LoRaWAN confirmed-message operation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Seed-level replication cannot substitute for independent device pairs, antennas, placements, interference regimes, or measured channel histories. The classifier uses designed synthetic labels; its confusion matrix is not a field accuracy estimate. No multi-node traffic contention, multi-gateway reception, current draw, regulatory duty-cycle, or measured physical packet-error rate was evaluated. The earlier v0 pilot remains separate because its shorter trace and design cannot be pooled with frozen v1.
+
+\section{Future Work}\label{sec:future-work}
+
+A next experiment should vary an actual radio channel over time while recording physical reception, available RSSI/SNR or another link observable, state transitions, and unplanned errors separately from deliberate injection. A separately versioned \EG{}-v2 design could provide genuine action space for CRITICAL events---for example, a changed copy cap paired with an expanded canonical calendar---before testing whether link prediction adds value. This requires renewed Python/C parity and device-path validation rather than reinterpretation of v1. Multi-node contention and multi-gateway spatial redundancy would test mechanisms absent from the single-link study. Field-labeled events would assess classifier validity; measured current and RF airtime would allow energy and regulatory-cost analysis. These are new studies, not a proposal to fill the interrupted Stage 1 matrix for appearance's sake.
+
+\section{Conclusion}\label{sec:conclusion}
+
+\begingroup\emergencystretch=1em
+Frozen \EG{}-v1 combines predicted event importance with first-copy ACK history to allocate proactive DATA copies. Importance-aware allocation directed more of an identical copy budget to critical samples than event-blind controls, with only limited and condition-specific critical-delivery gains under independent-copy erasures and none under the constructed sample-wide erasure model. Link adaptation did not improve critical-event delivery over \IO{} in any selected device pair and raised communication cost; \IO{} was more cost-efficient for the evaluated objective.\par
+\endgroup
+
+The central design lesson is to align an adaptive component's remaining actions with the outcome it is meant to improve. Measured, time-varying RF studies and a separately specified policy with control authority over critical-sample protection are needed before broader claims about link adaptation.
+
+\section*{Data and Code Availability}
+
+The public \href{https://github.com/Sver0411/EventGuard-LoRa}{EventGuard-LoRa repository} and frozen \texttt{v1.0.0} release provide the algorithm specification, source code, archived experimental manifests and raw logs, analysis scripts, and identifiers for the selected 96-run hardware dataset. The repository's README and final hardware analysis files give offline reproduction commands; \path{tools/finalize_hardware_dataset.py} regenerates the final audit and descriptive statistics from preserved records without accessing devices. Public access supports inspection and citation. Reuse permissions are described in the repository's \texttt{NOTICE.md}.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}
