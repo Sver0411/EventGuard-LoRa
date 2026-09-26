@@ -224,7 +224,7 @@ def report(imb: dict, frozen: dict, summary: list[dict], primary: list[dict], pr
         lines.append(
             f"| {float(row['loss_rate']):.0%} | {'IMPORTANT' if row['metric'].startswith('important') else 'Overall'} "
             f"| {row['mean_eventguard']:.4f} | {row['mean_imb']:.4f} "
-            f"| {row['mean_paired_difference']:+.4f} [{row['ci95_low']:+.4f}, {row['ci95_high']:+.4f}] "
+            f"| {row['mean_paired_difference']:+.5f} [{row['ci95_low']:+.5f}, {row['ci95_high']:+.5f}] "
             f"| {row['median_paired_difference']:+.4f} | {row['std_paired_difference']:.4f} "
             f"| {row['wins']}/{row['ties']}/{row['losses']} | {row['n_nonzero']} "
             f"| {row['p_two_sided']:.5g} | {row['holm_p_posthoc_4_tests']:.5g} "
@@ -258,7 +258,19 @@ def report(imb: dict, frozen: dict, summary: list[dict], primary: list[dict], pr
         interpretation = "EventGuard has higher primary mean delivery than this specific matched-budget, link-blind allocator in all four contrasts; examine effect size, paired consistency and cost before attributing practical value."
     else:
         interpretation = "The four primary contrasts have mixed directions; the relative contribution of extra budget and this link-aware placement is condition- and KPI-dependent."
-    lines.extend(["", interpretation, "", "## 10. What this does NOT establish", "",
+    lines.extend(["", interpretation, "",
+                  "The previous EventGuard-versus-Importance-Only secondary gains are largely reproduced by IMB at the same EventGuard DATA-copy budget. The following mean uplifts over the cost-unmatched Importance Only reference show how much of each earlier gain this specified link-blind allocator retains:", "",
+                  "| Rate | KPI | EG − IO | IMB − IO | EG − IMB |",
+                  "|---|---|---:|---:|---:|"])
+    for rate in (0.20, 0.30):
+        for metric, label in (("important_event_delivery_ratio", "IMPORTANT"),
+                              ("overall_delivery_ratio", "Overall")):
+            eg_io = mean(rate, "EVENTGUARD", metric) - mean(rate, "IMPORTANCE_ONLY", metric)
+            imb_io = mean(rate, STRATEGY, metric) - mean(rate, "IMPORTANCE_ONLY", metric)
+            lines.append(f"| {rate:.0%} | {label} | {eg_io:+.4f} | {imb_io:+.4f} | {eg_io - imb_io:+.4f} |")
+    lines.extend(["", "**Answers to the diagnostic questions.** IMB's mean IMPORTANT delivery exceeds EventGuard's at both 20% and 30%. EventGuard's mean overall delivery is slightly higher than IMB's at 20% and slightly lower at 30%. Across all four comparisons, the IMB-minus-Importance-Only uplift is close to the prior EventGuard-minus-Importance-Only uplift. Thus extra DATA-copy budget spent with importance information is a plausible main explanation; these host results do not show a consistent incremental advantage for EventGuard's link-aware placement over this specific IMB rule. This is a descriptive mechanism comparison, not a causal decomposition of every possible allocator.", "",
+                  "At 20% IMPORTANT delivery, the paired-mean t interval narrowly lies below zero while the exact signed-rank p-value is 0.0918 and Holm-adjusted p-value is 0.3672; 90 of 100 pairs tie. These exploratory summaries use different assumptions and do not support a confirmatory claim.", "",
+                  "## 10. What this does NOT establish", "",
                   "This host-only result does not validate E220 RF channel prediction, fading response, interference tolerance, range, or universal IoT reliability. It isolates placement relative to one fixed link-blind allocator, not every possible importance-aware allocator. P-values are exploratory, not confirmatory proof.", "",
                   "## 11. Hardware follow-up decision left open", "",
                   "No hardware experiment is performed or authorized by this report. Review the host diagnostic before deciding whether a new, separately scoped hardware comparison is warranted.", ""])
