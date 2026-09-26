@@ -241,6 +241,8 @@ def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
               "UART communication time is an estimate: (DATA bytes + ACK bytes) × 10 bits/byte ÷ 9600 bit/s. "
               "It is **not measured RF PHY airtime**. No Joule estimate is made without current sensing.",
               "The plots show only strategies actually completed under each matched condition.", "",
+              ("Smoke-only descriptive frontier: two seeds and RANDOM_COPY at 0%/20%; this is not a Pareto or treatment-effect conclusion."
+               if stage == "smoke" else ""), "",
               "| Condition | EventGuard on byte-cost frontier | Importance Only on byte-cost frontier |",
               "|---|---|---|"]
     for (model, rate), status in frontier_status.items():
@@ -332,6 +334,23 @@ def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
                   "per run; no measured RF airtime or energy is reported.",
                   "- **Paper Impact:** the hardware data support only 0% parity and identify an unmodeled "
                   "receive-path anomaly. They neither confirm nor overturn the treatment comparison."]
+    elif stage == "smoke":
+        lines += ["This v2 stage is a smoke gate, not a confirmatory treatment study. It covers two seeds (31 and 32), "
+                  "RANDOM_COPY at 0% and 20%, and FIXED_2 / IMPORTANCE_ONLY / EVENTGUARD only. Passing establishes "
+                  "the receive, logging, reset-isolation, and host/firmware parity path for these conditions; it does "
+                  "not establish a general reliability/cost advantage.",
+                  "", "## Required research judgments", "",
+                  "- **Hardware:** both ESP32-S3 boards completed all 12 smoke runs; every run has a complete raw log and END counters.",
+                  "- **E220:** bidirectional DATA/ACK completed. Across the 12 runs, uncontrolled DATA missing, uncontrolled ACK missing, and CRC errors were all zero.",
+                  "- **Reproducibility:** 12/12 run metrics match the frozen host reference; per-sample differences are zero.",
+                  "- **Event Importance:** firmware/Python sample behavior matched in these smoke conditions; this is not a new classifier-performance claim.",
+                  "- **EventGuard vs Importance Only:** descriptive smoke comparison only (two paired seeds per condition); no formal inference.",
+                  "- **Equal Budget:** UNIFORM_BUDGET and RANDOM_BUDGET were not part of this smoke; no equal-budget conclusion.",
+                  "- **Burst Loss:** BURST_SAMPLE was not part of this smoke; no burst-loss conclusion.",
+                  "- **Link Adaptation:** remains undetermined by this gate. The smoke does not justify a general link-adaptation benefit claim.",
+                  "- **Cost:** DATA copies, bytes, and UART-time proxy are recorded; RF PHY airtime and energy were not directly measured.",
+                  "- **Paper impact:** confirms the engineering path and host parity for the tested smoke conditions only; it neither confirms nor refutes the treatment conclusions.",
+                  "- **Main-stage readiness:** smoke gate PASS. Stage 1 has not started and remains pending explicit user confirmation."]
     else:
         importance_tests = [t for t in tests if t["comparison"] == "EVENTGUARD - IMPORTANCE_ONLY"]
         blind_tests = [t for t in tests if t["comparison"] in
@@ -365,6 +384,12 @@ def analyze(stage: str = "stage1", output_dir: Path | None = None) -> dict:
         paper_text += ("These observations are a feasibility result, not confirmation of a treatment effect. "
                        "The reported communication-time estimate is a UART-time proxy, not measured RF airtime; "
                        "energy was not directly measured and no Joule value is reported.\n")
+    elif stage == "smoke":
+        paper_text = ("The v2 E220 smoke gate completed all 12 planned runs across two seeds, RANDOM_COPY loss at 0%/20%, "
+                      "and FIXED_2, IMPORTANCE_ONLY, and EVENTGUARD. All run metrics matched the frozen host reference; "
+                      "uncontrolled DATA/ACK missing and CRC errors were zero. This is engineering-gate evidence, not a "
+                      "confirmatory treatment result: budget baselines, BURST_SAMPLE, and the ten-seed Stage 1 matrix "
+                      "were not run. Stage 1 awaits explicit user confirmation. RF airtime and energy were not directly measured.\n")
     else:
         paper_text = (f"The {stage} E220 validation completed {len(rows)} paired-condition runs. "
                       "Use `hardware_report.md`, `summary.csv`, `metrics/paired_tests.csv`, and "
