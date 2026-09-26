@@ -33,7 +33,6 @@ SENS_SUMMARY = ROOT / "results" / "sensitivity" / "summary.csv"
 HW_SUMMARY = ROOT / "results" / "final_hardware_v1" / "summary.csv"
 HW_SELECTED = ROOT / "results" / "final_hardware_v1" / "selected_runs.json"
 HW_AUDIT = ROOT / "results" / "final_hardware_v1" / "audit_runs.csv"
-HW_PARETO = ROOT / "results" / "final_hardware_v1" / "pareto_points.csv"
 
 STRATEGY_NAMES = {
     "EVENTGUARD": "EventGuard",
@@ -192,7 +191,7 @@ def on_frontier(points: list[tuple[str, float, float]], chosen: str) -> bool:
     )
 
 
-def validate_hardware() -> dict[tuple[str, float, str], dict[str, str]]:
+def validate_hardware() -> tuple[dict, dict]:
     selected = json.loads(HW_SELECTED.read_text(encoding="utf-8"))
     check(selected["dataset_status"] == "PASS" and selected["usable_runs"] == 96,
           "Final selected hardware set is not 96 PASS")
@@ -204,6 +203,39 @@ def validate_hardware() -> dict[tuple[str, float, str], dict[str, str]]:
     audit = rows(HW_AUDIT)
     check(len(audit) == 96 and all(row["audit_status"] == "PASS" for row in audit),
           "Offline audit no longer 96/96 PASS")
+    selected_by_id = {run["run_id"]: run for run in selected["runs"]}
+    check(len(selected_by_id) == 96, "Duplicate selected run ID")
+    seed_points = defaultdict(dict)
+    for record in audit:
+        run_id = record["run_id"]
+        check(run_id in selected_by_id, f"Audit run absent from selection: {run_id}")
+        chosen = selected_by_id[run_id]
+        check(record["raw_sha256"] == chosen["raw_sha256"]
+              and record["trace_sha256"] == chosen["trace_sha256"]
+              and record["loss_calendar_sha256"] == chosen["loss_calendar_sha256"],
+              f"Selected/audited provenance mismatch: {run_id}")
+        key = (record["loss_model"], number(record, "loss_rate"),
+               record["strategy"])
+        seed = int(record["seed"])
+        check(key[0:2] in HARDWARE_CONDITIONS
+              and key[2] in HARDWARE_STRATEGIES and seed in HARDWARE_SEEDS,
+              f"Unexpected hardware run: {run_id}")
+        check(seed not in seed_points[key], f"Duplicate paired seed: {key}/{seed}")
+        manifest_path = ROOT / record["run_manifest"]
+        check(manifest_path.is_file(), f"Missing preserved run manifest: {run_id}")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        check(manifest["run_id"] == run_id and manifest["status"] == "complete"
+              and manifest["raw_sha256"] == record["raw_sha256"]
+              and manifest["strategy"] == key[2]
+              and manifest["loss_model"] == key[0]
+              and math.isclose(float(manifest["loss_rate"]), key[1])
+              and int(manifest["seed"]) == seed,
+              f"Preserved run manifest mismatch: {run_id}")
+        metrics = manifest["metrics"]
+        seed_points[key][seed] = (
+            float(metrics["physical_data_transmissions"]),
+            float(metrics["critical_event_delivery_ratio"]),
+        )
     dataset = rows(HW_SUMMARY)
     check(len(dataset) == 16, f"Hardware summary has {len(dataset)}, not 16 rows")
     index = {}
@@ -222,6 +254,13 @@ def validate_hardware() -> dict[tuple[str, float, str], dict[str, str]]:
         check(displayed == table[key],
               f"Table 4 mismatch for {key}: summary {displayed}, paper {table[key]}")
         index[key] = row
+        points = seed_points[key]
+        check(set(points) == set(HARDWARE_SEEDS),
+              f"Hardware group lacks six paired seeds: {key}")
+        close(mean([point[0] for point in points.values()]), copies,
+              f"Seed-level copy mean {key}")
+        close(mean([point[1] for point in points.values()]), delivery,
+              f"Seed-level delivery mean {key}")
     for model, rate in HARDWARE_CONDITIONS:
         eg = index[(model, rate, "EVENTGUARD")]
         io = index[(model, rate, "IMPORTANCE_ONLY")]
@@ -249,18 +288,15 @@ def validate_hardware() -> dict[tuple[str, float, str], dict[str, str]]:
             eg_count += on_frontier(points, "EVENTGUARD")
         check(io_count == 4 and eg_count == 0,
               f"Pareto count changed for {cost_type}: IO={io_count}, EG={eg_count}")
-    archived = rows(HW_PARETO)
-    check(len(archived) == 32, "Archived Pareto file no longer has 32 points")
-    for row in archived:
-        key = (row["loss_model"], number(row, "loss_rate"), row["strategy"])
-        field = ("physical_data_transmissions_mean" if row["cost_type"] == "data_copies"
-                 else "total_bytes_transmitted_mean")
-        close(number(row, "mean_cost"), number(index[key], field),
-              f"Archived Pareto cost {key}/{field}")
-        close(number(row, "mean_critical_delivery"),
-              number(index[key], "critical_event_delivery_ratio_mean"),
-              f"Archived Pareto delivery {key}")
-    return index
+    for model, rate in HARDWARE_CONDITIONS:
+        for seed in HARDWARE_SEEDS:
+            eg = seed_points[(model, rate, "EVENTGUARD")][seed]
+            io = seed_points[(model, rate, "IMPORTANCE_ONLY")][seed]
+            close(eg[1], io[1], f"Paired EG/IO delivery {model}/{rate}/{seed}")
+            for strategy in ("UNIFORM_BUDGET", "RANDOM_BUDGET"):
+                close(eg[0], seed_points[(model, rate, strategy)][seed][0],
+                      f"Paired exact budget {model}/{rate}/{seed}/{strategy}")
+    return index, seed_points
 
 
 def validate_sensitivity() -> dict[tuple[str, int, str, float], dict[str, str]]:
@@ -365,12 +401,12 @@ def host_ci(values: list[float]) -> float:
 
 def figure1() -> None:
     """Diagram from frozen specification and the documented device/erasure path."""
-    fig, ax = plt.subplots(figsize=(7.2, 4.05))
-    ax.set_xlim(0, 1)
+    fig, ax = plt.subplots(figsize=(7.2, 4.0))
+    ax.set_xlim(-0.035, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
-    width, height = 0.136, 0.115
-    six_x = (0.03, 0.192, 0.354, 0.516, 0.678, 0.84)
+    width, height = 0.126, 0.102
+    six_x = (0.025, 0.19, 0.355, 0.52, 0.685, 0.85)
 
     def box(x: float, y: float, w: float, h: float, label: str, kind: str) -> None:
         face, edge, dash = {
@@ -383,7 +419,7 @@ def figure1() -> None:
             facecolor=face, edgecolor=edge, linewidth=0.95, linestyle=dash,
         ))
         ax.text(x + w / 2, y + h / 2, label, ha="center", va="center",
-                fontsize=7.1, linespacing=1.1)
+                fontsize=6.9, linespacing=1.1)
 
     def arrow(start: tuple[float, float], end: tuple[float, float],
               style: str = "-") -> None:
@@ -392,61 +428,62 @@ def figure1() -> None:
             linestyle=style, color="0.25", shrinkA=1.5, shrinkB=1.5,
         ))
 
-    ax.text(0.03, 0.925, "LOGICAL DECISION", fontsize=7.4, weight="bold", color="0.30")
-    control_x = (0.03, 0.285, 0.54, 0.795)
-    control = (
-        ("Seed-specific\ntrace", "logical"),
-        ("Importance\nclassifier", "logical"),
-        ("Redundancy\npolicy", "logical"),
-        ("Sensor\nESP32-S3", "device"),
-    )
-    for x, (label, kind) in zip(control_x, control):
-        box(x, 0.777, 0.16, 0.102, label, kind)
-    for i in range(3):
-        arrow((control_x[i] + 0.165, 0.828), (control_x[i + 1] - 0.006, 0.828))
-
-    ax.text(0.03, 0.695, "DATA: DEVICE PATH \u2190", fontsize=7.4,
+    ax.text(0.025, 0.965, "FROZEN DECISION PATH", fontsize=7.4,
+            weight="bold", color="0.30")
+    for y, label in ((0.845, "Seed-specific\ntrace"),
+                     (0.735, "Importance\nclassifier"),
+                     (0.625, "Redundancy\npolicy")):
+        box(six_x[0], y, width, 0.075, label, "logical")
+    for top, bottom in ((0.845, 0.810), (0.735, 0.700)):
+        arrow((six_x[0] + width / 2, top - 0.005),
+              (six_x[0] + width / 2, bottom + 0.005))
+    ax.text(0.19, 0.570, "DATA: SENSOR \u2192 GATEWAY", fontsize=7.4,
             weight="bold", color="0.30")
     data = (
-        ("Accepted\nlogical sample", "logical"),
-        ("DATA drop\nsoftware", "injection"),
-        ("CRC / receive /\ndeduplication", "device"),
-        ("Gateway\nESP32-S3", "device"),
+        ("Sensor\nESP32-S3", "device"),
         ("E220 DATA\ntransmission", "device"),
-        ("Sensor\nDATA TX", "device"),
+        ("Gateway\nESP32-S3", "device"),
+        ("CRC / receive /\ndeduplication", "device"),
+        ("Software DATA\nerasure", "injection"),
+        ("Accepted\nlogical sample", "logical"),
     )
     for x, (label, kind) in zip(six_x, data):
-        box(x, 0.535, width, height, label, kind)
-    for i in range(5, 0, -1):
-        arrow((six_x[i] - 0.006, 0.592), (six_x[i - 1] + width + 0.006, 0.592))
-    arrow((0.875, 0.773), (0.875, 0.657))
+        box(x, 0.435, width, height, label, kind)
+    for i in range(5):
+        arrow((six_x[i] + width + 0.005, 0.486),
+              (six_x[i + 1] - 0.005, 0.486))
+    arrow((six_x[0] + width / 2, 0.620),
+          (six_x[0] + width / 2, 0.544))
 
-    ax.text(0.20, 0.405, "Software-injected erasure after frame reception (DATA and ACK)",
-            fontsize=7.7, ha="left", color="0.20")
-    ax.text(0.03, 0.355, "ACK RETURN: DEVICE PATH \u2192", fontsize=7.4,
+    ax.text(0.47, 0.386, "Software-injected erasure after frame reception",
+            fontsize=7.4, ha="center", color="0.20")
+    ax.text(0.025, 0.327, "ACK RETURN: GATEWAY \u2192 SENSOR", fontsize=7.4,
             weight="bold", color="0.30")
     ack = (
-        ("ACK\ngeneration", "logical"),
-        ("E220 ACK\ntransmission", "device"),
-        ("Sensor\nACK RX", "device"),
-        ("ACK drop\nsoftware", "injection"),
-        ("First-copy\naccepted ACK", "logical"),
         ("Link-state\nestimator", "logical"),
+        ("First-copy\naccepted ACK", "logical"),
+        ("Software ACK\nerasure", "injection"),
+        ("Sensor\nACK RX", "device"),
+        ("E220 ACK\ntransmission", "device"),
+        ("ACK\ngeneration", "logical"),
     )
     for x, (label, kind) in zip(six_x, ack):
-        box(x, 0.20, width, height, label, kind)
-    for i in range(5):
-        arrow((six_x[i] + width + 0.006, 0.257),
-              (six_x[i + 1] - 0.006, 0.257))
-    arrow((0.098, 0.529), (0.098, 0.322))
+        box(x, 0.170, width, height, label, kind)
+    for i in range(5, 0, -1):
+        arrow((six_x[i] - 0.005, 0.221),
+              (six_x[i - 1] + width + 0.005, 0.221))
+    arrow((six_x[5] + width / 2, 0.429),
+          (six_x[5] + width / 2, 0.279))
 
-    # The control feedback is routed outside the three paths.
-    ax.plot([0.914, 0.986, 0.986, 0.622, 0.622],
-            [0.320, 0.320, 0.965, 0.965, 0.892],
-            color="0.35", linewidth=0.8, linestyle=(0, (3, 2)))
-    arrow((0.622, 0.892), (0.622, 0.884), style=(0, (3, 2)))
-    ax.text(0.75, 0.973, "link-state feedback", fontsize=7.0,
-            ha="center", va="bottom", color="0.35")
+    # Only accepted first-copy ACK outcomes feed the frozen link estimator.
+    ax.plot([six_x[0] - 0.004, -0.018, -0.018],
+            [0.221, 0.221, 0.663], color="0.35", linewidth=0.8,
+            linestyle=(0, (3, 2)))
+    arrow((-0.018, 0.663), (six_x[0] - 0.006, 0.663),
+          style=(0, (3, 2)))
+    ax.text(0.186, 0.885, "First-copy accepted ACK updates link state;\n"
+            "feedback informs subsequent copy selection.", fontsize=7.4,
+            ha="left", va="center", color="0.30")
 
     box(0.05, 0.055, 0.05, 0.035, "", "logical")
     ax.text(0.108, 0.073, "logical", fontsize=7.2, va="center")
@@ -559,7 +596,7 @@ def figure4(host: dict) -> None:
     save(fig, "fig4_ablation_delivery_cost")
 
 
-def figure5(hardware: dict) -> None:
+def figure5(hardware: dict, seed_points: dict) -> None:
     fig, axes = plt.subplots(2, 2, figsize=(7.2, 4.75), constrained_layout=True)
     markers = {
         "EVENTGUARD": dict(marker="o", s=100, facecolors="none",
@@ -578,6 +615,11 @@ def figure5(hardware: dict) -> None:
             x = number(row, "physical_data_transmissions_mean")
             y = number(row, "critical_event_delivery_ratio_mean")
             positions[(round(x, 8), round(y, 8))].append(strategy)
+            individual = seed_points[(model, rate, strategy)]
+            ax.scatter([individual[seed][0] for seed in HARDWARE_SEEDS],
+                       [individual[seed][1] for seed in HARDWARE_SEEDS],
+                       marker=markers[strategy]["marker"], s=14,
+                       color="0.55", alpha=0.32, linewidths=0.5, zorder=1)
             ax.scatter([x], [y], label=STRATEGY_NAMES[strategy],
                        **markers[strategy])
         for (x, y), coincident in positions.items():
@@ -594,8 +636,8 @@ def figure5(hardware: dict) -> None:
                  number(eg, "physical_data_transmissions_mean")],
                 [y, y], color="0.68", linewidth=0.75, linestyle="--", zorder=1)
         ax.set_title(f"{model.replace('_', ' ').title()}  {rate:.0%}")
-        ax.set_xlabel("Mean DATA copies / run")
-        ax.set_ylabel("Mean critical-event delivery")
+        ax.set_xlabel("Physical DATA copies / run")
+        ax.set_ylabel("Critical-event delivery ratio")
         ax.set_xlim(103, 155)
         ax.set_ylim(0.64, 1.025)
         ax.set_yticks((0.7, 0.8, 0.9, 1.0))
@@ -630,6 +672,12 @@ def figure6(sensitivity: dict) -> None:
         ("BURST_SAMPLE", 0.30, "0.45", "D"),
     )
     for model, rate, color, marker in cap_styles:
+        pair = [sensitivity[("max_redundancy", cap, model, rate)]
+                for cap in (2, 3)]
+        for ax, field in ((axes[0, 1], "critical_delivery_mean"),
+                          (axes[1, 1], "data_copies_mean")):
+            ax.plot((2, 3), [number(row, field) for row in pair],
+                    color=color, linewidth=0.75, zorder=2)
         for cap in (2, 3):
             row = sensitivity[("max_redundancy", cap, model, rate)]
             label = f"{model.replace('_', ' ').title()} {rate:.0%}" if cap == 2 else None
@@ -666,7 +714,7 @@ def figure6(sensitivity: dict) -> None:
 def main() -> None:
     validate_policy()
     host = validate_host()
-    hardware = validate_hardware()
+    hardware, seed_points = validate_hardware()
     sensitivity = validate_sensitivity()
     print("NUMERICAL_CONSISTENCY_PASS: policy, exact budgets, Table 4, "
           "96-run audit, Pareto counts, and sensitivity axes")
@@ -675,7 +723,7 @@ def main() -> None:
     figure2()
     figure3(host)
     figure4(host)
-    figure5(hardware)
+    figure5(hardware, seed_points)
     figure6(sensitivity)
     outputs = list(OUT.glob("fig[1-6]_*.pdf"))
     check(len(outputs) == 6, f"Expected six figure PDFs, found {len(outputs)}")

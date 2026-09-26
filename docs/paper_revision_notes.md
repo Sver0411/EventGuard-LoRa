@@ -18,16 +18,11 @@ These notes are editorial planning material for `paper_v1_submission_draft.md`, 
 - UART serialization time is a proxy, not measured RF airtime. There is no measured energy, RF PER, multi-node contention, multi-gateway diversity, or duty-cycle result.
 - The signed-rank p-values are exploratory/descriptive for `n=6`. A target venue may prefer to foreground paired differences and interval estimates even more prominently.
 
-## Figures requiring publication redraw
+## Publication figures
 
-1. **Figure 1, system architecture:** replace the ASCII schematic with a legible diagram showing trace replay, classifier, copy policy, Sensor ESP32-S3, E220 DATA path, Gateway CRC/deduplication, post-reception DATA/ACK injection points, ACK return path, and first-copy accepted-ACK update. Separate programmed erasures from uncontrolled RF anomalies.
-2. **Figure 2, decision matrix:** render the existing 3×3 map as a compact vector table or heatmap and visually emphasize the CRITICAL 3/3/3 row. Keep the exact frozen values.
-3. **Figure 3, exact-budget host comparison:** redraw archived host results with condition-level means and uncertainty or paired summaries to reduce overplotting. Keep budgets matched per seed; do not present new experimental data.
-4. **Figure 4, ablation:** redraw from preserved host results to include IMPORTANCE_ONLY, LINK_ONLY, and EventGuard, with both critical delivery and DATA-copy cost. FIXED_2 may remain as a reference. The current archived figure omits LINK_ONLY and lacks a cost panel.
-5. **Figure 5, device Pareto:** replot the preserved 96-run condition means at publication scale with readable labels and, if appropriate, seed-level uncertainty. Show copies and optionally bytes; do not imply frontier membership is an inferential test.
-6. **Figure 6, sensitivity:** use preserved host-only results to show link-window and copy-cap effects clearly, with delivery and cost where available. The current linked image shows link-window sensitivity only; do not label it as a cap-effect plot before redrawing.
+Figures 1–6 are complete in `docs/figures/` as vector PDF, text-preserving SVG, and 300-dpi PNG files. Regenerate them from frozen sources with `.venv/bin/python tools/generate_paper_figures.py`; the script checks the numerical inputs and Table 4 before writing figures. Figure 5 displays the six preserved seed-level runs behind each condition mean, and Figure 6 connects only the evaluated copy caps 2 and 3. The figures are descriptive and do not add experimental observations.
 
-The manuscript captions describe what the *currently linked* figures actually show. Any redraw must use only the archived underlying results and be checked against the text and tables.
+Remaining submission work depends on the selected venue: add verified author and affiliation details, apply its manuscript and figure formatting rules, check bibliography style and bibliographic details, proof the final layout and accessibility, decide on supplementary materials, and validate figure, repository, and archival-release links in the submitted package.
 
 ## Verification checklist before submission
 
