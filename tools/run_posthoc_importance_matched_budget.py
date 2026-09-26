@@ -276,7 +276,7 @@ def run() -> None:
         if len(rows) != 500:
             raise AssertionError(f"expected 500 new runs, found {len(rows)}")
         with (OUT / "runs.csv").open("w", newline="", encoding="utf-8") as handle:
-            writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+            writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
         manifest = {
