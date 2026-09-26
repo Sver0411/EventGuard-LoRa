@@ -1,0 +1,77 @@
+{
+  "git_commit": "686f2bd924e7ee3be630707bf7b8287aae3a6f42",
+  "branch": "codex/e220-receive-diagnostic-v1",
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_spec_v1_sha256": "ab07fd9cac09acb53a6335e398c2e9f9d32f916bf5da34696ca69d349ce0d522",
+  "config_sha256": "687f92948fdb49e06079f2df9c2a3bc03c39a776b90f13b639f6be36f6dbf234",
+  "sensor_firmware_source_sha256": "928faec3eda8ada2dd37d8d51fafd3d64bb04fec9dfe1baa1592414dabceeed6",
+  "gateway_firmware_source_sha256": "928faec3eda8ada2dd37d8d51fafd3d64bb04fec9dfe1baa1592414dabceeed6",
+  "e220_driver_source_sha256": "ed5e737f940867cb90aea956e1c918e9d7595a9a20130be18d4105f836afe132",
+  "stream_parser_source_sha256": "fe2f359f4ffb3c9ee88547ed084f4d2451393472023a34e642ff8d6bd86e8a5b",
+  "firmware_images_sha256": {
+    "sensor": "6ef935d9c2564e52aae3a206af38ea960f20948dad4e91089665e70d7a8b9963",
+    "gateway": "d9dc18c9c15a63a697fe39ac6304b2a2ee911208c5d6da0e4315f73f84fc9ffd"
+  },
+  "sensor_mac": "80:65:99:a7:a8:a4",
+  "gateway_mac": "c0:4e:30:31:42:9c",
+  "serial_ports": {
+    "sensor": "/dev/cu.usbmodem101",
+    "gateway": "/dev/cu.usbmodem1101"
+  },
+  "e220_configuration": {
+    "uart_num": 1,
+    "tx_gpio": 17,
+    "rx_gpio": 16,
+    "aux_gpio": 15,
+    "m0_gpio": 13,
+    "m1_gpio": 14,
+    "baud": 9600,
+    "address": 0,
+    "reg0": 98,
+    "channel": 23
+  },
+  "board_status": {
+    "sensor": [
+      "ROLE,SENSOR,1,17,16",
+      "E220_READY"
+    ],
+    "gateway": [
+      "AUX,247769,0",
+      "AUX,257708,1",
+      "AUX,448922,0",
+      "AUX,465708,1",
+      "AUX,477189,0",
+      "AUX,492456,1",
+      "AUX,502935,0",
+      "AUX,512353,1",
+      "I (803) e220: E220 profile verified address=0000 reg0=62 channel=17",
+      "E220_READY",
+      "ROLE,GATEWAY,c0:4e:30:31:42:9c",
+      "ROLE,GATEWAY,2,17,16",
+      "E220_READY"
+    ]
+  },
+  "flash_skipped": false,
+  "pre_fix": {
+    "git_commit": "13860fb6ef83de552a5c4a2f946a80b15c698770",
+    "sensor_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+    "gateway_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+    "e220_driver_source_sha256": "cb99941ccb20d3416c2177142ca349247a428f3258a94f5240c9206d651cd2f1",
+    "firmware_images_sha256": {
+      "sensor": "ed005d22ed2c5f44c33d9fa52fc5077dd2b68ce0f8030f991540e4ba51f6115d",
+      "gateway": "83492c7972d8f8fb2d5b2dff20cdfc3872db919dfb433031c23f0805be4f25dd"
+    }
+  },
+  "created_at_utc": "2026-09-26T05:04:05.104915+00:00",
+  "purpose": "engineering_only_e220_receive_diagnostic",
+  "tests": {
+    "A": "normal RX+ACK",
+    "B": "ACK suppressed for seq % 5 == 0",
+    "C": "20% deterministic RANDOM_COPY DATA drop, seed 31"
+  },
+  "test_frame_count": 500,
+  "frame_period_ms": 1000,
+  "default_ack_timeout_ms": 1000,
+  "default_gateway_rx_poll_timeout_ms": 250,
+  "source_commit_state": "committed source required for reproducible firmware provenance"
+}

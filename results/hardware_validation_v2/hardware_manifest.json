@@ -1,0 +1,223 @@
+{
+  "git_commit": "b9992de1108208393b48b32314568cc97b8688e2",
+  "branch": "codex/e220-receive-diagnostic-v1",
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_spec_v1_sha256": "ab07fd9cac09acb53a6335e398c2e9f9d32f916bf5da34696ca69d349ce0d522",
+  "config_sha256": "687f92948fdb49e06079f2df9c2a3bc03c39a776b90f13b639f6be36f6dbf234",
+  "frozen_core_sha256": {
+    "eventguard/importance.py": "e8a32c16ce9f2a8c8e1d8aa9060162190ac1e567e8350b7a95b2d61bfe908d6d",
+    "eventguard/strategy.py": "d46893ca68b30481115a6ea02c40e331c1e6f4b09a16d3b58d3b9949876773f3",
+    "eventguard/faults.py": "db1995b06d165af614c16ec661919f017e6e788b92759b86095365294a97a660",
+    "eventguard/simulator.py": "7b86c81316dad083b2615f9b0b80e1fd03a8fdd1b52e0ea39608a2b60e57b4a6",
+    "eventguard/trace.py": "e05f9dbb5f9c250459cc37e89e56349030d10a774914ceb326b5c86c21009614",
+    "eventguard/model.py": "bedb4d63e841489d84cf68d763837172a5fd78bf03b8b4215e4b825b5a1f9daa",
+    "firmware/common/importance.c": "26342d36b2bbe9f9743ea797f073c64bbd64feeffac0d68f954d003849ce3e14",
+    "firmware/common/strategy.c": "cd9a17696ee2e76ce656ae00d5fb7fe4b11b6b14a4f95064f2bd874118a21061",
+    "firmware/common/faults.c": "8366d31c29a8f2f927c468ef9b43cb61c29a228e87929d0b2b3db17c96e59129",
+    "firmware/main/main.c": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302"
+  },
+  "firmware_main_additive_diagnostic_extension": true,
+  "sensor_firmware_source_sha256": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302",
+  "gateway_firmware_source_sha256": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302",
+  "firmware_images_sha256": {
+    "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+    "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+  },
+  "firmware_image_manifest_commit": "b7ff9f374dd76b1be39bb04a84e1ad24ff0ea213",
+  "firmware_hash_source": "existing hardware manifest; no flash operation since that attestation",
+  "e220_configuration": {
+    "uart_num": 1,
+    "tx_gpio": 17,
+    "rx_gpio": 16,
+    "aux_gpio": 15,
+    "m0_gpio": 13,
+    "m1_gpio": 14,
+    "baud": 9600,
+    "address": 0,
+    "reg0": 98,
+    "channel": 23
+  },
+  "compatibility_fixes": [
+    "host build/flash logs redirected to hardware_validation_v1; no firmware source changes",
+    "SAMPLE serial parser corrected from fields 2/4/5 to 3/5/6 after the first smoke attempt; affected condition rerun",
+    "E220 receive parser now retains stream state and incrementally accumulates short UART reads across receive calls",
+    "Gateway END s_rx_count is validated against post-injection physical_data_received",
+    "host SAMPLE serial parser field offset corrected after failed first smoke attempt; condition rerun",
+    "hardware DATA receipt accounting separated pre-injection receipt from post-injection acceptance; raw logs reparsed"
+  ],
+  "hardware": {
+    "sensor_port": "/dev/cu.usbmodem101",
+    "gateway_port": "/dev/cu.usbmodem1101",
+    "candidates": [
+      {
+        "device": "/dev/cu.usbmodem101",
+        "description": "USB JTAG/serial debug unit",
+        "hwid": "USB VID:PID=303A:1001 SER=80:65:99:A7:A8:A4 LOCATION=0-1"
+      },
+      {
+        "device": "/dev/cu.usbmodem1101",
+        "description": "USB JTAG/serial debug unit",
+        "hwid": "USB VID:PID=303A:1001 SER=C0:4E:30:31:42:9C LOCATION=1-1"
+      }
+    ],
+    "discovery_lines": {
+      "/dev/cu.usbmodem101": [
+        "OOR11,6",
+        "HOST_SERIAL_ERROR,SerialException('device reports readiness to read but returned no data (device disconnected or multiple access on port?)')"
+      ],
+      "/dev/cu.usbmodem1101": [
+        "ROLGTWY21,\rE2_ED"
+      ]
+    },
+    "chip_macs": {
+      "sensor": "80:65:99:a7:a8:a4",
+      "gateway": "c0:4e:30:31:42:9c"
+    },
+    "discovery_method": "verified_previous_chip_macs",
+    "identified_at": "2026-09-26T05:51:12.714757+00:00"
+  },
+  "execution_order_seed": 4170411,
+  "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
+  "airtime_proxy": "10 bits per UART byte at 9600 baud; includes start/stop bits, excludes E220 RF PHY airtime",
+  "energy": "not estimated; no current sensor",
+  "stages": {
+    "smoke": {
+      "planned_runs": 12,
+      "execution_order": [
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 1
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 2
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "FIXED_2",
+          "order": 3
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 4
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 5
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "FIXED_2",
+          "order": 6
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 7
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "FIXED_2",
+          "order": 8
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 9
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 10
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 11
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "FIXED_2",
+          "order": 12
+        }
+      ],
+      "passed_runs": 12,
+      "failed_runs": 0,
+      "not_attempted_runs": 0,
+      "gate_status": "PASS"
+    }
+  },
+  "engineering_bug_log": "engineering_bug_log.md",
+  "receive_path_diagnostic": {
+    "fix_commit": "b9992de1108208393b48b32314568cc97b8688e2",
+    "diagnostic_manifest": "../e220_receive_diagnostic/diagnostic_manifest.json",
+    "diagnostic_report": "../e220_receive_diagnostic/diagnostic_report.md",
+    "firmware_images_sha256": {
+      "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+      "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+    },
+    "pre_fix_firmware": {
+      "git_commit": "13860fb6ef83de552a5c4a2f946a80b15c698770",
+      "sensor_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+      "gateway_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+      "e220_driver_source_sha256": "cb99941ccb20d3416c2177142ca349247a428f3258a94f5240c9206d651cd2f1",
+      "firmware_images_sha256": {
+        "sensor": "ed005d22ed2c5f44c33d9fa52fc5077dd2b68ce0f8030f991540e4ba51f6115d",
+        "gateway": "83492c7972d8f8fb2d5b2dff20cdfc3872db919dfb433031c23f0805be4f25dd"
+      }
+    },
+    "root_cause": "The legacy parser had a confirmed partial-frame loss defect: parser state was local to one receive call and a short body read discarded accumulated bytes. The historical 13 missing frames all followed a no-ACK/DATA-drop path, consistent with that failure mode; original per-byte/AUX logs were not captured, so attribution of each historical frame is not conclusive.",
+    "diagnostic_evidence": {
+      "A": {
+        "status": "pass",
+        "uncontrolled_physical_data_missing": 0,
+        "parser_error_total": 0,
+        "partial_header_timeouts": 0,
+        "partial_body_timeouts": 0
+      },
+      "B": {
+        "status": "pass",
+        "uncontrolled_physical_data_missing": 0,
+        "parser_error_total": 0,
+        "partial_header_timeouts": 0,
+        "partial_body_timeouts": 0
+      },
+      "C": {
+        "status": "pass",
+        "uncontrolled_physical_data_missing": 0,
+        "parser_error_total": 0,
+        "partial_header_timeouts": 0,
+        "partial_body_timeouts": 0
+      }
+    },
+    "timing_sweep_conditions": 0
+  }
+}

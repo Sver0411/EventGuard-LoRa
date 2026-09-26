@@ -1,0 +1,41 @@
+Executing action: size
+Running ninja in directory /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway
+Executing "ninja all"...
+[1/4] cd /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway/esp-idf/esptool_py && /Users/mac/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/mac/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway/partition_table/partition-table.bin /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway/eventguard.bin
+eventguard.bin binary size 0x3e130 bytes. Smallest app partition is 0x100000 bytes. 0xc1ed0 bytes (76%) free.
+[2/4] Performing build step for 'bootloader'
+[1/1] cd /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway/bootloader/esp-idf/esptool_py && /Users/mac/.espressif/python_env/idf5.4_py3.13_env/bin/python /Users/mac/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway/bootloader/bootloader.bin
+Bootloader binary size 0x51d0 bytes. 0x2e30 bytes (36%) free.
+[3/4] No install step for 'bootloader'
+[4/4] Completed 'bootloader'
+Running ninja in directory /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway
+Executing "ninja size"...
+[0/1] cd /Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway && /Users/mac/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/cmake -D "IDF_SIZE_TOOL=/Users/mac/.espressif/python_env/idf5.4_py3.13_env/bin/python;-m;esp_idf_size" -D MAP_FILE=/Users/mac/Documents/ChatGPT/EventGuard-LoRa/build/gateway/eventguard.map -D OUTPUT_JSON= -P /Users/mac/esp/esp-idf/tools/cmake/run_size_tool.cmake
+                           Memory Type Usage Summary                            
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Memory            ┃              ┃          ┃                ┃               ┃
+┃ Type/Section      ┃ Used [bytes] ┃ Used [%] ┃ Remain [bytes] ┃ Total [bytes] ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ Flash Code        │       130190 │          │                │               │
+│    .text          │       130190 │          │                │               │
+│ DIRAM             │        71875 │    21.03 │         269885 │        341760 │
+│    .text          │        46159 │    13.51 │                │               │
+│    .bss           │        13640 │     3.99 │                │               │
+│    .data          │        12076 │     3.53 │                │               │
+│ Flash Data        │        49300 │          │                │               │
+│    .rodata        │        49044 │          │                │               │
+│    .appdesc       │          256 │          │                │               │
+│ IRAM              │        16383 │    99.99 │              1 │         16384 │
+│    .text          │        15356 │    93.73 │                │               │
+│    .vectors       │         1027 │     6.27 │                │               │
+│ RTC SLOW          │           28 │     0.34 │           8164 │          8192 │
+│    .force_slow    │           28 │     0.34 │                │               │
+│ RTC FAST          │           24 │     0.29 │           8168 │          8192 │
+│    .rtc_reserved  │           24 │     0.29 │                │               │
+└───────────────────┴──────────────┴──────────┴────────────────┴───────────────┘
+Total image size: 254136 bytes (.bin may be padded larger)
+Note: The reported total sizes may be smaller than those in the technical 
+reference manual due to reserved memory and application configuration. The total
+flash size available for the application is not included by default, as it 
+cannot be reliably determined due to the presence of other data like the 
+bootloader, partition table, and application partition size.
