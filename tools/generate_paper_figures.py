@@ -145,10 +145,41 @@ def validate_host() -> dict[tuple[str, float, int], dict[str, str]]:
     }
     for (rate, strategy), (delivery, copies) in paper_checks.items():
         group = [index[(strategy, rate, seed)] for seed in PAIRED_SEEDS]
+        check(len(group) == 100 and
+              {int(row["seed"]) for row in group} == set(PAIRED_SEEDS),
+              f"Figure 4 requires 100 paired seeds: {rate}/{strategy}")
         observed_delivery = mean([number(row, "critical_event_delivery_ratio") for row in group])
         observed_copies = mean([number(row, "physical_data_transmissions") for row in group])
         close(observed_delivery, delivery, f"Paper ablation delivery {rate}/{strategy}", 0.0005)
         close(observed_copies, copies, f"Paper ablation cost {rate}/{strategy}", 0.005)
+    secondary_checks = {
+        (0.20, "EVENTGUARD"): (0.9841, 0.9596),
+        (0.20, "IMPORTANCE_ONLY"): (0.9572, 0.9298),
+        (0.30, "EVENTGUARD"): (0.9748, 0.9333),
+        (0.30, "IMPORTANCE_ONLY"): (0.9124, 0.8822),
+    }
+    for (rate, strategy), (important, overall) in secondary_checks.items():
+        group = [index[(strategy, rate, seed)] for seed in PAIRED_SEEDS]
+        close(mean([number(row, "important_event_delivery_ratio") for row in group]),
+              important, f"Paper IMPORTANT delivery {rate}/{strategy}", 0.00005)
+        close(mean([number(row, "overall_delivery_ratio") for row in group]),
+              overall, f"Paper overall delivery {rate}/{strategy}", 0.00005)
+    # Figure 4 secondary outcomes are always read from frozen host run rows.
+    # Check all four plotted series and the structural CRITICAL equality.
+    for rate in HOST_RATES:
+        for seed in PAIRED_SEEDS:
+            eg = index[("EVENTGUARD", rate, seed)]
+            io = index[("IMPORTANCE_ONLY", rate, seed)]
+            close(number(eg, "critical_event_delivery_ratio"),
+                  number(io, "critical_event_delivery_ratio"),
+                  f"Figure 4 CRITICAL equality {rate}/{seed}")
+        for strategy in ("FIXED_2", "LINK_ONLY", "IMPORTANCE_ONLY", "EVENTGUARD"):
+            for field in ("critical_event_delivery_ratio",
+                          "important_event_delivery_ratio", "overall_delivery_ratio",
+                          "physical_data_transmissions"):
+                values = host_values(index, strategy, rate, field)
+                check(len(values) == 100 and all(math.isfinite(v) for v in values),
+                      f"Figure 4 invalid values {rate}/{strategy}/{field}")
     for rate in HOST_RATES:
         eg = mean([number(index[("EVENTGUARD", rate, seed)],
                           "critical_event_delivery_ratio") for seed in PAIRED_SEEDS])
@@ -565,33 +596,31 @@ def figure3(host: dict) -> None:
 
 
 def figure4(host: dict) -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.1), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.0), constrained_layout=True)
     x = [rate * 100 for rate in HOST_RATES]
     strategies = ("FIXED_2", "LINK_ONLY", "IMPORTANCE_ONLY", "EVENTGUARD")
+    panels = (
+        ("critical_event_delivery_ratio", "A  CRITICAL delivery", "Delivered fraction", (0.86, 1.012)),
+        ("important_event_delivery_ratio", "B  IMPORTANT delivery", "Delivered fraction", (0.80, 1.012)),
+        ("overall_delivery_ratio", "C  Overall delivery", "Delivered fraction", (0.80, 1.012)),
+        ("physical_data_transmissions", "D  Communication cost", "Physical DATA copies / run", (0, 165)),
+    )
     for strategy in strategies:
-        delivery = [mean(host_values(host, strategy, rate,
-                                     "critical_event_delivery_ratio"))
-                    for rate in HOST_RATES]
-        copies = [mean(host_values(host, strategy, rate,
-                                   "physical_data_transmissions"))
-                  for rate in HOST_RATES]
-        for ax, y in zip(axes, (delivery, copies)):
+        for ax, (field, _, _, _) in zip(axes.flat, panels):
+            y = [mean(host_values(host, strategy, rate, field)) for rate in HOST_RATES]
             ax.plot(x, y, label=STRATEGY_NAMES[strategy], zorder=3,
                     **STYLES[strategy])
-    axes[0].text(0.035, 0.12, "EventGuard and Importance Only\ncoincide at every rate",
-                 transform=axes[0].transAxes, fontsize=7.0, va="bottom")
-    axes[0].set_title("A  Critical-event delivery")
-    axes[0].set_ylabel("Critical events delivered / critical events")
-    axes[0].set_ylim(0.86, 1.012)
-    axes[1].set_title("B  Communication cost")
-    axes[1].set_ylabel("Physical DATA copies per run")
-    axes[1].set_ylim(0, 165)
-    for ax in axes:
+    axes[0, 0].text(0.035, 0.12, "EventGuard = Importance Only\nat every paired seed",
+                    transform=axes[0, 0].transAxes, fontsize=7.0, va="bottom")
+    for ax, (_, title, ylabel, ylim) in zip(axes.flat, panels):
+        ax.set_title(title)
+        ax.set_ylabel(ylabel)
+        ax.set_ylim(*ylim)
         ax.set_xlabel("Configured RANDOM_COPY loss (%)")
         ax.set_xticks(x)
         clean_axes(ax)
-    handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, -0.11),
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, -0.055),
                ncol=4, frameon=False, handlelength=2.3)
     save(fig, "fig4_ablation_delivery_cost")
 
