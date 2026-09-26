@@ -156,7 +156,7 @@ def _parse_samples(samples, sensor_lines, gateway_lines, config, reference) -> t
             continue
         evt, summary = evts[0], summaries[0]
         try:
-            importance, before, copies = summary[2], summary[4], int(summary[5])
+            importance, before, copies = summary[3], summary[5], int(summary[6])
             if evt[5] != before or int(evt[6]) != copies:
                 issues.append(f"sample {sid}: EVT/SAMPLE disagreement")
             tx = {int(p[3]): p for p in by_kind["TX"][sid]}
@@ -166,6 +166,8 @@ def _parse_samples(samples, sensor_lines, gateway_lines, config, reference) -> t
             ack_tx = {int(p[3]): p for p in by_kind["ACK_TX"][sid]}
             if len(tx) != copies or set(tx) != set(range(copies)):
                 issues.append(f"sample {sid}: DATA copy logs {sorted(tx)} != {list(range(copies))}")
+            if any(int(p[2]) != sid for p in tx.values()):
+                issues.append(f"sample {sid}: sequence did not reset to sample index")
             if before != estimator.state.name:
                 issues.append(f"sample {sid}: link before {before} != replay {estimator.state.name}")
             for copy in range(copies):
@@ -284,6 +286,15 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
         issues.append("incomplete per-sample log")
     if metrics["crc_errors"] or metrics["invalid_packets"] or metrics["out_of_order_packets"]:
         issues.append("CRC, invalid packet, or out-of-order anomaly")
+    if sensor_end and gateway_end:
+        sensor_totals = [int(x) for x in sensor_end[0].split(",")[1:]]
+        gateway_totals = [int(x) for x in gateway_end[0].split(",")[1:]]
+        if sensor_totals[:3] != [len(samples), metrics["physical_data_transmissions"], metrics["accepted_ack"]] or sensor_totals[3] != 0:
+            issues.append(f"sensor END counters disagree: {sensor_totals}")
+        if gateway_totals[:7] != [len(samples), metrics["physical_data_received"] - metrics["data_injected_drops"] - metrics["crc_errors"], metrics["delivered_packets"],
+                                  metrics["duplicate_packets"], metrics["ack_count"], metrics["crc_errors"],
+                                  metrics["data_injected_drops"]]:
+            issues.append(f"gateway END counters disagree: {gateway_totals}")
     if event_diffs:
         issues.append(f"simulation/firmware divergence at {len(event_diffs)} sample(s)")
     uart_ms = (metrics["data_bytes_transmitted"] + metrics["ack_bytes_transmitted"]) * 10 * 1000 / load_config()["uart_baud"]
