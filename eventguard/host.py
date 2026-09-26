@@ -23,6 +23,7 @@ from .trace import generate_trace, trace_fingerprint
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
+SERIAL_CAPTURE_VERSION = "chunked-read-4096-incremental-line-framing-v1"
 
 
 def load_config() -> dict:
@@ -112,6 +113,9 @@ class SerialLogReader:
         self.serial = serial.Serial(port, baudrate=baud, timeout=0.05, write_timeout=2)
         self.lines: list[tuple[float, str]] = []
         self.lock = threading.Lock()
+        self._framer = SerialLineFramer()
+        self._capture_stats = {"bytes_read": 0, "lines_read": 0, "read_calls": 0,
+                               "max_read_chunk_bytes": 0, "reader_errors": 0}
         self.stop_event = threading.Event()
         self.thread = threading.Thread(target=self._read, name=f"serial-{Path(port).name}", daemon=True)
         self.thread.start()
@@ -119,13 +123,23 @@ class SerialLogReader:
     def _read(self):
         while not self.stop_event.is_set():
             try:
-                raw = self.serial.readline()
+                # Read chunks and frame lines locally. pyserial.readline() reads a byte at a
+                # time; under simultaneous verbose Sensor/Gateway output that needlessly
+                # increases syscall overhead and can let the USB serial receive queue lag.
+                raw = self.serial.read(4096)
                 if raw:
-                    line = raw.decode("utf-8", errors="replace").strip()
+                    read_at = time.monotonic()
                     with self.lock:
-                        self.lines.append((time.monotonic(), line))
+                        lines = self._framer.feed(raw)
+                        self._capture_stats["bytes_read"] += len(raw)
+                        self._capture_stats["read_calls"] += 1
+                        self._capture_stats["max_read_chunk_bytes"] = max(
+                            self._capture_stats["max_read_chunk_bytes"], len(raw))
+                        self._capture_stats["lines_read"] += len(lines)
+                        self.lines.extend((read_at, line) for line in lines)
             except Exception as exc:
                 with self.lock:
+                    self._capture_stats["reader_errors"] += 1
                     self.lines.append((time.monotonic(), f"HOST_SERIAL_ERROR,{exc!r}"))
                 return
 
@@ -138,10 +152,41 @@ class SerialLogReader:
             lines, self.lines = self.lines, []
         return lines
 
+    def capture_snapshot(self) -> dict:
+        with self.lock:
+            return {**self._capture_stats, "pending_bytes": self._framer.pending_bytes}
+
     def close(self):
         self.stop_event.set()
         self.thread.join(timeout=1)
         self.serial.close()
+
+
+class SerialLineFramer:
+    """Incrementally split a byte stream into complete UTF-8 serial log lines."""
+
+    def __init__(self, max_line_bytes: int = 65536):
+        self._buffer = bytearray()
+        self.max_line_bytes = max_line_bytes
+
+    @property
+    def pending_bytes(self) -> int:
+        return len(self._buffer)
+
+    def feed(self, chunk: bytes) -> list[str]:
+        self._buffer.extend(chunk)
+        lines = []
+        while True:
+            newline = self._buffer.find(b"\n")
+            if newline < 0:
+                if len(self._buffer) > self.max_line_bytes:
+                    self._buffer.clear()
+                    raise ValueError(f"serial line exceeded {self.max_line_bytes} bytes without newline")
+                break
+            raw_line = bytes(self._buffer[:newline]).rstrip(b"\r")
+            del self._buffer[:newline + 1]
+            lines.append(raw_line.decode("utf-8", errors="replace").strip())
+        return lines
 
 
 def discover_boards(discovery_seconds: float = 12.0) -> tuple[dict, dict[str, SerialLogReader]]:
@@ -305,8 +350,11 @@ def _apply_sdkconfig_defaults(sdkconfig: Path, defaults_text: str) -> None:
     sdkconfig.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def build_firmware(config: dict | None = None) -> dict[str, Path]:
+def build_firmware(config: dict | None = None, output_dir: Path | None = None,
+                   diagnostic_mode: bool = False) -> dict[str, Path]:
     config = config or load_config()
+    log_dir = (output_dir or RESULTS) / "raw"
+    log_dir.mkdir(parents=True, exist_ok=True)
     py, env = _idf_environment()
     idf = Path(env["IDF_PATH"]) / "tools/idf.py"
     project = ROOT / "firmware"
@@ -331,6 +379,7 @@ def build_firmware(config: dict | None = None) -> dict[str, Path]:
             f"CONFIG_EG_I2C_SDA_GPIO={sensor_pins['i2c_sda_gpio']}", f"CONFIG_EG_I2C_SCL_GPIO={sensor_pins['i2c_scl_gpio']}",
             f"CONFIG_EG_SOIL_ADC_GPIO={sensor_pins['soil_adc_gpio']}",
             f"CONFIG_EG_MAX_REDUNDANCY={config['max_redundancy']}", f"CONFIG_EG_FIXED_REDUNDANCY={config['fixed_redundancy']}"]
+        generated_defaults.append(f"CONFIG_EG_DIAGNOSTIC_MODE={'y' if diagnostic_mode else 'n'}")
         defaults_text = "\n".join(generated_defaults) + "\n"
         if not defaults.exists() or defaults.read_text(encoding="utf-8") != defaults_text:
             defaults.write_text(defaults_text, encoding="utf-8")
@@ -346,9 +395,9 @@ def build_firmware(config: dict | None = None) -> dict[str, Path]:
         cmd = base + ["build"]
         print("BUILD", role)
         result = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True)
-        (RESULTS / "raw" / f"build_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
+        (log_dir / f"build_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         if result.returncode:
-            raise RuntimeError(f"ESP-IDF build failed for {role}; see results/raw/build_{role}.log\n" + result.stderr[-3000:])
+            raise RuntimeError(f"ESP-IDF build failed for {role}; see {log_dir / f'build_{role}.log'}\n" + result.stderr[-3000:])
         outputs[role] = build_dir / "eventguard.bin"
     size_summary = {}
     for role in ("sensor", "gateway"):
@@ -359,18 +408,21 @@ def build_firmware(config: dict | None = None) -> dict[str, Path]:
                "-D", f"SDKCONFIG_DEFAULTS={defaults}", "size"]
         result = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True)
         size_text = result.stdout + result.stderr
-        (RESULTS / "raw" / f"size_{role}.log").write_text(size_text, encoding="utf-8")
+        (log_dir / f"size_{role}.log").write_text(size_text, encoding="utf-8")
         if result.returncode:
             raise RuntimeError(f"ESP-IDF size report failed for {role}: {size_text[-3000:]}")
         size_summary[role] = {"application_binary_bytes": outputs[role].stat().st_size, "idf_size_report": size_text}
-    size_path = RESULTS / "pre_hardware_v1" / "firmware_size.json"
+    size_path = (output_dir or RESULTS / "pre_hardware_v1") / "firmware_size.json"
     size_path.parent.mkdir(parents=True, exist_ok=True)
     size_path.write_text(json.dumps(size_summary, indent=2), encoding="utf-8")
     return outputs
 
 
-def flash_firmware(outputs: dict[str, Path], mapping: dict, config: dict | None = None) -> None:
+def flash_firmware(outputs: dict[str, Path], mapping: dict, config: dict | None = None,
+                   output_dir: Path | None = None) -> None:
     config = config or load_config()
+    log_dir = (output_dir or RESULTS) / "raw"
+    log_dir.mkdir(parents=True, exist_ok=True)
     py, env = _idf_environment()
     idf = Path(env["IDF_PATH"]) / "tools/idf.py"
     project = ROOT / "firmware"
@@ -382,9 +434,9 @@ def flash_firmware(outputs: dict[str, Path], mapping: dict, config: dict | None 
                "-D", f"SDKCONFIG_DEFAULTS={defaults}", "-p", mapping[port_key], "flash"]
         print("FLASH", role, mapping[port_key])
         result = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True, timeout=180)
-        (RESULTS / "raw" / f"flash_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
+        (log_dir / f"flash_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         if result.returncode:
-            raise RuntimeError(f"Firmware flash failed for {role}; see results/raw/flash_{role}.log\n" + result.stderr[-3000:])
+            raise RuntimeError(f"Firmware flash failed for {role}; see {log_dir / f'flash_{role}.log'}\n" + result.stderr[-3000:])
 
 
 def _wait_for(reader: SerialLogReader, token: str, timeout: float = 8.0) -> list[tuple[float, str]]:
@@ -437,7 +489,7 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
     trace_by_id = {s.sample_id: s for s in samples}
     delivered = set()
     duplicate_packets = 0
-    physical_data_tx = physical_data_rx = ack_count = physical_ack_received = accepted_ack = 0
+    physical_data_tx = physical_data_rx = physical_data_before_injection = ack_count = physical_ack_received = accepted_ack = 0
     crc_errors = invalid_packets = data_drops = ack_drops = sequence_gaps = out_of_order = 0
     first_data_drops = first_ack_drops = first_copy_success = 0
     normal_copies = critical_copies = 0
@@ -477,7 +529,7 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
     for now, line in gateway_lines:
         parts = line.split(",")
         if parts[0] == "RX" and len(parts) >= 5:
-            physical_data_rx += 1
+            physical_data_rx += 1; physical_data_before_injection += 1
             if parts[4] == "DUP": duplicate_packets += 1
         elif parts[0] == "DELIVER" and len(parts) >= 3:
             try:
@@ -487,13 +539,13 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         elif parts[0] == "DROP" and len(parts) > 1 and parts[1] == "DATA":
             data_drops += 1
             if len(parts) >= 5 and parts[4] == "0": first_data_drops += 1
-            physical_data_rx += 1
+            physical_data_before_injection += 1
         elif parts[0] == "GAP" and len(parts) >= 5:
             try: sequence_gaps += int(parts[4])
             except ValueError: pass
         elif parts[0] == "ORDER": out_of_order += 1
         elif parts[0] == "ERR" and len(parts) > 1:
-            if parts[1] == "CRC": crc_errors += 1; physical_data_rx += 1
+            if parts[1] == "CRC": crc_errors += 1
             elif parts[1] == "PACKET": invalid_packets += 1
     totals = {label: sum(sample.truth.value == label for sample in samples) for label in ("NORMAL", "IMPORTANT", "CRITICAL")}
     delivered_by_label = {label: sum(s.sample_id in delivered and s.truth.value == label for s in samples) for label in totals}
@@ -526,6 +578,8 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         "important_event_delivery_ratio": ratio["IMPORTANT"], "normal_delivery_ratio": ratio["NORMAL"],
         "critical_event_miss_rate": 1 - ratio["CRITICAL"], "physical_data_transmissions": physical_data_tx,
         "physical_data_received": physical_data_rx, "total_bytes_transmitted": data_bytes + ack_bytes,
+        "physical_data_before_injection": physical_data_before_injection,
+        "uncontrolled_physical_data_missing": max(0, physical_data_tx - physical_data_before_injection),
         "data_bytes_transmitted": data_bytes, "ack_bytes_transmitted": ack_bytes,
         "redundancy_overhead": physical_data_tx / len(samples) - 1,
         "ack_count": ack_count, "physical_ack_received": physical_ack_received,

@@ -1,0 +1,29 @@
+{
+  "classification": "runner/control-path issues; not E220 DATA loss observations",
+  "incidents": [
+    {
+      "commit": "0b5b50d4c5b65fe937602c94ffeb350d9987eff1",
+      "observation": "Gateway RESET did not respond while its high-priority receive task continuously reacquired the parser diagnostics mutex.",
+      "fix": "Pause the receive task around parser-state reset and diagnostics snapshot.",
+      "experiment_started": false
+    },
+    {
+      "commit": "686f2bd924e7ee3be630707bf7b8287aae3a6f42",
+      "observation": "Gateway RX task hit Task WDT while paused because pdMS_TO_TICKS(1) was zero at CONFIG_FREERTOS_HZ=100.",
+      "fix": "Use one actual FreeRTOS tick while the receive task is paused.",
+      "experiment_started": false
+    },
+    {
+      "observation": "v2 smoke status handshake stopped on a boot E220_READY line before seeing the explicit STATUS role response.",
+      "fix": "Require the numeric role/port STATUS response and E220_READY.",
+      "experiment_started": false
+    },
+    {
+      "observation": "A v2 smoke DATA run reached Sensor END; its UART_DIAG had already been drained with END, then the host runner waited a second time and timed out before persisting raw/run files.",
+      "fix": "Use the UART_DIAG line already captured in the END drain instead of waiting for it twice; rerun the unverified smoke condition.",
+      "experiment_started": true,
+      "raw_run_saved": false,
+      "repeat_required": true
+    }
+  ]
+}

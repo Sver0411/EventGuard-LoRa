@@ -1,0 +1,6 @@
+{
+  "status": "not_triggered_no_uncontrolled_missing_in_B_or_C",
+  "run_count": 0,
+  "reason": "Tests B and C observed zero uncontrolled physical DATA missing.",
+  "conditions": []
+}

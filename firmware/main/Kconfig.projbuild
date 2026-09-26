@@ -60,6 +60,9 @@ config EG_ACK_TIMEOUT_MS
     int "ACK timeout in milliseconds"
     range 20 2000
     default 1000
+config EG_DIAGNOSTIC_MODE
+    bool "Enable E220 receive-path diagnostic instrumentation and commands"
+    default n
 config EG_I2C_SDA_GPIO
     int "Sensor I2C SDA GPIO"
     range 0 48

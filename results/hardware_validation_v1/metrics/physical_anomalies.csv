@@ -1,0 +1,14 @@
+run_id,sample_id,copy_index,observation,loss_model,loss_rate,seed
+eventguard_random_copy_20_seed31,6,0,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,7,2,uncontrolled physical DATA missing before planned injection,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,9,0,uncontrolled physical DATA missing before planned injection,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,10,2,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,22,2,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,23,2,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,28,1,uncontrolled physical DATA missing before planned injection,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,35,1,uncontrolled physical DATA missing before planned injection,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,36,2,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,44,0,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,45,2,uncontrolled physical DATA missing before planned injection,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,47,2,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31
+eventguard_random_copy_20_seed31,50,1,uncontrolled physical DATA anomaly,RANDOM_COPY,0.2,31

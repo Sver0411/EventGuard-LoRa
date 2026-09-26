@@ -1,0 +1,173 @@
+{
+  "git_commit": "13860fb6ef83de552a5c4a2f946a80b15c698770",
+  "branch": "codex/hardware-validation-v1",
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_spec_v1_sha256": "ab07fd9cac09acb53a6335e398c2e9f9d32f916bf5da34696ca69d349ce0d522",
+  "config_sha256": "687f92948fdb49e06079f2df9c2a3bc03c39a776b90f13b639f6be36f6dbf234",
+  "frozen_core_sha256": {
+    "eventguard/importance.py": "e8a32c16ce9f2a8c8e1d8aa9060162190ac1e567e8350b7a95b2d61bfe908d6d",
+    "eventguard/strategy.py": "d46893ca68b30481115a6ea02c40e331c1e6f4b09a16d3b58d3b9949876773f3",
+    "eventguard/faults.py": "db1995b06d165af614c16ec661919f017e6e788b92759b86095365294a97a660",
+    "eventguard/simulator.py": "7b86c81316dad083b2615f9b0b80e1fd03a8fdd1b52e0ea39608a2b60e57b4a6",
+    "eventguard/trace.py": "e05f9dbb5f9c250459cc37e89e56349030d10a774914ceb326b5c86c21009614",
+    "eventguard/model.py": "bedb4d63e841489d84cf68d763837172a5fd78bf03b8b4215e4b825b5a1f9daa",
+    "firmware/common/importance.c": "26342d36b2bbe9f9743ea797f073c64bbd64feeffac0d68f954d003849ce3e14",
+    "firmware/common/strategy.c": "cd9a17696ee2e76ce656ae00d5fb7fe4b11b6b14a4f95064f2bd874118a21061",
+    "firmware/common/faults.c": "8366d31c29a8f2f927c468ef9b43cb61c29a228e87929d0b2b3db17c96e59129",
+    "firmware/main/main.c": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d"
+  },
+  "sensor_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+  "gateway_firmware_source_sha256": "73167f0213fa86d3460b1354e80770159750d7974676c3c732fb712c0110460d",
+  "firmware_images_sha256": {
+    "sensor": "ed005d22ed2c5f44c33d9fa52fc5077dd2b68ce0f8030f991540e4ba51f6115d",
+    "gateway": "83492c7972d8f8fb2d5b2dff20cdfc3872db919dfb433031c23f0805be4f25dd"
+  },
+  "e220_configuration": {
+    "uart_num": 1,
+    "tx_gpio": 17,
+    "rx_gpio": 16,
+    "aux_gpio": 15,
+    "m0_gpio": 13,
+    "m1_gpio": 14,
+    "baud": 9600,
+    "address": 0,
+    "reg0": 98,
+    "channel": 23
+  },
+  "compatibility_fixes": [
+    "host build/flash logs redirected to hardware_validation_v1; no firmware source changes",
+    "host SAMPLE serial parser field offset corrected after failed first smoke attempt; condition rerun",
+    "hardware DATA receipt accounting separated pre-injection receipt from post-injection acceptance; raw logs reparsed"
+  ],
+  "hardware": {
+    "sensor_port": "/dev/cu.usbmodem101",
+    "gateway_port": "/dev/cu.usbmodem1101",
+    "candidates": [
+      {
+        "device": "/dev/cu.usbmodem101",
+        "description": "USB JTAG/serial debug unit",
+        "hwid": "USB VID:PID=303A:1001 SER=80:65:99:A7:A8:A4 LOCATION=0-1"
+      },
+      {
+        "device": "/dev/cu.usbmodem1101",
+        "description": "USB JTAG/serial debug unit",
+        "hwid": "USB VID:PID=303A:1001 SER=C0:4E:30:31:42:9C LOCATION=1-1"
+      }
+    ],
+    "discovery_lines": {
+      "/dev/cu.usbmodem101": [
+        "ROLE,SENSOR,1,17,16",
+        "E220_READY"
+      ],
+      "/dev/cu.usbmodem1101": [
+        "ROLE,GATEWAY,2,17,16",
+        "E220_READY"
+      ]
+    },
+    "identified_at": "2026-09-26T03:50:20.801068+00:00",
+    "chip_macs": {
+      "sensor": "80:65:99:a7:a8:a4",
+      "gateway": "c0:4e:30:31:42:9c"
+    }
+  },
+  "execution_order_seed": 4170411,
+  "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
+  "airtime_proxy": "10 bits per UART byte at 9600 baud; includes start/stop bits, excludes E220 RF PHY airtime",
+  "energy": "not estimated; no current sensor",
+  "stages": {
+    "smoke": {
+      "planned_runs": 12,
+      "execution_order": [
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 1
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 2
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 31,
+          "strategy": "FIXED_2",
+          "order": 3
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "EVENTGUARD",
+          "order": 4
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 5
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 31,
+          "strategy": "FIXED_2",
+          "order": 6
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 7
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "FIXED_2",
+          "order": 8
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.0,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 9
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "EVENTGUARD",
+          "order": 10
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "IMPORTANCE_ONLY",
+          "order": 11
+        },
+        {
+          "model": "RANDOM_COPY",
+          "rate": 0.2,
+          "seed": 32,
+          "strategy": "FIXED_2",
+          "order": 12
+        }
+      ],
+      "passed_runs": 3,
+      "failed_runs": 1,
+      "not_attempted_runs": 8,
+      "gate_status": "FAIL"
+    }
+  },
+  "engineering_bug_log": "engineering_bug_log.md"
+}

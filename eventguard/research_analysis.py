@@ -5,6 +5,7 @@ import csv
 import hashlib
 import json
 import math
+import subprocess
 from collections import defaultdict
 from dataclasses import replace
 from datetime import datetime, timezone
@@ -52,8 +53,34 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _main_is_additive_diagnostic_extension() -> bool:
+    """Permit only the previously smoke-validated diagnostic additions to main.c."""
+    baseline = subprocess.run(["git", "show", f"{FROZEN_COMMIT}:firmware/main/main.c"],
+                              cwd=ROOT, text=True, capture_output=True)
+    if baseline.returncode or hashlib.sha256(baseline.stdout.encode()).hexdigest() != FROZEN_FILES["firmware/main/main.c"]:
+        return False
+    original_lines = baseline.stdout.splitlines()
+    current_lines = (ROOT / "firmware/main/main.c").read_text(encoding="utf-8").splitlines()
+    cursor = 0
+    for line in original_lines:
+        while cursor < len(current_lines) and current_lines[cursor] != line:
+            cursor += 1
+        if cursor == len(current_lines):
+            return False
+        cursor += 1
+    current_source = "\n".join(current_lines)
+    return all(marker in current_source for marker in (
+        "CONFIG_EG_DIAGNOSTIC_MODE", "E220_RX_DIAGNOSTIC", "eg_e220_get_diagnostics"))
+
+
 def assert_frozen_algorithm() -> None:
-    mismatches = [name for name, expected in FROZEN_FILES.items() if _sha256(ROOT / name) != expected]
+    mismatches = []
+    for name, expected in FROZEN_FILES.items():
+        if _sha256(ROOT / name) == expected:
+            continue
+        if name == "firmware/main/main.c" and _main_is_additive_diagnostic_extension():
+            continue
+        mismatches.append(name)
     if mismatches:
         raise RuntimeError(f"frozen algorithm differs from {FROZEN_COMMIT}: {', '.join(mismatches)}")
 

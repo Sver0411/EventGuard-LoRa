@@ -1,0 +1,3 @@
+# Hardware validation paper update
+
+The frozen-v1 E220 smoke stage did not pass its preregistered gate. Three of twelve planned runs passed complete logging and host parity; one further run completed radio transmission but failed validation, and 8 were not attempted. In eventguard_random_copy_20_seed31, 13 of 141 logged DATA sends had no gateway receive or injection-drop record. The cause could lie in the RF, E220, or gateway receive path and has not been localized. The 160-run main matrix was not started. These observations are a feasibility result, not confirmation of a treatment effect. The reported communication-time estimate is a UART-time proxy, not measured RF airtime; energy was not directly measured and no Joule value is reported.

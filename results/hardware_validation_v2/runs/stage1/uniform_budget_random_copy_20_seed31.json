@@ -1,0 +1,94 @@
+{
+  "run_id": "uniform_budget_random_copy_20_seed31",
+  "stage": "stage1",
+  "trace_sha256": "73d9ff14aa406239cc54fc6052f86d6589142d00af93eae773d64a41cfd38901",
+  "loss_calendar_sha256": "edf01eb778992a4b4b0144af5df82fa2fa9d3373141e21ea19e5624450d83776",
+  "firmware_images_sha256": {
+    "sensor": "b3cecd078351cc6fe659b0087db05a67a4ca35ab610125a0f0381887281221b4",
+    "gateway": "6f69dffed65e2636b371401db45a483f951189e029b538c2f587d331428936ac"
+  },
+  "reference_eventguard_data_copy_budget": 144,
+  "configured_data_copy_budget": 144,
+  "execution_order": 1,
+  "git_commit": "5fa78641edc8efdd0007a2033a28762d688633f5",
+  "branch": "codex/e220-receive-diagnostic-v1",
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_spec_v1_sha256": "ab07fd9cac09acb53a6335e398c2e9f9d32f916bf5da34696ca69d349ce0d522",
+  "config_sha256": "687f92948fdb49e06079f2df9c2a3bc03c39a776b90f13b639f6be36f6dbf234",
+  "frozen_core_sha256": {
+    "eventguard/importance.py": "e8a32c16ce9f2a8c8e1d8aa9060162190ac1e567e8350b7a95b2d61bfe908d6d",
+    "eventguard/strategy.py": "d46893ca68b30481115a6ea02c40e331c1e6f4b09a16d3b58d3b9949876773f3",
+    "eventguard/faults.py": "db1995b06d165af614c16ec661919f017e6e788b92759b86095365294a97a660",
+    "eventguard/simulator.py": "7b86c81316dad083b2615f9b0b80e1fd03a8fdd1b52e0ea39608a2b60e57b4a6",
+    "eventguard/trace.py": "e05f9dbb5f9c250459cc37e89e56349030d10a774914ceb326b5c86c21009614",
+    "eventguard/model.py": "bedb4d63e841489d84cf68d763837172a5fd78bf03b8b4215e4b825b5a1f9daa",
+    "firmware/common/importance.c": "26342d36b2bbe9f9743ea797f073c64bbd64feeffac0d68f954d003849ce3e14",
+    "firmware/common/strategy.c": "cd9a17696ee2e76ce656ae00d5fb7fe4b11b6b14a4f95064f2bd874118a21061",
+    "firmware/common/faults.c": "8366d31c29a8f2f927c468ef9b43cb61c29a228e87929d0b2b3db17c96e59129",
+    "firmware/main/main.c": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302"
+  },
+  "firmware_main_additive_diagnostic_extension": true,
+  "sensor_firmware_source_sha256": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302",
+  "gateway_firmware_source_sha256": "826273525c1583ba5cc78472b26b65e566ab7f8af83ff096fc0c5c3246e75302",
+  "hardware_runner_sha256": "37ce7a5b22c3afd915895bf7d634b5e208d4372a7ac4d62211634fa330161b63",
+  "hardware_analysis_sha256": "5b2f6fa185a0e10dd0f8515b0da974a963308de8ccb303c584e9df08452d83b1",
+  "git_worktree_status": [
+    " M eventguard/hardware_analysis.py",
+    " M eventguard/hardware_validation.py",
+    " M eventguard/research_analysis.py",
+    " M tests/test_hardware_validation.py",
+    " M tools/run_hardware_validation.py",
+    "?? artifacts/",
+    "?? results/firmware_recovery/",
+    "?? results/hardware_validation_v2/engineering_bug_log.md"
+  ],
+  "git_worktree_clean": false,
+  "firmware_image_manifest_commit": "b7ff9f374dd76b1be39bb04a84e1ad24ff0ea213",
+  "firmware_hash_source": "active app partitions read from Sensor/Gateway; exact canonical image hashes match v2 smoke",
+  "firmware_artifact_directory": "artifacts/final_stage1_firmware",
+  "e220_configuration": {
+    "uart_num": 1,
+    "tx_gpio": 17,
+    "rx_gpio": 16,
+    "aux_gpio": 15,
+    "m0_gpio": 13,
+    "m1_gpio": 14,
+    "baud": 9600,
+    "address": 0,
+    "reg0": 98,
+    "channel": 23
+  },
+  "recovery_manifest": "artifacts/final_stage1_firmware/manifest.json",
+  "compatibility_fixes": [
+    "SAMPLE serial parser corrected from fields 2/4/5 to 3/5/6 after an initial smoke attempt; affected condition rerun",
+    "E220 receive parser retains stream state and incrementally accumulates short UART reads",
+    "Gateway END s_rx_count is validated against post-injection physical_data_received",
+    "Stage 1 uses frozen device-recovered firmware artifacts; current build/ output is never used",
+    "Stage 1 strategy order is shuffled across all four strategies using the recorded seed",
+    "Stage 1 equal-DATA budgets are computed from frozen host references before the first START"
+  ],
+  "source": "REAL_E220_WITH_APPLICATION_LAYER_INJECTION",
+  "sensor_mac": "80:65:99:a7:a8:a4",
+  "gateway_mac": "c0:4e:30:31:42:9c",
+  "serial_ports": {
+    "sensor": "/dev/cu.usbmodem1401",
+    "gateway": "/dev/cu.usbmodem1101"
+  },
+  "strategy": "UNIFORM_BUDGET",
+  "loss_model": "RANDOM_COPY",
+  "loss_rate": 0.2,
+  "seed": 31,
+  "start_time_utc": "2026-09-26T07:02:07.791777+00:00",
+  "duration_s": 324.0131013749633,
+  "sample_count": 54,
+  "status": "failed",
+  "start_command_attempted": true,
+  "failure": {
+    "type": "TimeoutError",
+    "message": "uniform_budget_random_copy_20_seed31: firmware END timeout"
+  },
+  "issues": [
+    "run terminated after START attempt: TimeoutError: uniform_budget_random_copy_20_seed31: firmware END timeout"
+  ],
+  "raw_sha256": "6b979cfb4a68c3520ef3f1bbd1115ab720959c99d35ee9bc9c7cd588a530f7eb"
+}

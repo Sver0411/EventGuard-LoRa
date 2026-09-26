@@ -1,0 +1,16 @@
+{
+  "attempts": [
+    {
+      "run_id": "random_budget_burst_sample_30_seed36",
+      "attempt": 1,
+      "archive": "stage1/retry_history/random_budget_burst_sample_30_seed36_attempt_01_20260926T121505Z",
+      "archive_manifest_sha256": "14b9dae96554a40b0258b72fbcde583e38e1cd0a4fe0fdc1cce36bcbbef395fc"
+    },
+    {
+      "run_id": "random_budget_burst_sample_30_seed36",
+      "attempt": 2,
+      "archive": "stage1/retry_history/random_budget_burst_sample_30_seed36_attempt_02_20260926T122209Z",
+      "archive_manifest_sha256": "3dfb302092f34c985f7f2007ee9e61f1cb76a610b53760728fd6425c4d355c37"
+    }
+  ]
+}

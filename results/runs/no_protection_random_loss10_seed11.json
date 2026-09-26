@@ -1,0 +1,536 @@
+{
+  "run_id": "no_protection_random_loss10_seed11",
+  "strategy": "NO_PROTECTION",
+  "loss_rate": 0.1,
+  "loss_model": "RANDOM",
+  "seed": 11,
+  "trace_sha256": "19558e2ff7c5eec6632fbb4262cf64002978275c397d79ef132275e7a234a1b0",
+  "trace": [
+    {
+      "sample_id": 0,
+      "timestamp_ms": 0,
+      "temperature": 24.0,
+      "humidity": 48.01,
+      "light": 120.8,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE"
+    },
+    {
+      "sample_id": 1,
+      "timestamp_ms": 120000,
+      "temperature": 24.0,
+      "humidity": 48.02,
+      "light": 119.4,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE"
+    },
+    {
+      "sample_id": 2,
+      "timestamp_ms": 120000,
+      "temperature": 24.01,
+      "humidity": 48.06,
+      "light": 119.2,
+      "soil_moisture": 62.0,
+      "truth": "IMPORTANT",
+      "phase": "SLOW_CHANGE"
+    },
+    {
+      "sample_id": 3,
+      "timestamp_ms": 180000,
+      "temperature": 27.98,
+      "humidity": 54.06,
+      "light": 125.4,
+      "soil_moisture": 59.9,
+      "truth": "IMPORTANT",
+      "phase": "SLOW_CHANGE"
+    },
+    {
+      "sample_id": 4,
+      "timestamp_ms": 180000,
+      "temperature": 28.02,
+      "humidity": 54.09,
+      "light": 125.3,
+      "soil_moisture": 60.0,
+      "truth": "IMPORTANT",
+      "phase": "RAPID_CHANGE"
+    },
+    {
+      "sample_id": 5,
+      "timestamp_ms": 200000,
+      "temperature": 29.48,
+      "humidity": 55.9,
+      "light": 950.1,
+      "soil_moisture": 58.9,
+      "truth": "IMPORTANT",
+      "phase": "RAPID_CHANGE"
+    },
+    {
+      "sample_id": 6,
+      "timestamp_ms": 200000,
+      "temperature": 29.48,
+      "humidity": 55.95,
+      "light": 949.1,
+      "soil_moisture": 59.0,
+      "truth": "NORMAL",
+      "phase": "STABLE_WAIT"
+    },
+    {
+      "sample_id": 7,
+      "timestamp_ms": 240000,
+      "temperature": 24.0,
+      "humidity": 48.07,
+      "light": 120.0,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE_WAIT"
+    },
+    {
+      "sample_id": 8,
+      "timestamp_ms": 260000,
+      "temperature": 24.2,
+      "humidity": 49.03,
+      "light": 121.9,
+      "soil_moisture": 24.0,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_SOIL"
+    },
+    {
+      "sample_id": 9,
+      "timestamp_ms": 260000,
+      "temperature": 24.22,
+      "humidity": 49.1,
+      "light": 122.7,
+      "soil_moisture": 24.0,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_SOIL"
+    },
+    {
+      "sample_id": 10,
+      "timestamp_ms": 260000,
+      "temperature": 24.19,
+      "humidity": 48.95,
+      "light": 121.6,
+      "soil_moisture": 23.9,
+      "truth": "NORMAL",
+      "phase": "RECOVERY_SOIL"
+    },
+    {
+      "sample_id": 11,
+      "timestamp_ms": 300000,
+      "temperature": 24.01,
+      "humidity": 47.98,
+      "light": 120.7,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "RECOVERY_SOIL"
+    },
+    {
+      "sample_id": 12,
+      "timestamp_ms": 320000,
+      "temperature": 31.02,
+      "humidity": 70.07,
+      "light": 1099.0,
+      "soil_moisture": 29.9,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_MULTI"
+    },
+    {
+      "sample_id": 13,
+      "timestamp_ms": 320000,
+      "temperature": 31.02,
+      "humidity": 69.99,
+      "light": 1101.0,
+      "soil_moisture": 30.0,
+      "truth": "CRITICAL",
+      "phase": "CRITICAL_MULTI"
+    },
+    {
+      "sample_id": 14,
+      "timestamp_ms": 320000,
+      "temperature": 30.98,
+      "humidity": 70.03,
+      "light": 1100.6,
+      "soil_moisture": 30.0,
+      "truth": "IMPORTANT",
+      "phase": "RECOVERY"
+    },
+    {
+      "sample_id": 15,
+      "timestamp_ms": 360000,
+      "temperature": 23.98,
+      "humidity": 47.97,
+      "light": 120.9,
+      "soil_moisture": 62.1,
+      "truth": "IMPORTANT",
+      "phase": "RECOVERY"
+    },
+    {
+      "sample_id": 16,
+      "timestamp_ms": 360000,
+      "temperature": 23.98,
+      "humidity": 47.95,
+      "light": 119.2,
+      "soil_moisture": 61.9,
+      "truth": "NORMAL",
+      "phase": "STABLE_FINAL"
+    },
+    {
+      "sample_id": 17,
+      "timestamp_ms": 420000,
+      "temperature": 24.01,
+      "humidity": 47.94,
+      "light": 120.1,
+      "soil_moisture": 62.0,
+      "truth": "NORMAL",
+      "phase": "STABLE_FINAL"
+    }
+  ],
+  "config": {
+    "protocol_version": 1,
+    "node_id": 1,
+    "gateway_id": 2,
+    "sample_period_ms": 1000,
+    "trace_samples_per_phase": 2,
+    "strategies": [
+      "NO_PROTECTION",
+      "FIXED_REDUNDANCY",
+      "EVENTGUARD"
+    ],
+    "loss_rates": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "loss_models": [
+      "RANDOM",
+      "BURST"
+    ],
+    "seeds": [
+      11,
+      23,
+      37,
+      41,
+      53,
+      67,
+      71,
+      83,
+      97,
+      101
+    ],
+    "fixed_redundancy": 2,
+    "max_redundancy": 3,
+    "burst_length": 3,
+    "burst_lengths": [
+      2,
+      3,
+      5
+    ],
+    "link_window": 12,
+    "link_degraded_threshold": 0.8,
+    "link_bad_threshold": 0.5,
+    "link_bad_fail_streak": 3,
+    "importance_thresholds": {
+      "important": 0.85,
+      "critical": 2.4
+    },
+    "importance_scales": {
+      "temperature": 0.5,
+      "humidity": 5.0,
+      "light": 100.0,
+      "soil_moisture": 8.0
+    },
+    "importance_baseline_alpha": 0.06,
+    "data_timeout_ms": 180,
+    "ack_timeout_ms": 1000,
+    "uart_baud": 9600,
+    "flash_size_mb": 16,
+    "e220": {
+      "uart_num": 1,
+      "tx_gpio": 17,
+      "rx_gpio": 16,
+      "aux_gpio": 15,
+      "m0_gpio": 13,
+      "m1_gpio": 14,
+      "baud": 9600,
+      "address": 0,
+      "reg0": 98,
+      "channel": 23
+    },
+    "sensor_pins": {
+      "i2c_sda_gpio": 8,
+      "i2c_scl_gpio": 9,
+      "soil_adc_gpio": 4
+    },
+    "oled_enabled": false,
+    "trace_mode": "TRACE_MODE"
+  },
+  "provenance": {
+    "source": "HOST_SIMULATION",
+    "physical_radio": false,
+    "application_layer_injection": true,
+    "note": "This run does not use an E220 radio."
+  },
+  "metrics": {
+    "logical_packets": 18,
+    "delivered_packets": 14,
+    "lost_logical_packets": 4,
+    "sequence_gaps": 4,
+    "out_of_order_packets": 0,
+    "overall_delivery_ratio": 0.7777777777777778,
+    "critical_event_delivery_ratio": 0.5,
+    "important_event_delivery_ratio": 0.8333333333333334,
+    "normal_delivery_ratio": 0.875,
+    "critical_event_miss_rate": 0.5,
+    "physical_data_transmissions": 18,
+    "physical_data_received": 14,
+    "total_bytes_transmitted": 650,
+    "data_bytes_transmitted": 468,
+    "ack_bytes_transmitted": 182,
+    "redundancy_overhead": 0.0,
+    "ack_count": 14,
+    "ack_received": 14,
+    "mean_delivery_latency_ms": 31.25,
+    "p50_delivery_latency_ms": 31.25,
+    "p95_delivery_latency_ms": 31.25,
+    "p99_delivery_latency_ms": 31.25,
+    "retransmissions": 0,
+    "duplicate_packets": 0,
+    "crc_errors": 0,
+    "invalid_packets": 0,
+    "data_injected_drops": 4,
+    "ack_injected_drops": 0,
+    "communication_cost_per_delivered_critical_event": 325.0,
+    "truth_counts": {
+      "NORMAL": 8,
+      "IMPORTANT": 6,
+      "CRITICAL": 4
+    },
+    "truth_delivered": {
+      "NORMAL": 7,
+      "IMPORTANT": 5,
+      "CRITICAL": 2
+    }
+  },
+  "events": [
+    {
+      "sample_id": 0,
+      "sequence": 0,
+      "truth": "NORMAL",
+      "importance": "NORMAL",
+      "importance_score": 0.0,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 1,
+      "sequence": 1,
+      "truth": "NORMAL",
+      "importance": "NORMAL",
+      "importance_score": 0.01146666666666734,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 2,
+      "sequence": 2,
+      "truth": "IMPORTANT",
+      "importance": "NORMAL",
+      "importance_score": 0.07276000000000739,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 3,
+      "sequence": 3,
+      "truth": "IMPORTANT",
+      "importance": "CRITICAL",
+      "importance_score": 4.7500592,
+      "link_state": "DEGRADED",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": false,
+      "ack_received": false
+    },
+    {
+      "sample_id": 4,
+      "sequence": 4,
+      "truth": "IMPORTANT",
+      "importance": "IMPORTANT",
+      "importance_score": 1.6819841999999974,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 5,
+      "sequence": 5,
+      "truth": "IMPORTANT",
+      "importance": "CRITICAL",
+      "importance_score": 7.471921800000001,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 6,
+      "sequence": 6,
+      "truth": "NORMAL",
+      "importance": "CRITICAL",
+      "importance_score": 2.8571968000000023,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 7,
+      "sequence": 7,
+      "truth": "NORMAL",
+      "importance": "CRITICAL",
+      "importance_score": 6.080184400000002,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 8,
+      "sequence": 8,
+      "truth": "CRITICAL",
+      "importance": "CRITICAL",
+      "importance_score": 4.8897592,
+      "link_state": "DEGRADED",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": false,
+      "ack_received": false
+    },
+    {
+      "sample_id": 9,
+      "sequence": 9,
+      "truth": "CRITICAL",
+      "importance": "IMPORTANT",
+      "importance_score": 1.7963091999999987,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 10,
+      "sequence": 10,
+      "truth": "NORMAL",
+      "importance": "IMPORTANT",
+      "importance_score": 1.8766341999999918,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 11,
+      "sequence": 11,
+      "truth": "NORMAL",
+      "importance": "CRITICAL",
+      "importance_score": 3.4880656000000023,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 12,
+      "sequence": 12,
+      "truth": "CRITICAL",
+      "importance": "CRITICAL",
+      "importance_score": 13.999999999999998,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 13,
+      "sequence": 13,
+      "truth": "CRITICAL",
+      "importance": "CRITICAL",
+      "importance_score": 4.599424999999999,
+      "link_state": "DEGRADED",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": false,
+      "ack_received": false
+    },
+    {
+      "sample_id": 14,
+      "sequence": 14,
+      "truth": "IMPORTANT",
+      "importance": "CRITICAL",
+      "importance_score": 4.6886,
+      "link_state": "DEGRADED",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 15,
+      "sequence": 15,
+      "truth": "IMPORTANT",
+      "importance": "CRITICAL",
+      "importance_score": 9.216290599999999,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 16,
+      "sequence": 16,
+      "truth": "NORMAL",
+      "importance": "NORMAL",
+      "importance_score": 0.6144657999999974,
+      "link_state": "GOOD",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": true,
+      "ack_received": true
+    },
+    {
+      "sample_id": 17,
+      "sequence": 17,
+      "truth": "NORMAL",
+      "importance": "NORMAL",
+      "importance_score": 0.0504501853333381,
+      "link_state": "DEGRADED",
+      "redundancy_selected": 1,
+      "copies_transmitted": 1,
+      "delivered": false,
+      "ack_received": false
+    }
+  ]
+}

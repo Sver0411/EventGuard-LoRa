@@ -1,0 +1,41 @@
+Executing action: size
+Running ninja in directory <repo>/build/gateway
+Executing "ninja all"...
+[1/4] cd <repo>/build/gateway/esp-idf/esptool_py && <idf-python-env>/bin/python <esp-idf>/components/partition_table/check_sizes.py --offset 0x8000 partition --type app <repo>/build/gateway/partition_table/partition-table.bin <repo>/build/gateway/eventguard.bin
+eventguard.bin binary size 0x3cb30 bytes. Smallest app partition is 0x100000 bytes. 0xc34d0 bytes (76%) free.
+[2/4] Performing build step for 'bootloader'
+[1/1] cd <repo>/build/gateway/bootloader/esp-idf/esptool_py && <idf-python-env>/bin/python <esp-idf>/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 <repo>/build/gateway/bootloader/bootloader.bin
+Bootloader binary size 0x51d0 bytes. 0x2e30 bytes (36%) free.
+[3/4] No install step for 'bootloader'
+[4/4] Completed 'bootloader'
+Running ninja in directory <repo>/build/gateway
+Executing "ninja size"...
+[0/1] cd <repo>/build/gateway && <cmake> -D "IDF_SIZE_TOOL=<idf-python-env>/bin/python;-m;esp_idf_size" -D MAP_FILE=<repo>/build/gateway/eventguard.map -D OUTPUT_JSON= -P <esp-idf>/tools/cmake/run_size_tool.cmake
+                           Memory Type Usage Summary                            
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Memory            ┃              ┃          ┃                ┃               ┃
+┃ Type/Section      ┃ Used [bytes] ┃ Used [%] ┃ Remain [bytes] ┃ Total [bytes] ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ Flash Code        │       125974 │          │                │               │
+│    .text          │       125974 │          │                │               │
+│ DIRAM             │        67111 │    19.64 │         274649 │        341760 │
+│    .text          │        45827 │    13.41 │                │               │
+│    .data          │        12060 │     3.53 │                │               │
+│    .bss           │         9224 │      2.7 │                │               │
+│ Flash Data        │        48236 │          │                │               │
+│    .rodata        │        47980 │          │                │               │
+│    .appdesc       │          256 │          │                │               │
+│ IRAM              │        16383 │    99.99 │              1 │         16384 │
+│    .text          │        15356 │    93.73 │                │               │
+│    .vectors       │         1027 │     6.27 │                │               │
+│ RTC SLOW          │           28 │     0.34 │           8164 │          8192 │
+│    .force_slow    │           28 │     0.34 │                │               │
+│ RTC FAST          │           24 │     0.29 │           8168 │          8192 │
+│    .rtc_reserved  │           24 │     0.29 │                │               │
+└───────────────────┴──────────────┴──────────┴────────────────┴───────────────┘
+Total image size: 248508 bytes (.bin may be padded larger)
+Note: The reported total sizes may be smaller than those in the technical 
+reference manual due to reserved memory and application configuration. The total
+flash size available for the application is not included by default, as it 
+cannot be reliably determined due to the presence of other data like the 
+bootloader, partition table, and application partition size.

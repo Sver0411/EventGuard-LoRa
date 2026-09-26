@@ -1,0 +1,333 @@
+{
+  "algorithm_version": "EventGuard-v1",
+  "algorithm_spec_sha256": "ab07fd9cac09acb53a6335e398c2e9f9d32f916bf5da34696ca69d349ce0d522",
+  "config_sha256": "687f92948fdb49e06079f2df9c2a3bc03c39a776b90f13b639f6be36f6dbf234",
+  "trace_version": "trace-v1-10s-9phases-6samples-per-phase",
+  "loss_calendar_implementation_sha256": "db1995b06d165af614c16ec661919f017e6e788b92759b86095365294a97a660",
+  "seed_range": [
+    31,
+    40
+  ],
+  "conditions": [
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 31,
+      "trace_sha256": "73d9ff14aa406239cc54fc6052f86d6589142d00af93eae773d64a41cfd38901",
+      "loss_calendar_sha256": "edf01eb778992a4b4b0144af5df82fa2fa9d3373141e21ea19e5624450d83776",
+      "eventguard_reference_data_budget": 144
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 31,
+      "trace_sha256": "73d9ff14aa406239cc54fc6052f86d6589142d00af93eae773d64a41cfd38901",
+      "loss_calendar_sha256": "34fcf944d5a5f2deebd80c1120b607781a2ef89e47da16c6969ff507407c3f48",
+      "eventguard_reference_data_budget": 147
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 31,
+      "trace_sha256": "73d9ff14aa406239cc54fc6052f86d6589142d00af93eae773d64a41cfd38901",
+      "loss_calendar_sha256": "0df8c8e5a52d3529cf975ec58f1988462d2576ced7f3776e236c991a7d7ec3d2",
+      "eventguard_reference_data_budget": 126
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 31,
+      "trace_sha256": "73d9ff14aa406239cc54fc6052f86d6589142d00af93eae773d64a41cfd38901",
+      "loss_calendar_sha256": "0012280e94007e8708a86da413e2a8bd499776fd898e8840d2f546c22053d967",
+      "eventguard_reference_data_budget": 137
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 32,
+      "trace_sha256": "6119e7089b0af0e9dd68c482fb71ece1f09122f81807a2ccc71010aa4cade86f",
+      "loss_calendar_sha256": "1841d1ca305b8d1af55d0add49bee64dada50c33bd5f225226996cebe061f172",
+      "eventguard_reference_data_budget": 142
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 32,
+      "trace_sha256": "6119e7089b0af0e9dd68c482fb71ece1f09122f81807a2ccc71010aa4cade86f",
+      "loss_calendar_sha256": "48383dbed7e57ea942d68935d1755a867724ff8004039096221c67d477ea9465",
+      "eventguard_reference_data_budget": 140
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 32,
+      "trace_sha256": "6119e7089b0af0e9dd68c482fb71ece1f09122f81807a2ccc71010aa4cade86f",
+      "loss_calendar_sha256": "079373013ec911504c069bb5544c329251298ccba704434800b96001eb65ff44",
+      "eventguard_reference_data_budget": 137
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 32,
+      "trace_sha256": "6119e7089b0af0e9dd68c482fb71ece1f09122f81807a2ccc71010aa4cade86f",
+      "loss_calendar_sha256": "3ee40cdcd9f583c49cafce209295ba313f5ec33c7fe01fba8a8f61e395bb2d29",
+      "eventguard_reference_data_budget": 142
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 33,
+      "trace_sha256": "81de3b48689a54bac849bcf0dbe81e7c12b28d260f7a3f4dd8110beec101cfbb",
+      "loss_calendar_sha256": "e1b26f1fb75d7e6b18ef7f11d132bd5f1362f9f92de98206a112c4bad2d0ea03",
+      "eventguard_reference_data_budget": 143
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 33,
+      "trace_sha256": "81de3b48689a54bac849bcf0dbe81e7c12b28d260f7a3f4dd8110beec101cfbb",
+      "loss_calendar_sha256": "4833a62152a88ee98696097786dbf701f665673426f577b8eac2c8baedeb4b0c",
+      "eventguard_reference_data_budget": 145
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 33,
+      "trace_sha256": "81de3b48689a54bac849bcf0dbe81e7c12b28d260f7a3f4dd8110beec101cfbb",
+      "loss_calendar_sha256": "8335b5aa08494aac8e36941ab153413ec9cb90724d2b1abedaa59cc6f02ff491",
+      "eventguard_reference_data_budget": 132
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 33,
+      "trace_sha256": "81de3b48689a54bac849bcf0dbe81e7c12b28d260f7a3f4dd8110beec101cfbb",
+      "loss_calendar_sha256": "449e7386dfbbabda2f8474dc572756706020fa5ef5b78710f45c564b1b8bc0df",
+      "eventguard_reference_data_budget": 129
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 34,
+      "trace_sha256": "3311278d0a1da75c7db630963f14ab90c2d0761099a18366d1464945dddd9c3b",
+      "loss_calendar_sha256": "8f33616b7c56cb9a58d51745b58e77612276e052fdb5c363b93eb61313f16f3e",
+      "eventguard_reference_data_budget": 144
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 34,
+      "trace_sha256": "3311278d0a1da75c7db630963f14ab90c2d0761099a18366d1464945dddd9c3b",
+      "loss_calendar_sha256": "16fc2940b5a85d22a55673ed64cf7b566d38131fc007d1150d403e0f419a1976",
+      "eventguard_reference_data_budget": 147
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 34,
+      "trace_sha256": "3311278d0a1da75c7db630963f14ab90c2d0761099a18366d1464945dddd9c3b",
+      "loss_calendar_sha256": "2aaef4c619688959b9e01a3b8e5e3c155393fde65e75495fb23905423113a00b",
+      "eventguard_reference_data_budget": 136
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 34,
+      "trace_sha256": "3311278d0a1da75c7db630963f14ab90c2d0761099a18366d1464945dddd9c3b",
+      "loss_calendar_sha256": "9c49150a3ccea8471d450c35176e4ce023cc20c9cd53e1b5d5a01124b3527356",
+      "eventguard_reference_data_budget": 141
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 35,
+      "trace_sha256": "f250c5873604ee96db60e34131c830b5e62e5eaacded034746890f6fa0985c21",
+      "loss_calendar_sha256": "aac4295dbf652860e4ed2283fe0c27b1090012952fbe63ab829d78566d8cb88a",
+      "eventguard_reference_data_budget": 148
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 35,
+      "trace_sha256": "f250c5873604ee96db60e34131c830b5e62e5eaacded034746890f6fa0985c21",
+      "loss_calendar_sha256": "bb3b79dacc872dc337f18123ca454f139c7a3761ac1b20d0b2628369bcf8da80",
+      "eventguard_reference_data_budget": 148
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 35,
+      "trace_sha256": "f250c5873604ee96db60e34131c830b5e62e5eaacded034746890f6fa0985c21",
+      "loss_calendar_sha256": "142d479951ba24bc490aa776309fa8bc351eec74d22f37cc578c16ff01d78d3c",
+      "eventguard_reference_data_budget": 134
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 35,
+      "trace_sha256": "f250c5873604ee96db60e34131c830b5e62e5eaacded034746890f6fa0985c21",
+      "loss_calendar_sha256": "ab1581904471b77cdcc48f7b6630474511e9e0ed3f456d43aafe62552f747621",
+      "eventguard_reference_data_budget": 141
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 36,
+      "trace_sha256": "60ce6e544b21f1e8134e2af61817152ff93a013a5a7898e2614c90c9a9cbb846",
+      "loss_calendar_sha256": "4b0c9a4773ef38c5385b776191b4bf92dd7923d5bee478a6bf786ea1acbcda97",
+      "eventguard_reference_data_budget": 134
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 36,
+      "trace_sha256": "60ce6e544b21f1e8134e2af61817152ff93a013a5a7898e2614c90c9a9cbb846",
+      "loss_calendar_sha256": "df4d96ddabd52a77843a4bb063d21a3e639e6cea1c05f0236edf06cffcd2b833",
+      "eventguard_reference_data_budget": 143
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 36,
+      "trace_sha256": "60ce6e544b21f1e8134e2af61817152ff93a013a5a7898e2614c90c9a9cbb846",
+      "loss_calendar_sha256": "8eaa597df6f7a8dc2e61e07a9fc58be2ba3cf2250ff29d952413a37679cc0d67",
+      "eventguard_reference_data_budget": 134
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 36,
+      "trace_sha256": "60ce6e544b21f1e8134e2af61817152ff93a013a5a7898e2614c90c9a9cbb846",
+      "loss_calendar_sha256": "8c2628535d60c96ba7e492ae1fd7f13920b3ba2e33fd006281a7c132f6af3015",
+      "eventguard_reference_data_budget": 145
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 37,
+      "trace_sha256": "f159dbf46962caa6bc856247e0f649a66f15e527ebc710b9b7417e03cd762244",
+      "loss_calendar_sha256": "1ac82bb3cb4a3da279dd6b681f7ac7568f834862aa5efee0d658858d4c5b9d77",
+      "eventguard_reference_data_budget": 146
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 37,
+      "trace_sha256": "f159dbf46962caa6bc856247e0f649a66f15e527ebc710b9b7417e03cd762244",
+      "loss_calendar_sha256": "b9f9a665527fefdb4b88d0bf1c4c2ebe425f379c5331242fd2b89eeeb016adb5",
+      "eventguard_reference_data_budget": 140
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 37,
+      "trace_sha256": "f159dbf46962caa6bc856247e0f649a66f15e527ebc710b9b7417e03cd762244",
+      "loss_calendar_sha256": "3243289f32dce2721a64ba56363fbad52b7e798d836a9b4d3c647b80e37e1a9b",
+      "eventguard_reference_data_budget": 134
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 37,
+      "trace_sha256": "f159dbf46962caa6bc856247e0f649a66f15e527ebc710b9b7417e03cd762244",
+      "loss_calendar_sha256": "471a0175228411dc8919315b078d5420d84d8bf8d3b8b8a6a1b283782efb41e5",
+      "eventguard_reference_data_budget": 138
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 38,
+      "trace_sha256": "c5e010f16d66360b7deeea8c3dbaa867bebf739e304ea32fa67954c3b2e97f64",
+      "loss_calendar_sha256": "678387a8dd497f1b75f61d98686bf177c6f1a85be37b7f593c490de831494652",
+      "eventguard_reference_data_budget": 147
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 38,
+      "trace_sha256": "c5e010f16d66360b7deeea8c3dbaa867bebf739e304ea32fa67954c3b2e97f64",
+      "loss_calendar_sha256": "fd90f0ca1962c83d557fc21dba701e1e503587316c91845621452edbd0065de0",
+      "eventguard_reference_data_budget": 140
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 38,
+      "trace_sha256": "c5e010f16d66360b7deeea8c3dbaa867bebf739e304ea32fa67954c3b2e97f64",
+      "loss_calendar_sha256": "fd041a5efb24ee8b0c3179f5f2b7006e0d8bfddb186e8188a8b3e581c1429170",
+      "eventguard_reference_data_budget": 145
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 38,
+      "trace_sha256": "c5e010f16d66360b7deeea8c3dbaa867bebf739e304ea32fa67954c3b2e97f64",
+      "loss_calendar_sha256": "a7f7cbb7fb7e4b9bede8af18a68dcf9a01ad984280f0b802185772266188590d",
+      "eventguard_reference_data_budget": 137
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 39,
+      "trace_sha256": "51c5feb51f91575a44a4d4424377fe2549ccecf5b0d856676f0db557bc64e833",
+      "loss_calendar_sha256": "6ea754bba0f5a8ae93e51c1c7554a09a58b564ddff7350ff542fa40a641a0f77",
+      "eventguard_reference_data_budget": 139
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 39,
+      "trace_sha256": "51c5feb51f91575a44a4d4424377fe2549ccecf5b0d856676f0db557bc64e833",
+      "loss_calendar_sha256": "2b2eeaebaf07ca5ed0925cace2397ae2f6075ddf35d84de60e876851f539a780",
+      "eventguard_reference_data_budget": 144
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 39,
+      "trace_sha256": "51c5feb51f91575a44a4d4424377fe2549ccecf5b0d856676f0db557bc64e833",
+      "loss_calendar_sha256": "a9c52495a5fc239ef132e6e40b42fb759b98424f4a3196ee3da973dd69a773e3",
+      "eventguard_reference_data_budget": 137
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 39,
+      "trace_sha256": "51c5feb51f91575a44a4d4424377fe2549ccecf5b0d856676f0db557bc64e833",
+      "loss_calendar_sha256": "aa4d6d203ddfeef5be38f8125d97d3efe790e27027b1ad1ff7478bb1ecb0143a",
+      "eventguard_reference_data_budget": 144
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.2,
+      "seed": 40,
+      "trace_sha256": "4f2d772a48f0466f3317f2a3d1c39bfdf29217e297af7af3ee474d69b90adef1",
+      "loss_calendar_sha256": "f45fb88a05efba6edc8ff749a46a55fb9ccead913a75bab44e3f71fbaa7a3ec1",
+      "eventguard_reference_data_budget": 137
+    },
+    {
+      "loss_model": "RANDOM_COPY",
+      "loss_rate": 0.3,
+      "seed": 40,
+      "trace_sha256": "4f2d772a48f0466f3317f2a3d1c39bfdf29217e297af7af3ee474d69b90adef1",
+      "loss_calendar_sha256": "f4fe60a2ca6cdfb14d84619981884cb6b82988dadf433e777052533cc78dfac2",
+      "eventguard_reference_data_budget": 142
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.2,
+      "seed": 40,
+      "trace_sha256": "4f2d772a48f0466f3317f2a3d1c39bfdf29217e297af7af3ee474d69b90adef1",
+      "loss_calendar_sha256": "5da93d130256653e7e87b08fc96fe5ce6d8323a0f473e87fd6878de59ba1d73b",
+      "eventguard_reference_data_budget": 136
+    },
+    {
+      "loss_model": "BURST_SAMPLE",
+      "loss_rate": 0.3,
+      "seed": 40,
+      "trace_sha256": "4f2d772a48f0466f3317f2a3d1c39bfdf29217e297af7af3ee474d69b90adef1",
+      "loss_calendar_sha256": "3cbe565457f818b3e728ceef3bc6a8fbb1ffb182f404860af8f87bdb3b94d392",
+      "eventguard_reference_data_budget": 138
+    }
+  ]
+}
