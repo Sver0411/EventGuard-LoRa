@@ -1,0 +1,5 @@
+run_id,loss_model,loss_rate,seed,strategy,critical_delivery_difference,overall_delivery_difference,data_copy_difference,accepted_ack_difference,link_state_difference_count,first_divergent_sample,first_divergent_copy,first_issue
+eventguard_random_copy_00_seed31,RANDOM_COPY,0.0,31,EVENTGUARD,0.0,0.0,0,0,0,,,
+importance_only_random_copy_00_seed31,RANDOM_COPY,0.0,31,IMPORTANCE_ONLY,0.0,0.0,0,0,0,,,
+fixed_2_random_copy_00_seed31,RANDOM_COPY,0.0,31,FIXED_2,0.0,0.0,0,0,0,,,
+eventguard_random_copy_20_seed31,RANDOM_COPY,0.2,31,EVENTGUARD,0.0,-0.03703703703703698,-3,-5,11,6,0,sample 6 copy 0: uncontrolled physical DATA anomaly

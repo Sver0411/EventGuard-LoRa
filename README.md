@@ -41,6 +41,8 @@ The host reference experiment uses identical trace rows and deterministic loss p
 
 `python tools/run_all_experiments.py --simulate` runs the isolated 8,000-run pre-hardware evaluation (8 strategies × 5 rates × 2 models × 100 evaluation seeds) and writes `results/pre_hardware_v1/` plus `results/pre_hardware_validation.md`. Seeds 1–30 are reserved for calibration; seeds 31–130 are used only for evaluation. `python tools/run_research_analysis.py` verifies the frozen code hashes, analyzes the locked 8,000 runs, and adds 11,000 host-only sensitivity runs. All experiments save a JSON manifest. The new hardware matrix is gated by the host diagnosis and has **not** been run.
 
+The frozen-v1 hardware validation now has a strict smoke gate in `tools/run_hardware_validation.py`. It records reset acknowledgments, per-sample classification/copy/link outcomes, separate injected and uncontrolled loss, firmware hashes, and exact execution order under `results/hardware_validation_v1/`. `tools/analyze_hardware_validation.py` summarizes only completed runs while retaining failed runs and raw logs in the failure audit. The 160-run main stage is not started unless all 12 smoke runs pass.
+
 ## Hardware
 
 - Two ESP32-S3 boards connected over USB at the same time.
@@ -69,6 +71,12 @@ CRITICAL classifier precision is 0.8125, recall 1.0000, and F1 0.8966; NORMAL→
 Read the [diagnostic report](results/pre_hardware_validation.md), [per-run CSV](results/pre_hardware_v1/runs.csv), and [matched-budget plot](results/pre_hardware_v1/plots/critical_delivery_vs_exact_budget.png).
 
 The expanded analysis adds [ablation statistics](results/ablation/report.md), [20 predeclared paired tests](results/ablation/paired_tests.csv), [Pareto frontiers](results/plots/pareto/pareto_frontier.png), [parameter sensitivity](results/sensitivity/report.md), and [failure cases](results/failure_analysis.md). It reports mean, median, sample standard deviation, and 95% mean CI for delivery and cost. EventGuard lies on **0 of 10** within-condition critical-delivery/byte Pareto frontiers: IMPORTANCE_ONLY or another lower-cost baseline matches its critical delivery in each tested condition. The [research status report](results/research_status_report.md) and [paper draft](docs/paper_draft.md) preserve this negative finding. The sensitivity grid tests CRITICAL threshold 2.0–4.0, link window 8/12/16/24, and copy cap 2/3. Cap 4 is explicitly unsupported by frozen v1's three-slot loss calendar and is not represented as a result.
+
+### Frozen-v1 hardware smoke status
+
+Two ESP32-S3 and E220-400T22D nodes were detected and flashed with frozen firmware. Three RANDOM_COPY 0%, seed-31 smoke runs passed complete per-sample Python/C and DATA/ACK accounting checks. The next EventGuard run at 20% injection failed the smoke gate: 141 DATA sends were logged, while 13 copies had no gateway receive or injection-drop record. The precise cause within the E220/receiver path is not established. The remaining eight smoke runs and the 160/400-run main matrices were **not** started. The failed result is preserved in the [hardware report](results/hardware_validation_v1/hardware_report.md), [raw logs](results/hardware_validation_v1/raw/smoke/eventguard_random_copy_20_seed31.json), and [per-copy anomaly list](results/hardware_validation_v1/metrics/physical_anomalies.csv). No hardware claim about equal-budget benefit or link adaptation is supported yet.
+
+The hardware cost field `estimated_communication_time_ms` is a **UART-time proxy**: `(DATA bytes + ACK bytes) × 10 / 9600` seconds. It is not measured E220 RF PHY airtime. No communication energy in Joules is reported because current was not measured.
 
 ## Pilot Archive (v0 E220; separate from frozen-v1 simulation)
 
@@ -100,7 +108,7 @@ ESP-IDF reports list application binaries of 277,376 bytes (Sensor) and 248,016 
 
 ## Limitations
 
-The frozen-v1 evaluation uses a short synthetic trace, 100 evaluation seeds, and deterministic application-layer DATA/ACK erasures. It does not measure RF fading, interference, E220 internal behavior, energy, regulatory airtime, or field classification quality. The older E220 pilot used one device pair, ten seeds per condition, and a different trace. Its results cannot be pooled with v1. A fourth copy would require a new policy and canonical loss calendar. Current v1 conclusions remain host-simulation-only.
+The frozen-v1 evaluation uses a short synthetic trace, 100 evaluation seeds, and deterministic application-layer DATA/ACK erasures. The limited hardware smoke data do not validate the main result and do not measure RF fading, interference, E220 internal behavior, energy, regulatory airtime, or field classification quality. The older E220 pilot used one device pair, ten seeds per condition, and a different trace. Its results cannot be pooled with v1. A fourth copy would require a new policy and canonical loss calendar. Current confirmatory v1 conclusions remain host-simulation-only.
 
 ## Reproduction
 

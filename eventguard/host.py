@@ -442,7 +442,7 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
     trace_by_id = {s.sample_id: s for s in samples}
     delivered = set()
     duplicate_packets = 0
-    physical_data_tx = physical_data_rx = ack_count = physical_ack_received = accepted_ack = 0
+    physical_data_tx = physical_data_rx = physical_data_before_injection = ack_count = physical_ack_received = accepted_ack = 0
     crc_errors = invalid_packets = data_drops = ack_drops = sequence_gaps = out_of_order = 0
     first_data_drops = first_ack_drops = first_copy_success = 0
     normal_copies = critical_copies = 0
@@ -482,7 +482,7 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
     for now, line in gateway_lines:
         parts = line.split(",")
         if parts[0] == "RX" and len(parts) >= 5:
-            physical_data_rx += 1
+            physical_data_rx += 1; physical_data_before_injection += 1
             if parts[4] == "DUP": duplicate_packets += 1
         elif parts[0] == "DELIVER" and len(parts) >= 3:
             try:
@@ -492,13 +492,13 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         elif parts[0] == "DROP" and len(parts) > 1 and parts[1] == "DATA":
             data_drops += 1
             if len(parts) >= 5 and parts[4] == "0": first_data_drops += 1
-            physical_data_rx += 1
+            physical_data_before_injection += 1
         elif parts[0] == "GAP" and len(parts) >= 5:
             try: sequence_gaps += int(parts[4])
             except ValueError: pass
         elif parts[0] == "ORDER": out_of_order += 1
         elif parts[0] == "ERR" and len(parts) > 1:
-            if parts[1] == "CRC": crc_errors += 1; physical_data_rx += 1
+            if parts[1] == "CRC": crc_errors += 1
             elif parts[1] == "PACKET": invalid_packets += 1
     totals = {label: sum(sample.truth.value == label for sample in samples) for label in ("NORMAL", "IMPORTANT", "CRITICAL")}
     delivered_by_label = {label: sum(s.sample_id in delivered and s.truth.value == label for s in samples) for label in totals}
@@ -531,6 +531,8 @@ def _parse_metrics(samples, event_rows, sensor_lines, gateway_lines, started: fl
         "important_event_delivery_ratio": ratio["IMPORTANT"], "normal_delivery_ratio": ratio["NORMAL"],
         "critical_event_miss_rate": 1 - ratio["CRITICAL"], "physical_data_transmissions": physical_data_tx,
         "physical_data_received": physical_data_rx, "total_bytes_transmitted": data_bytes + ack_bytes,
+        "physical_data_before_injection": physical_data_before_injection,
+        "uncontrolled_physical_data_missing": max(0, physical_data_tx - physical_data_before_injection),
         "data_bytes_transmitted": data_bytes, "ack_bytes_transmitted": ack_bytes,
         "redundancy_overhead": physical_data_tx / len(samples) - 1,
         "ack_count": ack_count, "physical_ack_received": physical_ack_received,

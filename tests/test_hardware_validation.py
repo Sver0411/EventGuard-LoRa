@@ -2,6 +2,8 @@ import unittest
 from unittest.mock import patch
 
 from eventguard.hardware_validation import (frozen_guard, plan, test_run_state_isolation as check_isolation)
+from eventguard.host import _parse_metrics, _run_config, load_config
+from eventguard.trace import generate_trace, trace_fingerprint
 
 
 class FakeReader:
@@ -43,6 +45,18 @@ class HardwareValidationTests(unittest.TestCase):
         self.assertEqual(sensor.commands, ['RESET', 'STATUS'])
         self.assertEqual(gateway.commands, ['RESET', 'STATUS'])
         self.assertIn('sequence', result['reset_contract'])
+
+    def test_injected_drop_is_not_post_injection_receipt(self):
+        sample = generate_trace(31, 6)[:1]
+        config = _run_config(load_config(), 'FIXED_2', .20, 'RANDOM_COPY', 31)
+        metrics = _parse_metrics(sample, [], [(0, 'TX,0,0,0,2,26')],
+                                 [(0, 'DROP,DATA,0,0,0')], 0, 1, config,
+                                 trace_fingerprint(sample))
+        self.assertEqual(metrics['physical_data_transmissions'], 1)
+        self.assertEqual(metrics['physical_data_before_injection'], 1)
+        self.assertEqual(metrics['physical_data_received'], 0)
+        self.assertEqual(metrics['data_injected_drops'], 1)
+        self.assertEqual(metrics['uncontrolled_physical_data_missing'], 0)
 
 
 if __name__ == '__main__':

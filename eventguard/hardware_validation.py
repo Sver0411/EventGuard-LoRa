@@ -158,6 +158,7 @@ def _parse_samples(samples, sensor_lines, gateway_lines, config, reference) -> t
         evt, summary = evts[0], summaries[0]
         try:
             importance, before, copies = summary[3], summary[5], int(summary[6])
+            bad_copies = []
             if evt[5] != before or int(evt[6]) != copies:
                 issues.append(f"sample {sid}: EVT/SAMPLE disagreement")
             tx = {int(p[3]): p for p in by_kind["TX"][sid]}
@@ -174,21 +175,30 @@ def _parse_samples(samples, sensor_lines, gateway_lines, config, reference) -> t
             for copy in range(copies):
                 data_drop = loss.drops("DATA", sid, copy)
                 expected_rx = copy in tx and not data_drop
-                if (copy in drops) != (copy in tx and data_drop):
+                if copy in tx and data_drop and copy not in drops and copy not in rx:
+                    issues.append(f"sample {sid} copy {copy}: uncontrolled physical DATA missing before planned injection")
+                    bad_copies.append(copy)
+                elif (copy in drops) != (copy in tx and data_drop):
                     issues.append(f"sample {sid} copy {copy}: injected DATA calendar/log mismatch")
-                if (copy in rx) != expected_rx:
+                    bad_copies.append(copy)
+                if (copy in rx) != expected_rx and not (data_drop and copy not in rx):
                     issues.append(f"sample {sid} copy {copy}: uncontrolled physical DATA anomaly")
+                    bad_copies.append(copy)
                 if (copy in ack_tx) != (copy in rx):
                     issues.append(f"sample {sid} copy {copy}: ACK TX mismatch")
+                    bad_copies.append(copy)
                 if copy in ack_tx and copy not in acks:
                     issues.append(f"sample {sid} copy {copy}: physical ACK missing")
+                    bad_copies.append(copy)
                 if copy in acks and (acks[copy][4] == "DROP") != loss.drops("ACK", sid, copy):
                     issues.append(f"sample {sid} copy {copy}: injected ACK calendar/log mismatch")
+                    bad_copies.append(copy)
                 estimator.observe_copy(copy in acks and acks[copy][4] == "OK", copy == 0)
             actual_delivered = bool(by_kind["DELIVER"][sid])
             if importance != expected["importance"] or copies != expected["copies_transmitted"] or \
                     before != expected["link_state"] or actual_delivered != expected["delivered"]:
-                differences.append({"sample_id": sid, "copy_index": 0, "importance_hardware": importance,
+                differences.append({"sample_id": sid, "copy_index": bad_copies[0] if bad_copies else "",
+                                    "importance_hardware": importance,
                                     "importance_simulation": expected["importance"], "copies_hardware": copies,
                                     "copies_simulation": expected["copies_transmitted"],
                                     "link_hardware": before, "link_simulation": expected["link_state"],
@@ -228,6 +238,8 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
         try:
             saved = json.loads(manifest_path.read_text())
             raw = json.loads(raw_path.read_text())
+            if saved.get("status") == "failed":
+                raise RuntimeError(f"{run_id} already failed validation; preserve it until a documented engineering fix and new study version")
             if (all(saved.get(key) == value for key, value in expected_identity.items()) and
                     saved.get("status") == "complete" and raw.get("sensor") and raw.get("gateway") and
                     sha(raw_path) == saved.get("raw_sha256") and
@@ -314,6 +326,7 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
     uart_ms = (metrics["data_bytes_transmitted"] + metrics["ack_bytes_transmitted"]) * 10 * 1000 / load_config()["uart_baud"]
     metrics.update({"physical_ack_frames": metrics["ack_count"],
                     "ack_timeout": sum(line.startswith("TIMEOUT,") for _, line in sensor_lines),
+                    "uncontrolled_physical_ack_missing": max(0, metrics["ack_count"] - metrics["physical_ack_received"]),
                     "estimated_communication_time_ms": uart_ms,
                     "estimated_data_uart_time_ms": metrics["data_bytes_transmitted"] * 10 * 1000 / load_config()["uart_baud"],
                     "estimated_ack_uart_time_ms": metrics["ack_bytes_transmitted"] * 10 * 1000 / load_config()["uart_baud"],
@@ -336,6 +349,12 @@ def _run_one(sensor, gateway, config, samples, mapping, provenance, order: int, 
 
 def run(stage: str, skip_flash: bool = False) -> dict:
     provenance = frozen_guard()
+    if stage != "smoke":
+        smoke_path = OUT / "hardware_manifest.json"
+        smoke = json.loads(smoke_path.read_text(encoding="utf-8")) if smoke_path.exists() else {}
+        smoke_state = smoke.get("stages", {}).get("smoke", {})
+        if smoke_state.get("gate_status") != "PASS" or smoke_state.get("passed_runs") != 12:
+            raise RuntimeError("main hardware matrix is blocked: all 12 frozen smoke runs must pass first")
     cfg = load_config()
     output = OUT
     for name in ("raw", "runs", "metrics", "plots"):
