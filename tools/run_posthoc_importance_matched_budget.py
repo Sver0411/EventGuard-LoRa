@@ -29,6 +29,7 @@ from eventguard.simulator import run_reference  # noqa: E402
 from eventguard.trace import generate_trace, trace_fingerprint  # noqa: E402
 
 SOURCE = ROOT / "results/pre_hardware_v1/runs.csv"
+SOURCE_JSON = ROOT / "results/pre_hardware_v1/runs.json"
 FROZEN_MANIFEST = ROOT / "results/pre_hardware_v1/experiment_manifest.json"
 PROTOCOL = ROOT / "docs/posthoc_importance_matched_budget_protocol.md"
 OUT = ROOT / "results/posthoc_importance_matched_budget"
@@ -198,8 +199,10 @@ def run() -> None:
         raise FileExistsError(f"refusing to overwrite diagnostic results: {OUT}")
     frozen = json.loads(FROZEN_MANIFEST.read_text(encoding="utf-8"))
     params = frozen["parameters"]
-    if params["max_redundancy"] != 3 or frozen["baseline_runs_sha256"] != sha256_file(SOURCE):
-        raise AssertionError("frozen v1 source or copy cap changed")
+    # The frozen manifest's baseline_runs_sha256 fingerprints runs.json, while
+    # this diagnostic reads runs.csv. Check both artifacts explicitly.
+    if params["max_redundancy"] != 3 or frozen["baseline_runs_sha256"] != sha256_file(SOURCE_JSON):
+        raise AssertionError("frozen v1 JSON source or copy cap changed")
     # The historical pre-hardware manifest also fingerprints firmware/main/main.c,
     # which legitimately changed during later receive-path engineering. This
     # host-only diagnostic checks only its frozen Python dependencies and
@@ -228,6 +231,7 @@ def run() -> None:
         "frozen_v1_reference_commit": frozen["git_commit"],
         "frozen_v1_reference_tag": "v1.0.0",
         "source_runs_csv_sha256": sha256_file(SOURCE),
+        "source_runs_json_sha256": sha256_file(SOURCE_JSON),
         "protocol_sha256": sha256_file(PROTOCOL),
         "protocol_snapshot_sha256": sha256_file(OUT / "protocol_snapshot.md"),
         "seed_range": [31, 130], "loss_model": "RANDOM_COPY",

@@ -2,15 +2,25 @@
 from __future__ import annotations
 
 import inspect
+import json
 import unittest
 
 from tools.run_posthoc_importance_matched_budget import (
+    FROZEN_MANIFEST,
+    SOURCE,
+    SOURCE_JSON,
     allocate_importance_matched_budget,
     ordering_key,
+    sha256_file,
 )
 
 
 class ImportanceMatchedBudgetTests(unittest.TestCase):
+    def test_frozen_manifest_hash_identifies_json_not_csv(self):
+        manifest = json.loads(FROZEN_MANIFEST.read_text())
+        self.assertEqual(manifest["baseline_runs_sha256"], sha256_file(SOURCE_JSON))
+        self.assertNotEqual(sha256_file(SOURCE), sha256_file(SOURCE_JSON))
+
     def test_case_a_base_budget_matches_importance_only(self):
         labels = ["NORMAL", "IMPORTANT", "CRITICAL", "IMPORTANT"]
         self.assertEqual(allocate_importance_matched_budget(labels, 8, 31), [1, 2, 3, 2])

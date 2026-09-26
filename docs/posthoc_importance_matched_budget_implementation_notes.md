@@ -1,0 +1,13 @@
+# IMB diagnostic engineering log
+
+## Preflight attempt 1 — before any IMB result
+
+The initial host-only runner exited before creating its output directory or executing any new baseline run. Its source-integrity gate compared `results/pre_hardware_v1/experiment_manifest.json` field `baseline_runs_sha256` to `runs.csv`. That manifest field actually fingerprints `runs.json` (as defined in the frozen research-analysis code); the CSV has a different valid SHA-256. The error was an implementation mistake in the new runner's provenance check, not a failed scientific run or an experimental result.
+
+Observed initial preflight output:
+
+```text
+AssertionError: frozen v1 source or copy cap changed
+```
+
+The correction checks `baseline_runs_sha256` against the existing `runs.json` and records an independent SHA-256 for the `runs.csv` used by this diagnostic. A regression test covers the distinction. No allocator rule, hash ordering, budget, seed, loss rate, endpoint, protocol, frozen source file, or scientific result was changed. No IMB run was completed or discarded before this fix, so subsequent execution starts with all 500 conditions.
