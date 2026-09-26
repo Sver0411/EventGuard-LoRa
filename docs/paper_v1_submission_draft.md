@@ -10,7 +10,7 @@ Periodic IoT traffic can contain rare observations whose loss matters more than 
 
 Periodic sensing is often evaluated by average packet delivery, which gives the same weight to a routine observation and a rare event that may demand intervention. In a constrained IoT link, sending additional copies of every sample consumes communication capacity; the number of copies alone says little about whether scarce transmissions reached the samples that matter. Event importance can guide this allocation. Recent ACK outcomes can also motivate adaptation to an estimated link state. These are distinct mechanisms, however, and a combined policy can obscure which one explains an observed delivery gain.
 
-The distinction matters especially when an importance rule already assigns the maximum allowed copies to a critical sample. A subsequent link-state transition may increase traffic for other classes while having no remaining action on the class used by the primary reliability metric. Without an importance-only ablation, the resulting benefit could be attributed incorrectly to link adaptation. Without a matched budget, a combined policy's higher delivery could instead reflect higher spending. We therefore compare EventGuard with an importance-only rule and with event-blind allocators given the **same total DATA-copy budget** for each seed-specific trace and loss condition. Independent-copy and constructed sample-wide erasures test how the structure of loss changes the value of within-sample redundancy.
+The distinction matters especially when an importance rule already assigns the maximum allowed copies to a critical sample. A subsequent link-state transition may increase traffic for other classes while having no remaining action on the class used by the primary reliability metric. Without an importance-only ablation, the resulting benefit could be attributed incorrectly to link adaptation. Without a matched budget, a combined policy's higher delivery could instead reflect higher spending. We therefore compare EventGuard with IMPORTANCE_ONLY as a non-equal-cost component ablation, and separately with event-blind allocators that receive EventGuard's **exact total DATA-copy budget** for each seed-specific trace and loss condition. Independent-copy and constructed sample-wide erasures test how the structure of loss changes the value of within-sample redundancy.
 
 The study combines a frozen Python/C policy, an 8,000-run host matrix on evaluation seeds 31–130, 11,000 host-only sensitivity runs, and execution through a two-device ESP32-S3/E220 DATA/ACK path. The original 160-run device experiment was interrupted by an unresolved receive-path stall. We analyze the earliest six contiguous seeds with complete four-strategy/four-condition coverage: a post-hoc balanced prefix selected by execution order and completeness, not by comparative outcome. Its `n=6` sample size was not preregistered, so the device results support descriptive mechanism analysis rather than confirmatory inference.
 
@@ -53,21 +53,9 @@ $$
 
 At a fixed DATA-copy budget $B$, the motivating allocation problem is to improve $R_C$, while tracking physical DATA copies, DATA/ACK bytes, and other communication costs. EventGuard is a deterministic heuristic for this problem, not a claimed optimizer. Equal $B$ does **not** imply equal total bytes because delivered copies generate ACK activity. Matching additionally holds the seed-specific trace and canonical DATA/ACK loss calendar fixed. The first-copy calendar is shared across strategies; effective loss over attempted copies can differ when strategies select different copy opportunities.
 
-**Figure 1. Sensor-to-gateway execution path.** A seed-specific trace enters the classifier and redundancy policy on the Sensor ESP32-S3. Selected DATA copies traverse the E220 link to the Gateway, where application-layer DATA erasure follows frame reception and CRC checking; accepted DATA generates an ACK, whose accepted first-copy outcome updates the Sensor estimator. The diagram does not depict a measured RF loss model.
+**Figure 1. Frozen v1 device and decision paths.** The seed-specific trace drives classification and copy selection on the Sensor ESP32-S3. DATA and ACK frames traverse the E220 device path; dashed boxes mark software erasures applied after frame reception. Only accepted first-copy ACK outcomes update the link-state estimator. Configured loss is not a measured RF packet-error rate.
 
-```text
-seed-specific 54-sample trace --> classifier --> copy policy --> Sensor ESP32-S3
-                                                        | DATA copies
-                                                       E220 radio
-                                                        |
-                                             Gateway ESP32-S3 --> deduplication
-                                                        |
-                                                   ACK frames
-                                                        |
-                                  Sensor first-copy accepted-ACK history
-
-         deterministic DATA/ACK application-layer erasures act after reception
-```
+![Figure 1: frozen policy and Sensor–Gateway device paths](figures/fig1_system_architecture.png)
 
 ## 4. EventGuard Design
 
@@ -99,13 +87,9 @@ Table 1 records the frozen parameters. The base mapping assigns NORMAL/IMPORTANT
 | DATA / ACK frame length | 26 / 13 bytes |
 | E220 UART rate | 9,600 bit/s |
 
-**Figure 2. Frozen v1 redundancy decision matrix.** Each entry is the number of proactive DATA copies selected for predicted importance and pre-sample link state. The CRITICAL row is 3/3/3 because all three states reach the copy cap.
+**Figure 2. Frozen v1 redundancy decision matrix.** Cell values are proactive DATA copies per logical sample, indexed by predicted importance and pre-sample link state. The CRITICAL row remains 3/3/3 at the frozen three-copy cap; this is policy structure, not an empirical estimate.
 
-| Predicted importance | GOOD | DEGRADED | BAD |
-|---|---:|---:|---:|
-| NORMAL | 1 | 2 | 1 |
-| IMPORTANT | 2 | 3 | 3 |
-| CRITICAL | 3 | 3 | 3 |
+![Figure 2: frozen importance-by-link-state copy matrix](figures/fig2_policy_matrix.png)
 
 ### 4.4. Structural implication
 
@@ -188,17 +172,17 @@ The frozen specification, study manifests, source hashes, archived firmware imag
 
 In the 100-seed host matrix, EventGuard and IMPORTANCE_ONLY had identical CRITICAL delivery in every matched run. Under `RANDOM_COPY` at 20% configured loss, their mean CRITICAL delivery was 0.9892, versus 0.9746 for equal-budget UNIFORM_BUDGET and 0.9769 for equal-budget RANDOM_BUDGET. At 30%, the corresponding means were 0.9723, 0.9438, and 0.9492. Directing the same total copy budget by predicted importance can help under independent copy erasures; this does not establish a gain from the link estimator. At 0% loss, delivery saturated at 1.0000 for all strategies. Under `BURST_SAMPLE`, all strategies tied in CRITICAL delivery within each rate.
 
-**Figure 3. Host critical-event delivery versus matched DATA-copy budget under `RANDOM_COPY`.** The archived plot displays frozen host comparisons; event-blind budget controls are matched to EventGuard per seed and condition. The display is descriptive and does not imply measured RF loss.
+**Figure 3. Exact-budget host comparison under software-injected `RANDOM_COPY` loss.** Panel A shows mean critical-event delivery ratios (vertical axis displayed from 0.87 to 1.01); Panel B shows mean physical DATA copies per 54-sample run. Error bars are two-sided 95% Student-t intervals across 100 paired evaluation seeds (31–130). EventGuard, Uniform Budget, and Random Budget have exactly matched DATA-copy counts within each seed and configured loss rate (0%, 5%, 10%, 20%, 30%); the single Panel B series represents all three.
 
-![Figure 3: matched-budget host simulation](../results/pre_hardware_v1/plots/critical_delivery_vs_exact_budget.png)
+![Figure 3: exact-budget host delivery and cost](figures/fig3_exact_budget_host.png)
 
 ### 7.2. Ablation
 
 The host ablation separates importance from link response. At `RANDOM_COPY` 20%, `FIXED_2` delivered 0.9600 of CRITICAL events, versus 0.9892 for both IMPORTANCE_ONLY and EventGuard; their mean DATA-copy counts were 108.00, 112.00, and 140.68. At 30%, the three CRITICAL delivery means were 0.9185, 0.9723, and 0.9723; EventGuard used 142.65 copies versus 112.00 for IMPORTANCE_ONLY. `LINK_ONLY` delivered 0.942 at 20% and 0.938 at 30% in the same host model. These component comparisons are **not equal-budget tests**. Importance, rather than added link response, accounts for the combined policy's observed critical-delivery level.
 
-**Figure 4. Host importance-component ablation.** The archived plot contrasts FIXED_2, IMPORTANCE_ONLY, and EventGuard critical-event delivery across configured loss rates. The overlapping importance-only and combined-policy series have different DATA-copy costs (Section 7.2); LINK_ONLY is reported in the text but is absent from this archived figure.
+**Figure 4. Host ablation under software-injected `RANDOM_COPY` loss.** Panel A plots mean critical-event delivery ratios (vertical axis displayed from 0.86 to 1.01); Panel B plots mean physical DATA copies per 54-sample run for Fixed-2, Link Only, Importance Only, and EventGuard. Each point summarizes 100 evaluation seeds at one configured loss rate. Importance Only and EventGuard coincide in Panel A, while their DATA-copy costs differ in Panel B. These component ablations are not equal-budget comparisons.
 
-![Figure 4: importance ablation](../results/ablation/importance_contribution.png)
+![Figure 4: host importance and link ablation with delivery and cost](figures/fig4_ablation_delivery_cost.png)
 
 ### 7.3. Sensitivity
 
@@ -241,13 +225,13 @@ UNIFORM_BUDGET and RANDOM_BUDGET used exactly EventGuard's DATA-copy count in ev
 
 IMPORTANCE_ONLY and EventGuard had **identical CRITICAL delivery in all 24 matched hardware seed/condition pairs**. EventGuard nevertheless used 30.50, 33.00, 21.17, and 27.17 additional DATA copies per run on average in RC 20%, RC 30%, BS 20%, and BS 30%. Extra total bytes were 1,098.5, 1,120.2, 773.5, and 951.2. On the empirical within-condition frontier of mean CRITICAL delivery versus DATA copies or bytes, IMPORTANCE_ONLY appeared in **4/4** conditions and EventGuard in **0/4**. These are descriptive frontiers over observed means, not uncertainty regions.
 
-**Figure 5. Observed real-device critical-event delivery versus mean DATA-copy cost.** Each strategy point summarizes six paired seeds within a fixed loss-model/rate condition. The frontier is descriptive over observed means. The companion [byte-cost plot](../results/final_hardware_v1/plots/pareto_critical_vs_bytes.png) gives the same frontier counts.
+**Figure 5. Real-device critical-event delivery versus DATA-copy cost.** Each panel is one configured software-injected loss model/rate; each strategy point is the mean critical-event delivery ratio versus mean physical DATA copies per 54-sample run across six paired seeds (31–36). The delivery axis is displayed from 0.64 to 1.025. The 96-run set is a post-hoc balanced prefix from one ESP32-S3/E220 device pair. The dashed horizontal segment connects Importance Only and EventGuard at identical observed delivery but different copy cost. Coincident event-blind points share their exact plotted coordinates. This empirical Pareto display is descriptive, not a significance test or measured RF-loss result.
 
-![Figure 5: hardware Pareto by copies](../results/final_hardware_v1/plots/pareto_critical_vs_copies.png)
+![Figure 5: real-device critical delivery versus DATA-copy cost](figures/fig5_hardware_pareto.png)
 
-**Figure 6. Host sensitivity to the first-copy link-history window.** The archived panels show critical delivery, DATA copies, and link-state transitions as the window varies. Copy-cap effects are reported separately in Section 7.3; they are not depicted in this figure.
+**Figure 6. Frozen host-only sensitivity under software-injected loss.** Left: mean critical-event delivery and physical DATA copies per 54-sample run for first-copy link-history windows 8, 12, 16, and 24 under `RANDOM_COPY` at 20% and 30%. Right: the same metrics for maximum redundancy 2 versus 3 under `RANDOM_COPY` and `BURST_SAMPLE` at 20% and 30%. Each plotted mean uses 100 evaluation seeds; no interpolation or cap-four result is shown.
 
-![Figure 6: link-window sensitivity](../results/sensitivity/link_window.png)
+![Figure 6: link-window and maximum-copy sensitivity](figures/fig6_sensitivity.png)
 
 
 ## 8. Why Did Link Adaptation Not Help?
