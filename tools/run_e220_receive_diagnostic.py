@@ -492,6 +492,16 @@ def _write_report(manifest: dict, tests: list[dict], sweep: list[dict]) -> None:
                          f"{len(row['missing_after_previous_ack_suppressed']) + len(row['missing_after_previous_data_drop'])} | {row['status']} |")
     else:
         lines.append("未运行：Test B/C 未出现需要复现的 uncontrolled missing DATA。")
+    lines.extend(["", "## Hardware Validation v2 Smoke Gate", ""])
+    smoke = manifest.get("hardware_validation_v2_smoke") or {}
+    smoke_gate = manifest.get("hardware_validation_v2_gate", "NOT_RUN")
+    if smoke_gate == "PASS":
+        lines.append(f"PASS：{smoke.get('completed', 0)}/{smoke.get('planned', 12)} 组 smoke run 已完成，且没有失败 run。Stage 1 未自动启动，需等待用户确认。")
+    elif smoke_gate == "FAIL":
+        detail = manifest.get("hardware_validation_v2_smoke_error", "one or more smoke runs failed validation")
+        lines.append(f"FAIL：v2 smoke 未通过；诊断 runner 信息：`{detail}`。不得进入 Stage 1。")
+    else:
+        lines.append("未运行：A/B/C 诊断未通过，因此 v2 smoke 被门禁阻止。不得进入 Stage 1。")
     lines.extend(["", "## Root-Cause Assessment", ""])
     missing = sum(int(test_lookup.get(key, {}).get("uncontrolled_physical_data_missing", 0)) for key in ("A", "B", "C"))
     partial_timeouts = sum(int(test_lookup.get(key, {}).get("gateway_uart_diagnostics", {}).get("partial_header_timeouts", 0)) +
