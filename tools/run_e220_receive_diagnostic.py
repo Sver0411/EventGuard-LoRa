@@ -654,6 +654,17 @@ def main() -> int:
                 manifest["hardware_validation_v2_smoke_error"] = smoke_error
                 print(f"HARDWARE VALIDATION V2 SMOKE FAILED: {smoke_error}", flush=True)
         atomic_json(OUT / "metrics" / "summary.json", {"tests": tests, "timing_sweep": sweep})
+        timing_sweep_status = ("completed" if sweep else
+                               "disabled_by_cli" if args.skip_timing_sweep else
+                               "not_triggered_no_uncontrolled_missing_in_B_or_C")
+        atomic_json(OUT / "metrics" / "timing_sweep.json", {
+            "status": timing_sweep_status,
+            "run_count": len(sweep),
+            "reason": (None if sweep else
+                       "--skip-timing-sweep was set" if args.skip_timing_sweep else
+                       "Tests B and C observed zero uncontrolled physical DATA missing."),
+            "conditions": sweep,
+        })
         atomic_json(OUT / "metrics" / "runner_incidents.json", {
             "classification": "runner/control-path issues; not E220 DATA loss observations",
             "incidents": [
@@ -676,6 +687,7 @@ def main() -> int:
         manifest["completed_at_utc"] = datetime.now(timezone.utc).isoformat()
         manifest["tests_status"] = {item["test"]: item["status"] for item in tests}
         manifest["timing_sweep_run_count"] = len(sweep)
+        manifest["timing_sweep_status"] = timing_sweep_status
         manifest["hardware_validation_v2_gate"] = smoke_gate
         manifest["diagnostic_results_are_paper_treatments"] = False
         atomic_json(OUT / "diagnostic_manifest.json", manifest)

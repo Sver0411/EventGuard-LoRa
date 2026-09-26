@@ -90,5 +90,6 @@
     "C": "pass"
   },
   "timing_sweep_run_count": 0,
-  "diagnostic_results_are_paper_treatments": false
+  "diagnostic_results_are_paper_treatments": false,
+  "timing_sweep_status": "not_triggered_no_uncontrolled_missing_in_B_or_C"
 }
