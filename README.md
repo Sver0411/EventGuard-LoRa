@@ -2,6 +2,18 @@
 
 EventGuard-LoRa is a research prototype for measuring critical-event delivery against communication cost on a constrained Sub-GHz link. The frozen v1 policy has both host-simulation results and a **post-hoc balanced analysis of 96 completed hardware runs** from two ESP32-S3 boards with E220-400T22D radios. The 300 E220 runs below are an older, separate pilot and do not validate v1.
 
+**Status: v1.0 research prototype complete.** The current v1 evaluation is complete. Future work should focus on real RF channel experiments rather than extending the interrupted 160-run application-layer matrix.
+
+## Key Results
+
+- **Hardware:** 96 real-device runs on two ESP32-S3 boards with E220-400T22D radios; four strategies (`EVENTGUARD`, `IMPORTANCE_ONLY`, `UNIFORM_BUDGET`, `RANDOM_BUDGET`).
+- **Conditions:** `RANDOM_COPY` and `BURST_SAMPLE` at 20% and 30% software-injected loss, paired seeds 31–36. This is a post-hoc balanced analysis of the completed Stage 1 prefix; the six-seed sample size was not preregistered.
+- **Integrity:** offline audit **96/96 PASS**. `IMPORTANCE_ONLY` matched `EVENTGUARD` critical-event delivery in every selected paired run while using fewer DATA copies and bytes.
+- **Equal budget:** `EVENTGUARD` directed a larger share of copies to critical events than the event-blind baselines; observed delivery gains were small and limited to some `RANDOM_COPY` conditions.
+- **Open anomaly:** the later seed-37 run103 receive-path stall and its raw evidence remain preserved; its cause is not claimed to be resolved.
+
+![Critical-event delivery versus DATA copies by condition](results/final_hardware_v1/plots/pareto_critical_vs_copies.png)
+
 ## Research Question
 
 At an exact DATA-copy budget under the same trace realization and channel calendar within each paired seed, does adapting redundancy to event importance and link state deliver more critical events than budget-matched policies?

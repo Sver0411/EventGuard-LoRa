@@ -1,8 +1,8 @@
 # Offline audit: FINAL_BALANCED_HARDWARE_SET_V1
 
-Generated at 2026-09-26T15:19:22.324636+00:00. No hardware was contacted and no run was repeated.
+Generated at 2026-09-26T15:24:43.036192+00:00. No hardware was contacted and no run was repeated.
 
-- Analysis Git commit: `80d3d1f26739e7d85a7e1c1f1399f1092c4a6e10`
+- Analysis Git commit: `d853c4f4c510d68414d21ad20de4063fcf5f65d7`
 - Finalizer script SHA256: `703696c6e4ea58c7f58de1a177cc7620c7d527a1559b9ddedbad8ca6ee0a43ca`
 - Expected records: 96
 - Raw logs and manifests available: 96

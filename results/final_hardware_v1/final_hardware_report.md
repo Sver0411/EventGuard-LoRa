@@ -4,7 +4,7 @@
 
 `FINAL_BALANCED_HARDWARE_SET_V1` is a post-hoc balanced primary analysis of the interrupted 160-run Stage 1 experiment: 96 completed runs from seeds 31–36, four strategies, two loss models, and 20%/30% application-layer loss. These are the earliest contiguous seeds with complete coverage in execution order; no seed was chosen based on treatment outcome. The n=6 sample size was not preregistered. Each seed has its own deterministic 54-sample trace realization, shared across strategies within that seed.
 
-Analysis generated at UTC: `2026-09-26T15:19:22.324636+00:00`. Analysis Git commit: `80d3d1f26739e7d85a7e1c1f1399f1092c4a6e10`. Finalizer script SHA256: `703696c6e4ea58c7f58de1a177cc7620c7d527a1559b9ddedbad8ca6ee0a43ca`.
+Analysis generated at UTC: `2026-09-26T15:24:43.036192+00:00`. Analysis Git commit: `d853c4f4c510d68414d21ad20de4063fcf5f65d7`. Finalizer script SHA256: `703696c6e4ea58c7f58de1a177cc7620c7d527a1559b9ddedbad8ca6ee0a43ca`.
 
 The runs used two ESP32-S3 boards and E220-400T22D radios. Firmware hashes are recorded per run in `selected_runs.json` and match the v2 smoke pair. The data are real hardware executions with software-injected loss; configured percentages are not measured RF packet-error rates.
 
