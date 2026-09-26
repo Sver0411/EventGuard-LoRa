@@ -2,7 +2,9 @@
 
 ## Dataset and provenance
 
-The primary hardware dataset is `FINAL_BALANCED_HARDWARE_SET_V1`: 96 completed runs from seeds 31–36, four strategies, two loss models, and 20%/30% application-layer loss. The six seeds are the first contiguous evaluation seeds completed in Stage 1 execution order and are complete across every condition; no seed was chosen based on treatment outcome.
+`FINAL_BALANCED_HARDWARE_SET_V1` is a post-hoc balanced primary analysis of the interrupted 160-run Stage 1 experiment: 96 completed runs from seeds 31–36, four strategies, two loss models, and 20%/30% application-layer loss. These are the earliest contiguous seeds with complete coverage in execution order; no seed was chosen based on treatment outcome. The n=6 sample size was not preregistered. Each seed has its own deterministic 54-sample trace realization, shared across strategies within that seed.
+
+Analysis generated at UTC: `2026-09-26T15:19:22.324636+00:00`. Analysis Git commit: `80d3d1f26739e7d85a7e1c1f1399f1092c4a6e10`. Finalizer script SHA256: `703696c6e4ea58c7f58de1a177cc7620c7d527a1559b9ddedbad8ca6ee0a43ca`.
 
 The runs used two ESP32-S3 boards and E220-400T22D radios. Firmware hashes are recorded per run in `selected_runs.json` and match the v2 smoke pair. The data are real hardware executions with software-injected loss; configured percentages are not measured RF packet-error rates.
 
@@ -10,7 +12,7 @@ A fresh offline audit passed every selected raw log and run manifest. It recheck
 
 ## Statistical protocol
 
-One seed/run pair is the statistical unit (`n=6` per condition). Summary rows report mean, median, sample standard deviation, and 95% t confidence interval. Paired comparisons use exact two-sided Wilcoxon signed-rank tests and rank-biserial effect size. With six seeds, p-values are coarse; interpretation emphasizes direction, magnitude, and paired consistency, not a claim of definitive significance. The CSV reports all ties and non-ties.
+One seed/run pair is the statistical unit (`n=6` per condition). Summary rows report mean, median, sample standard deviation, and 95% t confidence interval. Paired comparisons use exact two-sided Wilcoxon signed-rank tests and rank-biserial effect size. P-values are unadjusted descriptive statistics and are not used for confirmatory significance claims. The CSV additionally reports Holm-adjusted p-values for the family of 12 critical-delivery comparisons; these too are exploratory. Interpretation emphasizes direction, magnitude, and paired consistency. The CSV reports all ties and non-ties.
 
 ## Main comparisons
 
@@ -80,7 +82,7 @@ The study uses six paired seeds, one ESP32-S3 pair, a short synthetic trace, and
 - `selected_runs.json`: exact run IDs, execution order, hashes, and inclusion rationale.
 - `audit_report.md` and `audit_runs.csv`: offline checker results.
 - `summary.csv`: per-strategy descriptive statistics.
-- `paired_tests.csv`: all preregistered paired condition comparisons.
+- `paired_tests.csv`: balanced-subset paired comparisons, with descriptive raw p-values and Holm-adjusted critical-delivery p-values.
 - `simulation_hardware_comparison.csv`: host/hardware means, paired differences, and rankings.
 - `pareto_points.csv` and `plots/`: condition-wise Pareto points and figures.
 

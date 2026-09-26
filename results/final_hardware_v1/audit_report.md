@@ -1,7 +1,9 @@
 # Offline audit: FINAL_BALANCED_HARDWARE_SET_V1
 
-Generated at 2026-09-26T14:48:15.923752+00:00. No hardware was contacted and no run was repeated.
+Generated at 2026-09-26T15:19:22.324636+00:00. No hardware was contacted and no run was repeated.
 
+- Analysis Git commit: `80d3d1f26739e7d85a7e1c1f1399f1092c4a6e10`
+- Finalizer script SHA256: `703696c6e4ea58c7f58de1a177cc7620c7d527a1559b9ddedbad8ca6ee0a43ca`
 - Expected records: 96
 - Raw logs and manifests available: 96
 - Passed current offline checker: 96 / 96
@@ -20,6 +22,6 @@ No independent USB serial reader byte-count capture was persisted in the legacy 
 
 ## Selection and exclusions
 
-Seeds 31–36 were selected as the earliest six contiguous evaluation seeds in the preregistered interleaved Stage 1 order. Selection did not inspect comparative outcomes. Every selected seed contains all four strategies in all four model/rate conditions.
+This is a post-hoc balanced analysis of the interrupted 160-run Stage 1 experiment; n=6 was not a preregistered sample size. Seeds 31–36 are the earliest six contiguous seeds with complete coverage in execution order. Selection used completion and consistency, not comparative outcomes. Each seed has its own deterministic 54-sample trace realization, shared by all strategies within that seed.
 
 Seed 37 is not part of the paired primary set. Its partial extension records are retained in the original study directory. Run 103, `UNIFORM_BUDGET / RANDOM_COPY / 30% / seed37`, is retained as an incomplete engineering anomaly after a low-frequency ACK receive-path stall; this report does not claim that stall was resolved.
