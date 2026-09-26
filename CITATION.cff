@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: >-
+  If you use or discuss this work in academic or technical material, please
+  cite the repository and its archived release.
+type: software
+title: EventGuard-LoRa
+authors:
+  - name: Sver0411
+version: 1.0.0
+date-released: '2026-09-26'
+repository-code: https://github.com/Sver0411/EventGuard-LoRa

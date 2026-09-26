@@ -1,5 +1,8 @@
 # EventGuard-LoRa
 
+[![v1.0.0 release](https://img.shields.io/badge/release-v1.0.0-blue)](https://github.com/Sver0411/EventGuard-LoRa/releases/tag/v1.0.0)
+[![Host tests](https://github.com/Sver0411/EventGuard-LoRa/actions/workflows/tests.yml/badge.svg)](https://github.com/Sver0411/EventGuard-LoRa/actions/workflows/tests.yml)
+
 EventGuard-LoRa is a research prototype for measuring critical-event delivery against communication cost on a constrained Sub-GHz link. The frozen v1 policy has both host-simulation results and a **post-hoc balanced analysis of 96 completed hardware runs** from two ESP32-S3 boards with E220-400T22D radios. The 300 E220 runs below are an older, separate pilot and do not validate v1.
 
 **Status: v1.0 research prototype complete.** The current v1 evaluation is complete. Future work should focus on real RF channel experiments rather than extending the interrupted 160-run application-layer matrix.
@@ -62,7 +65,7 @@ The completed hardware data are in `results/hardware_validation_v2_policy_v2/`. 
 - Gateway: ESP32-S3 and E220-400T22D.
 - ESP-IDF v5.4.4; native IDF UART driver; no Arduino framework.
 
-Verified E220 profile: UART1 at 9600 baud; TX/RX/AUX GPIO 17/16/15; M0/M1 GPIO 13/14; address `0x0000`; REG0 `0x62`; channel register `0x17` (decimal 23). Firmware reads these settings on boot and fails radio readiness if they differ; it does not write module configuration. The two detected board MACs were Sensor `80:65:99:a7:a8:a4` and Gateway `c0:4e:30:31:42:9c`.
+Verified E220 profile: UART1 at 9600 baud; TX/RX/AUX GPIO 17/16/15; M0/M1 GPIO 13/14; address `0x0000`; REG0 `0x62`; channel register `0x17` (decimal 23). Firmware reads these settings on boot and fails radio readiness if they differ; it does not write module configuration. Device identities were recorded in the preserved run manifests for provenance.
 
 The Sensor trace replay is the benchmark default. `REAL_SENSOR_MODE` is a separate demonstration mode; sensor drivers are isolated and are not used to generate benchmark results.
 
@@ -135,3 +138,25 @@ python tools/run_research_analysis.py
 ```
 
 The host tests run with `python -m unittest discover -s tests -v`. The host simulation commands above use no device. The final hardware summaries and plots can be regenerated offline with `.venv/bin/python tools/finalize_hardware_dataset.py`; this reads preserved raw logs and does not flash or contact hardware.
+
+## Usage and Rights
+
+This repository is publicly available for research review, portfolio
+demonstration, reproducibility inspection, and academic citation.
+
+It is **not released under an open-source license**.
+
+Copyright © 2026 Sver0411. All rights reserved.
+
+Reuse, modification, redistribution, republication, or commercial use of
+substantial project code, firmware, datasets, figures, or documentation requires
+prior permission from the author.
+
+See [NOTICE.md](NOTICE.md) for details.
+
+## Citation
+
+If you reference EventGuard-LoRa in academic or technical work, please use the
+repository citation metadata in [`CITATION.cff`](CITATION.cff).
+
+The frozen research release is [`v1.0.0`](https://github.com/Sver0411/EventGuard-LoRa/releases/tag/v1.0.0).
