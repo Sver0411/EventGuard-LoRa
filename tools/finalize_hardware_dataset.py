@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import math
+import subprocess
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -29,7 +30,7 @@ from eventguard.hardware_validation import (  # noqa: E402
 )
 from eventguard.host import _parse_metrics, _run_config, load_config  # noqa: E402
 from eventguard.protocol import ACK_FRAME_SIZE, DATA_FRAME_SIZE  # noqa: E402
-from eventguard.research_analysis import _frontier, describe, wilcoxon_exact  # noqa: E402
+from eventguard.research_analysis import _frontier, describe, holm_adjust, wilcoxon_exact  # noqa: E402
 from eventguard.simulator import run_reference  # noqa: E402
 from eventguard.trace import generate_trace, trace_fingerprint  # noqa: E402
 
@@ -376,6 +377,11 @@ def _paired_rows(rows: list[dict]) -> list[dict]:
                                "std_paired_difference": desc["std"],
                                "ci95_low": desc["ci95_low"], "ci95_high": desc["ci95_high"],
                                **test})
+    critical_rows = [row for row in output if row["metric"] == "critical_event_delivery_ratio"]
+    for row, adjusted in zip(critical_rows, holm_adjust([row["p_two_sided"] for row in critical_rows])):
+        row["holm_p_critical_12_tests"] = adjusted
+    for row in output:
+        row.setdefault("holm_p_critical_12_tests", "")
     return output
 
 
@@ -559,6 +565,12 @@ def _write_json(path: Path, payload: dict) -> None:
 
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
+    analysis_provenance = {
+        "analysis_generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "analysis_git_commit": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "finalizer_script_sha256": sha(Path(__file__).resolve()),
+    }
     cfg = load_config()
     budgets = _manifest_budget_table()
     hw_manifest = _read_json(SOURCE / "hardware_manifest.json")
@@ -604,6 +616,8 @@ def main() -> int:
     selected_payload = {
         "dataset_id": "FINAL_BALANCED_HARDWARE_SET_V1",
         "dataset_status": main_status,
+        **analysis_provenance,
+        "analysis_positioning": "Post-hoc balanced analysis of the interrupted 160-run Stage 1 experiment; n=6 was not a preregistered sample size.",
         "selection_rule": "Seeds 31-36 are the earliest contiguous evaluation seeds completed in Stage 1 execution order with all four conditions and all four strategies present; inclusion is based on completeness and offline consistency only, not observed outcomes.",
         "selection_rationale": "The balanced seed window is the first six contiguous seeds in the interleaved Stage 1 sequence. Seed 37 expansion records, including completed partial-condition runs and the incomplete run 103, are excluded from paired primary statistics.",
         "seeds_expected": list(SEEDS), "usable_paired_seeds": usable_seeds,
@@ -652,7 +666,9 @@ def main() -> int:
                                          for event in row.get("sample_events", [])) for row in selected)
     audit_lines = [
         "# Offline audit: FINAL_BALANCED_HARDWARE_SET_V1", "",
-        f"Generated at {datetime.now(timezone.utc).isoformat()}. No hardware was contacted and no run was repeated.", "",
+        f"Generated at {analysis_provenance['analysis_generated_at_utc']}. No hardware was contacted and no run was repeated.", "",
+        f"- Analysis Git commit: `{analysis_provenance['analysis_git_commit']}`",
+        f"- Finalizer script SHA256: `{analysis_provenance['finalizer_script_sha256']}`",
         f"- Expected records: {complete_expected}",
         f"- Raw logs and manifests available: {len(records)}",
         f"- Passed current offline checker: {sum(r['audit_status'] == 'PASS' for r in inventory)} / {len(inventory)}",
@@ -674,7 +690,7 @@ def main() -> int:
         for row in failed_audits:
             audit_lines.append(f"- `{row['run_id']}`: " + "; ".join(row["audit_errors"]))
     audit_lines += ["", "## Selection and exclusions", "",
-                    "Seeds 31–36 were selected as the earliest six contiguous evaluation seeds in the preregistered interleaved Stage 1 order. Selection did not inspect comparative outcomes. Every selected seed contains all four strategies in all four model/rate conditions.",
+                    "This is a post-hoc balanced analysis of the interrupted 160-run Stage 1 experiment; n=6 was not a preregistered sample size. Seeds 31–36 are the earliest six contiguous seeds with complete coverage in execution order. Selection used completion and consistency, not comparative outcomes. Each seed has its own deterministic 54-sample trace realization, shared by all strategies within that seed.",
                     "",
                     "Seed 37 is not part of the paired primary set. Its partial extension records are retained in the original study directory. Run 103, `UNIFORM_BUDGET / RANDOM_COPY / 30% / seed37`, is retained as an incomplete engineering anomaly after a low-frequency ACK receive-path stall; this report does not claim that stall was resolved."]
     (OUT / "audit_report.md").write_text("\n".join(audit_lines) + "\n", encoding="utf-8")
@@ -685,7 +701,7 @@ def main() -> int:
 
     _write_final_report(selected, summary, paired, comparison, pareto_rows, frontier_counts,
                         plot_files, physical_data_missing, physical_ack_missing,
-                        sample_policy_divergences, sample_outcome_divergences)
+                        sample_policy_divergences, sample_outcome_divergences, analysis_provenance)
     print(f"FINAL_BALANCED_HARDWARE_SET_V1: {len(selected)}/{complete_expected} PASS; seeds={usable_seeds}")
     return 0
 
@@ -703,15 +719,17 @@ def _paired_lookup(paired: list[dict], model: str, rate: float, comparator: str,
 def _write_final_report(rows: list[dict], summary: list[dict], paired: list[dict],
                         comparison: list[dict], pareto_rows: list[dict], frontier_counts: dict,
                         plots: list[str], data_missing: int, ack_missing: int,
-                        policy_divergences: int, outcome_divergences: int) -> None:
+                        policy_divergences: int, outcome_divergences: int,
+                        analysis_provenance: dict) -> None:
     lines = [
         "# Final hardware validation report", "",
         "## Dataset and provenance", "",
-        "The primary hardware dataset is `FINAL_BALANCED_HARDWARE_SET_V1`: 96 completed runs from seeds 31–36, four strategies, two loss models, and 20%/30% application-layer loss. The six seeds are the first contiguous evaluation seeds completed in Stage 1 execution order and are complete across every condition; no seed was chosen based on treatment outcome.", "",
+        "`FINAL_BALANCED_HARDWARE_SET_V1` is a post-hoc balanced primary analysis of the interrupted 160-run Stage 1 experiment: 96 completed runs from seeds 31–36, four strategies, two loss models, and 20%/30% application-layer loss. These are the earliest contiguous seeds with complete coverage in execution order; no seed was chosen based on treatment outcome. The n=6 sample size was not preregistered. Each seed has its own deterministic 54-sample trace realization, shared across strategies within that seed.", "",
+        f"Analysis generated at UTC: `{analysis_provenance['analysis_generated_at_utc']}`. Analysis Git commit: `{analysis_provenance['analysis_git_commit']}`. Finalizer script SHA256: `{analysis_provenance['finalizer_script_sha256']}`.", "",
         "The runs used two ESP32-S3 boards and E220-400T22D radios. Firmware hashes are recorded per run in `selected_runs.json` and match the v2 smoke pair. The data are real hardware executions with software-injected loss; configured percentages are not measured RF packet-error rates.", "",
         "A fresh offline audit passed every selected raw log and run manifest. It rechecked sample counts, END counters, UART_DIAG consistency, importance/copy/link replay, deterministic loss calendars, budget exactness, and metric recomputation. No selected run had an uncontrolled DATA or ACK loss, no policy divergence, and no sample delivery outcome differed from its frozen host reference.", "",
         "## Statistical protocol", "",
-        "One seed/run pair is the statistical unit (`n=6` per condition). Summary rows report mean, median, sample standard deviation, and 95% t confidence interval. Paired comparisons use exact two-sided Wilcoxon signed-rank tests and rank-biserial effect size. With six seeds, p-values are coarse; interpretation emphasizes direction, magnitude, and paired consistency, not a claim of definitive significance. The CSV reports all ties and non-ties.", "",
+        "One seed/run pair is the statistical unit (`n=6` per condition). Summary rows report mean, median, sample standard deviation, and 95% t confidence interval. Paired comparisons use exact two-sided Wilcoxon signed-rank tests and rank-biserial effect size. P-values are unadjusted descriptive statistics and are not used for confirmatory significance claims. The CSV additionally reports Holm-adjusted p-values for the family of 12 critical-delivery comparisons; these too are exploratory. Interpretation emphasizes direction, magnitude, and paired consistency. The CSV reports all ties and non-ties.", "",
         "## Main comparisons", "",
         "Positive paired difference below means EVENTGUARD's metric is higher; for copy/byte/time metrics that means higher cost, not a strategy win. Delivery differences are fractions (0.01 = one percentage point). Counts are paired seeds where the metric is higher/equal/lower for EventGuard; exact p-values are coarse at n=6.", "",
         "| Condition | Comparison | Critical delivery Δ (mean; median) | Wins/ties/losses | Exact p | Rank-biserial | DATA copies Δ | Total bytes Δ |",
@@ -755,7 +773,7 @@ def _write_final_report(rows: list[dict], summary: list[dict], paired: list[dict
               "- `selected_runs.json`: exact run IDs, execution order, hashes, and inclusion rationale.",
               "- `audit_report.md` and `audit_runs.csv`: offline checker results.",
               "- `summary.csv`: per-strategy descriptive statistics.",
-              "- `paired_tests.csv`: all preregistered paired condition comparisons.",
+              "- `paired_tests.csv`: balanced-subset paired comparisons, with descriptive raw p-values and Holm-adjusted critical-delivery p-values.",
               "- `simulation_hardware_comparison.csv`: host/hardware means, paired differences, and rankings.",
               "- `pareto_points.csv` and `plots/`: condition-wise Pareto points and figures.", "",
               f"There were {data_missing} uncontrolled physical DATA misses and {ack_missing} uncontrolled physical ACK misses among the selected 96 runs."]

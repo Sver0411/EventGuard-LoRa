@@ -2,9 +2,9 @@
 
 ## 数据集与审计
 
-`FINAL_BALANCED_HARDWARE_SET_V1` 包含 96 组真实硬件运行：ESP32-S3 + E220-400T22D，策略为 EVENTGUARD、IMPORTANCE_ONLY、UNIFORM_BUDGET、RANDOM_BUDGET；损失模型为 RANDOM_COPY、BURST_SAMPLE；配置损失率为 20%、30%；配对 seeds 为 31–36，每个条件 `n=6`。
+`FINAL_BALANCED_HARDWARE_SET_V1` 是原计划 160 组、后因 run103 中断的 Stage 1 实验的事后平衡主分析，包含 96 组真实硬件运行：ESP32-S3 + E220-400T22D，策略为 EVENTGUARD、IMPORTANCE_ONLY、UNIFORM_BUDGET、RANDOM_BUDGET；损失模型为 RANDOM_COPY、BURST_SAMPLE；配置损失率为 20%、30%；配对 seeds 为 31–36，每个条件 `n=6`。六组的样本量并非预注册。
 
-这六个 seed 是 Stage 1 交错执行中最早连续完成且覆盖全部条件的 evaluation seeds。纳入规则只依据完成度与数据完整性，不依据结果。最新离线 checker 对 96 组逐一重验：raw SHA256、执行顺序、固件与算法配置 provenance、trace/loss-calendar hash、54 条 EVT/SAMPLE、逐副本 DATA/ACK 日历、importance/copy/link replay、END 与 UART_DIAG counters、预算和指标重算，全部通过。选中集没有非计划物理 DATA/ACK 缺失、策略分叉或样本投递结果分叉。
+这六个 seed 是 Stage 1 交错执行中最早连续完成且覆盖全部条件的 evaluation seeds。纳入规则只依据执行顺序、完成度与数据完整性，不依据结果。每个 seed 有一个确定性的 54-sample trace realization；同一 seed 内四种策略共享该 trace，但 seed 会影响微小 sensor noise，因此六个 trace SHA 不完全相同。最新离线 checker 对 96 组逐一重验：raw SHA256、执行顺序、固件与算法配置 provenance、trace/loss-calendar hash、54 条 EVT/SAMPLE、逐副本 DATA/ACK 日历、importance/copy/link replay、END 与 UART_DIAG counters、预算和指标重算，全部通过。选中集没有非计划物理 DATA/ACK 缺失、策略分叉或样本投递结果分叉。
 
 后续扩展 seed37 的 run103（UNIFORM_BUDGET / RANDOM_COPY / 30%）出现低频 ACK receive-path stall，相关 raw log 与诊断保留在原目录。根因未确认，也没有声称问题已修复。seed37 的不完整扩展不进入主配对统计。
 
@@ -55,7 +55,7 @@ ground-truth labels 只用于运行后的统计，没有提供给 Uniform/Random
 
 ## 统计与限制
 
-统计单位为 seed/run pair，而不是 packet 或 sample。`summary.csv` 含 mean、median、sample std、95% t CI；`paired_tests.csv` 含配对差值分布、胜/平/负、精确 Wilcoxon signed-rank p-value 与 rank-biserial effect size。n=6 时 p-value 取值粗，结论优先依据方向、幅度和配对一致性。
+统计单位为 seed/run pair，而不是 packet 或 sample。`summary.csv` 含 mean、median、sample std、95% t CI；`paired_tests.csv` 含配对差值分布、胜/平/负、精确 Wilcoxon signed-rank 原始 p-value、12 项 critical-delivery 比较的 Holm 校正 p-value 与 rank-biserial effect size。原始 p-value 仅是未校正的描述性统计；Holm 校正值也只作探索性描述，两者都不用于确证性显著性主张。n=6 时结论优先依据方向、幅度和配对一致性。
 
 硬件运行覆盖一个 ESP32-S3/E220 设备对、短 synthetic trace 和 deterministic application-layer erasure；配置损失率不是测得的 RF packet-error rate。没有测 RF airtime、能耗、range 或干扰鲁棒性。运行时间仅为 UART serialization proxy，没有 Joule 能耗数据。Run103 stall 仍未定位，属于最大工程不确定性。
 
