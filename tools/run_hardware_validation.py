@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from eventguard.hardware_validation import run
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run frozen-v1 E220 validation, smoke before main matrix.")
+    parser.add_argument("stage", choices=("smoke", "stage1", "full"))
+    parser.add_argument("--skip-flash", action="store_true", help="Use built and already flashed frozen images.")
+    args = parser.parse_args()
+    print(json.dumps(run(args.stage, args.skip_flash), indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

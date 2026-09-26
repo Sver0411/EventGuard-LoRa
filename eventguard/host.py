@@ -305,8 +305,10 @@ def _apply_sdkconfig_defaults(sdkconfig: Path, defaults_text: str) -> None:
     sdkconfig.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def build_firmware(config: dict | None = None) -> dict[str, Path]:
+def build_firmware(config: dict | None = None, output_dir: Path | None = None) -> dict[str, Path]:
     config = config or load_config()
+    log_dir = (output_dir or RESULTS) / "raw"
+    log_dir.mkdir(parents=True, exist_ok=True)
     py, env = _idf_environment()
     idf = Path(env["IDF_PATH"]) / "tools/idf.py"
     project = ROOT / "firmware"
@@ -346,9 +348,9 @@ def build_firmware(config: dict | None = None) -> dict[str, Path]:
         cmd = base + ["build"]
         print("BUILD", role)
         result = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True)
-        (RESULTS / "raw" / f"build_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
+        (log_dir / f"build_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         if result.returncode:
-            raise RuntimeError(f"ESP-IDF build failed for {role}; see results/raw/build_{role}.log\n" + result.stderr[-3000:])
+            raise RuntimeError(f"ESP-IDF build failed for {role}; see {log_dir / f'build_{role}.log'}\n" + result.stderr[-3000:])
         outputs[role] = build_dir / "eventguard.bin"
     size_summary = {}
     for role in ("sensor", "gateway"):
@@ -359,18 +361,21 @@ def build_firmware(config: dict | None = None) -> dict[str, Path]:
                "-D", f"SDKCONFIG_DEFAULTS={defaults}", "size"]
         result = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True)
         size_text = result.stdout + result.stderr
-        (RESULTS / "raw" / f"size_{role}.log").write_text(size_text, encoding="utf-8")
+        (log_dir / f"size_{role}.log").write_text(size_text, encoding="utf-8")
         if result.returncode:
             raise RuntimeError(f"ESP-IDF size report failed for {role}: {size_text[-3000:]}")
         size_summary[role] = {"application_binary_bytes": outputs[role].stat().st_size, "idf_size_report": size_text}
-    size_path = RESULTS / "pre_hardware_v1" / "firmware_size.json"
+    size_path = (output_dir or RESULTS / "pre_hardware_v1") / "firmware_size.json"
     size_path.parent.mkdir(parents=True, exist_ok=True)
     size_path.write_text(json.dumps(size_summary, indent=2), encoding="utf-8")
     return outputs
 
 
-def flash_firmware(outputs: dict[str, Path], mapping: dict, config: dict | None = None) -> None:
+def flash_firmware(outputs: dict[str, Path], mapping: dict, config: dict | None = None,
+                   output_dir: Path | None = None) -> None:
     config = config or load_config()
+    log_dir = (output_dir or RESULTS) / "raw"
+    log_dir.mkdir(parents=True, exist_ok=True)
     py, env = _idf_environment()
     idf = Path(env["IDF_PATH"]) / "tools/idf.py"
     project = ROOT / "firmware"
@@ -382,9 +387,9 @@ def flash_firmware(outputs: dict[str, Path], mapping: dict, config: dict | None 
                "-D", f"SDKCONFIG_DEFAULTS={defaults}", "-p", mapping[port_key], "flash"]
         print("FLASH", role, mapping[port_key])
         result = subprocess.run(cmd, cwd=ROOT, env=env, text=True, capture_output=True, timeout=180)
-        (RESULTS / "raw" / f"flash_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
+        (log_dir / f"flash_{role}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         if result.returncode:
-            raise RuntimeError(f"Firmware flash failed for {role}; see results/raw/flash_{role}.log\n" + result.stderr[-3000:])
+            raise RuntimeError(f"Firmware flash failed for {role}; see {log_dir / f'flash_{role}.log'}\n" + result.stderr[-3000:])
 
 
 def _wait_for(reader: SerialLogReader, token: str, timeout: float = 8.0) -> list[tuple[float, str]]:
