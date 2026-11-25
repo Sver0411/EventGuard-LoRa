@@ -151,3 +151,12 @@ If you reference EventGuard-LoRa in academic or technical work, please use the
 repository citation metadata in [`CITATION.cff`](CITATION.cff).
 
 The frozen research release is [`v1.0.0`](https://github.com/Sver0411/EventGuard-LoRa/releases/tag/v1.0.0).
+
+## Part of the 4-Layer AIoT Research Stack
+
+`EventGuard-LoRa` belongs to **L3 · Freshness & Lossy Links** of a reproducible AIoT systems stack:
+
+- **L1 · Reliable Sensing:** [SensorTrust](https://github.com/Sver0411/SensorTrust) (C11 zero-allocation sensor health monitoring)
+- **L2 · Adaptive Observation:** [AdaptiveSense](https://github.com/Sver0411/AdaptiveSense) · [TAIS](https://github.com/Sver0411/TAIS) (closed-loop trust-aware scheduling & boundary analysis)
+- **L3 · Freshness & Lossy Links:** [EventGuard-LoRa](https://github.com/Sver0411/EventGuard-LoRa) · [NetAdapt-IoT](https://github.com/Sver0411/NetAdapt-IoT) · [IoT-MPQUIC-Scheduler](https://github.com/Sver0411/IoT-MPQUIC-Scheduler)
+- **L4 · Resilience & CPS Validation:** [EdgeFaultLab](https://github.com/Sver0411/EdgeFaultLab) · [TinyEdgeBench](https://github.com/Sver0411/TinyEdgeBench) · [Smart-Agriculture-Edge-AI](https://github.com/Sver0411/Smart-Agriculture-Edge-AI) · [AgriTwin-CPS](https://github.com/Sver0411/AgriTwin-CPS)
